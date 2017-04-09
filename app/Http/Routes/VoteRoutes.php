@@ -1,0 +1,61 @@
+<?php
+
+/*
+ * This file is part of Hifone.
+ *
+ * 
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace Hifone\Http\Routes;
+
+use Illuminate\Contracts\Routing\Registrar;
+
+/**
+ * This is the status page routes class.
+ */
+class VoteRoutes
+{
+    /**
+     * Define the status page routes.
+     *
+     * @param \Illuminate\Contracts\Routing\Registrar $router
+     *
+     * @return void
+     */
+    public function map(Registrar $router)
+    {
+	    $router->group(['middleware' => ['web', 'ready', 'localize']], function (Registrar $router) {
+		     $router->get('/vote/index', [
+                'as'   => 'vote.index',
+                'uses' => 'VoteController@index',
+            ]);
+            $router->get('/vote/create', [
+                'as'   => 'vote.create',
+                'uses' => 'VoteController@create',
+            ]);
+            $router->get('/vote/u/{user_id}', [
+                'as'   => 'vote.user_vote',
+                'uses' => 'VoteController@userVote',
+            ]);
+            $router->get('/vote/show/{id}', [
+                'as'   => 'vote.show',
+                'uses' => 'VoteController@show',
+            ]);
+            $router->get('/vote/userVoteList/{type}', [
+                'as'   => 'vote.user_vote_list',
+                'uses' => 'VoteController@userVoteList',
+            ]);
+            $router->post('/vote/store', [
+                'as'   => 'vote.store',
+                'uses' => 'VoteController@store',
+            ]);
+            $router->post('/vote/vote', [
+                'as'   => 'vote.vote',
+                'uses' => 'VoteController@vote',
+            ]);
+		});
+    }
+}

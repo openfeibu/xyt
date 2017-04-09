@@ -1,0 +1,14 @@
+.sign_left{width: 700px;height: 700px;border: 1px #e2e1e1 solid;margin-top: 20px;}
+.sign_right{width: 274px;height: 700px;margin-top: 20px;margin-left: 20px;}
+.sign_left_mood{width: 640px;height: 330px;margin: 0 auto;margin-top: 20px;}
+.mood_info{margin-left: 23px;width: 80px;text-align: center;line-height: 20px;margin-top: 20px;float: left}
+.mood_img{border: 2px #e2e1e1 solid ;width: 50px;height: 50px;}
+.begin_sign{margin-left: 20px;margin-top: 40px;width: 80px;height: 30px;border: 1px #e2e1e1 solid; text-align: center;line-height:30px;background: #FDD522;font-size: 18px;}
+.input_text{width: 350px;height: 30px;border: 1px #aaa solid}
+.sign_ranking{width: 640px;margin: 0 auto;margin-top: 20px;}
+.sign_ranking_li li{width: 100px;height: 20px;background: #DCFBDD;color: #3771C0;border: 1px #e2e1e1 solid;border-radius: 3px;margin-right: 10px;float: left;text-align: center;line-height: 20px}
+.sign_ranking_table{width: 80%;text-align: center;}
+.sign_ranking_table td,th{border: 1px #e2e1e1 solid}
+.sign_right_top5{width: 270px;height: 300px;border: 1px #e2e1e1 solid}
+.sign_right_sign{width: 270px;height: 300px;border: 1px #e2e1e1 solid;margin-top: 20px;}
+.sign_top5_list{width: 200px;margin: 0 auto;margin-top: 20px;line-height: 35px;font-size: 16px;color: #3771C0;}

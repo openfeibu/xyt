@@ -1,0 +1,3 @@
+<div class="gexing_main_nav">
+                          <p><a href="<?php echo e(route('credit.index')); ?>"  class="<?php echo Route::currentRouteName() == 'credit.index' ? 'active' : ''; ?>">我的积分</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="<?php echo e(route('credit.rule')); ?>"  class="<?php echo Route::currentRouteName() == 'credit.rule' ? 'active' : ''; ?>">积分规则</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="<?php echo e(route('credit.role')); ?>"  class="<?php echo Route::currentRouteName() == 'credit.role' ? 'active' : ''; ?>">用户组规则</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="<?php echo e(route('credit.permission')); ?>"  class="<?php echo Route::currentRouteName() == 'credit.permission' ? 'active' : ''; ?>">用户组权限</a></p>
+                      </div>

@@ -1,0 +1,72 @@
+/* CSS Document */
+p{line-height:40px;}
+
+.regbox{width:970px;background-color: #FFF; border:1px solid #C7DCF3; float:left; padding:20 0 20 0 ; margin:0 auto;}
+	.regbox .mainleft{ float:left; width:690px; }
+	.regbox .mainleft .formdiv{border-right: 1px solid #E3EEF8;background-color: white;padding: 10px 0; float:left;}
+	.regbox .mainleft .formdiv .top_title{margin: 0 20px 5px;border-bottom: 1px solid #E8E8E8;padding: 10px 0;font-size: 14px;font-weight: bold;color: #666;}
+	.regbox .mainleft .formdiv .top_title span{ float:right; font-size:12px; font-weight:normal;}
+	.regbox .mainleft .formdiv .top_title span a{ color:#F90; text-decoration:none;}
+	.regbox .mainleft .formdiv .top_title span a:hover{ color:#09F;}
+	
+	.regbox .mainleft .formdiv dl{float: left;width: 690px;padding: 5px 0;}
+	.regbox .mainleft .formdiv #department{display: none;}
+	.regbox .mainleft .formdiv #industry{display: none;}
+	.regbox .mainleft .formdiv dt{float: left;width: 120px;padding-right: 10px;font-size: 14px;font-weight: bold;text-align: right;}
+	.regbox .mainleft .formdiv dt label{vertical-align: middle;font-weight: normal;height: 28px;line-height: 28px;font-size: 14px;cursor: pointer; color:#333;}
+	.regbox .mainleft .formdiv dd{float: left;position: relative; color:#666;}
+		.regbox .mainleft .formdiv dd .inputtext{border: 1px solid #BDC7D8;font-size: 15px;height: 18px;line-height: 18px;padding: 5px 4px;width: 218px;vertical-align: middle;}
+		.regbox .mainleft .formdiv dd .labelRadio{float:left;font-size: 14px;height: 20px;line-height: 20px;padding-top:5px;width: 116px;vertical-align: middle;}
+		.regbox .mainleft .formdiv dd .none{display:none;}
+		.regbox .mainleft .formdiv dd select{vertical-align: middle;font-size: 12px;border: 1px #BDC7D8 solid;padding: 2px 3px;}
+		.regbox .mainleft .formdiv dd #formmsg{height:20px; line-height:20px;}
+		
+		.error_box,.error_box b{display:none; width:237px; height:30px;background:url(../images/reg_new.png) no-repeat 0 -68px; overflow:hidden; vertical-align:middle; margin-left:-4px;}
+		.error_box b{ background-position:right -98px; font-weight:normal;padding-left:23px;width:218px;color:#999; height:22px; padding-top:5px;}
+		
+		.error_box_error,.error_box_error b{display:none; width:237px; height:30px;background:url(../images/reg_new.png) no-repeat 0 -128px; overflow:hidden; vertical-align:middle; margin-left:6px;}
+		.error_box_error b{ background-position:right -158px; font-weight:normal;padding-left:23px;width:218px;color:#801B1B; height:22px; padding-top:5px;}
+		
+		.box_checked{width:235px;height:30px;background:url(../images/reg_new.png) no-repeat 0 8px; overflow:hidden; vertical-align:middle;}
+		
+		.regbox .mainleft .formdiv dd p{color:#999;}
+		.regbox .mainleft .formdiv dd .cashcode{font-size:18px; font-weight:bold; color:#06F; font-family:Verdana, Geneva, sans-serif; height:50px; line-height:50px;}
+		.regbox .mainleft .formdiv dd .icode{width: 100px;}
+		.regbox .mainleft .formdiv .birthdd{padding-top:4px;}
+		.regbox .mainleft .formdiv .bselect select{width: 59px;}
+		.regbox .mainleft .formdiv .dselect select{width: 226px;}
+		.regbox .mainleft .formdiv .cselect select{width: 112px;}
+		.regbox .mainleft .formdiv dd .regsubmit{width: 186px;height: 40px;border: 0;margin: 10px 0;text-indent: -9999em;display: block;background: url(../images/reg-btn.png) no-repeat;cursor: pointer;}
+
+	.regbox .mainright{ float:right; width:280px;}
+	.regbox .mainright .rightads{ background:url(../images/rightads.jpg) no-repeat; width:280px; height:490px;}
+	.regbox .mainright .gamelist{width:277px; padding:10px 0 10px 10px;}
+	.regbox .mainright .gamelist h4{ color:#666; padding-bottom:5px; *font-size:13px;}
+	.regbox .mainright .gamelist dl{float:left;width:135px; height:40px; line-height:40px;}
+	.regguide{width:970px; height:70px; margin:0 0; background:url(../images/regguidebg.png) repeat-x; padding-top:30px;}
+	.regguide .regguidebg{ background:url(../images/regguide_step.png) no-repeat; height:39px; width:750px; margin:0 auto;}
+	.regguide .guideone{ background-position:0 0;}
+	.regguide .guidetwo{ background-position:0 -39px;}
+	.regguide .guidethree{ background-position:0 -78px;}
+	
+	.guidebox{padding-left:40px;  margin:5px auto;}
+	
+	.guidebox dl{width:100%; padding-bottom:30px; margin:0 0;color:#666; float:left;font-size:14px; position:relative;}
+	.guidebox dl dt{width:100px; text-align:right; float:left;  height:24px; line-height:24px;}
+	.guidebox dl dd{float:left; height:24px; line-height:24px;}
+	.guidebox dl dd .t_r_input{ height:18px; line-height:18px;}
+	.guidebox dl #sendcode{width:150px; height:24px;}
+	.guidebox dl span{ float:left; font-size:12px; color:#999; height:24px; line-height:24px;}
+	.guidebox dl .stepthree_guidefor{width:560px; padding:0 0; margin:0 auto; list-style:none;}
+	.guidebox dl .stepthree_guidefor li{ float:left; width:138px; height:40px; padding:0 0; margin:15px 0 0 0;  text-align:center;}
+	.guidebox dl .stepthree_guidefor li a{ color:#FFF; text-decoration:none;background:url(../images/login_btn_login.gif) no-repeat; display:inline-block; width:90px; height:29px; line-height:29px;}
+	.guidebox dl .stepthree_guidefor li a:hover{ color:#F90;}
+	
+.nextbtnbox{ width:100%; height:35px;float:left; padding-top:15px; margin:0 0; line-height:35px;}
+.nextbtnbox .nextbtn,.nextbtnbox .nextbtn1{ width:145px; height:35px; margin:0 0 0 103px; background:url(../images/nextbtn.png) no-repeat;float:left; padding:0 0; cursor:pointer; border:none; display:block; outline:none;}
+.nextbtnbox a{text-decoration:none; float:right; color:#999;}
+.nextbtnbox a:hover{ color:#F63;}
+.nextbtnbox #loading{ float:left; padding-left:20px; line-height:35px; height:35px;}
+.footer{ width:980px; text-align:center; height:45px; line-height:20px;padding:20px 0 0 0; color:#666; float:left;}
+	
+	#nextform{display: none;}

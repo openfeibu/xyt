@@ -1,0 +1,6 @@
+.send_topic{display: inline-block;width: 110px;height: 25px;border-radius: 2px;background: #51B837;color: #fff;text-align: center;line-height: 25px;margin-top: 15px;margin-left: 20px;}
+.topic_ping_nav{width: 980px;height: 27px;border-bottom:1px #e2e1e1 solid;margin: 0 auto;margin-top: 30px;}
+.topic_ping_nav li{width: 100px;height: 25px;border: 1px #e2e1e1 solid;border-radius: 3px;float: left;text-align: center;line-height: 25px;margin-left: 20px;}
+.topic_ping_nav li:hover{background: #DDFBD5}
+.topic_ping_nav dd{width: 50px;height: 25px;border: 1px #e2e1e1 solid;border-radius: 3px;float: left;text-align: center;line-height: 25px;margin-left: 10px;}
+.topic_ping_nav dd:hover{background: #E7F04E}

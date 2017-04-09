@@ -1,0 +1,1 @@
+{!! replaceUrl(t($body)) !!}

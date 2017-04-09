@@ -1,0 +1,12 @@
+#sends_vote{border: 0px;background: #51B837;color: #fff;border-radius: 5px;font-size: 16px;}
+.myvote_right_search{font-size: 16px;width: 250px;height: 40px;border:1px #e2e1e1 solid;margin: 0 auto;border-radius: 3px;margin-right: -20px;margin-top: -17px}
+.myvote_right_search span{width: 100px;height: 40px;color: #fff;background: #51B837;display: inline-block;text-align: center;line-height: 38px;}
+.news_vote{width: 980px;height: 280px;margin-top: 30px;padding: 20px;border-bottom: 1px #e2e1e1 solid}
+.new_vote_user{width: 100px;height: 200px;}
+.new_vote_user_img{width: 80px;height: 80px;border:1px #e2e1e1 solid;}
+.new_vote_center{width: 600px;height: 200px;line-height: 30px;}
+.new_vote_center_user{padding: 10px;	}
+.new_vote_center_user_img{width: 50px;height: 50px;border:1px #e2e1e1 solid;}
+.new_vote_center_info{line-height: 25px;}
+.new_vote_right{width: 250px;height: 200px;text-align: center;line-height: 40px;}
+.new_vote_list_vote{width: 70px;margin: 0px auto;height: 26px;color: #146500;background: #C0FAB2;border-radius: 5px;line-height:26px;margin-top: 4px;text-align: center;}

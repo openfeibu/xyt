@@ -1,0 +1,1 @@
+<?php echo e(Widget::Adblock(['slug' => 'bottom'])); ?>

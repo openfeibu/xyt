@@ -1,0 +1,25 @@
+<?php
+
+/*
+ * This file is part of Hifone.
+ *
+ * (c) Hifone.com <hifone@hifone.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace Hifone\Commands\Album;
+
+final class UploadAlbumPhotoCommand
+{
+    public $file;
+
+	public $album_id;
+	
+    public function __construct($file,$album_id)
+    {
+        $this->file = $file;
+        $this->album_id = $album_id;
+    }
+}

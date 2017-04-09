@@ -1,0 +1,4 @@
+.join_list{width: 1000px;height: 700px;border:1px #e2e1e1 solid;border-top: 0px}
+.join_list_user_img{width: 60px;height: 60px;}
+.join_list_user{float: left;margin-top: 20px;margin-left: 20px; width: 80px;height: 80px;}
+.join_list_user dd{text-align: center;font-size: 12px;}

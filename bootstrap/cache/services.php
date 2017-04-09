@@ -1,0 +1,245 @@
+<?php return array (
+  'providers' => 
+  array (
+    0 => 'Illuminate\\Foundation\\Providers\\ArtisanServiceProvider',
+    1 => 'Illuminate\\Auth\\AuthServiceProvider',
+    2 => 'Illuminate\\Broadcasting\\BroadcastServiceProvider',
+    3 => 'Illuminate\\Cache\\CacheServiceProvider',
+    4 => 'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider',
+    5 => 'Illuminate\\Cookie\\CookieServiceProvider',
+    6 => 'Illuminate\\Database\\DatabaseServiceProvider',
+    7 => 'Illuminate\\Encryption\\EncryptionServiceProvider',
+    8 => 'Illuminate\\Filesystem\\FilesystemServiceProvider',
+    9 => 'Illuminate\\Foundation\\Providers\\FoundationServiceProvider',
+    10 => 'Illuminate\\Hashing\\HashServiceProvider',
+    11 => 'Illuminate\\Mail\\MailServiceProvider',
+    12 => 'Illuminate\\Pagination\\PaginationServiceProvider',
+    13 => 'Illuminate\\Pipeline\\PipelineServiceProvider',
+    14 => 'Illuminate\\Queue\\QueueServiceProvider',
+    15 => 'Illuminate\\Redis\\RedisServiceProvider',
+    16 => 'Illuminate\\Auth\\Passwords\\PasswordResetServiceProvider',
+    17 => 'Illuminate\\Session\\SessionServiceProvider',
+    18 => 'Illuminate\\Translation\\TranslationServiceProvider',
+    19 => 'Illuminate\\Validation\\ValidationServiceProvider',
+    20 => 'Illuminate\\View\\ViewServiceProvider',
+    21 => 'Arrilot\\Widgets\\ServiceProvider',
+    22 => 'BackupManager\\Laravel\\Laravel5ServiceProvider',
+    23 => 'Collective\\Bus\\BusServiceProvider',
+    24 => 'Collective\\Html\\HtmlServiceProvider',
+    25 => 'Intervention\\Image\\ImageServiceProvider',
+    26 => 'Zizaco\\Entrust\\EntrustServiceProvider',
+    27 => 'SocialiteProviders\\Manager\\ServiceProvider',
+    28 => 'Mews\\Purifier\\PurifierServiceProvider',
+    29 => 'McCool\\LaravelAutoPresenter\\AutoPresenterServiceProvider',
+    30 => 'GrahamCampbell\\Exceptions\\ExceptionsServiceProvider',
+    31 => 'Jenssegers\\Date\\DateServiceProvider',
+    32 => 'Roumen\\Feed\\FeedServiceProvider',
+    33 => 'Frozennode\\Administrator\\AdministratorServiceProvider',
+    34 => 'Hifone\\StringBlade\\StringBladeCompilerServiceProvider',
+    35 => 'Hifone\\Providers\\AppServiceProvider',
+    36 => 'Hifone\\Providers\\AuthServiceProvider',
+    37 => 'Hifone\\Providers\\ComposerServiceProvider',
+    38 => 'Hifone\\Providers\\ConfigServiceProvider',
+    39 => 'Hifone\\Providers\\ConsoleServiceProvider',
+    40 => 'Hifone\\Providers\\EventServiceProvider',
+    41 => 'Hifone\\Providers\\NotifierServiceProvider',
+    42 => 'Hifone\\Providers\\ParserServiceProvider',
+    43 => 'Hifone\\Providers\\RepositoryServiceProvider',
+    44 => 'Hifone\\Providers\\RouteServiceProvider',
+    45 => 'iscms\\Alisms\\AlidayuServiceProvider',
+    46 => 'Latrell\\Alipay\\AlipayServiceProvider',
+  ),
+  'eager' => 
+  array (
+    0 => 'Illuminate\\Auth\\AuthServiceProvider',
+    1 => 'Illuminate\\Cookie\\CookieServiceProvider',
+    2 => 'Illuminate\\Database\\DatabaseServiceProvider',
+    3 => 'Illuminate\\Encryption\\EncryptionServiceProvider',
+    4 => 'Illuminate\\Filesystem\\FilesystemServiceProvider',
+    5 => 'Illuminate\\Foundation\\Providers\\FoundationServiceProvider',
+    6 => 'Illuminate\\Pagination\\PaginationServiceProvider',
+    7 => 'Illuminate\\Session\\SessionServiceProvider',
+    8 => 'Illuminate\\View\\ViewServiceProvider',
+    9 => 'Arrilot\\Widgets\\ServiceProvider',
+    10 => 'Intervention\\Image\\ImageServiceProvider',
+    11 => 'Zizaco\\Entrust\\EntrustServiceProvider',
+    12 => 'Mews\\Purifier\\PurifierServiceProvider',
+    13 => 'McCool\\LaravelAutoPresenter\\AutoPresenterServiceProvider',
+    14 => 'GrahamCampbell\\Exceptions\\ExceptionsServiceProvider',
+    15 => 'Jenssegers\\Date\\DateServiceProvider',
+    16 => 'Roumen\\Feed\\FeedServiceProvider',
+    17 => 'Frozennode\\Administrator\\AdministratorServiceProvider',
+    18 => 'Hifone\\StringBlade\\StringBladeCompilerServiceProvider',
+    19 => 'Hifone\\Providers\\AppServiceProvider',
+    20 => 'Hifone\\Providers\\AuthServiceProvider',
+    21 => 'Hifone\\Providers\\ComposerServiceProvider',
+    22 => 'Hifone\\Providers\\ConfigServiceProvider',
+    23 => 'Hifone\\Providers\\ConsoleServiceProvider',
+    24 => 'Hifone\\Providers\\EventServiceProvider',
+    25 => 'Hifone\\Providers\\RouteServiceProvider',
+    26 => 'iscms\\Alisms\\AlidayuServiceProvider',
+    27 => 'Latrell\\Alipay\\AlipayServiceProvider',
+  ),
+  'deferred' => 
+  array (
+    'command.clear-compiled' => 'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider',
+    'command.auth.resets.clear' => 'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider',
+    'command.config.cache' => 'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider',
+    'command.config.clear' => 'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider',
+    'command.down' => 'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider',
+    'command.environment' => 'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider',
+    'command.key.generate' => 'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider',
+    'command.optimize' => 'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider',
+    'command.route.cache' => 'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider',
+    'command.route.clear' => 'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider',
+    'command.route.list' => 'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider',
+    'command.tinker' => 'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider',
+    'command.up' => 'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider',
+    'command.view.clear' => 'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider',
+    'Illuminate\\Broadcasting\\BroadcastManager' => 'Illuminate\\Broadcasting\\BroadcastServiceProvider',
+    'Illuminate\\Contracts\\Broadcasting\\Factory' => 'Illuminate\\Broadcasting\\BroadcastServiceProvider',
+    'Illuminate\\Contracts\\Broadcasting\\Broadcaster' => 'Illuminate\\Broadcasting\\BroadcastServiceProvider',
+    'cache' => 'Illuminate\\Cache\\CacheServiceProvider',
+    'cache.store' => 'Illuminate\\Cache\\CacheServiceProvider',
+    'memcached.connector' => 'Illuminate\\Cache\\CacheServiceProvider',
+    'command.cache.clear' => 'Illuminate\\Cache\\CacheServiceProvider',
+    'Illuminate\\Console\\Scheduling\\ScheduleRunCommand' => 'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider',
+    'migrator' => 'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider',
+    'migration.repository' => 'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider',
+    'command.migrate' => 'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider',
+    'command.migrate.rollback' => 'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider',
+    'command.migrate.reset' => 'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider',
+    'command.migrate.refresh' => 'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider',
+    'command.migrate.install' => 'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider',
+    'command.migrate.status' => 'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider',
+    'migration.creator' => 'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider',
+    'command.migrate.make' => 'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider',
+    'seeder' => 'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider',
+    'command.seed' => 'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider',
+    'composer' => 'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider',
+    'command.queue.failed' => 'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider',
+    'command.queue.retry' => 'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider',
+    'command.queue.forget' => 'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider',
+    'command.queue.flush' => 'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider',
+    'hash' => 'Illuminate\\Hashing\\HashServiceProvider',
+    'mailer' => 'Illuminate\\Mail\\MailServiceProvider',
+    'swift.mailer' => 'Illuminate\\Mail\\MailServiceProvider',
+    'swift.transport' => 'Illuminate\\Mail\\MailServiceProvider',
+    'Illuminate\\Contracts\\Pipeline\\Hub' => 'Illuminate\\Pipeline\\PipelineServiceProvider',
+    'queue' => 'Illuminate\\Queue\\QueueServiceProvider',
+    'queue.worker' => 'Illuminate\\Queue\\QueueServiceProvider',
+    'queue.listener' => 'Illuminate\\Queue\\QueueServiceProvider',
+    'queue.failer' => 'Illuminate\\Queue\\QueueServiceProvider',
+    'command.queue.work' => 'Illuminate\\Queue\\QueueServiceProvider',
+    'command.queue.listen' => 'Illuminate\\Queue\\QueueServiceProvider',
+    'command.queue.restart' => 'Illuminate\\Queue\\QueueServiceProvider',
+    'queue.connection' => 'Illuminate\\Queue\\QueueServiceProvider',
+    'redis' => 'Illuminate\\Redis\\RedisServiceProvider',
+    'auth.password' => 'Illuminate\\Auth\\Passwords\\PasswordResetServiceProvider',
+    'auth.password.broker' => 'Illuminate\\Auth\\Passwords\\PasswordResetServiceProvider',
+    'translator' => 'Illuminate\\Translation\\TranslationServiceProvider',
+    'translation.loader' => 'Illuminate\\Translation\\TranslationServiceProvider',
+    'validator' => 'Illuminate\\Validation\\ValidationServiceProvider',
+    'validation.presence' => 'Illuminate\\Validation\\ValidationServiceProvider',
+    'BackupManager\\Filesystems\\FilesystemProvider' => 'BackupManager\\Laravel\\Laravel5ServiceProvider',
+    'BackupManager\\Databases\\DatabaseProvider' => 'BackupManager\\Laravel\\Laravel5ServiceProvider',
+    'BackupManager\\ShellProcessing\\ShellProcessor' => 'BackupManager\\Laravel\\Laravel5ServiceProvider',
+    'Collective\\Bus\\Dispatcher' => 'Collective\\Bus\\BusServiceProvider',
+    'Illuminate\\Contracts\\Bus\\Dispatcher' => 'Collective\\Bus\\BusServiceProvider',
+    'Illuminate\\Contracts\\Bus\\QueueingDispatcher' => 'Collective\\Bus\\BusServiceProvider',
+    'html' => 'Collective\\Html\\HtmlServiceProvider',
+    'form' => 'Collective\\Html\\HtmlServiceProvider',
+    'Collective\\Html\\HtmlBuilder' => 'Collective\\Html\\HtmlServiceProvider',
+    'Collective\\Html\\FormBuilder' => 'Collective\\Html\\HtmlServiceProvider',
+    'Laravel\\Socialite\\Contracts\\Factory' => 'SocialiteProviders\\Manager\\ServiceProvider',
+    'notifier' => 'Hifone\\Providers\\NotifierServiceProvider',
+    'parser.markdown' => 'Hifone\\Providers\\ParserServiceProvider',
+    'parser.at' => 'Hifone\\Providers\\ParserServiceProvider',
+    'repository' => 'Hifone\\Providers\\RepositoryServiceProvider',
+    'commentRepository' => 'Hifone\\Providers\\RepositoryServiceProvider',
+    'dirRepository' => 'Hifone\\Providers\\RepositoryServiceProvider',
+    'expressionRepository' => 'Hifone\\Providers\\RepositoryServiceProvider',
+    'sourceRepository' => 'Hifone\\Providers\\RepositoryServiceProvider',
+    'spaceRepository' => 'Hifone\\Providers\\RepositoryServiceProvider',
+    'spaceDiggRepository' => 'Hifone\\Providers\\RepositoryServiceProvider',
+    'systemDateRepository' => 'Hifone\\Providers\\RepositoryServiceProvider',
+    'userDisableRepository' => 'Hifone\\Providers\\RepositoryServiceProvider',
+    'userRepository' => 'Hifone\\Providers\\RepositoryServiceProvider',
+    'shareRepository' => 'Hifone\\Providers\\RepositoryServiceProvider',
+    'videoService' => 'Hifone\\Providers\\RepositoryServiceProvider',
+    'imageService' => 'Hifone\\Providers\\RepositoryServiceProvider',
+    'allReplyRepository' => 'Hifone\\Providers\\RepositoryServiceProvider',
+    'categoryTreeRepository' => 'Hifone\\Providers\\RepositoryServiceProvider',
+    'voteRepository' => 'Hifone\\Providers\\RepositoryServiceProvider',
+    'wallRepository' => 'Hifone\\Providers\\RepositoryServiceProvider',
+    'threadRepository' => 'Hifone\\Providers\\RepositoryServiceProvider',
+    'blogRepository' => 'Hifone\\Providers\\RepositoryServiceProvider',
+    'taskRepository' => 'Hifone\\Providers\\RepositoryServiceProvider',
+    'smsRepository' => 'Hifone\\Providers\\RepositoryServiceProvider',
+    'configRepository' => 'Hifone\\Providers\\RepositoryServiceProvider',
+    'payRepository' => 'Hifone\\Providers\\RepositoryServiceProvider',
+    'activityRepository' => 'Hifone\\Providers\\RepositoryServiceProvider',
+    'attachService' => 'Hifone\\Providers\\RepositoryServiceProvider',
+    'pageRepository' => 'Hifone\\Providers\\RepositoryServiceProvider',
+  ),
+  'when' => 
+  array (
+    'Illuminate\\Foundation\\Providers\\ArtisanServiceProvider' => 
+    array (
+    ),
+    'Illuminate\\Broadcasting\\BroadcastServiceProvider' => 
+    array (
+    ),
+    'Illuminate\\Cache\\CacheServiceProvider' => 
+    array (
+    ),
+    'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider' => 
+    array (
+    ),
+    'Illuminate\\Hashing\\HashServiceProvider' => 
+    array (
+    ),
+    'Illuminate\\Mail\\MailServiceProvider' => 
+    array (
+    ),
+    'Illuminate\\Pipeline\\PipelineServiceProvider' => 
+    array (
+    ),
+    'Illuminate\\Queue\\QueueServiceProvider' => 
+    array (
+    ),
+    'Illuminate\\Redis\\RedisServiceProvider' => 
+    array (
+    ),
+    'Illuminate\\Auth\\Passwords\\PasswordResetServiceProvider' => 
+    array (
+    ),
+    'Illuminate\\Translation\\TranslationServiceProvider' => 
+    array (
+    ),
+    'Illuminate\\Validation\\ValidationServiceProvider' => 
+    array (
+    ),
+    'BackupManager\\Laravel\\Laravel5ServiceProvider' => 
+    array (
+    ),
+    'Collective\\Bus\\BusServiceProvider' => 
+    array (
+    ),
+    'Collective\\Html\\HtmlServiceProvider' => 
+    array (
+    ),
+    'SocialiteProviders\\Manager\\ServiceProvider' => 
+    array (
+    ),
+    'Hifone\\Providers\\NotifierServiceProvider' => 
+    array (
+    ),
+    'Hifone\\Providers\\ParserServiceProvider' => 
+    array (
+    ),
+    'Hifone\\Providers\\RepositoryServiceProvider' => 
+    array (
+    ),
+  ),
+);

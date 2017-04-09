@@ -1,0 +1,65 @@
+.open_vip{height: 45px;border-bottom: 1px #e2e1e1 solid;margin-top: 20px;}
+.open_vip_ul {    margin-right: 0px; float: right;}
+.open_vip_ul li{float: left;width: 90px;height: 45px;text-align: center;line-height: 45px;margin-left: 10px;}
+.open_vip_ul li:hover{background: #FED525;}
+.open_vip_main{width: 800px;/*height: 400px;*/margin: 0 auto;}
+.open_vip_main_ul li{float: left;width: 100px;height: 40px;margin-right: 10px;border:1px #e2e1e1 solid;text-align: center;line-height: 40px;font-size: 18px;}
+.open_vip_main_ul li:hover{background: #9AEB86;}
+.open_vip_buy{width: 800px;height: 260px;border:1px #e2e1e1 solid;margin: 0 auto;}
+.buy_submit{width: 50px;height: 30px;color: #fff;background: #51B837;text-align: center;line-height: 30px;font-size: 16px;border-radius: 5px;}
+.money_query{width: 1000px;margin: 0 auto;}
+.money_query_left{width: 300px;height: 260px;border: 2px #e2e1e1 solid;margin-left: 50px;}
+.money_query_user{font-family: ;width: 110px;height: 110px;text-align: center;margin-left: 80px;margin-top: -50px;position: absolute;z-index: 2px;}
+.money_query_span{float: right;margin-top: 10px;margin-right: 20px;color: #51B837;font-size: 25px;}
+.jindu_line{width: 150px;height: 10px;border: 1px #e2e1e1 solid;border-radius: 5px;display: inline-block;float: left;margin-top: 5px;}
+.jindu_line div{height: 10px;background: #63E386;display: inline-block;}
+.money_query_left_footer{background: #F4EEEE;width: 100%;height: 50px;margin-top: 210px;}
+.money_query_left_footer div{width: 220px;height: 30px;margin: 0 auto;padding-top: 10px;}
+.money_query_left_footer div ul li{background: #FCFEFB;width: 70px;height: 25px;border: 1px #e2e1e1 solid;border-radius: 3px;float: left;text-align: center;line-height: 25px;}
+#span_{position: absolute;z-index: 2px;margin-top: -40px;margin-left: 30px;width: 100px;height: 40px;border: 2px #e2e1e1 solid;border-bottom: 0px;line-height: 40px;text-align: center;font-size: 16px;color:#51B837 }
+.money_query_right{margin-left: 30px;width: 550px;height: 260px;border: 2px #e2e1e1 solid;}
+.money_query_right_all{width: 470px;height: 130px;margin: 0px auto;margin-top: 70px;}
+.money_query_right_main{width: 150px;height: 130px;border:1px #e2e1e1 solid;background: #FAFAFA;float: left;margin-left: 48px;}
+.money_query_right_main{text-align: center;font-size: 15px;}
+.money_query_right_main dd{margin-top: 10px;}
+.money_query_right_main dl dd span{width: 60px;height: 20px;border: 1px black solid;display: inline-block;color: #FC7663;}
+.money_query_footer{width: 885px;/*height: 300px;*/border: 2px #e2e1e1 solid;margin-left: 50px;}
+.money_query_footer p{font-size: 18px;}
+.money_query_footer p span{display: inline-block;width: 50px;height: 25px;border-radius: 2px;text-align: center;line-height: 25px;background: #9DE39D}
+.money_query_footer p input{border: 1px #e2e1e1 solid;width: 150px;height: 30px;}
+.exchange{width: 885px;background: #FAEDED;margin-left: 50px;border: 2px #e2e1e1 solid}
+.exchange_main_left{width: 450px;height: 100px;border-right: 2px #e2e1e1 solid;margin-top: 30px;text-align: center;}
+.exchange_main_right{margin-top: 30px;height: 100px;text-align: center;}
+.exchange_main_content dl dd span{border-radius: 3px;width: 40px;height: 20x;display: inline-block;background: #D5ECC6}
+.exchange_main_content dd{margin-top: 10px;}
+.exchange_main_content input{width: 50px;height: 30px;border: 1px #818181 solid}
+.exchange_main_content button{width: 50px;height: 30px;border-radius: 10px;background: #FBD444;font-size: 16px;}
+.exchange_record{width: 100%;min-height: 100px;border-top: 2px #CDCD3C solid;margin-top: 5px;}
+.exchange_list_span{border-radius: 3px;font-size: 20px;display: inline-block;width: 120px;height: 30px;line-height: 30px;text-align: center;background: #82F32B}
+.exchange_list_main{width: 100%;height: 300px;border-top: 2px #CDCD3C solid;}
+.exchange_list_main li dd img{border: 2px #fff solid;width: 50px;height: 50px;}
+.exchange_list_main li{text-align: center;width: 80px;height: 80px;float: left;margin-top: 20px;}
+.exchange_list_main ul{margin-left: 50px;}
+.transaction_query{width: 885px;margin-left: 50px;height: 150px;border:2px #e2e1e1 solid;background: #FAEDED;}
+.transaction_query input{width: 170px;height: 30px;border:1px #e2e1e1 solid;}
+.transaction_query li{width: 70px;height: 25px;margin-left: 15px;float: left;border-radius: 5px;text-align: center;line-height: 25px;}
+.transaction_query li:hover{background: #72ECF7;}
+.transaction_query select{border: 1px #e2e1e1 solid;width: 80px;height: 30px;}
+#submit2{width: 50px;height: 25px;background: #D1D278;text-align: center;line-height: 25px;border-radius: 5px;margin-left: 20px;}
+.transaction_query_content{width: 865px;margin-left: 50px;height: 100px;border:2px #e2e1e1 solid;background: #FAEDED;margin-top: 20px;padding-top: 10px;padding-left: 20px;}
+.activity_pay{width: 800px;height: 630px;background: #FAEDED;margin: 0 auto;}
+.activity_pay_main{width: 700px;height: 500px;margin: 0 auto;padding-top: 50px;}
+.activity_pay_main p span{font-size: 20px;}
+.activity_pay_main p{margin-top: 20px;font-size: 16px;}
+.activity_pay_main_way{    margin: 0 auto; width: 230px;}
+.activity_pay_main_way li{width: 80px;height: 30px;margin-right:20px;text-align: center;line-height: 30px;float: left;background: #F2F2F2;border: 2px #aaa solid;border-radius: 5px;}
+#pay_way li{width: 110px;height: 45px;margin-left: 50px;float: left;margin-top: 20px;}
+#pay_way img{border: 2px #ccc solid}
+#submit_pay{margin-left: 300px;width: 80px;height: 40px;background: #F2F2F2;border: 3px #aaa solid;margin-top: 30px;border-radius: 10px;}
+.xiangya{width: 200px;height: 354px;background: #F6F6F6;margin-left: 100px;}
+.xiangya_bank{background: #FAEDED;width: 600px;height: 354px;}
+.xiangya_bank_form{width: 400px;margin: 0 auto;margin-top: 30px;margin-bottom: 30px;padding-left: 50px;}
+.xiangya_bank_form input{border:1px #e2e1e1 solid;width: 150px;height: 30px;}
+.xiangya_bank_form p{margin-top: 20px;font-size: 18px;}
+#pay_way_ul1 li{margin-left: 20px;}
+#pay_way_ul2 li{margin-left: 20px;}

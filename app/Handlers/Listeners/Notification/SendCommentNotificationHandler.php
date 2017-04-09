@@ -1,0 +1,41 @@
+<?php
+
+/*
+ * This file is part of Hifone.
+ *
+ * 
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace Hifone\Handlers\Listeners\Notification;
+
+use Auth;
+use Hifone\Events\Comment\CommentEventInterface;
+use Hifone\Models\Comment;
+use Hifone\Models\User;
+
+class SendReplyNotificationHandler
+{
+    /**
+     * Handle the thread.
+     */
+    public function handle(CommentEventInterface $event)
+    {
+        $this->newReplyNotify($event);
+    }
+
+    protected function newCommentNotify(Comment $comment)
+    {
+        $thread = $reply->thread;
+        // Notify the author
+        app('notifier')->batchNotify(
+                    'thread_new_reply',
+                    $author,
+                    [$thread->user],
+                    $reply,
+                    $reply->body
+                    );
+    }
+}

@@ -1,0 +1,124 @@
+.px20{
+	height: 20px;
+}
+.interaction{
+	width: 998px;
+	height: 1100px;
+	margin-top: 20px;
+}
+.interaction_top_left{
+	width: 250px;
+	height: 250px;
+	border: 1px solid #e2e1e1;
+}
+.interaction_top_left_img{
+	width: 240px;
+	height: 240px;
+	padding: 5px;
+}
+.interaction_top_center{
+	width: 361px;
+	height: 250px;
+	border: 1px solid #e2e1e1;
+	margin-left: 10px;
+}
+.interaction_top_center_tab span{
+	width: 70px;
+	height: 25px;
+	background: #FCFAFA;
+	border:1px #e2e1e1 solid;
+	float: left;
+	line-height: 25px;
+	text-align: center;
+}
+.interaction_top_center dl{
+	width: 360px;
+	margin-left: 20px;
+	margin-top: 10px;
+	float: left;
+}
+.interaction_top_center dd{
+	font-size: 14px;
+	line-height: 30px;
+}
+.interaction_top_right{
+	width: 361px;
+	height: 250px;
+	border: 1px solid #e2e1e1;
+	margin-left: 10px;
+}
+.interaction_hot_topic_img{
+	width: 15px;
+	height: 15px;
+}
+.interaction_hot_topic{
+	margin-top: 10px;
+	margin-left: 20px;
+}
+.interaction_hot_topic_top3{
+	margin-top: 10px;
+	width: 15px;
+	height: 15px;
+	background: red;
+	display: block;
+	float: left;
+	line-height: 15px;
+	text-align: center;
+	margin-right: 5px;
+	border-radius: 3px;
+}
+.interaction_hot_topic_other{
+	margin-top: 10px;
+	width: 15px;
+	height: 15px;
+	background: #CFCECE;
+	display: block;
+	float: left;
+	line-height: 15px;
+	text-align: center;
+	margin-right: 5px;
+	border-radius: 3px;
+}
+.interaction_hot_topic span{
+	height: 15px;
+	font-size: 16px;
+}
+.interaction_hot_topic_content dl{
+	margin-left: 40px;
+}
+.interaction_hot_topic_content dd{
+	line-height: 30px;
+}
+.interaction_content{
+	width: 998px;
+	height:350px;
+	border: 1px solid #e2e1e1;
+}
+.interaction_content_main{
+	width: 450px;
+	height:100px;
+	margin-left: 40px;
+	float: left;
+	margin-top: 40px;
+}
+.interaction_content_main_left{
+	margin-top:;
+}
+
+.interaction_content_main_img{
+	width: 100px;
+	height: 100px;
+	margin-right: 20px;
+}
+.interaction_content_main_right_ul{
+	line-height: 25px;
+}
+.interaction_content_main_right_dl{
+	margin-left: 40px;
+}
+
+.interaction_b_hf li{
+	border:1px #e2e1e1 solid;
+	background: #FCFAFA;
+	border-radius: 2px;
+}

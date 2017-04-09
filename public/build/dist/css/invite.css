@@ -1,0 +1,38 @@
+.invite{width: 996px;border: 1px #e2e1e1 solid;height: 600px;border-top: 0px;}
+.invite_left{margin-left: 10px;margin-top: 40px;float: left;width: 600px;height: 400px;}
+.invite_right{margin-left: 10px;width: 360px;height: 530px;border:1px #51B837 solid;margin-top: 40px;float: left}
+.invite_main{width: 600px;height: 250px;border:1px #51B837 solid;}
+.invite_main p{margin-top: 10px;width: 550px;line-height: 27px;margin-left: 30px;}
+.invite_user{width: 300px;height: 200px;margin-top: 40px;margin-left: 5px;}
+.invite_user_left{width:100px;height: 180px; }
+.invite_user_left img{border: 3px #D6D6D6 solid}
+.invite_user_right{width: 100px;height: 180px;margin-left: 30px;font-size: 12px;line-height: 20px;}
+.invite_user_left span{width: 125px;height: 40px;display: inline-block;font-size: 12px;text-align: center;background: #51B837;line-height: 40px;margin-top: 10px;color: #fff;border-radius: 5px;}
+.invite_right_top{height: 50px;line-height: 50px;border-bottom: 2px #e2e1e1 solid;text-align: center;}
+.invite_friend img{width: 80px;height: 80px;}
+.invite_friend{margin-left: 15px;margin-top: 20px;text-align: center;width: 100px;height: 100px;float: left}
+.setting_invite{width: 996px;height: 1250px;border:1px #51B837 solid;}
+.setting_invite_top{height: 50px;line-height: 50px;border-bottom: 2px #e2e1e1 solid;}
+.setting_invite_top span{margin-left: 50px;}
+.setting_invite_way{height: 300px;border-bottom: 1px #e2e1e1 solid}
+.setting_invite_way1{width: 900px;height: 200px;border:1px #e2e1e1 solid;margin: 0 auto;}
+.setting_invite_way p{margin-left: 20px;}
+.setting_invite_way1_url{width: 800px;height: 80px;background: #C8C4C4;border-radius: 5px;padding: 15px;}
+.setting_invite_way p span{width: 100px;height: 30px;color: #fff;text-align: center;line-height: 30px;border-radius: 5px;background: #51B837;display: inline-block;}
+.setting_invite_way1 p{margin-top: 10px;}
+.setting_invite_way2{height: 300px;border-bottom: 1px #e2e1e1 solid;}
+.setting_invite_way2 p span{width: 100px;height: 30px;text-align: center;line-height: 30px;display: inline-block;background: #51B837;color: #fff;border-radius: 3px;margin-left: 30px;}
+.setting_invite_way2 p{margin-left: 30px;margin-top: 5px;}
+.setting_invite_way2 p textarea{width: 300px;height: 100px;border: 2px #e2e1e1 solid;margin-left: 10px;}
+#send_invite{width: 100px;height: 30px;text-align: center;line-height: 30px;display: inline-block;background: #51B837;color: #fff;border-radius: 3px;margin-left: 10px;}
+.input_text{width: 300px;height: 30px;border: 1px #e2e1e1 solid}
+.preview_invitation{width: 900px;height: 500px;margin: 0 auto;border: 1px #e2e1e1 solid;}
+.preview_invitation_top{height: 40px;background: #51B837;line-height: 40px;}
+.preview_invitation_top span{margin-left: 20px;color: #fff;}
+.preview_invitation_left{width: 200px;height: 300px;margin-left: 20px;margin-top: 20px;text-align: center;font-size: 12px;}
+.preview_invitation_right{width: 630px;height: 300px;margin-left: 20px;margin-top: 20px;line-height: 25px;}
+.preview_invitation_left_user{width: 200px;height: 200px;background: #F7F7F7;}
+.preview_invitation_left_user img{width: 180px;height: 180px;}
+.invite_fuyan{height: 80px;line-height: 30px;padding-top: 30px;}
+.preview_invitation_footer{height: 100px;border-top: 1px #e2e1e1 solid;}
+.preview_invitation_footer p{margin-left: 50px;margin-top: 20px;line-height: 35px;font-size: 18px;}

@@ -1,0 +1,9 @@
+[2017-03-18 14:06:31] production.DEBUG: {"id":1,"name":"login","slug":"\u7528\u6237\u767b\u5f55","frequency":1,"reward":5,"experience":1,"created_at":"2016-08-01 10:57:50","updated_at":"2016-12-11 10:43:23"}  
+[2017-03-18 16:33:04] production.DEBUG: 297  
+[2017-03-18 16:33:26] production.DEBUG: row_id:291  
+[2017-03-18 16:33:26] production.DEBUG: 291  
+[2017-03-18 16:33:27] production.DEBUG: 296  
+[2017-03-18 16:33:27] production.DEBUG: 295  
+[2017-03-18 16:33:27] production.DEBUG: 287  
+[2017-03-18 16:33:27] production.DEBUG: 291  
+[2017-03-18 16:33:28] production.DEBUG: row_id:291  

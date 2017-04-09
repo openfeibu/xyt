@@ -1,0 +1,68 @@
+<?php
+
+/*
+ * This file is part of Hifone.
+ *
+ * 
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace Hifone\Handlers\Commands\Follow;
+
+use Auth;
+use Hifone\Models\User;
+use Hifone\Commands\Follow\AddFollowCommand;
+use Hifone\Events\Follow\FollowWasAddedEvent;
+use Hifone\Services\Dates\DateFactory;
+
+class AddFollowCommandHandler
+{
+    /**
+     * The date factory instance.
+     *
+     * @var \Hifone\Services\Dates\DateFactory
+     */
+    protected $dates;
+
+    /**
+     * Create a new report issue command handler instance.
+     *
+     * @param \Hifone\Services\Dates\DateFactory $dates
+     */
+    public function __construct(DateFactory $dates)
+    {
+        $this->dates = $dates;
+    }
+
+    /**
+     * Handle the report avorite command.
+     *
+     * @param \Hifone\Commands\Thread\AddThreadCommand $command
+     *
+     * @return \Hifone\Models\Thread
+     */
+    public function handle(AddFollowCommand $command)
+    {
+        $this->followAction($command->target);
+    }
+
+    protected function followAction($target)
+    {
+        if ($target->follows()->forUser(Auth::id())->count()) {
+            $target->follows()->forUser(Auth::id())->delete();
+            if($target instanceof User){
+	            $target->decrement('follower_count');
+	            User::where('id',Auth::id())->decrement('following_count');
+            }
+        } else {
+            $target->follows()->create(['user_id' => Auth::id()]);
+            if($target instanceof User){
+	            $target->increment('follower_count');
+	            User::where('id',Auth::id())->increment('following_count');
+            }
+            event(new FollowWasAddedEvent($target));
+        }
+    }
+}

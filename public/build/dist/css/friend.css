@@ -1,0 +1,18 @@
+.friend_maybe{width: 956px;height: 450px;border:1px #e2e1e1 solid;border-top: 0px;padding: 20px;}
+.friend_maybe_list{margin-top: 30px;margin-left: 30px;}
+.friend_maybe_list_left{width: 60px;height: 80px;}
+.friend_maybe_list_img{width: 60px;height: 50px;}
+.friend_maybe_list_join{width: 60px;margin-top: 2px;height: 20px;line-height: 20px;background: #51B837;border-radius: 3px;font-size: 12px;color: #fff;text-align: center;}
+.friend_maybe_list_right{line-height: 20px;margin-top: -5px;font-size: 12px;margin-left: 10px;}
+.friend_maybe_list_right p{color: #616161}
+.friend_all_nav{height: 60px;width: 950px;border-bottom: 1px #e2e1e1 solid}
+.friend_all_nav_ul li{float: left;width: 50px;height: 20px; border-radius: 5px;text-align: center;line-height: 20px;}
+.friend_all_nav_ul li:hover{background: #51B837;color: #fff}
+.friend_all_nav_li{background: #51B837;color: #fff;}
+.friend_addblack{width: 950px;height: 120px;border-bottom: 1px #e2e1e1 solid;}
+.friend_addblack_input{font-size: 16px;width: 250px;height: 40px;border:1px #e2e1e1 solid;border-radius: 3px;margin-top: 10px;}
+.friend_addblack_input span{width: 100px;height: 40px;color: #fff;background: #51B837;display: inline-block;text-align: center;line-height: 38px;}
+.friend_del{padding: 20px;}
+.friend_del p{margin-top: 20px;}
+.friend_del_select{width: 150px;height: 40px;border:1px #e2e1e1 solid;}
+#submit{width: 100px;height: 30px;color: #fff;border-radius: 3px;text-align: center;line-height: 30px;background: #51B837;}

@@ -1,0 +1,3 @@
+<div style="margin-left: 30px;">
+        <a href="<?php echo e(route('identify.mobile')); ?>" class="<?php echo Route::currentRouteName() == 'identify.mobile' ? 'active' : ''; ?>">手机认证</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="<?php echo e(route('identify.email')); ?>" class="<?php echo Route::currentRouteName() == 'identify.email' ? 'active' : ''; ?>">邮箱认证</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="<?php echo e(route('identify.name')); ?>" class="<?php echo Route::currentRouteName() == 'identify.name' ? 'active' : ''; ?>">身份证认证</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="<?php echo e(route('identify.education')); ?>" class="<?php echo Route::currentRouteName() == 'identify.education' ? 'active' : ''; ?>">学历认证</a>
+</div>

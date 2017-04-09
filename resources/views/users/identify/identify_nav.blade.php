@@ -1,0 +1,3 @@
+<div style="margin-left: 30px;">
+        <a href="{{route('identify.mobile')}}" class="{!! Route::currentRouteName() == 'identify.mobile' ? 'active' : '' !!}">手机认证</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="{{route('identify.email')}}" class="{!! Route::currentRouteName() == 'identify.email' ? 'active' : '' !!}">邮箱认证</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="{{route('identify.name')}}" class="{!! Route::currentRouteName() == 'identify.name' ? 'active' : '' !!}">身份证认证</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="{{route('identify.education')}}" class="{!! Route::currentRouteName() == 'identify.education' ? 'active' : '' !!}">学历认证</a>
+</div>

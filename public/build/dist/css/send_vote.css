@@ -1,0 +1,6 @@
+.send_vote{width: 1000px;border:1px #e2e1e1 solid;    padding-bottom: 20px;}
+.input_text{width: 250px;height: 35px;border:1px #e2e1e1 solid}
+.textarea_text{width: 250px;height: 50px;border:1px #e2e1e1 solid}
+.select1{width: 200px;height: 40px;border:1px #e2e1e1 solid}
+.send_vote p {line-height: 40px;margin-left: 20px;margin-top: 18px;}
+#submit{width: 100px;height: 40px;color: #fff;background: #51B837;text-align: center;border-radius: 5px;font-family: "宋体" ;font-size: 18px;margin-left:100px;margin-top: 20px; }
