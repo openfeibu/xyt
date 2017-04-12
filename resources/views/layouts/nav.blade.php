@@ -1,27 +1,28 @@
 <div class="head">
         <a href="{{route('index.index')}}" class="logo"><img src="{{ asset('images/index/logo.jpg') }}" width="370" height="100" alt="" title="" /></a>
         <ul class="heada" style="color:#818181">
-			@if(Auth::check())   
-				
+			@if(Auth::check())
+
 				<li>
 					欢迎您：</sp<a href="{{ route('user.home', $current_user->id) }}"><img src="{{asset('images/index/img1.jpg')}}" style="width:20px;height:20px;" />
 					{{ $current_user->username }}
 				</li>
-				
+
 				<li style="margin-left:10px;" class=""><a href="{{ route('user.home', $current_user->id) }}">{{ trans('hifone.users.profile') }}</a></li>
                 <li><a href="{!! route('profile.base') !!}">{{ trans('hifone.users.edit.title') }}</a></li>
+                <li><a href="{!! route('invitation.index') !!}">邀请好友</a></li>
                 <li><a href="{!! url('auth/logout') !!}" onclick=" return confirm('{!! trans('hifone.logout_confirm') !!}')">{!! trans('hifone.logout') !!}登录
                     </a></li>
 				</li>
 			@endif
-			
+
           @if(Auth::check())
 			@if($current_user->hasRole(['Founder','Admin']))
                  <!--<li>
                    <a href="/admin" data-pjax="no" title="{{ trans('hifone.dashboard') }}"><span class="hidden-xs hidden-sm">{{ trans('hifone.dashboard') }}</span></a>
                  </li>-->
             @endif
-				 
+
 		  @else
 			  <li {!! set_active('auth/register') !!} style="margin-left:170px;">
 				<a href="{!! url('auth/register') !!}" id="signup-btn">{!! trans('hifone.signup') !!}</a>
@@ -31,7 +32,7 @@
 			  </li>
           @endif
         </ul>
-		
+
     </div>
     <div class="nav">
         <ul>

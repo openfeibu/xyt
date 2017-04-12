@@ -87,9 +87,9 @@ $(".example2").luara({width:"646",height:"298",interval:4500,selected:"seleted",
 </div>
 <div class="l_d">
 <div class="l_dtitle">
-<strong>青春风采</strong><a href="{{route('profile.base')}}">我要加入</a>
+<strong>青春风采</strong><a href="javascript:;" onclick="javascript:show_list()">我要加入</a>
 </div>
-<div class="l_da">
+<div class="l_da" style="display:none;" id="list">
 上榜条件:<span><b>1.</b>设置清晰的形象照;</span><span><b>2.</b>资料完整度100%;</span><span><b>3.</b>通过身份实名认证</span>
 </div>
 @foreach($recommend_users as $key => $user)
@@ -256,4 +256,10 @@ $(".example2").luara({width:"646",height:"298",interval:4500,selected:"seleted",
 
 </div>
 <div class="clear"></div>
+<script type="text/javascript">
+	function show_list()
+	{
+		layer.alert('1.设置清晰的形象照;2.资料完整度100%;3.通过身份实名认证');
+	}
+</script>
 @stop

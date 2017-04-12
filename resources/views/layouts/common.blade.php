@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>象牙塔</title>
+	<title>象牙塔  {{$title}}</title>
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="csrf-token" content="{{ csrf_token() }}">   
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <link href="{{ asset('/build/dist/css/style.css') }}" type="text/css" rel="stylesheet" />
 <link href="{{ asset('/build/dist/css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" />
@@ -22,7 +22,7 @@
                 'emoj_cdn' : '{{ cdn() }}',
                 'uploader_url' : '{{ route('upload_image') }}',
                 'notification_url' : '{{ route('notification.count') }}',
-               
+
             };
             var LOGIN_URL = "{{ route('auth.login') }}";
             var SITE_URL = '{{ config('app.url') }}';
@@ -60,7 +60,7 @@
 			var REPLY_REPLY_URL = "{{ route('allReply.reply_reply') }}";
 			var ADD_WALL_REPLY_URL = "{{route('wall.add_wall')}}";
 			var Activity_Mobile_URL = "{{route('user.activityMobile')}}";
-			var CONVERT_CHECK_URL ="{{route('pay.convert_check')}}"; 
+			var CONVERT_CHECK_URL ="{{route('pay.convert_check')}}";
 			var SEND_HELLO_URL = "{{route('gift.sendHello')}}";
 			var SEND_GIFT_URL = "{{route('gift.sendGift')}}";
 			var USER_DETAIL_URL = "{{route('user.detail')}}";
@@ -81,7 +81,7 @@
 	<div class="all">
 		@include('partials.errors')
     	@include('layouts.nav')
-		
+
 		<div id="pjax-container">
 		    @yield('content')
 		</div>
@@ -104,7 +104,7 @@
     });
      $(document).ajaxError(function(event,xhr,settings,errorType){
 		if(errorType == 'Unauthorized'){
-			window.location.href= LOGIN_URL; 
+			window.location.href= LOGIN_URL;
 		}
      });
 ;!function(){
