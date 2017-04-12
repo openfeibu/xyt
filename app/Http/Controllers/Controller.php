@@ -3,7 +3,7 @@
 /*
  * This file is part of Hifone.
  *
- * 
+ *
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -27,6 +27,7 @@ abstract class Controller extends BaseController
 {
     use DispatchesJobs, ValidatesRequests;
 
+    protected $title;
     /**
      * @var Breadcrumb
      */
@@ -40,6 +41,8 @@ abstract class Controller extends BaseController
 	    Cache::flush();
 	    $this->middleware('auth');
         $this->breadcrumb = new Breadcrumb();
+        $this->title = '';
+
         if (Auth::check()) {
             $activeDate = app('session')->get('active_date');
 
@@ -49,7 +52,7 @@ abstract class Controller extends BaseController
                 app(User::class)->where('id',Auth::id())->update(['last_login' => date('Y-m-d H:i:s')]);
             }
         }
-        
+
     }
 
     /**
@@ -69,7 +72,7 @@ abstract class Controller extends BaseController
         if (!request()->ajax()) {
             //
         }
-
+        $data['title'] = $this->title;
         return View::make($view, $data);
     }
 

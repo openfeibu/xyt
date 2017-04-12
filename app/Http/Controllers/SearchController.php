@@ -11,6 +11,14 @@ use Hifone\Models\Gift;
 
 class SearchController extends Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->middleware('auth');
+        $this->title = '搜索';
+
+    }
     public function index()
     {
 		$basic_data = config('form_config.basic_data');

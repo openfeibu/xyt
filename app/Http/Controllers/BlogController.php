@@ -19,6 +19,7 @@ class BlogController extends Controller
 	public function __construct()
     {
 	    parent::__construct();
+		$this->title = '日志';
     }
     public function index (Request $request)
     {
@@ -26,7 +27,7 @@ class BlogController extends Controller
 	    $where = array();
 	    $cates =  '';
 	    $cat_id = isset($request->cat_id) && !empty($request->cat_id) ? $request->cat_id : '';
-	    $type = isset($request->type) ? $request->type : 'recommend'; 
+	    $type = isset($request->type) ? $request->type : 'recommend';
 	    if(isset($request->user_id) && !empty($request->user_id)){
 		    $where['user_id'] =  $request->user_id;
 		    $blog_user = User::findByUidOrFail($request->user_id);
@@ -35,7 +36,7 @@ class BlogController extends Controller
 		    $this->breadcrumb->push([
 					$blog_user->username.'的主页' => route('user.home',$request->user_id),
 	                'TA的所有日志' => route('blog.index',['user_id'=>$request->user_id])
-	        ]); 
+	        ]);
 	    }
 	    if($cat_id){
 		    $where['cat_id'] = $request->cat_id;
@@ -82,7 +83,7 @@ class BlogController extends Controller
 		    	$cat_id = $blog_cat->id;
 	    	}else{
 		    	$cat_id = $cat->id;
-	    	}	
+	    	}
     	}
     	$blog = Blog::create([
 			'cat_id' => intval($cat_id),
@@ -97,7 +98,7 @@ class BlogController extends Controller
 	    	$space_id = app('spaceRepository')->syncToSpace('blog',  Auth::id(), $blog->id);
 	    	Blog::where('id',$blog->id)->update(['space_id' => $space_id ]);
     	//}
-    	
+
     	return Redirect::route('blog.show', [$blog->id])
             ->withSuccess(sprintf('%s %s', trans('hifone.awesome'), trans('hifone.success')));
     }
@@ -112,7 +113,7 @@ class BlogController extends Controller
 				$user->username.'的主页' => route('user.home',['uid'=>$blog->user_id]),
                 'TA的所有日志' => route('blog.index',['user_id'=>$blog->user_id]),
                 $blog->title => '',
-        ]);  
+        ]);
         $hot_blogs = app('blogRepository')->hotBlogs();
         $new_blogs = app('blogRepository')->newBlogs();
     	return $this->view('blog.show')

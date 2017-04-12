@@ -20,10 +20,10 @@ use Hifone\Models\UserStandard;
 class UserRepository{
 	 // 最近错误信息
     protected $error = '';
-    
+
 	public function __construct ()
 	{
-		 
+
 	}
 	public function getError()
     {
@@ -32,7 +32,7 @@ class UserRepository{
     /**
      * 更新某个用户的指定Key值的统计数目
      * Key值：
-     * space_count：说说总数  
+     * space_count：说说总数
      * following_count：关注数
      * follower_count：粉丝数
      * @param  string $key  Key值
@@ -42,13 +42,13 @@ class UserRepository{
      * @return array  返回更新后的数据
      */
     public function updateKey($key, $nums, $add = true, $uid = '')
-    {      
+    {
         $key = t($key);
         // 获取当前设置用户的统计数目
         $data = $this->getUserData($uid);
-        
+
         $data[$key] = $add ? ($data[$key] + intval($nums)) : ($data[$key] - intval($nums));
-        
+
 		if($add){
 			User::where('id',$uid)->increment($key,$nums);
 		}
@@ -65,7 +65,7 @@ class UserRepository{
         if (($data =  Cache::get('UserData_'.$uid)) === false || count($data) == 1) {
 
             $data = Users::select(DB::raw('thread_count','reply_count','space_count','following_count','follower_count'))->where('id',$uid)->first();
-            
+
            S('UserData_'.$uid, $data, 1);
         }
 
@@ -112,9 +112,9 @@ class UserRepository{
             return false;
         } else {
             $uid = $user ['id'];
-            
+
             $user ['space_url'] = route('user.home',[$user['id']]);
-            
+
             $user ['space_link'] = "<a href='".$user ['space_url']."' target='_blank' uid='{$user['id']}' event-node='face_card'>".$user ['username'].'</a>';
             $user ['space_link_no'] = "<a href='".$user ['space_url']."' title='".$user ['username']."' target='_blank'>".$user ['username'].'</a>';
             /*// 用户勋章
@@ -176,11 +176,11 @@ class UserRepository{
         foreach ($map as $k => $v) {
             $key .= $k.$v;
         }
-        
+
         $user = Cache::get($key);
 
         if ($user == false) {
-	        
+
             $data = User::select($field)->where($map)->first();
 
             $user = $data->toArray();
@@ -225,12 +225,12 @@ class UserRepository{
 				$users = app('repository')->model(User::class)->orderBy('view_count','desc')->paginate($limit);
 				$score = Auth::user()->view_count;
 				$rank = app('repository')->model(User::class)->where('view_count','>',$score)->count();
-				break;	
+				break;
 			case 'follower':
 				$users = app('repository')->model(User::class)->orderBy('follower_count','desc')->paginate($limit);
 				$score = Auth::user()->follower_count;
 				$rank = app('repository')->model(User::class)->where('follower_count','>',$score)->count();
-				break;	
+				break;
 			case 'girl':
 				$users = app('repository')->model(User::class)->where('sex',2)->orderBy('view_count','desc')->paginate($limit);
 				$score = Auth::user()->view_count;
@@ -263,7 +263,7 @@ class UserRepository{
 			'rank_desc' => $rank_desc,
 			'users' => $users,
 		];
-		
+
 		return $data;
 	}
 	public function handleUsers ($users)
@@ -281,7 +281,7 @@ class UserRepository{
 		$user_roles = $user->roles;
 		$max_experience_role = app(Role::class)->where('special',0)->orderBy('max_experience','desc')->first();
 		$min_experience_role = app(Role::class)->where('special',0)->orderBy('min_experience','asc')->first();
-		
+
 		if($user_roles->toArray()){
 			foreach( $user_roles as $key => $role )
 			{
@@ -311,7 +311,7 @@ class UserRepository{
 			}
 		}
 		else{
-			
+
 			if($experience > $max_experience_role->max_experience){
 				DB::table('role_user')->insert(['role_id' => $max_experience_role->id,'user_id' => $user->id]);
 				return false;
@@ -328,10 +328,10 @@ class UserRepository{
 				}
 			}
 		}
-		
+
 	}
 	public function getUserRole($user)
-	{	
+	{
 		$user_roles = $user->roles;
 		if($user_roles->toArray()){
 			foreach( $user_roles as $key => $role )
@@ -347,7 +347,7 @@ class UserRepository{
 				return $role;
 			}
 		}
-		
+
 	}
 	public function beVip ($user,$month)
 	{
@@ -360,13 +360,13 @@ class UserRepository{
 				if($role->special == 2 ){
 					return false;
 				}
-			}	
+			}
 			DB::table('role_user')->where('user_id',$user->id)->where('role_id',$user_role->id)->update(['role_id' => $vip_role->id]);
-			
+
 		}else{
 			DB::table('role_user')->insert(['role_id' => $role->id,'user_id' => $user->id]);
 		}
-		
+
 		if($user->overdue){
 			$overdue = overdue($month,$user->overdue);
 		}else{
@@ -418,7 +418,7 @@ class UserRepository{
 	}
 	public function basic_data_status ($user)
 	{
-		$basic_data = config('form_config.basic_data');		
+		$basic_data = config('form_config.basic_data');
 		$basic_data_keys = array_keys($basic_data);
 		$basic_count = count($basic_data_keys);
 		$count = 0;
@@ -454,7 +454,7 @@ class UserRepository{
 	//择偶标准
 	public function standard_status ($user)
 	{
-		$standard_data = config('form_config.standard_data');		
+		$standard_data = config('form_config.standard_data');
 		$standard_data_keys = array_keys($standard_data);
 		$standard_count = count($standard_data_keys);
 		$count = 0;
@@ -469,7 +469,7 @@ class UserRepository{
 				}
 			}
 		}
-		
+
 		if($count == $standard_count)
 		{
 			return [
@@ -496,7 +496,7 @@ class UserRepository{
 	//个性设置
 	public function detail_status ($user)
 	{
-		$detail_data = config('form_config.detail_data');		
+		$detail_data = config('form_config.detail_data');
 		$detail_data_keys = array_keys($detail_data);
 		$detail_count = count($detail_data_keys);
 		$count = 0;
@@ -523,7 +523,7 @@ class UserRepository{
 	//幸福宣言
 	public function happy_status ($user)
 	{
-		$happy_data = config('form_config.happy_data');		
+		$happy_data = config('form_config.happy_data');
 		$happy_data_keys = array_keys($happy_data);
 		$happy_count = count($happy_data_keys);
 		$count = 0;
@@ -547,7 +547,7 @@ class UserRepository{
 			'schedule' => '0%'
 		];
 	}
-	
+
 	/**
 	 *  生成邮件验证hash
 	 *
@@ -561,7 +561,7 @@ class UserRepository{
 	    if ($operation == 'encode')
 	    {
 	        $user_id = intval($key);
-			$code = time();			
+			$code = time();
 			$email_code = EmailCode::create([
 				'user_id' => $user_id,
 				'code' => $code,
@@ -588,11 +588,11 @@ class UserRepository{
 	        {
 	            return 0;
 	        }
-	       
+
 			$email_code = app(EmailCode::class)->where('id',$code_id)->first(['code']);
-			 
+
 	        $pre_salt = substr(md5($code_id . config('app.hash_code') . $email_code->code), 16, 4);
-	        
+
 	        if ($pre_salt == $salt)
 	        {
 	            return $code_id;
@@ -624,7 +624,7 @@ class UserRepository{
 				    $message->subject('['.config('app.web_name').'] 您的邮箱激活邮件');
 				    $message->to($email);
 				});
-	    		break;		
+	    		break;
 	    	default:
 	    		$validate_email = config('app.url') . '/user/forgetPasswordEmailNext?hash=' . $hash;
 	    		/* 发送激活验证邮件 */

@@ -16,9 +16,10 @@ class AboutController extends Controller
 	public function __construct()
     {
          parent::__construct();
+		 $this->title = '关于我们';
     }
     public function index(Request $request)
-    {	
+    {
     	$types = app('pageRepository')->types();
     	$types = $types ? $types->toArray() : [];
     	$type_subs = app('pageRepository')->getAllSubs($types,0);
@@ -33,7 +34,7 @@ class AboutController extends Controller
 	    $types = app('pageRepository')->types();
     	$types = $types ? $types->toArray() : [];
     	$type_subs = app('pageRepository')->getAllSubs($types,0);
-    	
+
     	$page = app(Page::class)->where('id',$id)->first();
     	if (is_null($page)) {
            throw new ModelNotFoundException();

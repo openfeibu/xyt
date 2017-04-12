@@ -3,7 +3,7 @@
 /*
  * This file is part of Hifone.
  *
- * 
+ *
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -88,12 +88,12 @@ class UserRoutes
                 'as'   => 'user.home',
                 'uses' => 'UserController@showByUsername',
             ]);*/
-            
+
 			$router->get('/u/{uid}', [
                 'as'   => 'user.home',
                 'uses' => 'UserController@home',
             ]);
-            
+
             $router->get('/user/city/{name}', [
                 'as'   => 'user.city',
                 'uses' => 'UserController@city',
@@ -290,8 +290,20 @@ class UserRoutes
             	'as' 	=> 'user.follow_submit',
 				'uses' => 'UserController@followSubmit',
             ]);
+            $router->get('invitation/index',[
+                'as' 	=> 'invitation.index',
+				'uses' => 'UserController@invitation',
+            ]);
+            $router->get('invitation/show',[
+                'as' 	=> 'invitation.show',
+				'uses' => 'UserController@invitationShow',
+            ]);
+            $router->post('invitation/send',[
+                'as' 	=> 'invitation.send',
+				'uses' => 'UserController@invitationSend',
+            ]);
             $router->resource('user', 'UserController');
-           
+
         });
     }
 }

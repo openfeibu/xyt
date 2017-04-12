@@ -20,6 +20,7 @@ class ActivityController extends Controller
 	public function __construct()
     {
          parent::__construct();
+		 $this->title = '活动';
     }
     public function index(Request $request)
     {
@@ -37,7 +38,7 @@ class ActivityController extends Controller
 	    {
 	    	case 'recommend':
 	    		$activities = $activities->where('is_recommend',1);
-	    		break;			
+	    		break;
 	    	default:
 	    		break;
 	    }
@@ -68,7 +69,7 @@ class ActivityController extends Controller
 	    {
 	    	case 'join':
 	    		$activities = $activities->where('activity_actors.actor_type','join');
-	    		break;	
+	    		break;
 	    	case 'follow':
 	    		$activities = $activities->where('activity_actors.actor_type','follow');
 	    		break;
@@ -91,7 +92,7 @@ class ActivityController extends Controller
 			$province = app('categoryTreeRepository')->setTable('areas',app(Area::class))->getTitle($activity->province);
 			$activity->location = $province . ' ' . $city . ' ' . $activity->location;
 		}
-		
+
 		return $this->view('activitys.user_index')
 					->with('provinces',$provinces)
 					->with('province_id',$province_id)
@@ -186,19 +187,19 @@ class ActivityController extends Controller
 		    return  Redirect::back()
 			                ->withInput(Input::all())
 			                ->withErrors($data['error']);
-		} 	
+		}
 		$ActivityData['poster'] = $data['filename'];
-		$ActivityData['pay'] = implode(',',$ActivityData['pay']);  
+		$ActivityData['pay'] = implode(',',$ActivityData['pay']);
 		$ActivityData['user_id'] = Auth::id();
 		//var_dump($ActivityData);exit;
 		$activity = Activity::create($ActivityData);
-		
+
 		$activity_actors = new Activity_actors;
 		$activity_actors->activity_id = $activity->id;
 		$activity_actors->user_id = Auth::id();
 		$activity_actors->actor_type = "create";
 		$activity_actors->save();
-		
+
 		if(isset($ActivityData['makefeed']) && $ActivityData['makefeed']){
 	    	$space_id = app('spaceRepository')->syncToSpace('activity',  Auth::id(), $activity->id);
 	    	Activity::where('id',$activity->id)->update(['space_id' => $space_id ]);
@@ -207,7 +208,7 @@ class ActivityController extends Controller
                 ->withSuccess('创建活动成功');
 	}
 	public function show(Request $request){
-		$login_user = Auth::user();		
+		$login_user = Auth::user();
 		$activity = Activity::where('id',$request->id)->first();
 		$city = app('categoryTreeRepository')->setTable('areas',app(Area::class))->getTitle($activity->city);
 		$province = app('categoryTreeRepository')->setTable('areas',app(Area::class))->getTitle($activity->province);
@@ -221,10 +222,10 @@ class ActivityController extends Controller
 		$activity_follows = Activity_actors::where('activity_id',$request->id)
 											->where('actor_type','follow')
 											->get();
-		foreach($activity_joins as $activity_join){	
+		foreach($activity_joins as $activity_join){
 			$user_joins[] = User::where('id',$activity_join->user_id)->first();
 		}
-		foreach($activity_follows as $activity_follow){	
+		foreach($activity_follows as $activity_follow){
 			$user_follows[] = User::where('id',$activity_follow->user_id)->first();
 		}
 		if(empty($user_joins[0])){
@@ -244,7 +245,7 @@ class ActivityController extends Controller
 					->with('summaries',$summaries)
 					->with('user',$user);
 	}
-	
+
 	public function follow(Request $request){
 		$activity_actors = Activity_actors::where('activity_id',$request->activity_id)
 										->where('user_id',$request->user_id)
@@ -290,7 +291,7 @@ class ActivityController extends Controller
 		$this->breadcrumb->push([
                 $activity->name => route('activity.show',['id'=>$activity->id]),
                 $summary->title => '',
-        ]); 
+        ]);
 		return $this->view('activitys.summary')->with('activity',$activity)->with('summary',$summary);
 	}
 	public function createSummary (Request $request)

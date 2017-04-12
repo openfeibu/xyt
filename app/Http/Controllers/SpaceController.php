@@ -26,10 +26,11 @@ use DB;
 class SpaceController extends Controller
 {
 	protected $videoService;
-	
+
 	public function __construct(VideoService $videoService)
     {
-	    parent::__construct();	    
+	    parent::__construct();
+		$this->title = '空间';  
         $this->middleware('auth');
         $this->videoService = $videoService;
     }
@@ -97,7 +98,7 @@ class SpaceController extends Controller
 
         // 安全过滤
         foreach (Input::all() as $key => $val) {
-            Input::merge(array($key => t(Input::get($key))));          
+            Input::merge(array($key => t(Input::get($key))));
         }
         $d ['source_url'] = urldecode(Input::get('source_url')); // 应用分享到分享，原资源链接
                                                                  // 滤掉话题两端的空白
@@ -105,7 +106,7 @@ class SpaceController extends Controller
 
 		// 发送说说的类型
         $type = t(Input::get('type'));
-        
+
 		$d ['attach_id'] = trim(t(Input::get('attach_id')), '|');
         if (! empty($d ['attach_id'])) {
             $d ['attach_id'] = explode('|', $d ['attach_id']);
@@ -116,11 +117,11 @@ class SpaceController extends Controller
             }
             array_map('intval', $d ['attach_id']);
         }
-        
+
         if (Input::get('video_id')) {
             $d ['video_id'] = intval(Input::get('video_id'));
         }
-        
+
 
         if (! $data = app('spaceRepository')->put(Auth::id(), 'space', $type, $d)) {
             $return = array(
@@ -129,7 +130,7 @@ class SpaceController extends Controller
             );
             exit(json_encode($return));
         }
-        
+
         $data ['from'] = getFromClient($data ['from'], $data ['app']);
 
         $return ['data'] = view('space.newFeed',$data)->__toString();
@@ -144,15 +145,15 @@ class SpaceController extends Controller
         exit(json_encode($return));
     }
     /**
-     * 
+     *
      * 上传视频接受处理
-     * 
+     *
      */
 
     public function videoParamUrl (Request $request)
-    {	    
+    {
     	$link = Input::get('url');
-    	
+
         if (preg_match('/(youku.com|youtube.com|qq.com|ku6.com|sohu.com|sina.com.cn|tudou.com|yinyuetai.com)/i', $link, $hosts)) {
             $return['boolen'] = 1;
             $return['data'] = $link;
@@ -174,7 +175,7 @@ class SpaceController extends Controller
     public function video_exist ()
     {
         $host = t(Input::get('host'));
-        if ($host) {           
+        if ($host) {
             $data ['status'] = 1;
         } else {
             $data ['status'] = 0;
@@ -187,8 +188,8 @@ class SpaceController extends Controller
     	return json_encode(app('expressionRepository')->getAllExpression());
     }
     public function loadMore (Request $request)
-    {   	
-  
+    {
+
         $page_paramter =  $var = [
         	'p' =>  isset($request->p) ? intval($request->p) : 0,
         	'loadId' =>  isset($request->loadId) ? intval($request->loadId) : 0,
@@ -223,7 +224,7 @@ class SpaceController extends Controller
         } else {
             $content = app('spaceRepository')->getData($var, '_FeedList');
         }
-        
+
         // 查看是否有更多数据
         if (empty($content ['html']) || (empty($var ['loadId']) && intval($var ['load_count']) != 4)) {
             // 没有更多的
@@ -325,8 +326,8 @@ class SpaceController extends Controller
                 $return['msg'] = '没有权限';
                 exit(json_encode($return));
             }
-            
-        } 
+
+        }
         $remove = $space->delete();
 
 		if(in_array($space->type,['post','postvideo','repost','postimage','postmusic']))
@@ -347,7 +348,7 @@ class SpaceController extends Controller
 	                    	event(new AlbumPhotoWasRemovedEvent($photo));
 	                	}
 	                }
-	                
+
                 }
                 break;
             case 'vote_post' :
@@ -369,7 +370,7 @@ class SpaceController extends Controller
         }
         $return['status'] = 1;
         $return ['data'] = $remove ? L('PUBLIC_DELETE_SUCCESS') : L('PUBLIC_DELETE_FAIL');
-        
+
         return json_encode($return);
     }
     public function recommend()
@@ -380,11 +381,11 @@ class SpaceController extends Controller
         $space_id = intval($_POST ['space_id']);
 
 		$space =  Space::where('id',$space_id)->first();
-		
+
         $is_recommend = $space->is_recommend == 1 ? 0 : 1;
 
         Space::where('id',$space_id)->update(['is_recommend' =>$is_recommend ]);
-        
+
         return  $is_recommend;
     }
     public function multimageBox ()

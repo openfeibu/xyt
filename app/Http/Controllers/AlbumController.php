@@ -23,6 +23,7 @@ class AlbumController extends Controller
     {
 	    parent::__construct();
         $this->middleware('auth',['except' => ['uploadCommonHandle']]);
+		$this->title = '相册';
     }
     public function store ()
     {
@@ -40,18 +41,18 @@ class AlbumController extends Controller
 		    return [
 				'code' => 201,
 				'message' => $validator->errors()->first(),
-            ]; 
-		}  	      
+            ];
+		}
         $album = dispatch(new AddAlbumCommand(
             $AlbumData['name'],
             $AlbumData['desc'],
             //$AlbumData['theme'],
             Auth::user()->id
-        ));        
+        ));
         return [
 			'code' => 200,
 			'message' => '提交成功',
-			'data' => $album 
+			'data' => $album
         ];
     }
     public function index(Request $request)
@@ -69,11 +70,11 @@ class AlbumController extends Controller
 	    if($order == 'hot'){
 		    $album_photos = $album_photos->orderBy('album_photos.score','desc');
 	    }
-	    
+
 	    $page_paramter = ['type'=>$type,'order'=>$order];
-	    
+
 	    $album_photos = $album_photos->select('users.username', 'album_photos.*')->paginate(25)->appends($page_paramter);
-	    
+
 		foreach( $album_photos as $key => $album_photo )
 		{
 			if($album_photo->type == 'album')
@@ -84,7 +85,7 @@ class AlbumController extends Controller
 				$album_photo->link = '';
 				$album_photo->form = '';
 			}
-			
+
 		}
 		return $this->view('albums.index')->with('album_photos',$album_photos)
 										  ->with('type',$type)
@@ -97,10 +98,10 @@ class AlbumController extends Controller
     	{
     		$album_photo =  app('repository')->model(AlbumPhoto::class)->where('album_id',$album->id)->recent()->forUser($user_id)->first();
     		$album->image = $album_photo ?  $album_photo->image : config('system_config.no_album_photo');
-    	}	   
-    	 
+    	}
+
 		return $this->view('albums.album')->with('albums',$albums);
-    	
+
     }
     public function albumAjax (Request $request)
     {
@@ -116,11 +117,11 @@ class AlbumController extends Controller
     	{
     		$album_photo =  app('repository')->model(AlbumPhoto::class)->where('album_id',$album->id)->recent()->forUser($user_id)->first();
     		$album->image = $album_photo ?  $album_photo->image : config('system_config.no_album_photo');
-    	}	   
-    	 
+    	}
+
 		$html = view("users.albums")->with('albums',$albums)->__toString();
 		$pageHtml = with(new \Hifone\Foundations\Pagination\CustomerPresenter($albums))->render();
-		
+
 		return [
 			'html' => $html,
 			'pageHtml' => $pageHtml,
@@ -128,7 +129,7 @@ class AlbumController extends Controller
     }
     public function uploadCommon()
     {
-	    $albums = app('repository')->model(Album::class)->all();	    
+	    $albums = app('repository')->model(Album::class)->all();
 		return $this->view('albums.upload_common')->with('albums',$albums);
     }
     public function uploadCommonHandle()
@@ -153,8 +154,8 @@ class AlbumController extends Controller
 			    return [
 					'code' => 201,
 					'error' => $validator->errors()->first(),
-	            ]; 
-			}  	
+	            ];
+			}
 		    $folderName = '/uploads/album/'.'user_id_'.Auth::user()->id.'/'.'album_id_'.$album_id;
 		    $data = app('imageService')->uploadImage($file,$folderName);
 		    if($data['code'] != 200){
@@ -166,28 +167,28 @@ class AlbumController extends Controller
 	            'space_id' => $space_id,
 	            'image'    => $data['filename'],
 	            'type'	   => 'album',
-        	]);		
-        	if(!$space_id){	        	
+        	]);
+        	if(!$space_id){
 	        	$space_id = app('spaceRepository')->syncToSpace('albumPhoto',  Auth::id(), $album_photo->id);
 	        	Cache::put('photo_space_id_'.Auth::id(),$space_id,10);
         	}
         	AlbumPhoto::where('id',$album_photo->id)->update(['space_id' => $space_id]);
 
         	event(new AlbumPhotoWasUploadedEvent());
-        	
+
             $data['url'] = route('album.album_photos',['album_id'=>$album_id]);
         } else {
 	        $data['code'] = 201;
             $data['error'] = '请选择文件';
         }
-		
+
         return $data;
     }
     public function album_photos ($album_id)
     {
 	    Cache::forget('photo_space_id_'.Auth::id());
     	$album_photos =  app('repository')->model(AlbumPhoto::class)->where('album_id',$album_id)->recent()->paginate(25);
-    	return $this->view('albums.album_photo')->with('album_photos',$album_photos);	
+    	return $this->view('albums.album_photo')->with('album_photos',$album_photos);
     }
     public function show ($id)
     {
@@ -203,7 +204,7 @@ class AlbumController extends Controller
 			    if($less_now_count == 1 ){
 				    $photos[0] = app('repository')->model(AlbumPhoto::class)->where('album_id',$photo->album_id)->where('id','<',$last->id)->recent()->first();
 				    $photos[1] = $last;
-				   
+
 			    }else if($less_now_count == 2 ){
 				    $photos[0] = $last;
 				    $photos[1] = app('repository')->model(AlbumPhoto::class)->where('album_id',$photo->album_id)->first();
@@ -250,7 +251,7 @@ class AlbumController extends Controller
 	    else{
 		    $photos = app('repository')->model(AlbumPhoto::class)->where('album_id',$photo->album_id)->get();
 	    }
-	    ksort($photos);   
+	    ksort($photos);
 	    $previous =  app('repository')->model(AlbumPhoto::class)->where('id','<',$id)->recent()->first();
 	    $next = app('repository')->model(AlbumPhoto::class)->where('id','>',$id)->first();
 	    if(!$previous){
@@ -271,6 +272,6 @@ class AlbumController extends Controller
     							->with('album',$album)
     							->with('photos',$photos)
     							->with('previous',$previous)
-    							->with('next',$next);   
+    							->with('next',$next);
     }
 }

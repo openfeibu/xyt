@@ -12,6 +12,11 @@ use Hifone\Models\Announcement;
 
 class IndexController extends Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->title = '首页';
+    }
     public function index()
     {
 	    $new_boys = app('repository')->model(User::class)->where('sex',1)->orderBy('id','desc')->take(5)->get();

@@ -37,6 +37,7 @@ class ThreadController extends Controller
         parent::__construct();
 
         $this->middleware('auth');
+        $this->title = '话题';
 
     }
 
@@ -58,15 +59,15 @@ class ThreadController extends Controller
                          ->orderBy('reply_count','desc')
                          ->limit(6)
                          ->get();
-		
+
 		//获取获取分类信息
 		foreach (Section::get() as $k=>$section){
-			$node_all[$k] = Node::where('section_id',$section->id)->get();	
+			$node_all[$k] = Node::where('section_id',$section->id)->get();
 			foreach($node_all[$k] as $kk=>$node){
 				$thread_in_nodes[$kk] = Thread::where('node_id',$node->id)->whereNull('deleted_at')->get();
 			}
 		}
-		
+
         return $this->view('threads.index')
 					->withThreads($threads)
 					->with('node_all',$node_all)
@@ -106,10 +107,10 @@ class ThreadController extends Controller
                 $thread->node->name => $thread->node->url,
                 $thread->title      => $thread->url,
         ]);
-		
+
         $user = User::where('id',$thread->user_id)->first();
         $replies = Reply::where('thread_id',$thread->id)->orderBy('id','desc')->get();
-	
+
 		$alls = DB::table('replies')
 				->where('thread_id',$thread->id)
 	            ->join('users', 'replies.user_id', '=', 'users.id')
@@ -129,15 +130,15 @@ class ThreadController extends Controller
         }
 		if(empty($reply_user_id)){
 			$reply_user_id[0] = "";
-		} 
+		}
 		if(empty($replies_reply)){
 			$replies_reply[0] = "";
-		} 
+		}
 		if(empty($replies_content)){
 			$replies_content[0] = "";
-		} 
-		
-		
+		}
+
+
         $repository = app('repository');
         $repository->pushCriteria(new BelongsToNode($thread->node_id));
 		$space = app('spaceRepository')->getSpace($thread->space_id);
@@ -185,13 +186,13 @@ class ThreadController extends Controller
 		                ->withInput(Input::all())
 		                ->withErrors($e->getMessageBag());
         }
-		
+
 		$space_id = app('spaceRepository')->syncToSpace('thread',  Auth::id(), $thread->id);
 
 		Thread::where('id',$thread->id)->update(['space_id' => $space_id ]);
-		
-		app('taskRepository')->store('thread');	
-		
+
+		app('taskRepository')->store('thread');
+
         return Redirect::route('thread.show', [$thread->id])
             ->withSuccess(sprintf('%s %s', trans('hifone.awesome'), trans('hifone.success')));
     }
@@ -334,7 +335,7 @@ class ThreadController extends Controller
         return Redirect::route('thread.index')
             ->withSuccess(sprintf('%s %s', trans('hifone.awesome'), trans('hifone.success')));
     }
-	
+
 	public function node_content(Node $node){
 		$thread_two = Thread::select(DB::raw('threads.*,users.id as uid,users.avatar_url,users.username'))
 								->leftJoin('users','threads.user_id','=','users.id')
@@ -352,16 +353,16 @@ class ThreadController extends Controller
 				$reply_last_time[$k] = $thread_one;
 			}
         }
-		
+
 		$thread_top = DB::select('select count(*) as counts, user_id from threads group by user_id' );
 		rsort($thread_top);
 		for($i=0;$i<count($thread_top);$i++)
-		{ 
+		{
 			$thread_top3[$i] = $thread_top[$i];
 			$thread_count_top[$i] = $thread_top3[$i]->counts;
 			$user_top3[$i] = User::where('id',$thread_top3[$i]->user_id)->first();
 		}
-		
+
 		$nodes = Node::orderBy('member_count','desc')->get();
         return $this->view('threads.node_content')
 					->with('node',$node)
@@ -373,7 +374,7 @@ class ThreadController extends Controller
 					->with('thread_two',$thread_two);
 					//->with('thread_user',$thread_user)
 	}
-	
+
 	public function get_node_thread(Request $request){
 		/* 按照条件查看话题 */
         if($request->condition == "month"){
@@ -385,7 +386,7 @@ class ThreadController extends Controller
         }else{
             $date_condition = 0;
         }
-		
+
 		$thread_two = Thread::select(DB::raw('threads.*,users.id as uid,users.avatar_url,users.username'))
 								->leftJoin('users','threads.user_id','=','users.id')
 								->where('threads.created_at','>',$date_condition)
@@ -399,7 +400,7 @@ class ThreadController extends Controller
                                 ->where('threads.node_id',$request->node_id)
                                 ->get();
         return $this->common($thread_two,count($count));
-		
+
 	}
 
     public function common($thread_two,$count){

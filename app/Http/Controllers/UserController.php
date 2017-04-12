@@ -49,7 +49,7 @@ class UserController extends Controller
     {
 	    parent::__construct();
 	    $this->hasher = $hasher;
-        $this->middleware('auth',['except' => ['checkLogin','checkEmail','checkRegisterParam','loadSchool','dynamic','validateEmail','registerMobile','registerValidateMobile','forgetPassword','forgetPasswordMobile','forgetPasswordMobileNext','forgetPasswordNextSubmit','forgetPasswordEmailNext','avatarStore']]);
+        $this->middleware('auth',['except' => ['checkLogin','checkEmail','checkRegisterParam','loadSchool','dynamic','validateEmail','registerMobile','registerValidateMobile','forgetPassword','forgetPasswordMobile','forgetPasswordMobileNext','forgetPasswordNextSubmit','forgetPasswordEmailNext','avatarStore','invitationShow']]);
     }
 	public function registerAvatar ()
 	{
@@ -1318,4 +1318,60 @@ class UserController extends Controller
     	}
     	return Redirect::to('/home');
     }
+	public function invitation()
+	{
+		$this->breadcrumb->push([
+				'个人中心' => route('user.home',['uid'=>Auth::id()]),
+                '邀请好友' => ''
+        ]);
+		return $this->view('users.invitation.index')->with('user',Auth::user());
+	}
+	public function invitationShow(Request $request)
+	{
+		$this->breadcrumb->push([
+				'个人中心' => route('user.home',['uid'=>Auth::id()]),
+                '邀请好友' => ''
+        ]);
+		$inviter_uid = isset($request->uid) ? $request->uid : 0;
+		$inviter = User::findByUidOrFail($inviter_uid);
+		return $this->view('users.invitation.show')->with('inviter',$inviter);
+	}
+	public function invitationSend()
+	{
+		$input = Input::all();
+    	$rules = [
+			'email' => 'required|string',
+			'message' => 'required|between:5,50'
+	    ];
+	    $messages = [
+			'email.required' => '请填写邮箱',
+			'message.required' => '请填写邀请附言',
+			'message.between' => '邀请附言需10-50字'
+	    ];
+
+	    $validator = Validator::make($input,$rules,$messages);
+
+	    if($validator->errors()->first()){
+			return  Redirect::back()
+			                ->withInput(Input::all())
+			                ->withErrors($validator->errors());
+		}
+
+		$emails = explode(',',trim($input['email']));
+		foreach ($emails as $key => $email) {
+			$mode = '/\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/';
+        	if(preg_match($mode,$email)){
+				$user = Auth::user();
+				Mail::send('emails.invite', ['email' => $email,'user' => Auth::user(),'app_url' => config('app.url'),'content' => $input['message']], function($message) use($email,$user) {
+					$message->from(config('mail.from')['address'],config('mail.from')['name']);
+				    $message->subject('['.config('app.web_name').'] 邀请');
+				    $message->to($email);
+				});
+			}
+		}
+		return  Redirect::back()
+						->withInput(Input::all())
+						->withSuccess(['邀请发送成功！']);
+	}
+
 }
