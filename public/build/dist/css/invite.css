@@ -5,8 +5,8 @@
 .invite_main p{margin-top: 10px;width: 550px;line-height: 27px;margin-left: 30px;}
 .invite_user{width: 300px;height: 200px;margin-top: 40px;margin-left: 5px;}
 .invite_user_left{width:100px;height: 180px; }
-.invite_user_left img{border: 3px #D6D6D6 solid}
-.invite_user_right{width: 100px;height: 180px;margin-left: 30px;font-size: 12px;line-height: 20px;}
+.invite_user_left img{border: 3px #D6D6D6 solid;width: 117px;height: 117px;}
+.invite_user_right{/*width: 100px;*/height: 180px;margin-left: 30px;font-size: 12px;line-height: 20px;}
 .invite_user_left span{width: 125px;height: 40px;display: inline-block;font-size: 12px;text-align: center;background: #51B837;line-height: 40px;margin-top: 10px;color: #fff;border-radius: 5px;}
 .invite_right_top{height: 50px;line-height: 50px;border-bottom: 2px #e2e1e1 solid;text-align: center;}
 .invite_friend img{width: 80px;height: 80px;}

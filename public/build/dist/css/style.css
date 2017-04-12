@@ -161,7 +161,7 @@ span.emotion:hover{background-position:2px -28px}
 .l_da span{ padding-right:10px;}
 .l_da span b{ color:#219a54; font-weight:400;}
 .l_db{ width:155px; display:block; text-align:center; font-size:12px; line-height:20px; float:left; height:214px; overflow:hidden; margin-left:5px; margin-top:10px;color:#696969;}
-.r_a{ height:32px; border:1px solid #d5d5d5; line-height:32px; width:343px;}
+.r_a{ height:32px; border:1px solid #d5d5d5; line-height:32px; width:343px;margin-bottom: 2px;}
 .r_aa{ width:100px; background:url(../images/img5.jpg) no-repeat 4px; text-indent:30px; float:left;}
 .r_ab{ width:220px; float:left; overflow:hidden;}
 .r_a .apple a{display:block; text-decoration:none;}
@@ -174,7 +174,7 @@ span.emotion:hover{background-position:2px -28px}
 .menus{height:28px;border-right:#cccccc solid 1px;border-left:#cccccc solid 1px; background:#51b837; padding:6px 10px 0px;}
 .menus li{float:left;width:75px;text-align:center;line-height:26px;height:26px;cursor:pointer;color:#666;font-size:14px;overflow:hidden;background:none; color:#fff; border:1px solid #51b837;}
 .menus li.off{background:#fff;color:#499e2e;font-weight:400; border:1px solid #fff; border-top-left-radius:3px;border-top-right-radius:3px;}
-.menudivs{height:229px;border-left:#cccccc solid 1px;border-right:#cccccc solid 1px;border-top:0;background:#fefefe}
+.menudivs{height:228px;border-left:#cccccc solid 1px;border-right:#cccccc solid 1px;border-top:0;background:#fefefe}
 .con_one{ width:100%; float:left; line-height:26px; padding-top:8px; height:208px; overflow:hidden;}
 .con_one a{ width:100%; float:left; height:26px; line-height:26px; color:#696969; font-size:12px;}
 .con_one  a .r_b1{ display:block; float:left; height:26px; line-height:26px; padding-left:10px; width:240px; overflow:hidden;}
