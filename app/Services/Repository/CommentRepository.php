@@ -17,13 +17,13 @@ use Hifone\Events\Comment\CommentWasAddedEvent;
 
 
 class CommentRepository{
-	
+
 	 // 最近错误信息
     protected $error = '';
-    
+
 	public function __construct ()
 	{
-		
+
 	}
 	public function getError()
     {
@@ -60,7 +60,7 @@ class CommentRepository{
                 static_cache('groupdata'.$v['user_id'], $groupData);
             }
             $v['user_info']['groupData'] = $groupData;   //获取用户组信息*/
-            $v['content'] = parse_html($v['content'].$v['replyInfo']);       
+            $v['content'] = parse_html($v['content'].$v['replyInfo']);
             $v['content'] = formatEmoji(false, $v['content']); // 解析emoji
             $v['sourceInfo'] = app('sourceRepository')->getCommentSource($v);
             //$v['data'] = unserialize($v['data']);
@@ -108,15 +108,15 @@ class CommentRepository{
      * @param  array $data     评论数据
      * @param  bool  $notCount 是否统计到未读评论
      * @param  array $lessUids 除去@用户ID
-     * @return bool  是否添加评论成功 
+     * @return bool  是否添加评论成功
      */
     public function addComment($data, $notCount = false, $lessUids = null)
     {
 
         if (isSubmitLocked()) {
-	        
+
             $this->error = '发布内容过于频繁，请稍后再试！';
-            
+
             return false;
         }
 
@@ -128,35 +128,35 @@ class CommentRepository{
             $this->error = trans('public.PUBLIC_COMMENT_CONTENT_REQUIRED');        // 评论内容不可为空
             return false;
         }
-        $add['is_del'] = 0;      
+        $add['is_del'] = 0;
         $add['is_audit'] = 1;
         $add['client_ip'] = get_client_ip();
         $add['client_port'] = get_client_port();
         $data['addComment'] = isset($data['addComment']) ? $data['addComment'] : true;
-        
+
         if ($res = comment::create($add)) {
-	        
+
 	        event(new CommentWasAddedEvent());
-            //锁定发布        
-            lockSubmit();     
+            //锁定发布
+            lockSubmit();
             $data['comment_id'] = $res->id;
             // 同步到原资源
             /*if ($data ['app'] != 'space' && $data['addComment']) {
                 $this->_upateToFrom($data);
             }
             */
-            // 被评论内容的“评论统计数”加1，同时可检测出app，table，row_id的有效性		
+            // 被评论内容的“评论统计数”加1，同时可检测出app，table，row_id的有效性
            	$tableModel = tableModel($add['table']);
-           	
+
             $tableModel::where('id',$add['row_id'])->increment('comment_count');
             $tableModel::where('id',$add['row_id'])->increment('comment_all_count');
-            
-           	
+
+
             // 给应用UID添加一个未读的评论数 原作者
             if (Auth::id() != $add['app_user_id'] && $add['app_user_id'] != '' && $add['app_user_id'] != $add['to_user_id']) {
                 if (!$notCount ) {
                    // model('UserData')->updateKey('unread_comment', 1, true, $add['app_user_id']);
-                    
+
                 }
             }
             // 回复发送提示信息
@@ -181,8 +181,8 @@ class CommentRepository{
              	if (!empty($add['to_user_id']) && $to_user = User::findByUid($add['to_user_id'])) {
                  	// 回复
 	                /*$config['comment_type'] = '回复 我 的评论:';
-	                $body = L('NOTIFY_COMMENT_CONTENT', $config);  */    
-	                             
+	                $body = L('NOTIFY_COMMENT_CONTENT', $config);  */
+
 	                app('notifier')->batchNotify(
 	                    $data ['app'].'_mention',
 	                    Auth::user(),
@@ -204,12 +204,12 @@ class CommentRepository{
 		                );
 	                }
             	}
-            
+
          	}
         }
-		
+
         $this->error = $res ? L('PUBLIC_CONCENT_IS_OK') : L('PUBLIC_CONCENT_IS_ERROR');         // 评论成功，评论失败
-		
+
         return $res;
     }
     /**
@@ -243,7 +243,7 @@ class CommentRepository{
 			case 'vote':
 				$postDetail = Vote::where('space_id',$data ['row_id'])->first()->toArray();
 				$postDetail['post_from'] = 'vote';
-				break;		
+				break;
 			default:
 				;
 				break;

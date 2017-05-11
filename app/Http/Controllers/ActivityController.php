@@ -14,6 +14,7 @@ use Hifone\Models\ActivityCategory;
 use Hifone\Models\Area;
 use Hifone\Models\Activity_actors;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ActivityController extends Controller
 {
@@ -120,7 +121,7 @@ class ActivityController extends Controller
 			'number_count' => 'required|numeric|between:3,300',
 			'payboy' => 'required|numeric',
 			'paygirl' => 'required|numeric',
-			'pay' => 'required|array|in:1,2,3',
+			//'pay' => 'required|array|in:1,2,3',
 			'mobile' => 'required',
 			'poster' => 'required',
 			'body' => 'required',
@@ -143,13 +144,13 @@ class ActivityController extends Controller
 			'paygirl.required' => '活动费用不符合要求',
 			'payboy.numeric' => '活动费用不符合要求',
 			'paygirl.numeric' => '活动费用不符合要求',
-			'pay.required' => '未选择支付方式',
-			'pay.in' => '支付方式不存在',
+			//'pay.required' => '未选择支付方式',
+			//'pay.in' => '支付方式不存在',
 			'mobile.required' => '手机号码不能为空',
 			'poster.required' => '未选择活动海报',
 			'body.required' => '活动详情不能为空',
 	    ];
-	    $ActivityData['pay'] = 0;
+	    $ActivityData['pay'] = ['0'];
 	    $validator = Validator::make($ActivityData,$rules,$message);
 	    if($validator->errors()->first()){
 		    return  Redirect::back()
@@ -213,45 +214,56 @@ class ActivityController extends Controller
 		$city = app('categoryTreeRepository')->setTable('areas',app(Area::class))->getTitle($activity->city);
 		$province = app('categoryTreeRepository')->setTable('areas',app(Area::class))->getTitle($activity->province);
 		$activity->location = $province . ' ' . $city . ' ' . $activity->location;
-		$activity->deadline_desc = $activity->deadline < Carbon::now()->toDateTimeString() ? "报名截止" : $activity->deadline;
+
 		Activity::where('id',$request->id)->increment('view_count');
 		$user = User::where('id',$activity->user_id)->first();
-		$activity_joins = Activity_actors::where('activity_id',$request->id)
-											->where('actor_type','join')
-											->get();
-		$activity_follows = Activity_actors::where('activity_id',$request->id)
-											->where('actor_type','follow')
-											->get();
-		foreach($activity_joins as $activity_join){
-			$user_joins[] = User::where('id',$activity_join->user_id)->first();
-		}
-		foreach($activity_follows as $activity_follow){
-			$user_follows[] = User::where('id',$activity_follow->user_id)->first();
-		}
-		if(empty($user_joins[0])){
-			$user_joins[0] = $user;
-		}
-		if(empty($user_follows[0])){
-			$user_follows[0] = $user;
-		}
+		$activity_joins = app('activityRepository')->getActivityJoins($request->id);
+		$activity_follows = app('activityRepository')->getActivityFollows($request->id);
+
 		$summary = Summary::where('activity_id',$activity->id)->first();
 		$summaries = app('activityRepository')->summaries();
+		$activity_join = Activity_actors::where('activity_id',$request->id)
+										->where('user_id',Auth::id())
+										->where('actor_type','join')
+										->first();
+		$activity_follow = Activity_actors::where('activity_id',$request->id)
+										->where('user_id',Auth::id())
+										->where('actor_type','follow')
+										->first();
+
+		$activity_join_status = $activity_join ? 1 : 0;
+		$activity_follow_stauts = $activity_follow ? 1 : 0;
+		$activity_join_status_desc = $activity_join ? '取消报名' : '立即报名';
+		$activity_follow_stauts_desc = $activity_follow ? '取消关注' : '关注';
+		$activity->deadline_desc = handle_activity_time($activity->deadline,$activity_join_status) ;
+		$join_count = Activity_actors::where('activity_actors.actor_type','join')->where('activity_id',$activity->id)->count();
+		$follow_count = Activity_actors::where('activity_actors.actor_type','follow')->where('activity_id',$activity->id)->count();
 		return $this->view('activitys.content')
 					->with('activity',$activity)
-					->with('user_joins',$user_joins)
-					->with('user_follows',$user_follows)
+					->with('activity_joins',$activity_joins)
+					->with('activity_follows',$activity_follows)
 					->with('login_user',$login_user)
 					->with('summary',$summary)
 					->with('summaries',$summaries)
-					->with('user',$user);
+					->with('user',$user)
+					->with('join_count',$join_count)
+					->with('follow_count',$follow_count)
+					->with('activity_join_status_desc',$activity_join_status_desc)
+					->with('activity_follow_stauts_desc',$activity_follow_stauts_desc);
 	}
 
 	public function follow(Request $request){
 		$activity_actors = Activity_actors::where('activity_id',$request->activity_id)
 										->where('user_id',$request->user_id)
+										->where('actor_type','follow')
 										->first();
 		if(!empty($activity_actors)){
-			echo "200";
+			$activity_actors->delete();
+			return [
+				'code' => 200,
+				'status' => 0,
+				'msg' => '取消关注成功',
+			];
 		}else{
 			try{
 				DB::beginTransaction();
@@ -263,9 +275,51 @@ class ActivityController extends Controller
 				DB::commit();
 			}catch (Exception $e){
 				DB::rollBack();
-				echo "403";
+				return [
+					'code' => 201,
+					'msg' => '操作失败',
+				];
 			}
-			echo "200";
+			return [
+				'code' => 200,
+				'status' => 1,
+				'msg' => '关注成功',
+			];
+		}
+	}
+	public function join(Request $request){
+		$activity_joiner = Activity_actors::where('activity_id',$request->activity_id)
+										->where('user_id',$request->user_id)
+										->where('actor_type','join')
+										->first();
+		if(!empty($activity_joiner)){
+			$activity_joiner->delete();
+			return [
+				'code' => 200,
+				'status' => 0,
+				'msg' => '取消报名成功',
+			];
+		}else{
+			try{
+				DB::beginTransaction();
+				$activity_actors = new Activity_actors;
+				$activity_actors->activity_id = $request->activity_id;
+				$activity_actors->user_id = $request->user_id;
+				$activity_actors->actor_type = "join";
+				$activity_actors->save();
+				DB::commit();
+			}catch (Exception $e){
+				DB::rollBack();
+				return [
+					'code' => 201,
+					'msg' => '报名失败',
+				];
+			}
+			return [
+				'code' => 200,
+				'status' => 1,
+				'msg' => '报名成功',
+			];
 		}
 	}
 	public function summary (Request $request)
@@ -346,5 +400,42 @@ class ActivityController extends Controller
 		]);
 		return Redirect::route('activity.create_summary',['activity_id' => $data['activity_id']])
                 ->withSuccess('创建成功');
+	}
+	public function users(Request $request)
+	{
+		$activity_id = isset($request->id) ? $request->id : '';
+		$activity = Activity::where('id',$activity_id)->first();
+		if (!$activity) {
+            throw new NotFoundHttpException();
+        }
+		$type = isset($request->type) ? $request->type : 'join';
+		$users = Activity_actors::select('users.avatar_url','users.username','activity_actors.user_id')
+											->join('users','users.id','=','activity_actors.user_id')
+											->where('activity_id',$activity_id);
+
+		$join_count = Activity_actors::where('activity_actors.actor_type','join')->where('activity_id',$activity_id)->count();
+		$follow_count = Activity_actors::where('activity_actors.actor_type','follow')->where('activity_id',$activity_id)->count();
+	    switch($type)
+	    {
+	    	case 'join':
+	    		$users = $users->where('activity_actors.actor_type','join');
+	    		break;
+	    	case 'follow':
+	    		$users = $users->where('activity_actors.actor_type','follow');
+	    		break;
+	    	default:
+	    		break;
+	    }
+
+		$users = $users->distinct()->get();
+
+
+
+		return $this->view('activitys.users')
+					->with('users',$users)
+					->with('activity',$activity)
+					->with('type',$type)
+					->with('join_count',$join_count)
+					->with('follow_count',$follow_count);
 	}
 }

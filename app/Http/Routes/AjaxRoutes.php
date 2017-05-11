@@ -3,7 +3,7 @@
 /*
  * This file is part of Hifone.
  *
- * 
+ *
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -87,7 +87,7 @@ class AjaxRoutes
 
 
             $router->resource('like', 'LikeController');
-			
+
 			$router->get('like/thread', [
                 'as'     => 'like.thread',
                 'uses'   => 'LikeController@thread',
@@ -96,13 +96,18 @@ class AjaxRoutes
                 'as'     => 'like.reply',
                 'uses'   => 'LikeController@reply',
             ]);
-			
+
 			//关注活动
-			$router->get('activity/follow', [
+			$router->post('activity/follow', [
                 'as'     => 'activity.follow',
                 'uses'   => 'ActivityController@follow',
             ]);
-          
+            $router->post('activity/join', [
+                'as'     => 'activity.join',
+                'uses'   => 'ActivityController@join',
+            ]);
+
+
             $router->post('/thread/{thread}/append', [
                 'as'   => 'thread.append',
                 'uses' => 'ThreadController@append',

@@ -179,7 +179,7 @@ if (!function_exists('saveImageToLocal')) {
 	    $file_name = uniqid().'.'.$i['extension'];
 
 	    $res = file_put_contents($upload_path.$file_path.$file_name, $file_content);
-	    
+
 
 	    if ($res) {
 	        return $file_path.$file_name;
@@ -188,7 +188,7 @@ if (!function_exists('saveImageToLocal')) {
 	    }
 	}
 }
-//获取图片地址 
+//获取图片地址
 if (!function_exists('getImageUrl2')) {
 	function getImageUrl2($type = 'upload_video_path',$file, $width = '0', $height = 'auto', $cut = false, $replace = false)
 	{
@@ -198,7 +198,7 @@ if (!function_exists('getImageUrl2')) {
 	    return $imageUrl;
 	}
 }
-//获取图片地址 
+//获取图片地址
 if (!function_exists('getImageUrl')) {
 	function getImageUrl($file, $width = '0', $height = 'auto', $cut = false, $replace = false)
 	{
@@ -338,7 +338,7 @@ if (!function_exists('lockSubmit')) {
 	    if (isset($_SESSION['LOCK_SUBMIT_TIME']) && intval($_SESSION['LOCK_SUBMIT_TIME']) > time()) {
 	        return false;
 	    } else {
-	        $life_time = $life_time ? $life_time : 10;	
+	        $life_time = $life_time ? $life_time : 10;
 			$_SESSION['LOCK_SUBMIT_TIME'] = time() + intval($life_time);
 	        return true;
 	    }
@@ -572,11 +572,11 @@ if(!function_exists('orderHandle')){
 	  		foreach( $value as $k => $v )
 	  		{
 	  			$sql = $sql->orderBy($k,$v);
-	  		} 			
-  		}   
+	  		}
+  		}
 		return $sql;
 	}
-	
+
 }
 
 /**
@@ -610,7 +610,7 @@ if(!function_exists('getList')){
 	{
 		foreach ($key as $k) {
             $_k = $prefix.$k;
-			
+
             $data[$k] = Cache::get($_k);
         }
         return $data;
@@ -754,7 +754,7 @@ if(!function_exists('getVisitorClient')){
 	    elseif(stristr($_SERVER['HTTP_VIA'],"wap") || strpos(strtoupper($_SERVER['HTTP_ACCEPT']),"VND.WAP.WML") > 0){// 先检查是否为wap代理，准确度高
 	        return 1;
 	    }elseif(preg_match('/(windows ce)/i', $_SERVER['HTTP_USER_AGENT'])){
-	        return 5;		 	
+	        return 5;
 	    }*/
 	    return '0';
 	}
@@ -797,57 +797,57 @@ if(!function_exists('msubstr')){
 	    return $slice;
 	}
 }
- /** 
- * 获取指定日期对应星座 
- *  
- * @param integer $month 月份 1-12 
- * @param integer $day 日期 1-31 
- * @return boolean|string 
- */  
+ /**
+ * 获取指定日期对应星座
+ *
+ * @param integer $month 月份 1-12
+ * @param integer $day 日期 1-31
+ * @return boolean|string
+ */
 if(!function_exists('getConstellation')){
-	function getConstellation($birth)  
-	{  
-		$str = substr($birth,0,4);//截取年  
-	    $month = substr($birth,5,2);//截取月  
-	    $day = substr($birth,8,2);//截取日  
-	    if ($month < 1 || $month > 12 || $day < 1 || $day > 31) return false;  
-	    $signs = array(  
-	            array('20'=>'宝瓶座'),  
-	            array('19'=>'双鱼座'),  
-	            array('21'=>'白羊座'),  
-	            array('20'=>'金牛座'),  
-	            array('21'=>'双子座'),  
-	            array('22'=>'巨蟹座'),  
-	            array('23'=>'狮子座'),  
-	            array('23'=>'处女座'),  
-	            array('23'=>'天秤座'),  
-	            array('24'=>'天蝎座'),  
-	            array('22'=>'射手座'),  
-	            array('22'=>'摩羯座')  
-	    );  
-	    list($start, $name) = each($signs[$month-1]);  
-	    if ($day < $start)  
-	        list($start, $name) = each($signs[($month-2 < 0) ? 11 : $month-2]);  
-	    return $name;  
-	}  
+	function getConstellation($birth)
+	{
+		$str = substr($birth,0,4);//截取年
+	    $month = substr($birth,5,2);//截取月
+	    $day = substr($birth,8,2);//截取日
+	    if ($month < 1 || $month > 12 || $day < 1 || $day > 31) return false;
+	    $signs = array(
+	            array('20'=>'宝瓶座'),
+	            array('19'=>'双鱼座'),
+	            array('21'=>'白羊座'),
+	            array('20'=>'金牛座'),
+	            array('21'=>'双子座'),
+	            array('22'=>'巨蟹座'),
+	            array('23'=>'狮子座'),
+	            array('23'=>'处女座'),
+	            array('23'=>'天秤座'),
+	            array('24'=>'天蝎座'),
+	            array('22'=>'射手座'),
+	            array('22'=>'摩羯座')
+	    );
+	    list($start, $name) = each($signs[$month-1]);
+	    if ($day < $start)
+	        list($start, $name) = each($signs[($month-2 < 0) ? 11 : $month-2]);
+	    return $name;
+	}
 }
 if(!function_exists('getAge')){
-	function getAge($birthday){ 
-		$age = strtotime($birthday); 
-		if($age === false){ 
-			return false; 
-		} 
-		list($y1,$m1,$d1) = explode("-",date("Y-m-d",$age)); 
-		$now = strtotime("now"); 
-		list($y2,$m2,$d2) = explode("-",date("Y-m-d",$now)); 
-		$age = $y2 - $y1; 
-		if((int)($m2.$d2) < (int)($m1.$d1)) 
-		$age -= 1; 
-		return $age; 
-	} 
+	function getAge($birthday){
+		$age = strtotime($birthday);
+		if($age === false){
+			return false;
+		}
+		list($y1,$m1,$d1) = explode("-",date("Y-m-d",$age));
+		$now = strtotime("now");
+		list($y2,$m2,$d2) = explode("-",date("Y-m-d",$now));
+		$age = $y2 - $y1;
+		if((int)($m2.$d2) < (int)($m1.$d1))
+		$age -= 1;
+		return $age;
+	}
 }
 if(!function_exists('handleCycle')){
-	function handleCycle($frequency){ 
+	function handleCycle($frequency){
 		if($frequency == -1){
 			return "一次性";
 		}else if($frequency == 0){
@@ -855,10 +855,10 @@ if(!function_exists('handleCycle')){
 		}else{
 			return "每天";
 		}
-	} 
+	}
 }
 if(!function_exists('handleFrequency')){
-	function handleFrequency($frequency){ 
+	function handleFrequency($frequency){
 		if($frequency == -1){
 			return "1";
 		}else if($frequency == 0){
@@ -866,12 +866,12 @@ if(!function_exists('handleFrequency')){
 		}else{
 			return $frequency;
 		}
-	} 
+	}
 }
 if(!function_exists('handerStar')){
-	function handerStar($value){ 
+	function handerStar($value){
 		return $value > 0 ? "<img src='".asset('/build/dist/images/star.gif')."' alt='' />" : "<img src='".asset('/build/dist/images/star0.gif')."' alt='' />" ;
-	} 
+	}
 }
 if(!function_exists('getCode')){
 	function getCode ()
@@ -960,4 +960,28 @@ if(!function_exists('handle_text')){
 	{
 		return mb_substr($text,0,$length,'utf-8');
 	}
+}
+if(!function_exists('handle_activity_time')){
+    function handle_activity_time($deadline,$activity_join_status)
+    {
+        $html = '';
+        $time = date("Y-m-d H:i:s");
+        $date=floor((strtotime($deadline)-strtotime($time))/86400);
+        $hour=floor((strtotime($deadline)-strtotime($time))%86400/3600);
+        $minute=floor((strtotime($deadline)-strtotime($time))%86400/60);
+        if($date <= 0){
+            if($hour <= 0){
+                if($minute<=0){
+                    $html .= "报名截止";
+                }else{
+                    $html .= "报名截止还剩&nbsp;".$minute."&nbsp;分钟"."&nbsp;&nbsp;&nbsp;</span><a href='javascript:;' class='details_top_info_right_time_span activity_join_btn'>立即报名</a>";
+                }
+            }else{
+                $html .= "报名截止还剩&nbsp;".$hour."&nbsp;小时"."&nbsp;&nbsp;&nbsp;</span><a href='javascript:;' class='details_top_info_right_time_span activity_join_btn'>立即报名</a>";
+            }
+        }else{
+            $html .= "报名截止还剩&nbsp;".$date."&nbsp;天"."&nbsp;&nbsp;&nbsp;</span><a href='javascript:;' class='details_top_info_right_time_span activity_join_btn'>立即报名</a>";
+        }
+        return $html;
+    }
 }

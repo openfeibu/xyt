@@ -1190,6 +1190,22 @@ class UserController extends Controller
 				}
 				$count = app('repository')->model(Vote::class)->forUser($user_id)->count();
 				break;
+			case 'gift':
+				$datas = DB::table('send_gift')->select('gift.gift_name','send_gift.number','send_gift.created_at', 'send_user.id as send_user_id','send_user.username as send_username','be_send_user.id as be_send_user_id','be_send_user.username as be_send_username')
+												->join('users as send_user','send_user.id','=','send_gift.user_id')
+												->join('users as be_send_user','be_send_user.id','=','send_gift.to_user_id')
+												->join('gift','gift.id','=','send_gift.gift_id')
+												->where('send_gift.user_id' ,$user_id)
+												->orWhere('send_gift.to_user_id',$user_id)
+												->paginate($limit)
+												->appends(['user_id' =>$user_id,'type'=>$type ]);
+				foreach($datas as $key => $data)
+				{
+					$data->title = "<a href='".route('user.home',['uid'=>$data->send_user_id])."' target='_blank' class='orange'>".$data->send_username.'</a>送了'.$data->number.'个"'.$data->gift_name.'"给'."<a href='".route('user.home',['uid'=>$data->be_send_user_id])."' target='_blank' class='orange'>".$data->be_send_username.'</a>';
+					$data->url = 'javascript:;';
+				}
+				$count = DB::table('send_gift')->where('user_id' ,$user_id)->orWhere('to_user_id',$user_id)->count();
+				break;
 			default:
 
 				break;

@@ -3,7 +3,7 @@
 /*
  * This file is part of Hifone.
  *
- * 
+ *
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -59,6 +59,10 @@ class ActivityRoutes
             $router->post('/activity/storeSummary', [
                 'as'   => 'activity.store_summary',
                 'uses' => 'ActivityController@storeSummary',
+            ]);
+            $router->get('/activity/users', [
+                'as'   => 'activity.users',
+                'uses' => 'ActivityController@users',
             ]);
         });
     }

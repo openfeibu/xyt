@@ -25,16 +25,18 @@ EOD;
             'title'    => trans('administrator::dashboard.users.nickname'),
             'sortable' => false,
         ],
+        'mobile' => [
+            'title' => '手机号码',
+        ],
         'email' => [
             'title' => trans('administrator::dashboard.users.email'),
         ],
         'is_banned' => [
             'title' => trans('administrator::dashboard.users.is_banned'),
             'type'     => 'enum',
-            'options'  => [
-                '1' => 'Yes',
-                '0'  => 'No',
-            ],
+            'output' => function ($value) {
+                return $value == 1 ? '是' : '否';
+            },
         ],
         'operation' => [
             'title'  => trans('administrator::administrator.operation'),
@@ -51,17 +53,21 @@ EOD;
         'email' => [
             'title' => trans('administrator::dashboard.users.email'),
         ],
+        'mobile' => [
+            'title' => '手机号码',
+        ],
         'is_banned' => [
             'title'    => trans('administrator::dashboard.users.is_banned'),
             'type'     => 'enum',
             'options'  => [
-                '1' => 'Yes',
-                '0'  => 'No',
+                '1' => '是',
+                '0'  => '否',
             ],
         ],
         'avatar_url' => [
             'title' => trans('administrator::dashboard.users.avatar')
         ],
+        /*
         'location' => [
             'title' => '所处城市'
         ],
@@ -73,7 +79,7 @@ EOD;
         ],
         'signature' => [
             'title' => '个性签名'
-        ],
+        ],*/
         'nickname' => [
             'title' => trans('administrator::dashboard.users.nickname')
         ],
@@ -95,6 +101,9 @@ EOD;
         ],
         'email' => [
             'title' => trans('administrator::dashboard.users.email'),
+        ],
+        'mobile' => [
+            'title' => '手机号码',
         ],
         'roles' => [
             'type'       => 'relationship',
