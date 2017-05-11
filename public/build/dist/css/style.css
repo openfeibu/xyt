@@ -18,6 +18,7 @@ ul,li,dl,dt,dd{ list-style:none;}
 .bg_select{background:#FED525;}
 .layer-content .input{border:0px;    height: 100%;}
 .btn_a{cursor: pointer;}
+.orange{color: #51B837;}
 select,input,textarea{ outline:none;}
 textarea {
     overflow: auto;
