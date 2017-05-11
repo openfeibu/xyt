@@ -25,12 +25,12 @@
                                 <p>充值数量：<input type="text" name="money" id="money" style="width: 60px;margin-right: 10px;" />象牙币<span style="font-size: 12px;">（充值1RMB可以获得1象牙币）</span></p>
                             </div>
                             <p>
-                                <ul class="activity_pay_main_way activity_pay_main_way_bank" style="margin-left: 118px;">
+                                <ul class="activity_pay_main_way activity_pay_main_way_bank" >
                                     <li class="active">支付宝</li>
                                     <li>微信支付</li>
                                 </ul>
-                                <input name="pay_id" type="radio" value="1">
-	                            <input name="pay_id" type="radio" value="2">
+                                <input name="pay_id" type="radio" value="1" checked style="display:none;">
+	                            <input name="pay_id" type="radio" value="2" style="display:none;">
                             </p>
                             <div class="clear" id="pay_way" style="padding-top: 50px;">
                                 <p class="clear">
@@ -39,6 +39,14 @@
                             </div>
                     </form>
             </div>
-           
+
       </div>
+      <script type="text/javascript">
+          $(".activity_pay_main_way li").click(function(){
+              index = $(this).index();
+              $(this).addClass('active');
+              $(this).siblings().removeClass('active');
+              $("input[name='pay_id']").eq(index).attr('checked',true);
+          });
+      </script>
 @stop

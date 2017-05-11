@@ -5,7 +5,7 @@
 <div id=""></div>
 <div class="clear" style="height: 10px;border-bottom: 2px #e2e1e1 solid"></div>
 @if($type == 'activity')
-@foreach($datas as $data)  
+@foreach($datas as $data)
 <div class="my_gift" style="height: 100px;">
     <p style="margin-top: 20px;">
         <span class="fleft" style="color: #818181"><a href="{{$data->url}}" style="color: #51B837" target="_blank">{{$data->name}}</a>[{{$data->cate}}]</span>
@@ -26,11 +26,22 @@
 </div>
 <div class="clear"></div>
 @endforeach
+@elseif($type == 'gift')
+@foreach($datas as $data)
+<div class="my_gift" >
+    <p style="margin-top: 20px;">
+        <span class="fleft">{!!$data->title!!}</span>
+        <span class="fright">{{$data->created_at}}</span>
+    </p>
+    <div class="clear"></div>
+</div>
+<div class="clear"></div>
+@endforeach
 @else
-@foreach($datas as $data)       
+@foreach($datas as $data)
 <div class="my_gift" style="color: #818181">
     <p style="margin-top: 20px;">
-        <span class="fleft"><a href="{{$data->url}}" style="color: #51B837" target="_blank">{{$data->title}}</a></span>
+        <span class="fleft"><a href="{{$data->url}}" style="color: #51B837" target="_blank">{!!$data->title!!}</a></span>
         <span class="fright">{{$data->created_at}}</span>
     </p>
     <div class="clear"></div>
