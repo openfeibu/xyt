@@ -268,7 +268,7 @@ return [
         'description' => '用户列表',
         'search'      => '搜索',
         'roles'       => '所属角色',
-        'is_banned'   => '是否屏蔽?',
+        'is_banned'   => '是否黑名单?',
         'add'         => [
             'title'   => '注册用户',
             'success' => '用户注册成功.',
@@ -299,7 +299,7 @@ return [
 			'description' => '以竖线分隔',
 		],
 		'notice' => '提醒',
-		
+
 		'input_form'=>'输入表单',
 		'num_input'=>'纯数字input输入',
 		'several_textfield'=>'多行文本',
@@ -426,7 +426,7 @@ return [
  		'activities' => '活动',
  		'activity_categories' => '活动分类',
 	],
-	
+
     // Sidebar footer
     'help'        => '帮助',
     'home'        => '首页',

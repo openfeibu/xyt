@@ -37,7 +37,7 @@ class AlipayServiceProvider extends ServiceProvider
 			$this->app->configure('latrell-alipay-mobile');
 			$this->app->configure('latrell-alipay-web');
 		}
-		
+
 		$this->mergeConfigFrom($source_config, 'latrell-alipay');
 		$this->mergeConfigFrom($source_mobile, 'latrell-alipay-mobile');
 		$this->mergeConfigFrom($source_web, 'latrell-alipay-web');
@@ -50,7 +50,7 @@ class AlipayServiceProvider extends ServiceProvider
 	 */
 	public function register()
 	{
-		
+
 		$this->app->bind('alipay.mobile', function ($app)
 		{
 			$alipay = new Mobile\SdkPayment();

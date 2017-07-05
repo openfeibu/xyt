@@ -11,17 +11,17 @@ View::composer('administrator::index', function ($view) {
     $actionFactory = app('admin_action_factory');
     $dataTable = app('admin_datatable');
     $model = $config->getDataModel();
-    
+
     $baseUrl = route('admin_dashboard');
     $route = parse_url($baseUrl);
 
     //add the view fields
-   
+
     $view->config = $config;
     $view->dataTable = $dataTable;
     $view->primaryKey = $model->getKeyName();
     $view->editFields = $fieldFactory->getEditFields();
-    
+
     $view->columnModel = $columnFactory->getColumnOptions();
     $view->actions = $actionFactory->getActionsOptions();
     $view->globalActions = $actionFactory->getGlobalActionsOptions();
