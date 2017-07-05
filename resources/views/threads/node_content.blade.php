@@ -5,7 +5,7 @@
 	.sign_show{margin-left: 20px;font-size: 16px;margin-top: 5px;height: 30px;line-height: 20px;}
 	.pointer{cursor: pointer}
 </style>
- 
+
 <link href="{{ asset('/build/dist/css/interaction2.css') }}" type="text/css" rel="stylesheet" />
 
 <div class="clear"></div>
@@ -145,9 +145,9 @@
 								<a href="{!!$thread_two->url($thread_two->currentPage()-1)!!}">上一页</a>
 								@endif
 								@if($thread_two->lastPage()<6)
-									@for($i=1;$i<=$thread_two->lastPage();$i++)		
+									@for($i=1;$i<=$thread_two->lastPage();$i++)
 										@if($i == $thread_two->currentPage())
-											<a style="background:#51b837;color:#fff" href="{{ $thread_two->url($i) }}">{!!$i!!}</a>			
+											<a style="background:#51b837;color:#fff" href="{{ $thread_two->url($i) }}">{!!$i!!}</a>
 										@else
 											<a href="{{ $thread_two->url($i) }}">{!!$i!!}</a>
 										@endif
@@ -163,7 +163,7 @@
 									@if($thread_two->currentPage()<$thread_two->lastPage())
 										<a href="{{ $thread_two->url($thread_two->currentPage()+1) }}">{!!$thread_two->currentPage()+1!!}</a>
 									@endif
-									
+
 									@if(($thread_two->lastPage()-$thread_two->currentPage()) > 1 && $thread_two->currentPage()<$thread_two->lastPage())
 										<a href="{{ $thread_two->url($thread_two->currentPage()+1) }}">...</a>
 									@endif
@@ -228,7 +228,7 @@
 				</div>
 				@endforeach
 				<div style="height:20px;"></div>
-			
+
 
 			</div>
 
@@ -294,7 +294,7 @@
 			}
 		});
 	});
-	
+
 	$('#node_change').on('change',function(){
 		window.location.href="/thread/"+$(this).val()+"/node_content";
 	});
@@ -312,7 +312,7 @@
 						</div>\
 						<div class="bottom-content">';
 			if(data.thread_two.length != 0){
-				var thread_two = data.thread_two; 
+				var thread_two = data.thread_two;
 				for(var i=0; i<thread_two.length;i++){
 						var join = thread_two[i].reply_count+thread_two[i].like_count;
 						$html_con += '<div class="user"  onclick="ToShow({!!$thread_one->id!!})">\
@@ -361,7 +361,7 @@
 				$html_con += '<div style="font-size:18px;color:#717171;text-align:center">暂无话题</div>';
 			}
 			$html_con += '</div>';
-			
+
 			$('#content-left-bottom').html($html_con);
 		});
 	}

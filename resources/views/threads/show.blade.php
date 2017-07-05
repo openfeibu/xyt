@@ -29,7 +29,7 @@
 <div class="clear"></div>
 <div class="b_n">
 <div class="b_na">
-	<strong class="green">【{{{$thread->node->name}}}】 </strong>
+	<strong class="green">【{{$thread->node->name}}】 </strong>
 	<ul style=""><li class="b_lab"><a href="{{ route('thread.create')}}"><span id="showss">+发起新话题</span></a>
 	</li><li><a href="{{ route('thread.index', [$thread->id]) }}"><< 返回上一页</a></li></ul>
 </div>
@@ -39,14 +39,14 @@
 <ul>
 <li>
 <div class="puppetdiv" style="height:90px;">
-<a href="{!! route('user.home', [$user->id]) !!}"><img id="avatar_82392_1510" class="useravatar" uid="82392" src="{{asset($user->avatar_url)}}" style="width:60px;height:60px;">
+<a href="{{$user->link}}"><img id="avatar_82392_1510" class="useravatar" uid="82392" src="{{asset($user->avatar_url)}}" style="width:60px;height:60px;">
 <span>
-{{{$user->username}}}</span></a>
+{{$user->username}}</span></a>
 </div>
 <div class="secretdiv">
 <div class="secretHead">
 <div class="secretType secretType-5" style="font-size:16px;color:#000000;font-weight:bold;font-family:微软雅黑">
-<h3 style="line-height:22px">{{{$thread->title}}}<div style="color:gray">{{ friendlyDate($thread->created_at)}}</div></h3>
+<h3 style="line-height:22px">{{$thread->title}}<div style="color:gray">{{ friendlyDate($thread->created_at)}}</div></h3>
 </div>
 </div>
 <div class="secretBody">
@@ -100,43 +100,43 @@
 	<dd class="b_nd">
 		<p>
 			<span class="green">
-				<a href="{!! route('user.home', [$all->user_id]) !!}">
+				<a href="{!! $all->link !!}">
 					{!!$all->username!!}
 				</a>
 					@if(!empty($reply_user_id[$k]->username))
 
-					回复<a href="{!! route('user.home', [$reply_user_id[$k]->id])!!}">
+					回复<a href="{{$reply_user_id[$k]->link}}">
 							{!!$reply_user_id[$k]->username!!}
 						</a>
-				
-			</span> 
-			({!!$reply_user_id[$k]->work!!} 
+
+			</span>
+			({!!$reply_user_id[$k]->work!!}
 			@if (!empty($reply_user_id[$k]->work) && !empty($reply_user_id[$k]->school))
 				/
 			@endif
-			{!!$reply_user_id[$k]->school!!}) 
+			{!!$reply_user_id[$k]->school!!})
 				@if(!empty($replies_reply[$k]))
 					{{{$replies_content[$k]->created_at}}}
-				@else		
+				@else
 					{{{$reply_user_id[$k]->created_at}}}
 				@endif
 			@else
 				<span style="color:black">
-					({!!$all->work!!} 
+					({!!$all->work!!}
 					@if (!empty($all->work) && !empty($all->school))
 						/
 					@endif
-					{!!$all->school!!}) 
-					
+					{!!$all->school!!})
+
 					@if(!empty($replies_reply[$k]))
 						{{{$replies_content[$k]->created_at}}}
-					@else		
+					@else
 						{{{$all->created_at}}}
 					@endif
 				</span>
 			@endif
 		</p>
-		
+
 		<?php
 			if(!empty($replies_reply[$k])){
 				echo $replies_content[$k]->body;
@@ -162,15 +162,17 @@
 		<div class="reply_show{!! $all->id !!}"></div>
 		<div class="comment">
 		<div class="com_form" model-node="comment_textarea">
+			<a event-node="comment_insert_face" class="face-block" href="javascript:;" title="表情" style=" top: -4px;position: relative;"> <img src="/images/index/img51.jpg" class="face">表情 </a>
+			<input type="hidden" id="postvideourl" value="">
+			<div model-node="faceDiv" style="position: relative;"></div>
 			<form class="" action="{{ route('reply.store')}}" method="post" model-node="mini_editor">
 				<input name="thread_id" type="hidden" value="{!!$thread->id!!}">
 				<input name="reply_id" type="hidden" value="{!!$all->id!!}">
 				<textarea class="input" id="reply_saytext{!! $all->id !!}" name="saytext2" event-node="mini_editor_textarea"></textarea>
-				<p><input type="submit" class="sub_btn" value="提交"></p>
+				<p style="position: relative;width: 250px;    z-index: 1000;"><input type="checkbox" name="anonymous" value="1"/> 匿名回复（需要花费{{config('system_config.anonymous_integral')}}分积分）</p>
+				<p style="top:-32px;"><input type="submit" class="sub_btn" value="提交"></p>
 			</form>
-			<a event-node="comment_insert_face" class="face-block" href="javascript:;" title="表情" style=" top: -25px;position: relative;"> <img src="/images/index/img51.jpg" class="face">表情 </a>
-			<input type="hidden" id="postvideourl" value="">
-			<div model-node="faceDiv" style="position: relative;"></div>
+
 		</div>
 		</div>
 	</div>
@@ -201,10 +203,10 @@
 		@if($alls->lastPage()<6)
 			@for($i=1;$i<=$alls->lastPage();$i++)
 				@if($i == $alls->currentPage())
-					<a style="background:#51b837;color:#fff" href="{{ $alls->url($i) }}">{!!$i!!}</a>			
+					<a style="background:#51b837;color:#fff" href="{{ $alls->url($i) }}">{!!$i!!}</a>
 				@else
 					<a href="{{ $alls->url($i) }}">{!!$i!!}</a>
-				@endif				
+				@endif
 			@endfor
 		@elseif($alls->lastPage()>2)
 			@if($alls->currentPage()>3)
@@ -217,7 +219,7 @@
 			@if($alls->currentPage()<$alls->lastPage())
 				<a href="{{ $alls->url($alls->currentPage()+1) }}">{!!$alls->currentPage()+1!!}</a>
 			@endif
-			
+
 			@if(($alls->lastPage()-$alls->currentPage()) > 1 && $alls->currentPage()<$alls->lastPage())
 				<a href="{{ $alls->url($alls->currentPage()+1) }}">...</a>
 			@endif
@@ -255,8 +257,8 @@
 			<form class="" action="{{ route('reply.store')}}" method="post" model-node="mini_editor">
 				<input name="thread_id" type="hidden" value="{!!$thread->id!!}">
 				<textarea class="input" id="saytext2" name="saytext2" event-node="mini_editor_textarea"></textarea>
-				<p style="position: relative;width: 250px;"><input type="checkbox" /> 匿名回复（需要花费5分积分）</p>
-				<p style="top:-42px;"><input type="submit" class="sub_btn" value="提交"></p>
+				<p style="position: relative;width: 250px;    z-index: 1000;"><input type="checkbox" name="anonymous" value="1"/> 匿名回复（需要花费{{config('system_config.anonymous_integral')}}分积分）</p>
+				<p style="top:-32px;"><input type="submit" class="sub_btn" value="提交"></p>
 			</form>
 		</div>
 	</div>
@@ -273,7 +275,7 @@
 			<textarea name="content" id="reply_jubao"></textarea>
 			<input type="hidden" name="type_id" value="{!!$thread->id!!}">
 			<input type="hidden" name="type" id="type" value="thread_report">
-		</td></tr>	
+		</td></tr>
 		<tr><td>
 		<input type="button" id="thread_report" value="提交" /></td></tr>
 		</table>
@@ -321,7 +323,7 @@
 			error: function(xhr, type){
 				location.href="{{ route('auth.login') }}";
 			}
-		});	
+		});
 	}
 	function reply_show(reply_id){
 		//////////////显示隐藏

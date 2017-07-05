@@ -156,10 +156,10 @@
             <div class="px10"></div>
             <div>
                 <span style="font-size: 20px;padding: 10px;color:#1E8A4C" class="fleft">本期活动总结及照片</span>
-                <p style="width:90px;padding-right: 10px;" class="fright">
+                <!-- <p style="width:90px;padding-right: 10px;" class="fright">
 	                <span class="fright"><a href="{{route('album.upload_common',['activity_id' =>$activity->id ])}}">添加照片</a></span>
 	                <span class="fright"><a href="{{route('activity.create_summary',['activity_id' => $activity->id])}}">添加活动总结</a></span>
-	            </p>
+	            </p> -->
             </div>
             <div class="clear" style="height: 13px;"></div>
             <hr style="border:1px #e2e1e1 solid;margin: 0 aut@stopmmary',$summary->activity_id)}}">{{$summary->title}}</a></p>
@@ -169,6 +169,24 @@
     </div>
 </div>
 <div class="clear"></div>
+<div id="pay_content" style="display:none;">
+    <div class="">
+        <input name="pay_id" type="radio" value="1">支付宝支付
+        <input name="pay_id" type="radio" value="2">微信支付
+        <input name="pay_id" type="radio" value="4">现场支付
+    </div>
+    <div style="text-align:center"><button class="btn-green pay_btn_sub pay_btn">确定</button></div>
+</div>
+<div id="banned_content" style="display:none;">
+    <form class="" name="" method="post" action="{{route('activity.relieve_banned')}}" target="_blank">
+        <div class="">
+            <input name="pay_id" type="radio" value="1">支付宝支付
+            <input name="pay_id" type="radio" value="2">微信支付
+
+        </div>
+        <div style="text-align:center"><button class="btn-green pay_btn">确定</button></div>
+    </form>
+</div>
 <script>
 	function activity_follow(id){
         var load = layer.load(1);
@@ -200,15 +218,35 @@
 
 	}
     $('.activity_join_btn').click(function(){
-        var load = layer.load(1);
+        layer_div = layer.open({
+            type: 1,
+            title: '选择支付方式',
+            closeBtn: 1,
+            area: '516px',
+            skin: 'layui-layer-rim', //没有背景色
+            shadeClose: true,
+            area: ['420px', '100px'], //宽高
+            content: $('#pay_content'),
+        });
+    });
+    $('.pay_btn_sub').click(function(){
+
         var $this = $(this);
+        var pay_id=$('input:radio[name="pay_id"]:checked').val();
+        if(pay_id == null )
+        {
+            layer.msg("请选择支付方式");
+            return false;
+        }
+        var load = layer.load(1);
 		$.ajax({
 			type: 'POST',
 			url: "{{ route('activity.join') }}",
-			data: {user_id:{{Auth::id()}},activity_id:{!!$activity->id!!}},
+			data: {activity_id:{!!$activity->id!!},pay_id:pay_id},
 			dataType: 'json',
 			success: function(data){
                 layer.close(load);
+                layer.close(layer_div);
 				if(data.code == 200){
                     if(data.status == 1)
                     {
@@ -218,7 +256,23 @@
                         $this.text("立即报名");
                     }
                     layer.msg(data.msg);
-				}else{
+				}else if(data.code == 210)
+                {
+                    window.location.href = data.url;
+                }
+                else if(data.code == 202){
+                    //页面层-佟丽娅
+                    layer.open({
+                        type: 1,
+                        title: '支付解除活动黑名单',
+                        closeBtn: 1,
+                        area: '516px',
+                        skin: 'layui-layer-rim', //没有背景色
+                        shadeClose: true,
+                        area: ['420px', '100px'], //宽高
+                        content: $('#banned_content'),
+                    });
+                }else{
                     layer.msg(data.msg);
 				}
 			},

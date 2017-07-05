@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="{{ elixir('dist/css/all.css') }}">
 <script src="{{ elixir('dist/js/all.js') }}"></script>
 @section('content')
-	<div class="clear" style="height:50px"></div>	
+	<div class="clear" style="height:50px"></div>
     <div class="thread_create">
 		<div style="margin-top:-20px;margin-bottom:15px;font-size:18px">
 			<a href="{{ route('thread.index') }}" style="color:#51B837">&lt;&lt;返回话题主页</a>
@@ -50,8 +50,10 @@
                                                               'placeholder' => "请填写话题内容"]) !!}
                         </div>
 
-                       
 
+                        <div class="form-group">
+                            <p style="position: relative;width: 250px;"><input type="checkbox" name="anonymous" value="1"/> 匿名（需要花费{{config('system_config.anonymous_integral')}}分积分）</p>
+                        </div>
                         <div class="form-group status-post-submit">
                             {!! Form::submit(trans('forms.publish'), ['class' => 'btn btn-primary col-xs-2', 'style' => "background:#51B837;border:0px",'id' => 'thread-create-submit']) !!}
                         </div>

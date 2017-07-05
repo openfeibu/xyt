@@ -7,21 +7,25 @@
 @if($type == 'activity')
 @foreach($datas as $data)
 <div class="my_gift" style="height: 100px;">
-    <p style="margin-top: 20px;">
-        <span class="fleft" style="color: #818181"><a href="{{$data->url}}" style="color: #51B837" target="_blank">{{$data->name}}</a>[{{$data->cate}}]</span>
-        <span class="fright">{{$data->time_desc}}</span>
-    </p>
-    <div class="clear" style="height: 10px;"></div>
-    <p>
-        <span style="color: #818181;">
-            活动时间：{{$data->begin_time}}
-        </span>
-    </p>
-    <p class="clear" style="margin-top: 10px;">
-        <span style="color: #818181">
-            活动地点：{{$data->location}}
-        </span>
-    </p>
+    <div class="fleft">
+        <p style="margin-top: 20px;">
+            <span class="fleft" style="color: #818181"><a href="{{$data->url}}" style="color: #51B837" target="_blank">{{$data->name}}</a>[{{$data->cate}}]</span>
+        </p>
+        <div class="clear" style="height: 10px;"></div>
+        <p>
+            <span style="color: #818181;">
+                活动时间：{{$data->begin_time}}
+            </span>
+        </p>
+        <p class="clear" style="margin-top: 10px;">
+            <span style="color: #818181">
+                活动地点：{{$data->location}}
+            </span>
+        </p>
+    </div>
+    <div class="fright" style="margin-top: 20px;">
+        <span >{{$data->time_desc}}</br>@if($data->user_id == Auth::user()->id)<a href="{{route('album.upload_common',['activity_id' =>$data->activity_id ])}}">添加照片</a></br><a href="{{route('activity.create_summary',['activity_id' => $data->activity_id])}}">添加活动总结</a></br><a href="{{route('activity.export_member',['activity_id' => $data->activity_id])}}">导出参与会员</a>@endif</span>
+    </div>
     <div class="clear"></div>
 </div>
 <div class="clear"></div>
