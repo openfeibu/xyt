@@ -107,8 +107,13 @@ class ThreadController extends Controller
                 $thread->node->name => $thread->node->url,
                 $thread->title      => $thread->url,
         ]);
+        $user = User::findByUid($thread->user_id);
 
-        $user = User::where('id',$thread->user_id)->first();
+        if($thread->anonymous)
+        {
+            $user = app('userRepository')->handle_anonymous($user);
+        }
+
         $replies = Reply::where('thread_id',$thread->id)->orderBy('id','desc')->get();
 
 		$alls = DB::table('replies')
@@ -123,11 +128,24 @@ class ThreadController extends Controller
 		  	if(!empty($all->reply_id))
 		  	{
 			  	$replies_reply[$k] = Reply::where('id',$all->reply_id)->first();
-			  	$reply_user_id[$k] = User::where('id',$replies_reply[$k]->user_id)->first();
+                $reply_user = User::findByUid($replies_reply[$k]->user_id);
+                if($all->anonymous)
+                {
+                    $reply_user = app('userRepository')->handle_anonymous($reply_user);
+                }
+			  	$reply_user_id[$k] = $reply_user;
 			  	$replies_content[$k] = Reply::where('reply_id',$all->reply_id)->first();
 		  	}
 		  	$all->body = parse_html($all->body);
+            if($all->anonymous)
+            {
+                $all = app('userRepository')->handle_anonymous($all);
+            }else{
+                $all->link = route('user.home', [$all->user_id]);
+            }
         }
+
+        //var_dump($alls);exit;
 		if(empty($reply_user_id)){
 			$reply_user_id[0] = "";
 		}
@@ -172,6 +190,25 @@ class ThreadController extends Controller
         $threadData = Input::get('thread');
         $node_id = isset($threadData['node_id']) ? $threadData['node_id'] : null;
         $tags = isset($threadData['tags']) ? $threadData['tags'] : '';
+        $user = User::findByUidOrFail(Auth::id());
+        $anonymous = 0;
+        $update = [];
+        if(Input::get('anonymous'))
+        {
+            $anonymous_integral = config('system_config.anonymous_integral');
+            if($user->score < $anonymous_integral){
+                $errors[] = '积分不足';
+            }
+            if(isset($errors)){
+                return  Redirect::back()
+                           ->withInput(Input::all())
+                           ->withErrors($errors);
+            }
+            $score = $user->score - $anonymous_integral;
+            $user->update(['score' =>$score ]);
+            $anonymous = 1;
+            $update['anonymous'] = 1;
+        }
 
         try {
             $thread = dispatch(new AddThreadCommand(
@@ -188,8 +225,8 @@ class ThreadController extends Controller
         }
 
 		$space_id = app('spaceRepository')->syncToSpace('thread',  Auth::id(), $thread->id);
-
-		Thread::where('id',$thread->id)->update(['space_id' => $space_id ]);
+        $update['space_id'] = $space_id ;
+		Thread::where('id',$thread->id)->update($update);
 
 		app('taskRepository')->store('thread');
 
@@ -343,7 +380,14 @@ class ThreadController extends Controller
 								->orderBy('id','desc')
 								->paginate(5);
 		foreach ($thread_two as $k=>$thread_one) {
-			$thread_user[$k] = User::where('id',$thread_one->user_id)->first();
+            $user = User::where('id',$thread_one->user_id)->first();
+            if($thread_one->anonymous)
+            {
+                $thread_one->username = '匿名';
+                $thread_one->avatar_url = '/images/noavatar/middle.jpg';
+                $user = app('userRepository')->handle_anonymous($user);
+            }
+            $thread_user[$k] = $user;
 			$reply_last_time[$k] = Reply::where('thread_id',$thread_one->id)->orderBy('id','desc')->first();
 			$thread_last_reply_user[$k] = User::where('id',$thread_one->last_reply_user_id)->first();
 			if(empty($thread_last_reply_user[$k])){

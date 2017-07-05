@@ -38,6 +38,13 @@ EOD;
                 return $value == 1 ? '是' : '否';
             },
         ],
+        'activity_banned' => [
+            'title' => '活动黑名单',
+            'type'     => 'enum',
+            'output' => function ($value) {
+                return $value == 1 ? '是' : '否';
+            },
+        ],
         'operation' => [
             'title'  => trans('administrator::administrator.operation'),
             'output' => function ($value, $model) {
@@ -58,6 +65,14 @@ EOD;
         ],
         'is_banned' => [
             'title'    => trans('administrator::dashboard.users.is_banned'),
+            'type'     => 'enum',
+            'options'  => [
+                '1' => '是',
+                '0'  => '否',
+            ],
+        ],
+        'activity_banned' => [
+            'title'    => '活动黑名单',
             'type'     => 'enum',
             'options'  => [
                 '1' => '是',
@@ -114,8 +129,16 @@ EOD;
             'title'    => trans('administrator::dashboard.users.is_banned'),
             'type'     => 'enum',
             'options'  => [
-                '1' => 'Yes',
-                '0'  => 'No',
+                '1' => '是',
+                '0'  => '否',
+            ],
+        ],
+        'activity_banned' => [
+            'title'    => '是否活动黑名单',
+            'type'     => 'enum',
+            'options'  => [
+                '1' => '是',
+                '0'  => '否',
             ],
         ],
     ],

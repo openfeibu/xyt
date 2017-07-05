@@ -2,14 +2,17 @@
 namespace Hifone\Http\Controllers;
 
 use DB;
+use Log;
 use Auth;
 use Input;
+use Excel;
 use Redirect;
 use Validator;
 use Carbon\Carbon;
 use Hifone\Models\User;
 use Hifone\Models\Summary;
 use Hifone\Models\Activity;
+use Hifone\Models\ActivityBanned;
 use Hifone\Models\ActivityCategory;
 use Hifone\Models\Area;
 use Hifone\Models\Activity_actors;
@@ -288,8 +291,17 @@ class ActivityController extends Controller
 		}
 	}
 	public function join(Request $request){
+		$activity = Activity::where('id',$request->activity_id)->first();
+		$user = Auth::user();
+		$money = 0;
+		if($user->sex == 1)
+		{
+			$money = $activity->payboy;
+		}else{
+			$money = $activity->paygirl;
+		}
 		$activity_joiner = Activity_actors::where('activity_id',$request->activity_id)
-										->where('user_id',$request->user_id)
+										->where('user_id',Auth::id())
 										->where('actor_type','join')
 										->first();
 		if(!empty($activity_joiner)){
@@ -300,20 +312,59 @@ class ActivityController extends Controller
 				'msg' => '取消报名成功',
 			];
 		}else{
+			if(Auth::user()->activity_banned == 1)
+			{
+				return [
+					'code' => 202,
+					'msg' => '黑名单',
+				];
+			}
+
 			try{
+				$out_trade_no = buildOutTradeNo();
 				DB::beginTransaction();
 				$activity_actors = new Activity_actors;
 				$activity_actors->activity_id = $request->activity_id;
-				$activity_actors->user_id = $request->user_id;
+				$activity_actors->user_id = Auth::id();
 				$activity_actors->actor_type = "join";
+				$activity_actors->pay_id = $request->pay_id;
+				$activity_actors->pay_status = 0;
+				$activity_actors->out_trade_no = $out_trade_no;
+				$activity_actors->money = $money;
+				$activity_actors->payment = trans('hifone.pay_id.'.$request->pay_id);
 				$activity_actors->save();
 				DB::commit();
+
 			}catch (Exception $e){
 				DB::rollBack();
 				return [
 					'code' => 201,
 					'msg' => '报名失败',
 				];
+			}
+			switch ($request->pay_id) {
+				case '1':
+					// 创建支付单。
+					$alipay = app('alipay.web');
+					$alipay->setOutTradeNo($out_trade_no);
+					$alipay->setTotalFee($money);
+					$alipay->setNotifyUrl(config('latrell-alipay-web.activity_notify_url'));
+					$alipay->setSubject('单号：'.$out_trade_no);
+					$alipay->setBody('单号：'.$out_trade_no);
+
+				  //  $alipay->setQrPayMode('4'); //该设置为可选，添加该参数设置，支持二维码支付。
+
+					// 跳转到支付页面。
+					return [
+						'code' => 210,
+						'status' => 1,
+						'url' => $alipay->getPayLink(),
+					];
+					break;
+
+				default:
+					# code...
+					break;
 			}
 			return [
 				'code' => 200,
@@ -437,5 +488,95 @@ class ActivityController extends Controller
 					->with('type',$type)
 					->with('join_count',$join_count)
 					->with('follow_count',$follow_count);
+	}
+	public function relieve_banned(Request $request)
+	{
+		$data = Input::get();
+	    $rules = [
+	    	'pay_id' => "required|in:1,2",
+	    ];
+	    $message = [
+	    	'pay_id.required'	=> '请选择支付方式',
+	    	'pay_id.in'	=> '支付方式不存在',
+	    ];
+		$data['money'] = 5;
+	    $validator = Validator::make($data,$rules,$message);
+	    if($validator->errors()->first()){
+		    return  Redirect::back()
+			                ->withInput(Input::all())
+			                ->withErrors($validator->errors());
+		}
+	    $out_trade_no = buildOutTradeNo();
+	    ActivityBanned::create([
+			'user_id' => Auth::id(),
+			'pay_id'  => $data['pay_id'],
+			'payment' => trans('hifone.pay_id.'.$data['pay_id']),
+			'out_trade_no' => $out_trade_no,
+			'money' => $data['money'],
+			'pay_status' => 0,
+	    ]);
+    	// 创建支付单。
+	    $alipay = app('alipay.web');
+	    $alipay->setOutTradeNo($out_trade_no);
+	    $alipay->setTotalFee(0.01);
+		$alipay->setNotifyUrl(config('latrell-alipay-web.activity_notify_url'));
+	    $alipay->setSubject('单号：'.$out_trade_no);
+	    $alipay->setBody('单号：'.$out_trade_no);
+
+	  //  $alipay->setQrPayMode('4'); //该设置为可选，添加该参数设置，支持二维码支付。
+
+	    // 跳转到支付页面。
+	    return redirect()->to($alipay->getPayLink());
+	}
+	public function aliNotify ()
+    {
+	    Log::debug("android支付宝支付回调开始1");
+    	// 验证请求。
+        /*if (! app('alipay.web')->verify()) {
+	        Log::debug('alipay:fail');
+            return 'fail';
+        }*/
+		Log::debug("android支付宝支付回调开始2");
+        // 判断通知类型。
+        switch (Input::get('trade_status')) {
+            case 'TRADE_SUCCESS':
+            case 'TRADE_FINISHED':
+                // TODO: 支付成功，取得订单号进行其它相关操作。
+                $out_trade_no = Input::get('out_trade_no');
+                Log::debug('Alipay notify post data verification success.', [
+                    'out_trade_no' => $out_trade_no,
+                    'trade_no' => Input::get('trade_no')
+                ]);
+				$activity_banned = app(ActivityBanned::class)->where('out_trade_no',$out_trade_no)->first();
+                if($activity_banned->pay_status == 0){
+	                $result = app(ActivityBanned::class)->where('out_trade_no',$out_trade_no)->update(['pay_status' => 1]);
+	                $user = User::findByUid($recharge->user_id,['id','coin']);
+	                User::where('id',$activity_banned->user_id)->update(['activity_banned' => 0]);
+	                Log::debug('result'.$result);
+                }
+                break;
+        }
+		Log::debug('alipay:success');
+        return 'success';
+    }
+	public function export_member(Request $request)
+	{
+		$activity = Activity::where('id',$request->activity_id)->first();
+
+		$activity_actors = Activity_actors::where('activity_actors.activity_id',$request->activity_id)
+											->leftJoin('users','users.id','=','activity_actors.user_id')
+											->leftJoin('user_realnames','users.id','=','user_realnames.user_id')
+											->get();
+
+        $cellData = [['手机号码','昵称','付款方式']];
+		foreach ($activity_actors as $key => $activity_actor) {
+			$cellData[] = [$activity_actor['mobile'],$activity_actor['username'],$activity_actor['payment']];
+		}
+
+		Excel::create($activity->name.'活动成员',function($excel) use ($cellData){
+			$excel->sheet('score', function($sheet) use ($cellData){
+				$sheet->rows($cellData);
+			});
+		})->export('xls');
 	}
 }

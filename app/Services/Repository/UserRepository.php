@@ -658,4 +658,11 @@ class UserRepository{
 		}
 		return $this->handleUsers($users);
 	}
+    public function handle_anonymous($user)
+    {
+        $user->username = '匿名';
+        $user->avatar_url = '/images/noavatar/middle.jpg';
+        $user->link = 'javascript:;';
+        return $user;
+    }
 }

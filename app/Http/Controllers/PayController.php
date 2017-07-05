@@ -30,7 +30,7 @@ class PayController extends Controller
 	    $user = Auth::user();
 	    $this->breadcrumb->push([
 				'账户设置' => route('pay.index'),
-                '我的账户' =>  ''      		
+                '我的账户' =>  ''
         ]);
         $type = isset($request->type) ? $request->type : 'trade' ;
         $view = $this->view('pay.index')->withUser($user)->withType($type);
@@ -39,12 +39,12 @@ class PayController extends Controller
         	case 'trade':
         		$accounts =  app(Account::class)->where('user_id',$user->id)->paginate(20)->appends(['type' => $type]);
         		$view = $view->withAccounts($accounts);
-        		break;	
+        		break;
         	case 'convert':
-        		$convert = app('configRepository')->getSetting('coin_to_score');  
+        		$convert = app('configRepository')->getSetting('coin_to_score');
         		$converts = app('userRepository')->getConverts($user->id,['type' => $type]);
         		$view = $view->withConvert($convert)->withConverts($converts);
-        		break;		
+        		break;
         	default:
         		$recharges = app(Recharge::class)->where('user_id',$user->id)->paginate(20)->appends(['type' => $type]);
         		$view = $view->withRecharges($recharges);
@@ -64,14 +64,14 @@ class PayController extends Controller
 	    	'score.required'	=> '积分不能为空',
 	    	'coin.required' => trans('hifone.coin').'不能为空',
 	    ];
-	    $validator = Validator::make($data,$rules,$message);   
+	    $validator = Validator::make($data,$rules,$message);
 	    if($validator->errors()->first()){
 		    return [
 				'code' => 201,
 				'message' => $validator->errors()->first(),
-            ]; 
-		}  
-	    $user = Auth::user();	    
+            ];
+		}
+	    $user = Auth::user();
 		$value = app('configRepository')->getValue('coin_to_score');
 		$type = $data['type'];
 	    if($type == 'score'){
@@ -87,7 +87,7 @@ class PayController extends Controller
 					'message' => '积分不足',
 			    ];
 	   	 	}
-	   	 	$convert_value = $data['score']/$value;	
+	   	 	$convert_value = $data['score']/$value;
 	    }
 	    if($type == 'coin'){
 		    if($user->coin < $data['coin']){
@@ -115,13 +115,13 @@ class PayController extends Controller
 	    	'score.required'	=> '积分不能为空',
 	    	'coin.required' => trans('hifone.coin').'不能为空',
 	    ];
-	    $validator = Validator::make($data,$rules,$message);   
+	    $validator = Validator::make($data,$rules,$message);
 	    if($validator->errors()->first()){
 		    return  Redirect::back()
 			                ->withInput(Input::all())
 			                ->withErrors($validator->errors());
-		}  
-		$user = Auth::user();	
+		}
+		$user = Auth::user();
 		$value = app('configRepository')->getValue('coin_to_score');
 		$type = $data['type'];
 		if($type == 'score'){
@@ -188,12 +188,12 @@ class PayController extends Controller
 	    	'money.required' => '充值金额不能为空',
 	    	'money.integer' => '充值金额必须为整数',
 	    ];
-	    $validator = Validator::make($data,$rules,$message); 
+	    $validator = Validator::make($data,$rules,$message);
 	    if($validator->errors()->first()){
 		    return  Redirect::back()
 			                ->withInput(Input::all())
 			                ->withErrors($validator->errors());
-		}  
+		}
 	    $out_trade_no = buildOutTradeNo();
 	    Recharge::create([
 			'user_id' => Auth::id(),
@@ -250,7 +250,7 @@ class PayController extends Controller
 	                ]);
 	                Log::debug('result'.$result);
                 }
-                
+
                 break;
         }
 		Log::debug('alipay:success');
@@ -260,7 +260,7 @@ class PayController extends Controller
     {
 	    $this->breadcrumb->push([
 				'账户设置' => route('pay.index'),
-                '开通VIP' =>  ''      		
+                '开通VIP' =>  ''
         ]);
 	    $user = Auth::user();
 	    $vips = app(Vip::class)->orderBy('id','asc')->get();
@@ -276,12 +276,12 @@ class PayController extends Controller
 	    $message = [
 	    	'vip_id.required'	=> '请选择购买类型',
 	    ];
-	    $validator = Validator::make($data,$rules,$message); 
+	    $validator = Validator::make($data,$rules,$message);
 	    if($validator->errors()->first()){
 		    return  Redirect::back()
 			                ->withInput(Input::all())
 			                ->withErrors($validator->errors());
-		}  
+		}
 		$user = Auth::user();
 		$vip = app(Vip::class)->where('id',$data['vip_id'])->first();
 		if($user->coin < $vip->coin){
@@ -291,7 +291,7 @@ class PayController extends Controller
 		}
 		app(User::class)->where('id',$user->id)->update(['coin' => $user->coin - $vip->coin]);
 		$result = app('userRepository')->beVip($user,intval($vip->duration));
-		
+
 		if(!$result){
 			return  Redirect::back()
 			                ->withInput(Input::all())

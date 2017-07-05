@@ -3,7 +3,7 @@
 /*
  * This file is part of Hifone.
  *
- * 
+ *
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -37,7 +37,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @var string[]
      */
-    protected $guarded = ['id', 'notifications', 'is_banned'];
+    protected $guarded = ['id', 'notifications', 'is_banned','activity_banned'];
 
     /**
      * The hidden properties.
@@ -94,6 +94,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	public static function findByUidOrFail ($uid,$columns = ['*'])
 	{
 		 if (!is_null($user = static::where('id',$uid)->first($columns))) {
+             $user->link = route('user.home', [$uid]);
             return $user;
         }
 
@@ -101,7 +102,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	}
 	public static function findByUid ($uid,$columns = ['*'])
 	{
-		 if (!is_null($user = static::where('id',$uid)->first($columns))) {
+		if (!is_null($user = static::where('id',$uid)->first($columns))) {
+            $user->link = route('user.home', [$uid]);
             return $user;
         }
 
@@ -151,12 +153,12 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     {
         return $this->morphMany(Follow::class, 'followable');
     }
-    
+
 	public function following()
     {
         return $this->morphMany(Follow::class, 'user','followable_type');
     }
-    
+
     public function identities()
     {
         return $this->hasMany(Identity::class);
@@ -263,7 +265,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     {
         return UserPresenter::class;
     }
-    
+
     /*public function isDisableUser($uid, $type = 'login')
     {
         if (!in_array($type, array('login', 'post'))) {

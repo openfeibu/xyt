@@ -8,6 +8,17 @@ return [
         'id' => [
             'title' => 'ID',
         ],
+        'name' => [
+            'title'    => '活动名称',
+            'sortable' => false,
+        ],
+        'operation' => [
+            'title'  => trans('administrator::administrator.operation'),
+            'output' => function ($value, $model) {
+                return $value;
+            },
+            'sortable' => false,
+        ],
     ],
     'edit_fields' => [
 		'name' => [
@@ -21,5 +32,8 @@ return [
         ],
 
     ],
-    'actions' => [],
+    'actions' => [
+
+
+    ],
 ];

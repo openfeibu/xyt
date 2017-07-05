@@ -64,6 +64,18 @@ class ActivityRoutes
                 'as'   => 'activity.users',
                 'uses' => 'ActivityController@users',
             ]);
+            $router->post('/activity/relieve_banned', [
+                'as'   => 'activity.relieve_banned',
+                'uses' => 'ActivityController@relieve_banned',
+            ]);
+            $router->post('/activity/aliNotify', [
+                'as'   => 'activity.ali_notify',
+                'uses' => 'ActivityController@aliNotify',
+            ]);
+            $router->get('/activity/export_member', [
+                'as'   => 'activity.export_member',
+                'uses' => 'ActivityController@export_member',
+            ]);
         });
     }
 }
