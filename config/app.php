@@ -47,7 +47,7 @@ return [
     |
     */
 
-    'url' => 'http://localhost:8080',
+    'url' => 'http://xyt.gouweiba.com',
 
 	'web_name' => '象牙塔',
 
@@ -189,6 +189,7 @@ return [
         Hifone\Providers\RouteServiceProvider::class,
         iscms\Alisms\AlidayuServiceProvider::class,
         Latrell\Alipay\AlipayServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
     ],
 
     /*
@@ -246,6 +247,7 @@ return [
         'Widget'       => Arrilot\Widgets\Facade::class,
         'AsyncWidget'  => Arrilot\Widgets\AsyncFacade::class,
         'StringBlade'  => Hifone\StringBlade\Facades\StringBlade::class,
+        'Excel'        => Maatwebsite\Excel\Facades\Excel::class,
     ],
 
 ];

@@ -10,6 +10,8 @@ return [
 	// 服务器异步通知页面路径。
 	'notify_url' => config('app.url').'/pay/aliNotify',
 
+	'activity_notify_url' => config('app.url').'/activity/aliNotify',
+
 	// 页面跳转同步通知页面路径。
 	'return_url' => config('app.url').'/pay/recharge'
 ];

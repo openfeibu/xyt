@@ -10,7 +10,8 @@ return [
             'comment',
     	]
 	],
-	'no_album_photo' => '/images/nopic.gif',	
+	'anonymous_integral' => 5,
+	'no_album_photo' => '/images/nopic.gif',
 
 	'attach' => [
 		"attach_path_rule" => "Y/md/H/",
