@@ -252,7 +252,11 @@ class AlbumController extends Controller
 	    else{
 		    $photos = app('repository')->model(AlbumPhoto::class)->where('album_id',$photo->album_id)->get();
 	    }
-	    ksort($photos);
+		if(is_array($photos))
+		{
+			ksort($photos);
+		}
+
 	    $previous =  app('repository')->model(AlbumPhoto::class)->where('id','<',$id)->recent()->first();
 	    $next = app('repository')->model(AlbumPhoto::class)->where('id','>',$id)->first();
 	    if(!$previous){
