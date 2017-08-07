@@ -148,12 +148,12 @@ $(".example2").luara({width:"646",height:"298",interval:4500,selected:"seleted",
 	<div class="menudivs">
 		<div id="con_one_1" class="con_one">
 			@foreach($new_activities as $key => $activity)
-	        <a href="{{route('activity.show',['id' => $activity->id])}}"><span class="r_b1">{{$activity->name}}</span><span class="r_b2">已报<b>{{$activity->join_count}}人</b></span></a>
+	        <a href="{{route('activity.show',['id' => $activity->id])}}" target="_blank"><span class="r_b1">{{$activity->name}}</span><span class="r_b2">已报<b>{{$activity->join_count}}人</b></span></a>
 	        @endforeach
         </div>
 		<div id="con_one_2" class="con_one" style="display:none;">
 			@foreach($summaries as $key => $summary)
-	        <a href="{{route('activity.summary',['activity_id' => $summary->activity_id])}}"><span class="r_b1">{{$summary->title}}</span></a>
+	        <a href="{{route('activity.summary',['activity_id' => $summary->activity_id])}}" target="_blank"><span class="r_b1">{{$summary->title}}</span></a>
 	        @endforeach
 		</div>
 		<div id="con_one_3" style="display:none;">
@@ -161,7 +161,7 @@ $(".example2").luara({width:"646",height:"298",interval:4500,selected:"seleted",
 		</div>
 		<div id="con_one_4" class="con_one" style="display:none;">
 			@foreach($announcements as $key => $announcement)
-	        <a href="javascript:;"><span class="r_b1">{{$announcement->title}}</span></a>
+	        <a href="{{route('about.show',['id' => $announcement->id])}}" target="_blank"><span class="r_b1">{{$announcement->title}}</span></a>
 	        @endforeach
 		</div>
 	</div>
