@@ -1775,16 +1775,22 @@ li.active_school a, li.active_school a {background: #51b837;color: #FFFFFF!impor
     line-height: 200%;
 }
 
-.hello{background: #fff;/*position: absolute;z-index:100;top: 150px;left:200px;*/width: 500px;height: 400px;border: 2px solid #51b837;/*display: none;*/color: #818181;}
+.hello{background: #fff;/*position: absolute;z-index:100;top: 150px;left:200px;width: 500px;*/height: 400px;border: 2px solid #51b837;/*display: none;*/color: #818181;}
 .hello_title{background: #51b837;height: 36px;line-height: 36px;}
 .hello_left{float: left}
 .hello_right{float: left;width:150px;height: 250px;margin-left: 30px;margin-bottom:20px;line-height: 35px;}
 .hello_left_img{margin-left: 30px;margin-top:100px;}
-.hello_top{margin-left: 140px;width:200px;height: 30px;}
+.hello_top{margin-left: 20px;width:200px;height: 30px;}
 .hello_top b{color: #505050}
 .hello_footer{margin-left: 140px;}
 .hello_footer_sub{width: 80px;height: 27px;line-height: 27px;border-radius: 4px;background-color: #51b837;text-align: center;color: #fff;font-size: 14px;display: block;}
 
+.hello_content{padding:5px;width: 376px;}
+.hello_content img {width:40px;padding:2px}
+.hello_content .hello_radio{display:none;}
+.hello_content li{float:left;border:1px solid #ccc;}
+.hello_content li:hover {border:1px solid #50b736;}
+.hello_content li.active{border:1px solid #50b736;}
 .send_title_close,.hello_title_close{cursor:pointer }
 .pay_btn{
     width: 100px;
@@ -1796,3 +1802,5 @@ li.active_school a, li.active_school a {background: #51b837;color: #FFFFFF!impor
     border-radius: 2px;
     color: #fff;
 }
+#activity_btn_desc{font-size: 18px;line-height:50px;float: left;}
+.user_info_abroad{position: relative;float: left;}

@@ -4,7 +4,7 @@
 @section('content')
 <div class="clear"></div>
 <div class="b_l">
-@if($type == 'other')	
+@if($type == 'other')
 <strong class="green">{!! $breadcrumb or '' !!}</strong>
 @else
 <ul class="b_la">
@@ -15,9 +15,9 @@
 </ul>
 @endif
 <div class="b_lc">
-	
+
 <div class="b_ld">
-@foreach($blogs as $key => $blog) 
+@foreach($blogs as $key => $blog)
 <dl>
 <dt><a href="{{route('user.home',$blog->user_id)}}"><img src="{{$blog->user->avatar}}" width="58" height="59" alt="" /></a><!--<p><span class="b_lbc">热</span><span class="b_lbd">26</span></p>--></dt>
 <dd>
@@ -30,7 +30,7 @@
 <div class="b_ldd"><p>{{$blog->body_original}}</p><p>{{$blog->view_count}} 次阅读|{{$blog->reply_count}} 个评论</p></div>
 </dd>
 </dl>
-@endforeach	
+@endforeach
 
 </div>
 

@@ -19,7 +19,7 @@ class PageRepository{
 		$types = $types ? $types->toArray() : [];
 		$subs = $this->getSubs($types,$type_id);
 		$subs[] = $type_id;
-		$pages = app(Page::class)->whereIn('id',$subs)->paginate(20);
+		$pages = app(Page::class)->whereIn('type_id',$subs)->paginate(20);
 		foreach( $pages as $key => $page )
 		{
 			$type = $this->type($page->type_id);

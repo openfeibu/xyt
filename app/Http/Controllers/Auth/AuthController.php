@@ -3,7 +3,7 @@
 /*
  * This file is part of Hifone.
  *
- * 
+ *
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -99,7 +99,7 @@ class AuthController extends Controller
         $loginData[$loginKey] = array_pull($loginData, 'login');
         // Validate login credentials.
         if (Auth::validate($loginData)) {
-			
+
             // We probably want to add support for "Remember me" here.
             Auth::attempt($loginData, $remember);
 
@@ -107,6 +107,7 @@ class AuthController extends Controller
                 $connect_data = Session::get('connect_data');
                 dispatch(new AddIdentityCommand(Auth::user()->id, $connect_data));
             }
+            app(User::class)->where('id',Auth::user()->id)->update(['last_ip' => get_client_ip()]);
 			$request->session()->put('username', $loginData);
             return Redirect::to('/index')
                 ->withSuccess(sprintf('%s %s', trans('hifone.awesome'), trans('hifone.login.success')));
@@ -167,7 +168,7 @@ class AuthController extends Controller
                 ->withTitle(sprintf('%s %s', trans('hifone.whoops'), trans('hifone.users.add.failure')))
                 ->withInput(Input::all())
                 ->withErrors($e->getMessageBag());
-            
+
         }*/
 		$rules = [
 		        'username' => ['required', 'max:15','unique:users,username'],
@@ -183,16 +184,16 @@ class AuthController extends Controller
 		    	'work' => 'required|string',
 		    	'birthday' => 'required|string',
 		];
-		
+
 		$validator = Validator::make($registerData,$rules);
-		
+
 		if($validator->errors()->first()){
 			return [
 				'code' => 201,
 				'message' => $validator->errors()->first(),
-            ]; 
+            ];
 		}
-			
+
 		$salt = $this->generateSalt();
 		$data = $registerData;
         $password = $this->hashPassword($data['password'], $salt);
@@ -213,8 +214,8 @@ class AuthController extends Controller
 	    	'birthday' => $data['birthday'],
         ]);
 
-        
-        
+
+
         if ($from == 'provider') {
             dispatch(new AddIdentityCommand($user->id, $connect_data));
         }
@@ -225,7 +226,7 @@ class AuthController extends Controller
 		return [
 			'code' => 200,
 			'message' => '注册成功'
-        ];	
+        ];
        /* return redirect($this->redirectPath());*/
     }
 
@@ -336,5 +337,5 @@ class AuthController extends Controller
     {
         return Redirect::route('user-banned');
     }
-    
+
 }

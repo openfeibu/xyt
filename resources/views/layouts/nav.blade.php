@@ -24,11 +24,11 @@
             @endif
 
 		  @else
-			  <li {!! set_active('auth/register') !!} style="margin-left:170px;">
-				<a href="{!! url('auth/register') !!}" id="signup-btn">{!! trans('hifone.signup') !!}</a>
+			  <li >
+				<a href="{!! url('auth/register') !!}" id="signup-btn">注册</a>
 			  </li>
-			  <li {!! set_active('auth/login') !!} >
-				<a href="{!! url('auth/login') !!}" style="margin-left:-20px;" id="login-btn">{!! trans('hifone.login.login') !!}</a>
+			  <li>
+				<a href="{!! url('auth/login') !!}" id="login-btn">登录</a>
 			  </li>
           @endif
         </ul>
@@ -44,6 +44,7 @@
             <li class="navb"><a href="{{ route('blog.index') }}" class="{!! in_array(Route::currentRouteName(),['blog.index'])  ? 'nava' : '' !!}">日志</a></li>
             <li class="navb"><a href="{{ route('search.index') }}" class="{!! in_array(Route::currentRouteName(),['search.index'])  ? 'nava' : '' !!}">搜索</a></li>
             <li class="navb"><a href="{{ route('about.index') }}" class="{!! in_array(Route::currentRouteName(),['about.index'])  ? 'nava' : '' !!}">关于我们</a></li>
+            @if(Auth::check())
             <li class="navc" >
 	            <a href="{!! route('notification.index') !!}"><span><img src="{{asset('images/index/img2.jpg')}}" width="28" height="26" alt="" /></span>@if($current_user->notification_count)<span class="count">{{ $current_user->notification_count }}</span>@endif</a>
             </li>
@@ -55,6 +56,7 @@
 		            <li><a href="{{ route('pay.index') }}">我的账户</a></li>
 	            </ul>
 	        </li>
+            @endif
         </ul>
     </div>
     <div class="clear"></div>

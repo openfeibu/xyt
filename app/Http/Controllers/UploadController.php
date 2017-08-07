@@ -3,7 +3,7 @@
 /*
  * This file is part of Hifone.
  *
- * 
+ *
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -21,7 +21,7 @@ class UploadController extends Controller
         if ($file = Input::file('file')) {
             $data = dispatch(new UploadImageCommand($file));
         } else {
-            $data['error'] = 'ÉÏ´«Ê§°Ü';
+            $data['error'] = 'ï¿½Ï´ï¿½Ê§ï¿½ï¿½';
         }
 
         return $data;
@@ -29,13 +29,13 @@ class UploadController extends Controller
     public function uploadNewImage()
     {
         if ($file = Input::file('upload')) {
-            $data = app('imageService')->uploadImage($file);           
+            $data = app('imageService')->uploadImage($file);
         } else {
 	        $data['code'] = 201;
-            $data['error'] = 'ÉÏ´«Ê§°Ü';
+            $data['error'] = 'ä¸Šä¼ å¤±è´¥';
         }
 		if($data['code'] == 200){
-			$callback = Input::get("CKEditorFuncNum"); 
+			$callback = Input::get("CKEditorFuncNum");
 			return "<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction($callback,'".$data['filename']."','');</script>";
 		}
 		else{

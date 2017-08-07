@@ -213,7 +213,8 @@ class ActivityController extends Controller
 	}
 	public function show(Request $request){
 		$login_user = Auth::user();
-		$activity = Activity::where('id',$request->id)->first();
+		$activity = Activity::select(['activities.*','activity_categories.title as cat_title '])->join('activity_categories','activity_categories.id','=','activities.cate_id')->where('activities.id',$request->id)->first();
+		//$activity = Activity::where('id',$request->id)->first();
 		$city = app('categoryTreeRepository')->setTable('areas',app(Area::class))->getTitle($activity->city);
 		$province = app('categoryTreeRepository')->setTable('areas',app(Area::class))->getTitle($activity->province);
 		$activity->location = $province . ' ' . $city . ' ' . $activity->location;
@@ -224,6 +225,7 @@ class ActivityController extends Controller
 		$activity_follows = app('activityRepository')->getActivityFollows($request->id);
 
 		$summary = Summary::where('activity_id',$activity->id)->first();
+
 		$summaries = app('activityRepository')->summaries();
 		$activity_join = Activity_actors::where('activity_id',$request->id)
 										->where('user_id',Auth::id())
@@ -238,9 +240,10 @@ class ActivityController extends Controller
 		$activity_follow_stauts = $activity_follow ? 1 : 0;
 		$activity_join_status_desc = $activity_join ? '取消报名' : '立即报名';
 		$activity_follow_stauts_desc = $activity_follow ? '取消关注' : '关注';
-		$activity->deadline_desc = handle_activity_time($activity->deadline,$activity_join_status) ;
+		$activity->deadline_desc = handle_activity_time($activity,$activity_join_status) ;
 		$join_count = Activity_actors::where('activity_actors.actor_type','join')->where('activity_id',$activity->id)->count();
 		$follow_count = Activity_actors::where('activity_actors.actor_type','follow')->where('activity_id',$activity->id)->count();
+
 		return $this->view('activitys.content')
 					->with('activity',$activity)
 					->with('activity_joins',$activity_joins)
@@ -293,25 +296,28 @@ class ActivityController extends Controller
 	public function join(Request $request){
 		$activity = Activity::where('id',$request->activity_id)->first();
 		$user = Auth::user();
-		$money = 0;
-		if($user->sex == 1)
-		{
-			$money = $activity->payboy;
-		}else{
-			$money = $activity->paygirl;
-		}
 		$activity_joiner = Activity_actors::where('activity_id',$request->activity_id)
 										->where('user_id',Auth::id())
 										->where('actor_type','join')
 										->first();
+		$activity_join_status = $activity_joiner ? 0 : 1;
+		$desc = handle_activity_time($activity,$activity_join_status) ;
 		if(!empty($activity_joiner)){
 			$activity_joiner->delete();
 			return [
 				'code' => 200,
 				'status' => 0,
+				'desc' => $desc,
 				'msg' => '取消报名成功',
 			];
 		}else{
+			$money = 0;
+			if($user->sex == 1)
+			{
+				$money = $activity->payboy;
+			}else{
+				$money = $activity->paygirl;
+			}
 			if(Auth::user()->activity_banned == 1)
 			{
 				return [
@@ -369,6 +375,7 @@ class ActivityController extends Controller
 			return [
 				'code' => 200,
 				'status' => 1,
+				'desc' => $desc,
 				'msg' => '报名成功',
 			];
 		}
@@ -383,7 +390,7 @@ class ActivityController extends Controller
 		if(!$activity){
 			$errors[] = '活动不存在';
 		}
-		$summary = Summary::where('activity_id',$activity->id)->first();
+		$summary = Summary::where('activity_id',$request->activity_id)->first();
 		if(!$summary){
 			$errors[] = '内容不存在';
 		}

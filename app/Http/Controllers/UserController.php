@@ -13,7 +13,7 @@ use Session;
 use Redirect;
 use Carbon\Carbon;
 use Hifone\Models\User;
-use Hifone\Models\BLog;
+use Hifone\Models\Blog;
 use Hifone\Models\Area;
 use Hifone\Models\Vote;
 use Hifone\Models\Space;
@@ -68,16 +68,7 @@ class UserController extends Controller
 	}
     public function show(User $user)
     {
-	    if(Auth::id() != $user->id ){
-		    $is_view = app('repository')->model(UserView::class)->where('view_user_id',Auth::id())->first();
-		    if(!$is_view){
-			    app('repository')->model(User::class)->where('id',$user->id)->increment('view_count');
-			    UserView::create([
-		            'user_id'  => $user->id,
-		            'view_user_id' => Auth::id(),
-		    	]);
-		    }
-	    }
+
         $threads = Thread::forUser($user->id)->recent()->limit(10)->get();
         $replies = Reply::forUser($user->id)->recent()->limit(10)->get();
         $user_views = app('userRepository')->getUserViews($user->id);
@@ -119,6 +110,26 @@ class UserController extends Controller
 		$star = app('userRepository')->getStar($user);
 		$role = app('userRepository')->getUserRole($user);
 
+		if(Auth::id() != $user->id ){
+		    $is_view = app('repository')->model(UserView::class)->where('view_user_id',Auth::id())->first();
+		    if(!$is_view){
+			    app('repository')->model(User::class)->where('id',$user->id)->increment('view_count');
+			    UserView::create([
+		            'user_id'  => $user->id,
+		            'view_user_id' => Auth::id(),
+		    	]);
+		    }
+			$user->qq = handlePrivacy($user->qq);
+			$user->email = handlePrivacy($user->email);
+			$user->weixin = handlePrivacy($user->weixin);
+	    }
+
+		$blog_count = app('repository')->model(Blog::class)->forUser($user->id)->count();
+		$activity_count = app('repository')->model(Activity::class)->where('user_id',$user->id)->count();
+		$thread_count = app('repository')->model(Thread::class)->forUser($user->id)->count();
+		$vote_count = app('repository')->model(Vote::class)->forUser($user->id)->count();
+		$gift_count = DB::table('send_gift')->where('user_id' ,$user->id)->orWhere('to_user_id',$user->id)->count();
+
         return $this->view('users.show')
             ->withUser($user)
             ->withThreads($threads)
@@ -137,8 +148,13 @@ class UserController extends Controller
             ->with('followings',$followings)
             ->with('user_views',$user_views)
             ->with('user_viewings',$user_viewings)
-            ->with('star',$star)
-            ->with('role',$role);
+            ->with('blog_count',$blog_count)
+            ->with('activity_count',$activity_count)
+			->with('thread_count',$thread_count)
+			->with('vote_count',$vote_count)
+			->with('gift_count',$gift_count)
+			->with('star',$star)
+			->with('role',$role);
     }
 
     public function showByUsername($username)

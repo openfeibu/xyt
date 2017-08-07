@@ -68,8 +68,9 @@ class SendGiftController extends Controller
 		}
 
 		$user = User::findByUid($request->user_id,['id','avatar_url','username']);
+		$emojis = app('expressionRepository')->getAllEmoji();
 
-		$html = $this->view("widgets.send_hello")->with('user',$user)->__toString();
+		$html = $this->view("widgets.send_hello")->with('user',$user)->with('emojis',$emojis)->__toString();
 
 		return [
 			'code' => 200,
@@ -94,7 +95,7 @@ class SendGiftController extends Controller
 		}
 
         $gift = Gift::where('id',$request->gift_id)->first();
-        $user = Auth::user();
+        $user = User::findByUidOrFail(Auth::id());
         if($gift->gift_number == 0){
             return [
 				'code' => 201,
@@ -114,7 +115,7 @@ class SendGiftController extends Controller
         if($user->score < $total){
 	        return [
 				'code' => 201,
-				'message' => '象牙币不足',
+				'message' => '积分不足',
             ];
         }
         app(User::class)->where('id',$user->id)->decrement('score',$total);

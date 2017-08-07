@@ -11,7 +11,7 @@
         </div>
         <div class="clear"></div>
         <div class="album_centent">
-	        @foreach($albums as $album)        
+	        @foreach($albums as $album)
             <div class="album_centent_photo fleft">
                 <dl>
                     <dd>

@@ -22,6 +22,7 @@
 <script src="{{ asset('/js/ui.draggable.js') }}"></script>
 <script src="{{ asset('/js/plugins/core.digg.js') }}"></script>
 <script src="{{ asset('/js/plugins/core.comment.js') }}"></script>
+<script src="{{ asset('/js/plugins/core.message.js') }}"></script>
 <script src="{{ asset('/js/jquery.atwho.js') }}"></script>
 <script src="{{ asset('/js/weiba.js') }}"></script>
  <div class="clear"></div>
@@ -33,7 +34,6 @@
                 <p>{!!$user->username!!}</p>
                 <p>{{ $user->work }}/{{ $user->school }}</p>
                 <div>
-
                     <img src="{{asset('images/index/mobile.png')}}" alt=""/>
                 </div>
                 <table>
@@ -51,10 +51,10 @@
                 @if(Auth::id() == $user->id)
 				<ul class="user_detail_ul">
 					<li><a href="{{route('profile.base')}}"><i class="icon_account png"></i><span>我的设置</span></a></li>
-					<li><a href="{{route('pay.index')}}"><i class="icon_home png"></i><span>积分充值</span></a></li>               
+					<li><a href="{{route('pay.index')}}"><i class="icon_home png"></i><span>积分充值</span></a></li>
             	</ul>
                 @else
-                
+
                 <table class="table_2">
                     <tr>
                     <td align="left" width="80">
@@ -64,8 +64,12 @@
                         </a>
                     </td>
                     <td align="center" width="80">
-                        <a href="#wall">
-                            <img src="{{asset('images/index/fyj.png')}}" alt="发送邮件"/> <br/>
+                        <!-- <a onclick="ui.sendmessage(2, 0)" href="javascript:void(0)" event-node="postMsg">
+                            <img src="{{asset('images/index/fyj.png')}}" alt="发信"/> <br/>
+                            发信
+                        </a> -->
+                        <a  href="#wall" event-node="postMsg">
+                            <img src="{{asset('images/index/fyj.png')}}" alt="留言"/> <br/>
                             给TA留言
                         </a>
                     </td>
@@ -163,7 +167,7 @@
                 </div>
             </div>
 
-                   
+
         </div>
         <div class="right_content">
             <div class="TA_top">
@@ -190,22 +194,22 @@
             <div id="con_one2_1" class="TA_bottom" style="display: block">
                  <ul id="TA_bottom1">
                      <li ><a href="{{route('user.home',$user->id)}}">全部</a></li>
-                     <li onclick="showDynamic('blog')" >日志(0)</li>
-                     <li onclick="showDynamic('activity')">活动(0)</li>
-                     <li onclick="showDynamic('space')">说说(0)</li>
-                     <li onclick="showDynamic('thread')">话题(0)</li>
-                     <li onclick="showDynamic('gift')">礼物(0)</li>
-                     <li onclick="showDynamic('vote')">投票(9)</li>
-                     <li onclick="showDynamic('repost')" style="margin-right: 0;">分享(0)</li>
+                     <li onclick="showDynamic('blog')" >日志({{$blog_count}})</li>
+                     <li onclick="showDynamic('activity')">活动({{$activity_count}})</li>
+                     <li onclick="showDynamic('space')">说说(10)</li>
+                     <li onclick="showDynamic('thread')">话题({{$thread_count}})</li>
+                     <li onclick="showDynamic('gift')">礼物({{$gift_count}})</li>
+                     <li onclick="showDynamic('vote')" >投票({{$vote_count}})</li>
+                     <!-- <li onclick="showDynamic('repost')" style="margin-right: 0;">分享(0)</li> -->
                  </ul>
                 <div class="clear"></div>
                 <div id="con_tow2_1" class="TA_bottom_div" style="display: block;">
                     {{ Widget::FeedList($var) }}
                 </div>
                 <div  class="TA_bottom_div dynamic" id="dynamic">
-                    
+
                 </div>
-                
+
                 <div class="clear"></div>
             </div>
             <div id="con_one2_2" class="TA_bottom">
@@ -216,7 +220,7 @@
                    <!--<font style="color: #51B837">在线（现在）</font>-->
                    </span>
                    <!--<span class="fright" style="margin-right: 10px;">恋爱状态：<font style="color: red">寻觅中</font><font style="color: #51B837">（更新）</font></span>-->
-                   
+
                </div>
                <div class="mydata_level">
                    <p>已有{{$user->view_count}}人次访问，{{$user->score}}个积分，{{$user->coin}}个象牙币</p>
@@ -228,119 +232,32 @@
 						@for ($i = 0; $i < 6 - $star['star']; $i++)
 						    {!!handerStar(0)!!}
 						@endfor
-                        
+
                    </p>
                    <p>创建时间：{{$user->created_at}}</p>
-                   <!--<p>上次登录：12分钟前</p>-->
-                   <p id="email_show">电子邮件：
-                   		 @if(Auth::id() == $user->id)
-                   		 {{$user->email}}
-                   		 @else
-                   		 {{$user->email}}
-                   		<!-- <img src="{{asset('images/index/data_email.png')}}" alt="" />邮箱联络卡-->
-                   		 @endif
-                        
-                   </p>
-                   <!-- *************邮箱道具****begin********** -->
-                   <!-- 
-                   <div class="clear"></div>
-                    <div class="reward" id="email" style="display: none;width: 550px;height: 350px;margin-left:150px;">
-                        <div class="reward_top">
-                            <span class="fleft" style="margin-left: 20px;">
-                                购买道具
-                            </span>
-                            <span id="email_close" class="fright" style="color: #51B837;background: #fff;width: 15px;height: 15px;display: inline-block;margin-right: 10px;line-height: 15px;margin-top: 6px;text-align: center;">X</span>
-                        </div>
-                        <form action="">
-                            <div class="email_left fleft">
-                                <img src="{{asset('images/index/buy_email.png')}}" alt="" />
-                            </div>
-                            <div class="email_right fleft" style="width:350px">
-                                <p>邮箱联络卡</p>
-                                <p>可以查看TA的邮箱号码</p>
-                                <p>增加经验：<font style="color: #51B837;">1</font></p>
-                                <p>道具单价：<font style="color: #51B837;">180</font>象牙币</p>
-                                <p>现有库存：<font style="color: #51B837;">997</font>个</p>
-                                <p class="email_right_input">购买数量<input type="text" name="" />个（当前最多可以购买0个）</p>
-                                <p><input type="submit" name="" id="buy_email" value="购买" /></p>
-                            </div>
-                        </form>
-                    </div>
-                    -->
-                    <!-- *************邮箱道具****end********** -->
-                   <p id="qq_show">QQ号码：
-                   		@if(Auth::id() == $user->id)
-                   			{{$user->qq}}
-                   		@else
-                   			{{$user->qq}}
-                   			<!--<img src="{{asset('images/index/data_qq.png')}}" alt="" />QQ联络卡-->
+                   <p>上次登录：{{$user->last_login}}</p>
+                   <p id="email_show">电子邮件：<span id="email">{{$user->email}}</span>
+                   		@if(Auth::id() != $user->id)
+                   		<a href="javascript:ajaxgethtml('{{route('card',['key' => 'email','user_id' => $user->id])}}');"><img src="{{asset('images/index/data_email.png')}}" alt="" />邮箱联络卡</a>
                    		@endif
-                        
                    </p>
-                   <!-- *************qq道具****begin********** -->
-                   <!-- 
+
                    <div class="clear"></div>
-                    <div class="reward" id="qq" style="display: none;width: 550px;height: 350px;margin-left:150px;">
-                        <div class="reward_top">
-                            <span class="fleft" style="margin-left: 20px;">
-                                购买道具
-                            </span>
-                            <span id="qq_close" class="fright" style="color: #51B837;background: #fff;width: 15px;height: 15px;display: inline-block;margin-right: 10px;line-height: 15px;margin-top: 6px;text-align: center;">X</span>
-                        </div>
-                        <form action="">
-                            <div class="email_left fleft">
-                                <img src="{{asset('images/index/buy_qq.png')}}" alt="" />
-                            </div>
-                            <div class="email_right fleft" style="width:350px">
-                                <p>QQ联络卡</p>
-                                <p>可以查看TA的QQ号码</p>
-                                <p>增加经验：<font style="color: #51B837;">1</font></p>
-                                <p>道具单价：<font style="color: #51B837;">180</font>象牙币</p>
-                                <p>现有库存：<font style="color: #51B837;">997</font>个</p>
-                                <p class="email_right_input">购买数量<input type="text" name="" />个（当前最多可以购买0个）</p>
-                                <p><input type="submit" name="" id="buy_qq" value="购买" /></p>
-                            </div>
-                        </form>
-                    </div>
-                    -->
-                    <!-- *************qq道具****end********** -->
-                   <p id="wechat_show">微信号码：
-                   		@if(Auth::id() == $user->id)
-                   			{{$user->weixin}}
-                   		@else
-                   			{{$user->weixin}}
-                   			<!--<img src="{{asset('images/index/data_wechat.png')}}" alt="" />微信联络卡-->
+
+                   <p id="qq_show">QQ号码：<span id="qq">{{$user->qq}}</span>
+                        @if(Auth::id() != $user->id)
+                   		<a href="javascript:ajaxgethtml('{{route('card',['key' => 'qq','user_id' => $user->id])}}');"><img src="{{asset('images/index/data_qq.png')}}" alt="" />QQ联络卡</a>
                    		@endif
-                        
                    </p>
-                   <!-- *************微信道具****begin********** -->
-                   <!-- 
-                   <div class="clear"></div>
-                    <div class="reward" id="wechat" style="display: none;width: 550px;height: 350px;margin-left:150px;">
-                        <div class="reward_top clear">
-                            <span class="fleft" style="margin-left: 20px;">
-                                购买道具
-                            </span>
-                            <span id="wechat_close" class="fright" style="color: #51B837;background: #fff;width: 15px;height: 15px;display: inline-block;margin-right: 10px;line-height: 15px;margin-top: 6px;text-align: center;">X</span>
-                        </div>
-                        <form action="">
-                            <div class="email_left fleft">
-                                <img src="{{asset('images/index/buy_wechat.png')}}" alt="" />
-                            </div>
-                            <div class="email_right fleft" style="width:350px">
-                                <p>微信联络卡</p>
-                                <p>可以查看TA的微信号码</p>
-                                <p>增加经验：<font style="color: #51B837;">1</font></p>
-                                <p>道具单价：<font style="color: #51B837;">180</font>象牙币</p>
-                                <p>现有库存：<font style="color: #51B837;">997</font>个</p>
-                                <p class="email_right_input">购买数量<input type="text" name="" />个（当前最多可以购买0个）</p>
-                                <p><input type="submit" name="" id="buy_wechat" value="购买" /></p>
-                            </div>
-                        </form>
-                    </div>
+
+                   <p id="wechat_show">微信号码：<span id="weixin">{{$user->weixin}}</span>
+                   		@if(Auth::id() != $user->id)
+                   			<a href="javascript:ajaxgethtml('{{route('card',['key' => 'weixin','user_id' => $user->id])}}');"><img src="{{asset('images/index/data_wechat.png')}}" alt="" />微信联络卡</a>
+                   		@endif
+
+                   </p>
 					<div class="clear"></div>
-					-->
-                    <!-- *************微信道具****end********** -->
+
                </div>
                <div class="mydata_main">
                    <p>基本资料</p>
@@ -398,9 +315,9 @@
 						@if($user->religion)
 						<li><span class="font_z">宗教：</span>{{$base_data['religion']['value'][$user->religion]}}</li>
 						@endif
-						
+
 					</ul>
-                 
+
                </div>
                <div class="monologue">
                     <p>
@@ -419,7 +336,7 @@
 		               	@if($user_detail->$key) <p><span class="font_z">{{$value['desc']}}：</span>{{$user_detail->$key}}</p>@endif
 		               	@endforeach
 	               	@endif
-                    
+
                </div>
                <div class="monologue">
                    <p>
@@ -431,10 +348,10 @@
 		               	@if($user_happy->$key)<p><span class="font_z">{{$value['desc']}}：</span>@if($value['type'] == 'select'){{$value['value'][$user_happy->$key]}}@else {{$user_happy->$key}} @endif </p>@endif
 		               	@endforeach
 	               	@endif
-                    
+
                </div>
-               
-               
+
+
            </div>
            <!-- *********我的资料************ -->
             </div>
@@ -448,8 +365,8 @@
                     </p>
                     <div class="clear"></div>
                     <div class="showAlbums" id="showAlbums">
-	                    
-	                </div>                    
+
+	                </div>
                 </div>
             </div>
             <div id="con_one2_4" class="TA_bottom">
@@ -459,7 +376,7 @@
                         <a class="fright" href="{{route('profile.standard')}}" style="margin-left: 0px;margin-right: 20px;color: #51B837">编辑</a>
                     </div>
                     @if($user_standard)
-                    
+
                     @if($user_standard->oplocation)
                     <div class="my_require_list">
                         <span class="fleft">征友地区：{{$user_standard->oplocation}}</span>
@@ -508,7 +425,7 @@
 
                     @endif
                 </div>
-                
+
             </div>
             <div class="message_board" id="wall">
                     <div class="TA_bottom_title">
@@ -521,7 +438,7 @@
         <div class="clear"></div>
         <script type="text/javascript">
         function show_gift_info(id,experience,price,num,uid){
-            window.sessionStorage.setItem('gift_id',id);            
+            window.sessionStorage.setItem('gift_id',id);
             $('#gift_radio'+id+'_'+uid).click();
             $('#gift_id'+uid).val($('#gift_radio'+id+'_'+uid).val());
             if($('#gift_radio'+id+'_'+uid).attr("checked")){
@@ -535,7 +452,7 @@
 
         function checkSubmit(id){
             var val=$('#gift_radio'+window.sessionStorage.getItem('gift_id')+'_'+id).val();
-            
+
             if($('.send_number'+id).val() == "" || $('.send_number'+id).val() == 0){
                 alert('礼物数量不能为0');
                 return false;
@@ -599,12 +516,12 @@
 			$('#wechat_close').click(function(){
 				$('#wechat').hide();
 			});
-			
+
         </script>
 	</div>
     <div class="clear"></div>
     <script>
-	    function showDynamic(filtrate) {		
+	    function showDynamic(filtrate) {
 		    $(".TA_bottom_div").hide();
 		    $(".dynamic").show();
 			url = "{{ route('user.dynamic')}}" ;
@@ -614,6 +531,6 @@
 		$("#one23").click(function(){
 			ajaxget('/album/albumAjax?user_id={{$user->id}}', 'showAlbums');
 		});
-		
+
 	</script>
 @stop

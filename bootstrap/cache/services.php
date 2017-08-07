@@ -48,6 +48,7 @@
     44 => 'Hifone\\Providers\\RouteServiceProvider',
     45 => 'iscms\\Alisms\\AlidayuServiceProvider',
     46 => 'Latrell\\Alipay\\AlipayServiceProvider',
+    47 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
   ),
   'eager' => 
   array (
@@ -79,6 +80,7 @@
     25 => 'Hifone\\Providers\\RouteServiceProvider',
     26 => 'iscms\\Alisms\\AlidayuServiceProvider',
     27 => 'Latrell\\Alipay\\AlipayServiceProvider',
+    28 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
   ),
   'deferred' => 
   array (

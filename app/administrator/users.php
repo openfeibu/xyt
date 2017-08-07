@@ -28,6 +28,10 @@ EOD;
         'mobile' => [
             'title' => '手机号码',
         ],
+        'last_ip' => [
+            'title' => 'ip',
+            'sortable' => false,
+        ],
         'email' => [
             'title' => trans('administrator::dashboard.users.email'),
         ],

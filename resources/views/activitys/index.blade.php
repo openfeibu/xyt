@@ -14,7 +14,7 @@
             </ul>
             <div style="height: 20px;" class="clear"></div>
         </div>
-        
+
         <hr size="1" style="border:1px #e2e1e1 solid;width: 98%;margin: 0 auto;" class="clear" />
         <div style="height:20px;" class="clear"></div>
         <div class="activity_place">
@@ -46,7 +46,7 @@
             </div>
         </div>
 
-        
+
         <div class="activity_content">
 		@foreach($activities as $activity)
         <!-- ******************* -->
@@ -63,9 +63,9 @@
                         <a href="{!!route('activity.show',['id'=>$activity->id])!!}"><dd style="color: #43AE70;font-size: 15px;">{!!$activity->name!!}</dd></a>
                         <dd>时间：
 						{!!$activity->begin_time!!}&nbsp;&nbsp;
-						<?php 
-							$weekday = array('星期日','星期一','星期二','星期三','星期四','星期五','星期六'); 
-							echo $weekday[date('w', strtotime($activity->begin_time))]; 
+						<?php
+							$weekday = array('星期日','星期一','星期二','星期三','星期四','星期五','星期六');
+							echo $weekday[date('w', strtotime($activity->begin_time))];
 						?>
 						</dd>
                         <dd>地点：<span style="color: #43AE70">{{$activity->location}}</span></dd>

@@ -28,7 +28,7 @@
 				</div>
 				<div class="blog_body">
 					<p>{!!$summary->body!!}</p>
-					
+
  				</div>
 			</div>
 			<div class="blog_comment">
@@ -36,7 +36,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 </div>
 
 @stop

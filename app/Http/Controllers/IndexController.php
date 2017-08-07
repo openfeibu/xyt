@@ -21,7 +21,7 @@ class IndexController extends Controller
     {
 	    $new_boys = app('repository')->model(User::class)->where('sex',1)->orderBy('id','desc')->take(5)->get();
 	    $new_girls = app('repository')->model(User::class)->where('sex',2)->orderBy('id','desc')->take(5)->get();
-	    $threads = app('repository')->model(Thread::class)->orderBy('is_excellent','desc')->orderBy('view_count','desc')->orderBy('id','desc')->take(10)->get();
+	    $threads =  app('repository')->model(Thread::class)->orderBy('is_excellent','desc')->orderBy('view_count','desc')->orderBy('id','desc')->take(10)->get();
 	    $new_blogs = app('blogRepository')->newBlogs(20);
 	    $hot_blogs = app('blogRepository')->hotBlogs(20);
 	   	$new_votes = app('voteRepository')->newVote(20);

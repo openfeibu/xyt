@@ -19,7 +19,7 @@ class ActivityRepository{
 	}
 	public function summaries ($num = '10')
 	{
-		return app(Summary::class)->recent()->take($num)->get();
+		return app(Summary::class)->join('activities','activities.id','=','summaries.activity_id')->orderBy('summaries.id','desc')->take($num)->get(['summaries.*']);
 	}
 	public function photos ($num = '10')
 	{

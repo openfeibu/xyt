@@ -3,7 +3,7 @@
 /*
  * This file is part of Hifone.
  *
- * 
+ *
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -21,6 +21,7 @@ use Hifone\Events\Image\ImageWasRemovedEvent;
 use Hifone\Events\Reply\ReplyWasAddedEvent;
 use Hifone\Events\Reply\ReplyWasRemovedEvent;
 use Hifone\Events\Thread\ThreadWasAddedEvent;
+use Hifone\Events\Thread\ThreadAnonymousEvent;
 use Hifone\Events\User\UserWasAddedEvent;
 use Hifone\Events\User\UserWasLoggedinEvent;
 use Hifone\Events\Space\SpaceWasAddedEvent;
@@ -32,6 +33,7 @@ use Hifone\Events\Vote\VoteWasRemovedEvent;
 use Hifone\Events\Album\AlbumPhotoWasRemovedEvent;
 use Hifone\Events\Album\AlbumPhotoWasUploadedEvent;
 use Hifone\Events\Sign\SignWasAddedEvent;
+use Hifone\Events\Wall\WallWasAddedEvent;
 
 class AddCreditHandler
 {
@@ -40,6 +42,9 @@ class AddCreditHandler
         $action = '';
         if ($event instanceof ThreadWasAddedEvent) {
             $action = 'thread_new';
+            $user = $event->thread->user;
+        } elseif ($event instanceof ThreadAnonymousEvent) {
+            $action = 'thread_anonymous';
             $user = $event->thread->user;
         } elseif ($event instanceof ReplyWasAddedEvent) {
             $action = 'reply_new';
@@ -89,7 +94,11 @@ class AddCreditHandler
         }elseif ($event instanceof SignWasAddedEvent) {
 	        $action = 'sign';
             $user = Auth::user();
+        }elseif ($event instanceof WallWasAddedEvent) {
+	        $action = 'wall';
+            $user = Auth::user();
         }
+
         $this->apply($event, $action, $user);
     }
 

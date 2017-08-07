@@ -13,20 +13,20 @@ use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
-	
+
 	public function __construct()
     {
-	    parent::__construct();	    
-        $this->middleware('auth');       
+	    parent::__construct();
+        $this->middleware('auth');
     }
     public function index ()
     {
 	    $this->breadcrumb->push([
 				'个人中心' => route('user.home',['uid'=>Auth::id()]),
-                '我的认证' => ''        		
+                '我的认证' => ''
         ]);
         $tasks = app('taskRepository')->getTasks(Auth::id());
-        $finish_tasks = app('taskRepository')->getTasks(Auth::id(),'finish');    
+        $finish_tasks = app('taskRepository')->getTasks(Auth::id(),'finish');
         $count = app(Task::class)->count();
         $schedule = round(count($finish_tasks)/$count * 100).'%';
         $task_users = app('taskRepository')->getTaskUsers();
@@ -36,7 +36,7 @@ class TaskController extends Controller
     {
 	    $this->breadcrumb->push([
 				'个人中心' => route('user.home',['uid'=>Auth::id()]),
-                '我的认证' => ''        		
+                '我的认证' => ''
         ]);
         $finish_tasks = app('taskRepository')->getTasks(Auth::id(),'finish');
     	return  $this->view('tasks.finish')->with('finish_tasks',$finish_tasks);

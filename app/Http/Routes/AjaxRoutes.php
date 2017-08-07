@@ -164,6 +164,14 @@ class AjaxRoutes
                 'as'     => 'hello',
                 'uses'   => 'SendGiftController@hello',
             ]);
+            $router->get('card', [
+                'as'     => 'card',
+                'uses'   => 'CardController@getCard',
+            ]);
+            $router->post('/card/buyCard', [
+                'as'     => 'card.buy_card',
+                'uses'   => 'CardController@buyCard',
+            ]);
         });
     }
 }

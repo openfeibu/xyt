@@ -19,9 +19,9 @@ var _core = function() {
 			}
 			if(flag == 0) {
 				// 未载入过
-				temp[temp.length] = url;	
+				temp[temp.length] = url;
 				// JQuery的ajax载入文件方式，如果有样式文件，同理在此引入相关样式文件
-				$.getScript(url, function() {	
+				$.getScript(url, function() {
 					if("undefined" != typeof(callback)) {
 						if("function" == typeof(callback)) {
 							callback();
@@ -33,7 +33,7 @@ var _core = function() {
 			} else {
 				if("undefined" != typeof(callback)) {
 					// 利用setTimeout 避免未定义错误
-					setTimeout(callback, 200);	
+					setTimeout(callback, 200);
 				}
 			}
 		};
@@ -53,7 +53,7 @@ var _core = function() {
 			}
 			if(flag == 0) {
 				// 未载入过
-				temp[temp.length] = url;	
+				temp[temp.length] = url;
 				var css = '<link href="'+THEME_URL+'/js/tbox/box.css" rel="stylesheet" type="text/css">';
 				$('head').append(css);
 			}
@@ -68,13 +68,13 @@ var _core = function() {
 	 * @author yangjs
 	 */
 	this._rcalendar = function(text, mode, refunc) {
-		// 标记值 
-		var temp = 0;	
+		// 标记值
+		var temp = 0;
 		var tempMethod = function(t, m, r) {
 			// 第二次调用的时候就不=0了
-			if(temp == 0) {	
+			if(temp == 0) {
 				// JQuery的ajax载入文件方式，如果有样式文件，同理在此引入相关样式文件
-				$.getScript(THEME_URL+'/js/rcalendar.js', function() {	
+				$.getScript(THEME_URL+'/js/rcalendar.js', function() {
 					rcalendar(t, m, r);
 				});
 			} else {
@@ -83,7 +83,7 @@ var _core = function() {
 			temp++;
 		};
 		// 返回内部包函数，供外部调用并可以更改temp的值
-		return tempMethod;	
+		return tempMethod;
 	};
 	/**
 	 * 生成IMG的html块
@@ -94,7 +94,7 @@ var _core = function() {
 			if(_imgHtml == '') {
 				$.post(U('public/Feed/getSmile'), {}, function(data) {
 					for(var k in data) {
-						_imgHtml += '<a href="javascript:void(0)" title="'+data[k].title+'" onclick="core.face.face_chose(this)";><img src="'+ THEME_URL +'/images/expression/'+data[k].type+'/'+ data[k].filename +'" width="24" height="24" /></a>';	
+						_imgHtml += '<a href="javascript:void(0)" title="'+data[k].title+'" onclick="core.face.face_chose(this)";><img src="'+ THEME_URL +'/images/expression/'+data[k].type+'/'+ data[k].filename +'" width="24" height="24" /></a>';
 					}
 					_imgHtml += '<div class="c"></div>';
 					$('#emot_content').html(_imgHtml);
@@ -121,14 +121,14 @@ core.loadCss = core._loadCss();
 /**
  * 核心插件自动生成的工厂函数
  * 这里用到了js的工厂模式等设计模式
- * 
+ *
  * 使用方法：将ｊｓ插件写到plugins/下的对应文件下，文件名必须与插件对象同名，如core.at.js
- * JS 插件里面需要有一个_init 函数，根据传入参数真正调用 init函数 
- * 
+ * JS 插件里面需要有一个_init 函数，根据传入参数真正调用 init函数
+ *
  * 如：core.plugInit('searchUser',$(this))；
  * 其中searchUser表示插件的名称是core.searchUser.js
  * $(this) 为 init的第一个参数
- * 
+ *
  * @author yangjs
  */
 core.plugInit = function() {
@@ -137,7 +137,7 @@ core.plugInit = function() {
 		var back = function() {
 			eval("var func = core." + arg[0] + ";");
 			if("undefined" != typeof(func)) {
-				func._init(arg);	
+				func._init(arg);
 			}
 		};
 		var file = THEME_URL + '/js/plugins/core.' + arguments[0] + '.js';
@@ -165,7 +165,7 @@ core.setTimeout = function(func,time){
 //		}else{
 //			func();
 //		}
-//	}	
+//	}
 
 };
 // 获取对象编辑框内的可输入数字
@@ -174,12 +174,12 @@ core.getLeftNums = function(obj) {
 	// 替换br标签
 	var imgNums = $(obj).find('img').size();
 	// 判断是否为空
-	var _str = str.replace(new RegExp("<br>","gm"),"");	
+	var _str = str.replace(new RegExp("<br>","gm"),"");
 	_str = _str.replace(/[ ]|(&nbsp;)*/g, "");
 	// 判断字数是否超过，一个空格算一个字
 	_str = str.replace(/<[^>]*>/g, "");		// 去掉所有HTML标签
 	_str = trim(_str,' ');
-	
+
 	if(imgNums <1 ) {
 		var emptyStr = _str.replace(/&nbsp;/g,"").replace(/\s+/g,"");
 		if(emptyStr.length == 0) {
@@ -205,7 +205,7 @@ core.getLength = function(str, shortUrl) {
 core.createImageHtml = core._createImageHtml();
 //日期控件,调用方式 core.rcalendar(this,'full')
 //this 也可以替换为具体ID,full表示时间显示模式,也可以参考rcalendar.js内的其他模式
-core.rcalendar = core._rcalendar();	
+core.rcalendar = core._rcalendar();
 
 
 //临时存储机制 适用于分割开存储的内容
@@ -214,7 +214,7 @@ core.stringDb = function(obj,inputname,tags){
     this.inputname = inputname;
     this.obj  = obj;
     if(tags != ''){
-    	this.tags = tags.split(',');	
+    	this.tags = tags.split(',');
     }else{
     	this.tags = new Array();
     }
@@ -252,15 +252,15 @@ core.stringDb.prototype = {
     		}
     		var html = '<li><label>'+t+'</label><em>X</em></li>';
     		_this.tags[_this.tags.length] = t;
-    		_this.taglist.append(html);		
-    	};	
+    		_this.taglist.append(html);
+    	};
 
-    	for(var ii in _tag){ 
+    	for(var ii in _tag){
     		if(_tag[ii] != ''){
     			add(_tag[ii]);
     		}
     	}
-    	
+
     	this.inputhide.val(this.tags.join(','));
     	this.bindUl();
     },
@@ -280,7 +280,7 @@ core.stringDb.prototype = {
     			this.inputhide.val(this.tags.join(','));
     		}
     	}
-    }	
+    }
 };
 
 /*** 核心Js函数库 ***/
@@ -322,7 +322,7 @@ var ui = {
 		var ico = (error == "1") ? 'ico-error' : 'ico-ok';
 		var html = '<div class="'+style+' show_box" id="ui_messageBox" style="display:none">\
 					<div class="html_clew_box_con" id="ui_messageContent">\
-					<i class="'+ico+'"></i>'+message+'</div></div>';		
+					<i class="'+ico+'"></i>'+message+'</div></div>';
 		var _u = function() {
 			for (var i = 0; i < arguments.length; i++) {
 		        if (typeof arguments[i] != 'undefined') return false;
@@ -348,7 +348,7 @@ var ui = {
 		 	'src="about:blank"  border="0" frameborder="0"></iframe>');
 		});
 		// 添加弹窗动画效果（消失）
-		setTimeout(function() { 
+		setTimeout(function() {
 			$('#ui_messageBox').find('iframe').remove();
 			 $('#ui_messageBox').fadeOut("fast", function() {
 			    ui.removeblackout();
@@ -380,9 +380,9 @@ var ui = {
 		if($('#tsbox').length > 0) {
 		 	if(document.getElementById('tsbox').style.display == 'none'){
 		 		$('.boxy-modal-blackout').remove();
-		 	}	
+		 	}
 		 } else {
-		 	$('.boxy-modal-blackout').remove(); 	
+		 	$('.boxy-modal-blackout').remove();
 		 }
 	},
 	/**
@@ -479,7 +479,7 @@ var ui = {
 		var _this = this;
 		$("#tsbox .btn-cancel").one('click',function(){
 			$('#tsbox').fadeOut("fast",function(){
-				$('#tsbox').remove();	
+				$('#tsbox').remove();
 			});
 			_this.box.close();
 			return false;
@@ -537,7 +537,7 @@ var ui = {
 		if($.browser.msie) {
 			initHtml = encodeURI(initHtml);
 		}
-		initHtml = initHtml.replace(/\#/g, "%23"); 
+		initHtml = initHtml.replace(/\#/g, "%23");
 		this.box.load(U('public/Index/sendFeedBox')+'&initHtml='+initHtml+'&channelID='+channelID, title,function(){
 			$('#at-view').hide();
 		});
@@ -587,10 +587,10 @@ var ui = {
 			if("undefined" != typeof(title) && title) {
 				$("<div class='hd' style=\"background-color:#fff;\">"+title+"<a class='ico-close' href='#'></a></div>").insertBefore($('#tsbox .layer-content'));
 			}
-			
+
 			//遮罩层
 			ui.showblackout();
-				
+
 			$('#tsbox').stop().css({width: '', height: ''});
 			// 添加键盘事件
 			jQuery(document.body).bind('keypress.tsbox', function(event) {
@@ -607,7 +607,7 @@ var ui = {
 	    		ui.box.close(callback);
 				return false;
 	    	});
-	    	
+
 			// 关闭弹窗，回调函数
 			$('#tsbox').find('.ico-close').click(function() {
 				ui.box.close(callback);
@@ -619,7 +619,7 @@ var ui = {
 					return false;
 		    	});
 			},500);
-			
+
 			this.center();
 			var show = function(){
 				$('#tsbox').fadeIn(200);
@@ -743,7 +743,7 @@ var ui = {
 					// $('body').css({'overflow': 'hidden'});
 				}
 			});
-		},	
+		},
 		/**
 		 * 弹窗定位
 		 * @return void
@@ -810,7 +810,7 @@ var ui = {
 			if (typeof y == 'number') $('#tsbox').css({top: y});
 			else this.centerY();
 			return this;
-		},      
+		},
 		centerAt: function(x, y) {
 			var s = this.getSize();
 			var xval = x - s[0] / 2;
@@ -837,7 +837,7 @@ var ui = {
 		getPosition: function() {
 			var b = $('#tsbox');
 			return [b.offsetLeft, b.offsetTop];
-		},        
+		},
 		getContentSize: function() {
 			var c = this.getContent();
 			return [c.width(), c.height()];
@@ -875,14 +875,14 @@ $(function() {
 		var width = $current.width();
 		$line.css({width:width,left:left,overflow:'hidden'});
 		$('div.line-b-animate').append($line);
-		
+
 		// mouseover event li
 		$('div.line-b-animate').find('li').each(function(i, n) {
 			$(this).bind('mouseover', function() {
 				var left = $(this).offset().left - mainLeft;
 				var width = $(this).width();
 				animateTab(left, width);
-			}); 
+			});
 		});
 
 		// mouseout event ul

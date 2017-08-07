@@ -91,16 +91,17 @@ class AlbumController extends Controller
 										  ->with('type',$type)
 										  ->with('order',$order);
     }
-    public function album ($user_id)
+    public function album (Request $request)
     {
-	    $albums = app('repository')->model(Album::class)->recent()->forUser($user_id)->paginate(25);
+		$order = $request->get('order') ? $request->get('order') : 'new';
+	    $albums = app('repository')->model(Album::class)->recent()->forUser($request->user_id)->paginate(25);
     	foreach( $albums as $key => $album )
     	{
-    		$album_photo =  app('repository')->model(AlbumPhoto::class)->where('album_id',$album->id)->recent()->forUser($user_id)->first();
+    		$album_photo =  app('repository')->model(AlbumPhoto::class)->where('album_id',$album->id)->recent()->forUser($request->user_id)->first();
     		$album->image = $album_photo ?  $album_photo->image : config('system_config.no_album_photo');
     	}
 
-		return $this->view('albums.album')->with('albums',$albums);
+		return $this->view('albums.album')->with('albums',$albums)->with('order',$order);
 
     }
     public function albumAjax (Request $request)

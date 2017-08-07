@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Hifone\Models\User;
 use Hifone\Models\Wall;
 use Illuminate\Http\Request;
+use Hifone\Events\Wall\WallWasAddedEvent;
 use AltThree\Validator\ValidationException;
 
 class WallController extends Controller
@@ -28,13 +29,13 @@ class WallController extends Controller
 
         $var['limit'] = 5;
         $var['initNums'] = config('system_config.feed.weibo_nums');
-       	
+
         empty($data) && $data = Input::get();
-        
+
         is_array($data) && $var = array_merge($var, $data);
-        
+
         $map = array();
-        $map['post_id'] = intval($var['post_id']);   
+        $map['post_id'] = intval($var['post_id']);
         if (!empty($map['post_id'])) {
             $var['list'] = app('wallRepository')->getWallList($map, $var['limit']);
         }
@@ -45,13 +46,13 @@ class WallController extends Controller
 			];
 		}
         $html = view("wall.list",$var)->__toString();
-		$pageHtml = view("wall.page")->with('page',$var['list'])->__toString(); 
+		$pageHtml = view("wall.page")->with('page',$var['list'])->__toString();
 		return [
 			'html' => $html,
 			'pageHtml' => $pageHtml,
 		];
     }
-    
+
     public function addWall ()
     {
 	    //检测用户是否被禁言
@@ -86,13 +87,14 @@ class WallController extends Controller
             exit(json_encode($return));
         }
 
-        if ($new_wall = Wall::create($data)) {	
+        if ($new_wall = Wall::create($data)) {
         	lockSubmit();
             $data['reply_id'] = $new_wall->id;
             $return['status'] = 1 ;
             $return['data'] = $this->parseWall($data);
             unlockSubmit();
         }
+		event(new WallWasAddedEvent());
         echo json_encode($return);
     }
     /**

@@ -5,7 +5,7 @@
 		<form action="" method="post" onsubmit="return newregform(1)" id="registerform">
 		<div class="d_reg b_k" id="firstform">
 			<div class="d_reg_head">
-				<div class="d_reg_heada fleft">免费开通<span class="reg_notice">象牙塔-高校单身校友大联盟网站</span>帐号</div> 
+				<div class="d_reg_heada fleft">免费开通<span class="reg_notice">象牙塔-高校单身校友大联盟网站</span>帐号</div>
 				<div class="d_reg_headb fright" >已有象牙塔网站账号 <a href="{{ route('auth.login') }}">我要登录</a></div>
 			</div>
 			<table  border="1" class="t_reg ">
@@ -57,7 +57,7 @@
 			  </tr>
 			  <tr>
 				<td height="35"></td>
-				<td colspan="2"><input type="checkbox" name="agree" id="agree" checked="checked" value="1"/> 同意 <span class="reg_notice"><a href="#">象牙塔-搞笑单身校友大联盟网站服务条款</a></span>
+				<td colspan="2"><input type="checkbox" name="agree" id="agree" checked="checked" value="1"/> 同意 <span class="reg_notice"><a href="{{route('about.show',['id' => 12])}}" target="_blank">象牙塔-搞笑单身校友大联盟网站服务条款</a></span>
 				<span id="agree_error_span" class="error_box" style="margin-left: 94px;"><b id="agree_error_span_b">必须选择“同意”才可以注册</b></span>
 				</td>
 				</tr>
@@ -73,7 +73,7 @@
 			</div>
 			@inject('formTypePresenter','Hifone\Presenters\FormTypePresenter')
 			<div class="d_reg_main">
-				
+
 				<table  border="0" class="t_reg_1" width="100%">
 				  <tr>
 					<td width="86">*职业：  </td>
@@ -115,7 +115,7 @@
                 <p>1、必须接受过高等教育，即大专及以上学历（含在读）；</p>
                 <p>2、必须年龄在20-40岁之间的单身童鞋；</p>
                 <p>3、必须是以真诚的心态交友，无其他不良目的。</p>
-                
+
                 <p style="margin-top: 35px;"><img src="{{ asset('/build/dist/images/xyt.jpg') }}" width="25" height="44"  class="xyt"/>象牙塔网是一个真实靠谱的高校交友平台，如果您符合以上3点，</p>
                 <p>这里非常欢迎您的加入！在这里您不仅可以找到心怡的TA，</p>
                 <p>还可以认识更多志同道合的高素质朋友！</p>
@@ -125,22 +125,22 @@
         	<div class="message_buttons"><button class="aui_state_highlight" type="button">同意</button><button type="button" id="disagree">不同意</button></div>
         </div>
     </div>
-	
+
 
 <div id="loadProcess"></div>
 <script>
 
-layer.ready(function(){ 
+layer.ready(function(){
 
     message=layer.open({
 		type: 1,
 		shade: false,
-		title: false, 
-		area: ['462px', ''], 
+		title: false,
+		area: ['462px', ''],
 		content: $('.message')
     });
-    
- 
+
+
 });
 
 $(".aui_state_highlight").click(function(){
@@ -156,7 +156,7 @@ $('#disagree').click(function(){
 
 $("#mobile").on('blur',function(){
 	var mobile 		= 	$("#mobile").val();
-	var reg 		= 	/^(((13[0-9]{1})|(15[0-9]{1})|(14[0-9]{1})|(17[0-9]{1})|(18[0-9]{1}))+\d{8})$/; 
+	var reg 		= 	/^(((13[0-9]{1})|(15[0-9]{1})|(14[0-9]{1})|(17[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
 	if(!reg.test(mobile) || (mobile.length>11)){
 		alert("手机号码格式不正确");
 		$("#mobile").val("");
@@ -164,7 +164,7 @@ $("#mobile").on('blur',function(){
 })
 $("#sendcode").on('click',function(){
 	var mobile = $("#mobile").val();
-	var reg 	= /^(((13[0-9]{1})|(15[0-9]{1})|(14[0-9]{1})|(17[0-9]{1})|(18[0-9]{1}))+\d{8})$/; 
+	var reg 	= /^(((13[0-9]{1})|(15[0-9]{1})|(14[0-9]{1})|(17[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
 	if(reg.test(mobile)){
 		$("#sendcode").each(function(i){
 			var i	=	121;

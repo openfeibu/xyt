@@ -19,7 +19,7 @@ class TaskRepository{
 	public function getTasks ($user_id,$type = '')
 	{
 		if($type == 'finish'){
-			return app(TaskUser::class)->where('task_users.user_id',$user_id)->orderBy('task_users.task_id','desc')->distinct('task_users.task_id')->leftJoin('tasks','tasks.id', '=','task_users.task_id')->get();
+			return app(TaskUser::class)->leftJoin('tasks','tasks.id', '=','task_users.task_id')->where('task_users.user_id',$user_id)->orderBy('task_users.task_id','desc')->distinct('task_users.task_id')->get();
 		}else{
 			$task_ids = app(TaskUser::class)->forUser($user_id)->distinct('task_id')->lists('task_id');
 			if($task_ids){
@@ -32,8 +32,8 @@ class TaskRepository{
 					$frequency_tag = Credit::generateFrequencyTag();
 					$task_user = app(TaskUser::class)->where('task_id',$task->id)->where('frequency_tag',$frequency_tag)->first(['id']);
 					if(!$task_user){
-						$k = array_search($task->id, $task_ids); 
-						unset($task_ids[$k]);  
+						$k = array_search($task->id, $task_ids);
+						unset($task_ids[$k]);
 					}
 				}
 			}
@@ -66,10 +66,10 @@ class TaskRepository{
 		$task_user =  TaskUser::create(['task_id' => $task->id,'user_id' => Auth::id(),
 										'frequency_tag' => Credit::generateFrequencyTag(),
 										'score' => $task->score]);
-        
+
         $user->update(['score' => $score]);
         $task->increment('user_count',1);
-		return $task_user;	
+		return $task_user;
 	}
 	protected function checkFrequency(Task $task, \Hifone\Models\User $user)
     {

@@ -13,10 +13,10 @@
 <div class="clear"></div>
 
     <div class="px20"></div>
-    <span style="font-size: 18px;">【{!!$activity->name!!}】</span>
+    <span style="font-size: 18px;">{!!$activity->name!!}</span>
     <div class="details_top_info">
         <div class="details_top_info_left fleft">
-            <img src="{{asset('images/index/img4.jpg')}}" alt=""  class="details_top_info_img" / >
+            <img src="{{$activity->poster}}" alt=""  class="details_top_info_img" / >
         </div>
         <div class="details_top_info_right fleft">
             <div class="details_top_info_right_info">
@@ -41,15 +41,15 @@
 						<?php echo $weekday[date('w', strtotime($activity->close_time))]; ?>
 						</dd>
                         <dd>活动地点：{!!$activity->location!!}</dd>
+                        <dd>活动类型：{!!$activity->cat_title!!}</dd>
                         <dd>活动人数：{!!$activity->number_count!!}人（还剩下{!!$activity->number_count-$activity->join_count!!}个名额）</dd>
                         <dd>活动费用：男 {!!$activity->payboy!!} 元&nbsp;女 {!!$activity->paygirl!!} 元</dd>
                         <dd>联系方式：{!!$activity->mobile!!}</dd>
                     </dl>
                 </div>
             </div>
+            <img src="{{asset('images/index/time.jpg')}}" alt=""  class="fleft" />
             <div class="details_top_info_right_time">
-                <img src="{{asset('images/index/time.jpg')}}" alt=""  class="fleft" />
-                <span style="font-size: 18px;line-height:50px;float: left">
 	            {!!$activity->deadline_desc!!}
             </div>
         </div>
@@ -147,8 +147,8 @@
             </div>
             <div class="clear" style="height: 13px;"></div>
             <hr style="border:1px #e2e1e1 solid;margin: 0 auto"/>
-            @foreach($summaries as $key => $summary)
-            <p><a href="{{route('activity.summary',$summary->activity_id)}}">{{$summary->title}}</a></p>
+            @foreach($summaries as $key => $value)
+            <p><a href="{{route('activity.summary',['activity_id' => $value->activity_id])}}">{{$value->title}}</a></p>
             @endforeach
         </div>
 
@@ -162,8 +162,13 @@
 	            </p> -->
             </div>
             <div class="clear" style="height: 13px;"></div>
-            <hr style="border:1px #e2e1e1 solid;margin: 0 aut@stopmmary',$summary->activity_id)}}">{{$summary->title}}</a></p>
-                <img src="{{asset('images/index/img6.jpg')}}" alt="" /><img src="{{asset('images/index/img7.jpg')}}" alt="" />
+            <hr style="border:1px #e2e1e1 solid;margin: 0 auto;">
+
+            <div class="details_right_footer_main">
+                @if($summary)
+                <p><a href="{{route('activity.summary',['activity_id' => $summary->activity_id])}}">{{$summary->title}}</a></p>
+                <img src="{{asset('images/index/img6.jpg')}}" alt="">
+                @endif
             </div>
         </div>
     </div>
@@ -217,7 +222,21 @@
 		});
 
 	}
-    $('.activity_join_btn').click(function(){
+    $("body").on('click','.activity_unjoin_btn',function(){
+        $.ajax({
+			type: 'POST',
+			url: "{{ route('activity.join') }}",
+			data: {activity_id:{!!$activity->id!!}},
+			dataType: 'json',
+			success: function(data){
+				if(data.code == 200){
+                    $(".details_top_info_right_time").html(data.desc);
+                }
+                layer.msg(data.msg);
+            }
+        });
+    });
+    $("body").on('click','.activity_join_btn',function(){
         layer_div = layer.open({
             type: 1,
             title: '选择支付方式',
@@ -229,6 +248,7 @@
             content: $('#pay_content'),
         });
     });
+
     $('.pay_btn_sub').click(function(){
 
         var $this = $(this);
@@ -248,13 +268,7 @@
                 layer.close(load);
                 layer.close(layer_div);
 				if(data.code == 200){
-                    if(data.status == 1)
-                    {
-                        $this.text("取消报名");
-                    }
-                    else{
-                        $this.text("立即报名");
-                    }
+                    $(".details_top_info_right_time").html(data.desc);
                     layer.msg(data.msg);
 				}else if(data.code == 210)
                 {

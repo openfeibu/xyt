@@ -10,8 +10,8 @@
 	</div>
 	<div class="about_left">
 		<div class="container-top entry_list">
-			
-			<ul>		
+
+			<ul>
 				@foreach($abouts as $about)
 				<li style="padding-left:10px;">
 				    <div class="title">
@@ -32,8 +32,8 @@
 	<div id="obar" style="width:126px;margin-right:10px;height:auto;float:right">
 		<div id="sidebox">
 		<ul class="line_list" style="line-height:30px;">
-		<li><a href="">全部分类</a></li>
-		@foreach($types as $type)	
+		<li><a href="{{route('about.index')}}">全部分类</a></li>
+		@foreach($types as $type)
 			<li style="font-weight:bold;">
 				<a href="{{route('about.index',['type_id' => $type['id']])}}">{{$type['type']}}</a>
 			</li>
@@ -43,16 +43,16 @@
 				</li>
 			@endforeach
 		@endforeach
-		
+
 		</ul>
 		</div>
-		 
+
 	</div>
 
 
 </div>
 
-<script>	
+<script>
 	function getType(id){
 		alert(id);
 	}

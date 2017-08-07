@@ -313,7 +313,36 @@ $(".user_info").mouseover(function(){
 });
 $(".findpassword").click(function(){
 
-})
+});
+$("body").on('click','.hello_content li',function(){
+	$(this).addClass('active').siblings().removeClass('active');
+	$(".hello_radio").removeAttr('checked');
+	$(this).find('.hello_radio').attr('checked','true');
+});
+$("body").on('click','#buy_card',function(){
+	var key = $('#card_key').val();
+	var user_id = $('#to_user_id').val();
+	var loading = layer.load(1, {shade: false});
+	$.ajax({
+		url: '/card/buyCard',
+		type: "POST",
+		data: {key:key,user_id:user_id},
+		success: function(data) {
+			layer.close(loading);
+			layer.close(window_open);
+			if(data.code == 200){
+				layer.msg(data.message, {icon: 1});
+				$("#"+key).text(data.value);
+			}else{
+				layer.msg(data.message, {icon: 5});
+			}
+		},
+		error: function(e) {
+			layer.close(loading);
+			layer.msg('操作失败', {icon: 5});
+		}
+	}, "json")
+});
 /*$(".user_info_abroad").mouseleave(function(){
 	request.abort();
 	$(".user_detail").remove();

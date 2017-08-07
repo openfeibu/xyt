@@ -2,7 +2,7 @@
 
 .ui-draggable-dragging{}
 .pop .s-txt, .pop .s-txt-focus{vertical-align:middle}
-.wrap-layer{color:#535353;position: absolute;-webkit-box-shadow:0 0 15px #888888;-moz-box-shadow:0 0 15px #888888;-khtml-box-shadow:0 0 15px #888888;-ms-box-shadow:0 0 15px #888888;box-shadow:0 0 15px #888888;z-index:997; background:#fff;}
+.wrap-layer{color:#535353;position: absolute !important;-webkit-box-shadow:0 0 15px #888888;-moz-box-shadow:0 0 15px #888888;-khtml-box-shadow:0 0 15px #888888;-ms-box-shadow:0 0 15px #888888;box-shadow:0 0 15px #888888;z-index:997; background:#fff;}
 .wrap-layer .content-layer{position:relative;background:#fff;margin:0 auto;border:1px solid #bbb;}
 .wrap-layer .content-layer .hd{background:#f1f1f1;font-weight:700;font-size:14px;color:#535353;padding:9px 15px;cursor:move;text-align:left;}
 .wrap-layer .content-layer .hd a.ico-close{position:absolute;right:10px;top:10px;width:18px;height:18px}

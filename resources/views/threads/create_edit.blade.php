@@ -31,28 +31,28 @@
                                 <option value=""
                                         disabled {!! $node ? null : 'selected'; !!}>{{ trans('hifone.threads.pick_node') }}</option>
                                 @foreach ($sections as $section)
-                                        @if(isset($section->nodes))
-                                            @foreach ($section->nodes as $item)
-                                                <option value="{{ $item->id }}" {!! (Input::old('node_id') == $item->id || (isset($node) && $node->id==$item->id)) ? 'selected' : ''; !!} >
-                                                    - {{ $item->name }}</option>
-                                            @endforeach
-                                        @endif
+                                    @if(isset($section->nodes))
+                                        @foreach ($section->nodes as $item)
+                                            <option value="{{ $item->id }}" {!! (Input::old('node_id') == $item->id || (isset($node) && $node->id==$item->id)) ? 'selected' : ''; !!} >
+                                                - {{ $item->name }}</option>
+                                        @endforeach
+                                    @endif
                                 @endforeach
                             </select>
                         </div>
                         <!-- editor start -->
                     <!-- end -->
                         <div class="form-group">
-                            {!! Form::textarea('thread[body]', isset($thread) ? $thread->body_original : null, ['class' => 'post-editor form-control',
+                            {!! Form::textarea('thread[body]', isset($thread) ? $thread->body_original : null, ['class' => 'post-editor',
                                                               'rows' => 15,
-                                                              'style' => "overflow:hidden",
-                                                              'id' => 'body_field',
+                                                              'style' => "overflow:hidden;height:500px",
+                                                              'id' => 'editor',
                                                               'placeholder' => "请填写话题内容"]) !!}
                         </div>
 
 
                         <div class="form-group">
-                            <p style="position: relative;width: 250px;"><input type="checkbox" name="anonymous" value="1"/> 匿名（需要花费{{config('system_config.anonymous_integral')}}分积分）</p>
+                            <p style="position: relative;width: 250px;"><input type="checkbox" name="anonymous" value="1"/> 匿名（{{handle_credit_score('thread_anonymous')}}）</p>
                         </div>
                         <div class="form-group status-post-submit">
                             {!! Form::submit(trans('forms.publish'), ['class' => 'btn btn-primary col-xs-2', 'style' => "background:#51B837;border:0px",'id' => 'thread-create-submit']) !!}
@@ -81,4 +81,8 @@
 
         </div>
     </div>
+    <script type="text/javascript" charset="utf-8" src="{{ asset('js/edit/ueditor.config.js') }}"></script>
+    <script type="text/javascript" charset="utf-8" src="{{ asset('js/edit/ueditor.all.min.js') }}"></script>
+    <script type="text/javascript" charset="utf-8" src="{{ asset('js/edit/lang/zh-cn/zh-cn.js') }}"></script>
+    <script type="text/javascript" charset="utf-8" src="{{ asset('js/ueditor.js') }}"></script>
 @stop

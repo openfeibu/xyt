@@ -9,6 +9,7 @@ use Hifone\Commands\Thread\AddThreadCommand;
 use Hifone\Commands\Thread\RemoveThreadCommand;
 use Hifone\Commands\Thread\UpdateThreadCommand;
 use Hifone\Events\Thread\ThreadWasViewedEvent;
+use Hifone\Events\Thread\ThreadAnonymousEvent;
 use Hifone\Models\Node;
 use Hifone\Models\Section;
 use Hifone\Models\Thread;
@@ -223,7 +224,10 @@ class ThreadController extends Controller
 		                ->withInput(Input::all())
 		                ->withErrors($e->getMessageBag());
         }
-
+        if(Input::get('anonymous'))
+        {
+            event(new ThreadAnonymousEvent($thread));
+        }
 		$space_id = app('spaceRepository')->syncToSpace('thread',  Auth::id(), $thread->id);
         $update['space_id'] = $space_id ;
 		Thread::where('id',$thread->id)->update($update);

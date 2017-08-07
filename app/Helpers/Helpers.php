@@ -873,6 +873,11 @@ if(!function_exists('handerStar')){
 		return $value > 0 ? "<img src='".asset('/build/dist/images/star.gif')."' alt='' />" : "<img src='".asset('/build/dist/images/star0.gif')."' alt='' />" ;
 	}
 }
+if(!function_exists('handlePrivacy')){
+    function handlePrivacy($value){
+        return substr_replace($value, '****', 2, 5);
+    }
+}
 if(!function_exists('getCode')){
 	function getCode ()
 	{
@@ -962,26 +967,77 @@ if(!function_exists('handle_text')){
 	}
 }
 if(!function_exists('handle_activity_time')){
-    function handle_activity_time($deadline,$activity_join_status)
+    function handle_activity_time($activity,$activity_join_status)
     {
-        $html = '';
+        $deadline = $activity->deadline;
+        $exittime = $activity->exittime;
+        $html = '<span id="activity_btn_desc">';
         $time = date("Y-m-d H:i:s");
-        $date=floor((strtotime($deadline)-strtotime($time))/86400);
-        $hour=floor((strtotime($deadline)-strtotime($time))%86400/3600);
-        $minute=floor((strtotime($deadline)-strtotime($time))%86400/60);
-        if($date <= 0){
-            if($hour <= 0){
-                if($minute<=0){
-                    $html .= "报名截止";
+
+        if($activity_join_status == 1)
+        {
+            $date=floor((strtotime($exittime)-strtotime($time))/86400);
+            $hour=floor((strtotime($exittime)-strtotime($time))%86400/3600);
+            $minute=floor((strtotime($exittime)-strtotime($time))%86400/60);
+            if($date <= 0){
+                if($hour <= 0){
+                    if($minute<=0){
+                        $html = "退出截止";
+                    }else{
+                        $html .= "退出截止还剩&nbsp;".$minute."&nbsp;分钟"."&nbsp;&nbsp;&nbsp;</span><a href='javascript:;' class='details_top_info_right_time_span activity_unjoin_btn'>取消报名</a>";
+                    }
                 }else{
-                    $html .= "报名截止还剩&nbsp;".$minute."&nbsp;分钟"."&nbsp;&nbsp;&nbsp;</span><a href='javascript:;' class='details_top_info_right_time_span activity_join_btn'>立即报名</a>";
+                    $html .= "退出截止还剩&nbsp;".$hour."&nbsp;小时"."&nbsp;&nbsp;&nbsp;</span><a href='javascript:;' class='details_top_info_right_time_span activity_unjoin_btn'>取消报名</a>";
                 }
             }else{
-                $html .= "报名截止还剩&nbsp;".$hour."&nbsp;小时"."&nbsp;&nbsp;&nbsp;</span><a href='javascript:;' class='details_top_info_right_time_span activity_join_btn'>立即报名</a>";
+                $html .= "退出截止还剩&nbsp;".$date."&nbsp;天"."&nbsp;&nbsp;&nbsp;</span><a href='javascript:;' class='details_top_info_right_time_span activity_unjoin_btn'>取消报名</a>";
             }
         }else{
-            $html .= "报名截止还剩&nbsp;".$date."&nbsp;天"."&nbsp;&nbsp;&nbsp;</span><a href='javascript:;' class='details_top_info_right_time_span activity_join_btn'>立即报名</a>";
+            $date=floor((strtotime($deadline)-strtotime($time))/86400);
+            $hour=floor((strtotime($deadline)-strtotime($time))%86400/3600);
+            $minute=floor((strtotime($deadline)-strtotime($time))%86400/60);
+            if($date <= 0){
+                if($hour <= 0){
+                    if($minute<=0){
+                        $html = "报名截止";
+                    }else{
+                        $html .= "报名截止还剩&nbsp;".$minute."&nbsp;分钟"."&nbsp;&nbsp;&nbsp;</span><a href='javascript:;' class='details_top_info_right_time_span activity_join_btn'>立即报名</a>";
+                    }
+                }else{
+                    $html .= "报名截止还剩&nbsp;".$hour."&nbsp;小时"."&nbsp;&nbsp;&nbsp;</span><a href='javascript:;' class='details_top_info_right_time_span activity_join_btn'>立即报名</a>";
+                }
+            }else{
+                $html .= "报名截止还剩&nbsp;".$date."&nbsp;天"."&nbsp;&nbsp;&nbsp;</span><a href='javascript:;' class='details_top_info_right_time_span activity_join_btn'>立即报名</a>";
+            }
         }
         return $html;
+    }
+}
+/*排序*/
+if(!function_exists('my_sort'))
+{
+    function my_sort($arrays,$sort_key,$sort_order=SORT_ASC,$sort_type=SORT_NUMERIC ){
+       if(is_array($arrays)){
+           foreach ($arrays as $array){
+               if(is_array($array)){
+                   $key_arrays[] = $array[$sort_key];
+               }else{
+                   return false;
+               }
+           }
+       }else{
+           return false;
+       }
+       array_multisort($key_arrays,$sort_order,$sort_type,$arrays);
+       return $arrays;
+   }
+}
+if(!function_exists('handle_credit_score'))
+{
+    function handle_credit_score($name)
+    {
+        $credit_rule = Hifone\Models\Credit\Rule::where('name',$name)->first();
+        $type = $credit_rule->reward > 0 ? '将增加' : '需花费';
+        return $type.abs($credit_rule->reward).'积分';
     }
 }

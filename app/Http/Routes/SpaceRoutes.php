@@ -3,7 +3,7 @@
 /*
  * This file is part of Hifone.
  *
- * 
+ *
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -40,9 +40,13 @@ class SpaceRoutes
                 'as'   => 'space.videoParamUrl',
                 'uses' => 'SpaceController@videoParamUrl',
             ]);
-             $router->post('/space/getSmile',  [
+            $router->post('/space/getSmile',  [
                 'as'   => 'space.smile',
                 'uses' => 'SpaceController@getSmile',
+            ]);
+            $router->post('/space/getEmoji',  [
+                'as'   => 'space.emoji',
+                'uses' => 'SpaceController@getEmoji',
             ]);
             $router->post('/space/video_exist',  [
                 'as'   => 'space.video_exist',
@@ -93,6 +97,6 @@ class SpaceRoutes
                 'uses' => 'SpaceController@multimageBox',
             ]);
     	});
-        
+
     }
 }

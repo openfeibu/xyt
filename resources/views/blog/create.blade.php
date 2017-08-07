@@ -2,7 +2,6 @@
 
 @section('content')
 <script src="{{ asset('/build/dist/js/choose2.js') }}" type="text/jscript"></script>
-<script type="text/javascript" charset="utf-8" src="{{ asset('/packages/hifone/dashboard/js/ckeditor/ckeditor.js') }}"></script>
 <div class="clear"></div>
 
 <div class="b_i">
@@ -13,7 +12,7 @@
 	<div class="menuss">
 		<ul>
 			<li id="ones1" onclick="setTab('ones',1)" class="offs">发表新日志</li>
-            <li id="ones3" onclick="setTab('ones',3)">返回我的日志</li>
+            <li id="ones3" onclick="javascript:window.location.href='{{route('blog.index',['type' => 'me'])}}'">返回我的日志</li>
 		</ul>
 	</div>
 	<div class="menudivss b_ie" style="height: 1000px;">
@@ -33,7 +32,7 @@
 		     </div>
 	         <!-- //编辑器 -->
 	        <div class="b_ig">
-	           <textarea id="body" cols="20" rows="2" class="ckeditor" name="body"></textarea>
+	           <textarea id="editor" cols="20" rows="2" class="ckeditor" name="body" style="height:500px;"></textarea>
 	        </div>
 	        <table cellpadding="0" cellspacing="0">
 	        <tr><td width="100">隐私设置</td>
@@ -52,11 +51,11 @@
 	        <tr><td></td><td> <div id="fileList" class="uploader-list"></div></td></tr>
 	        <tr><td></td><td><input type="button" class="b_idinp7" value="保存发布" id="submit_btn" /></td></tr>
 			<textarea name="body_original" id="body_original" style="display: none;"></textarea>
-			<input type="submit" name="submit" id="submit"  style="display: none;">	
+			<input type="submit" name="submit" id="submit"  style="display: none;">
 	        </table>
 	        </form>
         </div>
-        
+
 </div>
 
 </div>
@@ -65,23 +64,6 @@
 <div class="clear"></div>
 <script type="text/javascript">
 	$(function(){
-		var editor = CKEDITOR.replace( 'body',{
-			toolbar : [
-				['-','Save','NewPage','Preview','-','Templates'],
-				['Cut','Copy','Paste','PasteText','PasteFromWord','-','Print', 'SpellChecker', 'Scayt'],
-				['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
-				['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField'],
-
-				['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],
-				['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],
-				['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
-				['Link','Unlink','Anchor'],
-				['Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak'],
-
-				['Styles','Format','Font','FontSize'],
-				['TextColor','BGColor'],
-			]
-		});
 		$("#submit_btn").click(function(){
 			var subject = $('#title');
 		    if (subject) {
@@ -103,4 +85,8 @@
 		});
 	});
 </script>
+<script type="text/javascript" charset="utf-8" src="{{ asset('js/edit/ueditor.config.js') }}"></script>
+<script type="text/javascript" charset="utf-8" src="{{ asset('js/edit/ueditor.all.min.js') }}"></script>
+<script type="text/javascript" charset="utf-8" src="{{ asset('js/edit/lang/zh-cn/zh-cn.js') }}"></script>
+<script type="text/javascript" charset="utf-8" src="{{ asset('js/ueditor.js') }}"></script>
 @stop

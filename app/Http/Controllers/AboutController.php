@@ -16,6 +16,7 @@ class AboutController extends Controller
 	public function __construct()
     {
          parent::__construct();
+		 $this->middleware('auth', ['except' => ['index','show']]);
 		 $this->title = '关于我们';
     }
     public function index(Request $request)

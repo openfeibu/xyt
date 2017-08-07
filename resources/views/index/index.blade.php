@@ -93,11 +93,13 @@ $(".example2").luara({width:"646",height:"298",interval:4500,selected:"seleted",
 上榜条件:<span><b>1.</b>设置清晰的形象照;</span><span><b>2.</b>资料完整度100%;</span><span><b>3.</b>通过身份实名认证</span>
 </div>
 @foreach($recommend_users as $key => $user)
-<a href="{{route('user.home',$user->id)}}" class="l_db"><img src="{{$user->avatar}}" width="155" height="146" alt="" /> <span class="green">{{$user->username}}</span>
+<li class="user_info_abroad">
+<a href="{{route('user.home',$user->id)}}" class="l_db user_info"  rel='{{$user->id}}'><img src="{{$user->avatar}}" width="155" height="146" alt="" /> <span class="green">{{$user->username}}</span>
 <p>
-  {!! getAge($user->birthday) !!}岁 {{ config('form_config.basic_data.education.value.'.$user->education)}} {{$user->work}}<br />
-{{$user->school}}</p>
+  {!! getAge($user->birthday) !!}岁 {{ config('form_config.basic_data.education.value.'.$user->education)}} {{$user->school}}<br />
+{{$user->work}}</p>
 </a>
+</li>
 @endforeach
 
 </div>
@@ -110,7 +112,7 @@ $(".example2").luara({width:"646",height:"298",interval:4500,selected:"seleted",
 <div class="apple">
 	<ul>
 		@foreach($page_notices as $key=> $page)
-		<li><a href="javascript:;" target="_blank">{{$page->title}}</a></li>
+		<li><a href="{{route('about.show',['id' => $page->id])}}" target="_blank">{{$page->title}}</a></li>
 		@endforeach
     </ul>
 </div>
@@ -145,10 +147,9 @@ $(".example2").luara({width:"646",height:"298",interval:4500,selected:"seleted",
 	</div>
 	<div class="menudivs">
 		<div id="con_one_1" class="con_one">
-		@foreach($new_activities as $key => $activity)
-        <a href="#"><span class="r_b1">{{$activity->name}}</span><span class="r_b2">已报<b>{{$activity->join_count}}人</b></span></a>
-        @endforeach
-
+			@foreach($new_activities as $key => $activity)
+	        <a href="{{route('activity.show',['id' => $activity->id])}}"><span class="r_b1">{{$activity->name}}</span><span class="r_b2">已报<b>{{$activity->join_count}}人</b></span></a>
+	        @endforeach
         </div>
 		<div id="con_one_2" class="con_one" style="display:none;">
 			@foreach($summaries as $key => $summary)
@@ -259,7 +260,7 @@ $(".example2").luara({width:"646",height:"298",interval:4500,selected:"seleted",
 <script type="text/javascript">
 	function show_list()
 	{
-		layer.alert('1.设置清晰的形象照;2.资料完整度100%;3.通过身份实名认证');
+		layer.alert('<a href="/setting/avatar" target="_blank">1.设置清晰的形象照;</a><a href="/profile/base" target="_blank">2.资料完整度100%;</a><a href="/identify/name" target="_blank">3.通过身份实名认证</a>');
 	}
 </script>
 @stop

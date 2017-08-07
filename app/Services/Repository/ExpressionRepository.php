@@ -12,7 +12,7 @@ class ExpressionRepository
 {
 	public function __construct ()
 	{
-		
+
 	}
     /**
      * 获取当前所有的表情
@@ -22,7 +22,7 @@ class ExpressionRepository
     public static function getAllExpression($flush = false)
     {
         $cache_id = '_model_expression';
-        
+
         if (!($res = S($cache_id)) || $flush === true) {
             $filepath = public_path().'/images/arclist';
             $expression = new \Hifone\Services\Repository\DirRepository($filepath);
@@ -36,12 +36,37 @@ class ExpressionRepository
                 $res[$temp['emotion']] = $temp;
             }
             S($cache_id, $res);
-            
+
        	}
 
         return $res;
     }
+	public static function getAllEmoji($flush = false)
+    {
+        $cache_id = '_model_emoji';
 
+        if (!($res = S($cache_id)) || $flush === true) {
+            $filepath = public_path().'/images/emoji';
+            $expression = new \Hifone\Services\Repository\DirRepository($filepath);
+            $expression_pkg = $expression->toArray();
+
+            $res = array();
+            foreach ($expression_pkg as $value) {
+                list($file) = explode('.', $value['filename']);
+                $temp['title'] = $file;
+                $temp['emotion'] = '['.$file.']';
+                $temp['filename'] = $value['filename'];
+				$temp['file_url'] = '/images/emoji/'.$temp['filename'];
+                $res[$temp['emotion']] = $temp;
+            }
+			$res = my_sort($res,'title',SORT_ASC,SORT_NUMERIC);
+
+            S($cache_id, $res);
+
+       	}
+
+        return $res;
+    }
     /**
      * 将表情格式化成HTML形式
      * @param  string $data 内容数据

@@ -30,7 +30,7 @@ class SpaceController extends Controller
 	public function __construct(VideoService $videoService)
     {
 	    parent::__construct();
-		$this->title = '空间';  
+		$this->title = '空间';
         $this->middleware('auth');
         $this->videoService = $videoService;
     }
@@ -186,6 +186,10 @@ class SpaceController extends Controller
     public function getSmile ()
     {
     	return json_encode(app('expressionRepository')->getAllExpression());
+    }
+	public function getEmoji ()
+    {
+    	return json_encode(app('expressionRepository')->getAllEmoji());
     }
     public function loadMore (Request $request)
     {

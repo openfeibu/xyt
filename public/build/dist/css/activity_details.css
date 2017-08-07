@@ -15,7 +15,7 @@
 }
 .details_top_info_right_info{
 	width: 435px;
-	height: 200px;
+	height: 215px;
 	border: 1px solid #e2e1e1;
 }
 .details_top_info_right_time{
@@ -37,6 +37,7 @@
 }
 .details_top_info_img{
 	height: 250px;
+	min-width: 542px;
 }
 .details_top_info_right_top{
 	width: 415px;

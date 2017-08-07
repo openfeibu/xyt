@@ -34,7 +34,7 @@
 		<div class="send_title"><span style="color: #fff;font-size: 16px;">&nbsp;&nbsp;赠送礼物</span><span class="buto" style="float: right;margin: 10px 5px;"><img src="{{asset('images/index/buto.png')}}" style="margin-top:-21px;"  class="send_title_close" alt="" onclick="javascript:close_layer();"/></span></div>
 		<div style="background-color:#fff;	" class="send_page">
 			<div class="to_user_title">
-				<p>送给用户:{{$to_user->username}}（ {{$base_data['sex']['value'][$to_user->sex]}}  {{$to_user->location}}  {{$to_user->work}}/{{$to_user->school}} @if($to_user->education){{$base_data['education']['value'][$to_user->education]}}@else 未知 @endif</p>
+				<p>送给用户:{{$to_user->username}}（ {{$base_data['sex']['value'][$to_user->sex]}}  {{$to_user->location}}  {{$to_user->work}}/{{$to_user->school}} @if($to_user->education){{$base_data['education']['value'][$to_user->education]}}@else 未知 @endif )</p>
 			</div>
 			<div class="gift_type">
 				<ul>

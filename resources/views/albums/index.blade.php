@@ -14,13 +14,13 @@
                     <a href="{{ route('album.index') }}"><li>全部</li></a>
                     <li><a href="{{ route('album.index',['type'=>$type,'order'=>'new']) }}">最新照片</a></li>
                     <li><a href="{{ route('album.index',['type'=>$type,'order'=>'hot']) }}">热门照片</a></li>
-                    <li><a href="{{ route('album.index',['type'=>'activity','order'=>$order]) }}">活动照片</a></li>
+
                 </ul>
             </div>
         </div>
         <div class="clear"></div>
         <div class="album_centent">
-	        @foreach($album_photos as $album_photo)        
+	        @foreach($album_photos as $album_photo)
             <div class="album_centent_photo fleft">
                 <dl>
                     <dd>

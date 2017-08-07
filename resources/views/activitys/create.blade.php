@@ -4,7 +4,7 @@
 <link href="{{ asset('build/dist/css/setting.css') }}" type="text/css" rel="stylesheet" />
 <script src="{{ asset('/js/module.js') }}"></script>
 <script src="{{ asset('/js/module.form.js') }}"></script>
-<script src="{{ asset('/packages/hifone/dashboard/js/ckeditor/ckeditor.js') }}"></script>
+
 	<div class="clear"></div>
     <div class="TA">
         <div class="b_ja">
@@ -24,8 +24,8 @@
               <div class="gexing_main" >
                   	<div class="c_form">
 						<form id="edit_form" name="edit_form" method="post" enctype="multipart/form-data" action="/activity/store">
-						<table class="infotable" width="100%" cellspacing="4" cellpadding="4">				
-						<tbody>	
+						<table class="infotable" width="100%" cellspacing="4" cellpadding="4">
+						<tbody>
 						<tr>
 							<th width="100" style="vertical-align: top;">活动分类 : </th>
 							<td>
@@ -33,7 +33,7 @@
 								<span id="classid_info">
 								</span>
 							</td>
-						</tr>				
+						</tr>
 						<tr>
 							<th>活动名称 : </th>
 							<td>
@@ -106,7 +106,7 @@
 						<tr>
 							<th>活动详情 : </th>
 							<td>
-								<textarea id="body" cols="20" rows="2" class="ckeditor" name="body">{{Input::old('body')}}</textarea>
+								<textarea cols="20" rows="2" class="ckeditor" id="editor" name="body" style="width:800px;height:500px;">{{Input::old('body')}}</textarea>
 							</td>
 						</tr>
 						<tr>
@@ -122,7 +122,7 @@
 						<!--<tr>
 							<th width="100">动态选项</th>
 							<td>
-								<input type="checkbox" name="makefeed" id="makefeed" value="1" checked=""> 产生动态 
+								<input type="checkbox" name="makefeed" id="makefeed" value="1" checked=""> 产生动态
 							</td>
 						</tr>-->
 						<tr>
@@ -135,15 +135,20 @@
 						</table>
 						</form>
 					</div>
-                  
+
               </div>
-                
-                     
+
+
     	</div>
 	</div>
 	<div class="clear"></div>
+    <script type="text/javascript" charset="utf-8" src="{{ asset('js/edit/ueditor.config.js') }}"></script>
+    <script type="text/javascript" charset="utf-8" src="{{ asset('js/edit/ueditor.all.min.js') }}"></script>
+    <script type="text/javascript" charset="utf-8" src="{{ asset('js/edit/lang/zh-cn/zh-cn.js') }}"></script>
+    <script type="text/javascript" charset="utf-8" src="{{ asset('js/ueditor.js') }}"></script>
 <script type="text/javascript">
 	$(function(){
+        /*
 		var editor = CKEDITOR.replace( 'body',{
 			toolbar : [
 				['-','Save','NewPage','Preview','-','Templates'],
@@ -160,14 +165,14 @@
 				['Styles','Format','Font','FontSize'],
 				['TextColor','BGColor'],
 			]
-		});
-		function check_eventpost(){			
+		});*/
+		function check_eventpost(){
 			// 活动类型
 			if (parseInt($("#classid").value) < 0){
 			alert("活动类型必须选择。");
 			$("#classid").focus();
 			return false;
-			}	
+			}
 			// 标题
 			var val = trim($("#title").value);
 			if ( val == "" ){
@@ -178,13 +183,13 @@
 			alert("活动标题太长，请限制在5个字符和24个字符之内！");
 			$("#title").focus();
 			return false;
-			}	
+			}
 			// 活动地点
 			if($('city').value == ""){
 			alert("活动举办城市不能为空。");
 			$("#city").focus();
 			return false;
-			}			
+			}
 			// 报名时间，起始-结束时间
 			var deadline = parsedate($("#deadline").value).getTime();
 			var starttime = parsedate($("#starttime").value).getTime();
@@ -222,7 +227,7 @@
 		    		}
 		    	}
 		    }
-		    
+
 		    // 编辑器内容同步
 			edit_save();
 			// 活动描述，默认可能有一个<br/>或<div></div>，需要去掉再判断
@@ -230,13 +235,13 @@
 			if (val == ""){
 				alert("活动描述不能为空。");
 				return false;
-			}						
+			}
 
 		    $("#edit_form").submit();
 
 		}
 	});
-	
+
 
 </script>
 @stop

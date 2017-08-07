@@ -3,7 +3,7 @@
 /*
  * This file is part of Hifone.
  *
- * 
+ *
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -107,7 +107,9 @@ class EventServiceProvider extends ServiceProvider
         'Hifone\Events\Thread\ThreadWasViewedEvent' => [
             'Hifone\Handlers\Listeners\Thread\UpdateThreadViewCountHandler',
         ],
-
+        'Hifone\Events\Thread\ThreadAnonymousEvent' => [
+            'Hifone\Handlers\Listeners\Credit\AddCreditHandler',
+        ],
         'Hifone\Events\User\UserWasAddedEvent' => [
             'Hifone\Handlers\Listeners\Stats\UpdateStatsHandler',
             'Hifone\Handlers\Listeners\Identity\ChangeUsernameHandler',
@@ -150,6 +152,9 @@ class EventServiceProvider extends ServiceProvider
         ],
 		'Hifone\Events\Sign\SignWasAddedEvent' => [
 			'Hifone\Handlers\Listeners\Credit\AddCreditHandler',
+        ],
+        'Hifone\Events\Wall\WallWasAddedEvent' => [
+            'Hifone\Handlers\Listeners\Credit\AddCreditHandler',
         ],
     ];
 

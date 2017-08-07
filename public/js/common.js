@@ -83,7 +83,7 @@ var async_turn_page = function(page_number, target) {
 	});
 };
 
-//表单异步处理 
+//表单异步处理
 /* 生效条件：包含 jquery.form.js */
 //TODO 优化jquery.form.js的加载机制
 var async_form = function(form)
@@ -107,10 +107,10 @@ var async_form = function(form)
 						ui.success( txt.info );
 					}else if (txt.info) {
 						ui.error( txt.info );
-					}						  	 
+					}
 				}
 		    }
-		};		
+		};
     $(this).ajaxSubmit(options);
 		return false;
 });
@@ -149,10 +149,10 @@ var copy_clip = function (copy){
 		  clip.setData(trans,null,clipid.kGlobalClipboard);
 	 }
 	 ui.success( L('PUBLIC_EXPLORER_CTRL') );
-	 return true;	 
+	 return true;
 };
 	//是否含有某个样式
-	
+
 function hasClass(ele,cls) {
 	return $(ele).hasClass(cls);
 	//return ele.className.match(new RegExp('(\\s|^)'+cls+'(\\s|$)'));
@@ -183,7 +183,7 @@ var toElement = function(){
 
 /**
  *	与php的implode方法用法一样
- *	@from php.js  
+ *	@from php.js
  */
 
 var implode  = function (glue, pieces) {
@@ -195,7 +195,7 @@ var implode  = function (glue, pieces) {
     }    if (typeof(pieces) === 'object') {
         if (Object.prototype.toString.call(pieces) === '[object Array]') {
             return pieces.join(glue);
-        } 
+        }
         for (i in pieces) {            retVal += tGlue + pieces[i];
             tGlue = glue;
         }
@@ -208,18 +208,18 @@ var implode  = function (glue, pieces) {
  */
 var explode = function(delimiter, string, limit){
 	var emptyArray = {0:''};
- 
-    if (arguments.length < 2 || typeof arguments[0] == 'undefined' || typeof arguments[1] == 'undefined') {        
+
+    if (arguments.length < 2 || typeof arguments[0] == 'undefined' || typeof arguments[1] == 'undefined') {
     	return null;
     }
- 
+
     if (delimiter === '' || delimiter === false || delimiter === null) {
-        return false;    
+        return false;
    }
- 
+
     if (typeof delimiter == 'function' || typeof delimiter == 'object' || typeof string == 'function' || typeof string == 'object') {
         return emptyArray;
-    } 
+    }
     if (delimiter === true) {
         delimiter = '1';
     }
@@ -234,16 +234,16 @@ var explode = function(delimiter, string, limit){
 };
 /**
  *	与php的strlen方法用法一样
- *	@from php.js  
+ *	@from php.js
  */
 var strlen = function (string) {
     var str = string + '';
     var i = 0,        chr = '',
         lgth = 0;
- 
+
     if (!this.php_js || !this.php_js.ini || !this.php_js.ini['unicode.semantics'] || this.php_js.ini['unicode.semantics'].local_value.toLowerCase() !== 'on') {
         return string.length;    }
- 
+
     var getWholeChar = function (str, i) {
         var code = str.charCodeAt(i);
         var next = '',            prev = '';
@@ -264,7 +264,7 @@ var strlen = function (string) {
             return false; // We can pass over low surrogates now as the second component in a pair which we have already processed
         }        return str.charAt(i);
     };
- 
+
     for (i = 0, lgth = 0; i < str.length; i++) {
         if ((chr = getWholeChar(str, i)) === false) {            continue;
         } // Adapt this line at the top of any loop, passing in the whole string and the current iteration and returning a variable to represent the individual character; purpose is to treat the first part of a surrogate pair as the whole character and then ignore the second part
@@ -275,7 +275,7 @@ var strlen = function (string) {
 
 /**
  * 与PHP的substr一样的用法、
- * @from php.js 
+ * @from php.js
  */
 var substr = function(str, start, len) {
     var i = 0,
@@ -284,11 +284,11 @@ var substr = function(str, start, len) {
         se = 0,
         ret = '';
     str += '';
-    var end = str.length; 
+    var end = str.length;
     // BEGIN REDUNDANT
     this.php_js = this.php_js || {};
     this.php_js.ini = this.php_js.ini || {};
-    // END REDUNDANT    
+    // END REDUNDANT
     switch ((this.php_js.ini['unicode.semantics'] && this.php_js.ini['unicode.semantics'].local_value.toLowerCase())) {
     case 'on':
         // Full-blown Unicode including non-Basic-Multilingual-Plane characters
@@ -297,7 +297,7 @@ var substr = function(str, start, len) {
                 allBMP = false;
                 break;
             }
-        } 
+        }
         if (!allBMP) {
             if (start < 0) {
                 for (i = end - 1, es = (start += end); i >= es; i--) {
@@ -313,7 +313,7 @@ var substr = function(str, start, len) {
                         break;
                     }
                 }
-            } 
+            }
             if (start >= end || start < 0) {
                 return false;
             }
@@ -583,7 +583,7 @@ var shortcut = function (shortcut,callback,opt) {
 		var keys = shortcut.toLowerCase().split("+");
 		//Key Pressed - counts the number of valid keypresses - if it is same as the number of keys, the shortcut function is invoked
 		var kp = 0;
-		
+
 		//Work around for stupid Shift key bug created by using lowercase - as a result the shift+num combination was broken
 		var shift_nums = {
 			"`":"~",
@@ -625,15 +625,15 @@ var shortcut = function (shortcut,callback,opt) {
 			'numlock':144,
 			'num_lock':144,
 			'num':144,
-			
+
 			'pause':19,
 			'break':19,
-			
+
 			'insert':45,
 			'home':36,
 			'delete':46,
 			'end':35,
-			
+
 			'pageup':33,
 			'page_up':33,
 			'pu':33,
@@ -680,7 +680,7 @@ var shortcut = function (shortcut,callback,opt) {
 				if(character == k) kp++;
 				else {
 					if(shift_nums[character] && e.shiftKey) { //Stupid Shift key bug created by using lowercase
-						character = shift_nums[character]; 
+						character = shift_nums[character];
 						if(character == k) kp++;
 					}
 				}
@@ -829,7 +829,7 @@ $(function(){
             }
         },
         inputToDIV: function(myValue){
-        	
+
             var obj=$(this)[0];
 
 			obj.focus();
@@ -839,7 +839,7 @@ $(function(){
 			var range = selection.createRange ? selection.createRange() : selection.getRangeAt(0);
 
 			if (!window.getSelection){
-				
+
 				var selection = window.getSelection ? window.getSelection() : document.selection;
 
 				var range = selection.createRange ? selection.createRange() : selection.getRangeAt(0);
@@ -866,7 +866,7 @@ $(function(){
 
 					hasR.removeChild(e)
 
-				}                                
+				}
 
 				range.insertNode(hasR);
 
@@ -897,9 +897,9 @@ var removeHTMLTag = function(str)
 	str = str.replace(/<\/?[^>]*>/g,'');
 	return str;
 };
-var removeScriptHTMLTag = function(str) { 
-	return str.replace(/<(script|link|style|iframe)(.|\n)*\/\1>\s*/ig,""); 
-} 
+var removeScriptHTMLTag = function(str) {
+	return str.replace(/<(script|link|style|iframe)(.|\n)*\/\1>\s*/ig,"");
+}
 var quickLogin = function (){
 	ui.box.load(U('public/Passport/quickLogin'),'快速登录');
 };
@@ -998,7 +998,7 @@ fSwitchPic.prototype = {
 		if ( nIndex == this.nCurrentPic ) {
 			return false;
 		}
-		
+
 		clearTimeout( this.oTimer );
 		this.nNextPic = nIndex;
 		this.fSwitch();
@@ -1084,7 +1084,7 @@ var showFlash_upload = function ( host, flashvar, flashimg, width, height) {
 }
 
 //过滤html标签
-function strip_tags (input, allowed) {    
+function strip_tags (input, allowed) {
 allowed = (((allowed || "") + "").toLowerCase().match(/<[a-z][a-z0-9]*>/g) || []).join(''); // making sure the allowed arg is a string containing only tags in lowercase (<a><b><c>)
     var tags = /<\/?([a-z][a-z0-9]*)\b[^>]*>/gi,
         commentsAndPhpTags = /<!--[\s\S]*?-->|<\?(?:php)?[\s\S]*?\?>/gi;
@@ -1101,10 +1101,10 @@ var revolving = function(type, id) {
 
 
 //获取url参数
-var GetQueryString = function (name) { 
-  var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)"); 
-  var r = window.location.search.substr(1).match(reg); 
-  if (r!=null) return unescape(r[2]); return null; 
+var GetQueryString = function (name) {
+  var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+  var r = window.location.search.substr(1).match(reg);
+  if (r!=null) return unescape(r[2]); return null;
 }
 
 
@@ -1223,4 +1223,5 @@ $(function() {
         };
     };
 };
+
 });
