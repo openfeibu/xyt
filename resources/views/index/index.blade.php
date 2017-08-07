@@ -153,7 +153,7 @@ $(".example2").luara({width:"646",height:"298",interval:4500,selected:"seleted",
         </div>
 		<div id="con_one_2" class="con_one" style="display:none;">
 			@foreach($summaries as $key => $summary)
-	        <a href="{{route('activity.summary',$summary->activity_id)}}"><span class="r_b1">{{$summary->title}}</span></a>
+	        <a href="{{route('activity.summary',['activity_id' => $summary->activity_id])}}"><span class="r_b1">{{$summary->title}}</span></a>
 	        @endforeach
 		</div>
 		<div id="con_one_3" style="display:none;">
