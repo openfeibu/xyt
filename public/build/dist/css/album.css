@@ -7,7 +7,7 @@
 .album_centent_photo{margin-top:30px;margin-left:43px;width:154px;border:1px solid #e2e1e1}
 .album_centent_photo_img{padding:6px;width:140px;height:165px}
 .album_centent_photo_dd2{width:100%;height:23px;background:#eee}
-.batch_upload{height: 650px;width: 996px;border: 1px #e2e1e1 solid;border-top: 0px;}
+.batch_upload{min-height: 650px;width: 996px;border: 1px #e2e1e1 solid;border-top: 0px;}
 .batch_main{width: 850px;height: 300px;margin: 0 auto;border: 1px #e2e1e1 solid}
 .batch_upload_span1{width: 80px;height: 30px;color: #fff;text-align: center;line-height: 30px;display: inline-block;background: #51b837;border-radius: 5px;}
 .batch_upload_span2{margin-left: 100px;}
@@ -30,7 +30,7 @@
 .select_upload_content p{margin-left: 20px;margin-top: 10px;}
 .select_upload_content select{width: 100px;height: 30px;border:2px #CFCFCF solid;background: #ECECEC;border-radius: 5px;}
 .select_upload_content input{margin-left: 50px;height: 30px;}
-.my_classify span{display: inline-block;width: 50px;height: 25px;text-align: center;line-height: 25px;background:#CCEF8F;margin-right: 10px;border-radius: 3px; }
+.my_classify span{display: inline-block;/*width: 50px;*/height: 25px;text-align: center;line-height: 25px;background:#CCEF8F;margin-right: 10px;border-radius: 3px; padding: 2px 4px;}
 .my_classify{margin-left: 20px;margin-top: 10px;}
 .my_classify_photo{height: 500px;margin: 0px auto;height: 150px;margin-top: 10px;float: left;}
 .my_classify_list{width:100px;margin-left: 40px;height: 120px; background: #F4F1F1;border-radius: 3px;}

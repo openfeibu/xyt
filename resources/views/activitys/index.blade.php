@@ -10,7 +10,9 @@
                 <a href="{{route('activity.index')}}"><li class="bg1">全部活动</li></a>
                 <a href="{{route('activity.u')}}"><li class="bg2">我的活动</li></a>
                 <a href="{{route('activity.index',['type' => 'recommend'])}}"><li>推荐活动</li></a>
+                @if ( Zizaco\Entrust\EntrustFacade::hasRole(['Founder', 'Admin']))
                 <a href="{!! route('activity.create') !!}"><li>+发起新活动</li></a>
+                @endif
             </ul>
             <div style="height: 20px;" class="clear"></div>
         </div>

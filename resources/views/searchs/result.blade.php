@@ -27,8 +27,8 @@
             <ul class="search_ul"> <!--这里面的li 双数的时候 右外边距为0-->
 				@foreach($users as $k=>$user)
 					<li class="search_li " style="float:left;width:300px;margin-right:0px;margin-left:12px;">
-						
-						<div class="search_div1  user_info_abroad">
+
+						<div class="search_div1  ">
 							<a href="{!! route('user.home', [$user->id]) !!}"   @if($uid != $user->id) class="user_info" @endif rel='{{$user->id}}'><img style="border:1px #e2e1e1 solid;width:100px;height:100px " src="{!! asset($user->avatar) !!}" alt=""/></a>
 							<div style="height: 17px;"></div>
 							<p class="name">{!!$user->username!!}</p>
@@ -44,7 +44,7 @@
 							<p class="location">{!!$user->location!!}</p>
 							<p class="Occupation">{!!$user->work!!} {!!$user->school!!}</p>
 						</div>
-						
+
 						<div class="clear"></div>
 						<div class="search_div2" style="margin-top:20px;">
 							<span>积分：111/</span>
@@ -53,13 +53,13 @@
 							<span>关注：7</span>
 							<span>粉丝：{!!$user->follower_count!!}</span>
 						</div>
-						
+
 					</li>
 				@endforeach
             </ul>
         </div>
         <div class="clear"></div>
-		
+
 		@if($page_count == 0)
 			<div style="width:100%;text-align:center;font-size:20px;color:#aaa">无搜索结果,请重新设定搜索条件搜索</div>
 		@else
@@ -69,9 +69,9 @@
 				<a href="{{route('search.result',['page'=>$page-1])}}">上一页</a>
 				@endif
 				@if($page_count<6)
-					@for($i=1;$i<=$page_count;$i++)	
+					@for($i=1;$i<=$page_count;$i++)
 						@if($i == $page)
-							<a style="background:#51b837;color:#fff" href="{{route('search.result',['page'=>$i])}}">{!!$i!!}</a>			
+							<a style="background:#51b837;color:#fff" href="{{route('search.result',['page'=>$i])}}">{!!$i!!}</a>
 						@else
 							<a href="{{route('search.result',['page'=>$i])}}">{!!$i!!}</a>
 						@endif
@@ -87,7 +87,7 @@
 					@if($page<$page_count)
 						<a href="{{route('search.result',['page'=>$page+1])}}">{!!$page+1!!}</a>
 					@endif
-					
+
 					@if(($page_count-$page) > 1 && $page<$page_count)
 						<a href="{{route('search.result',['page'=>$page+1])}}">...</a>
 					@endif
@@ -99,15 +99,15 @@
 				<div class="clear" style="text-align:center;font-size:16px;color:#818181;margin-top:5px">当前页面{!!$page!!}/{!!$page_count!!}</div>
 			</div>
 		@endif
-		
+
     </div>
     <div class="right_content">
         <div class="top_th">
             <span>快速搜索</span>
         </div>
         <div class="form-search">
-           
-            
+
+
             <form action="{{route('search.result',['page'=>1])}}" method="get">
 				<input type="hidden" name="hidden" value="this_search">
 			    <div class="search-username"><input type="text" name="nickname" id="nickname" placeholder="按昵称搜索" /></div>
@@ -225,24 +225,24 @@
 				}
 			}, "json")
 		});
-		
+
 
 		function jump() {
 			order_result.action="{{route('search.result',['page'=>1])}}";
 			order_result.submit();
 		}
-		
-		
-		var name,value; 
+
+
+		var name,value;
 	    var str=location.href; //取得整个地址栏
-	    var num=str.indexOf("?") 
+	    var num=str.indexOf("?")
 	    str=str.substr(num+1); //取得所有参数   stringvar.substr(start [, length ]
 
-		num=str.indexOf("="); 
-		if(num>0){ 
+		num=str.indexOf("=");
+		if(num>0){
 		 name=str.substring(0,num);
 		 value=str.substr(num+1);
-		} 
+		}
 		if(value == "descBylogin"){
 			$("#ib1").attr('checked','true');
 		}else if(value == "descByregister"){

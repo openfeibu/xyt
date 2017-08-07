@@ -82,4 +82,10 @@ abstract class Controller extends BaseController
             throw new HttpException(401);
         }
     }
+    public function needAdminPermission()
+    {
+        if (!Entrust::hasRole(['Founder', 'Admin'])) {
+            throw new HttpException(401);
+        }
+    }
 }

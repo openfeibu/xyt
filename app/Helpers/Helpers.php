@@ -1041,3 +1041,13 @@ if(!function_exists('handle_credit_score'))
         return $type.abs($credit_rule->reward).'积分';
     }
 }
+
+if (!function_exists('dtime')) {
+	function dtime($time = '')
+	{
+		if($time){
+			return date('Y-m-d H:i:s',$time);
+		}
+		return date('Y-m-d H:i:s');
+	}
+}

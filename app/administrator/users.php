@@ -49,6 +49,9 @@ EOD;
                 return $value == 1 ? '是' : '否';
             },
         ],
+        'absent_count' => [
+            'title' => '活动缺席次数',
+        ],
         'operation' => [
             'title'  => trans('administrator::administrator.operation'),
             'output' => function ($value, $model) {
@@ -74,6 +77,9 @@ EOD;
                 '1' => '是',
                 '0'  => '否',
             ],
+        ],
+        'absent_count' => [
+            'title' => '活动缺席次数',
         ],
         'activity_banned' => [
             'title'    => '活动黑名单',

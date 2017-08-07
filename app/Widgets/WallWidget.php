@@ -29,14 +29,14 @@ class WallWidget extends AbstractWidget
         $var['table'] = $this->config['table'];*/
         $var['limit'] = 10;
         $var['initNums'] = config('system_config.feed.weibo_nums');
-       	
+
         empty($data) && $data = $this->config;
-        
+
         is_array($data) && $var = array_merge($var, $data);
 
 
         $var['count'] = Wall::where('post_id',intval($var['post_id']))->count();
-        
+
 		return view('wall.wall',$var)->render();
 
     }

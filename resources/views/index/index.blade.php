@@ -96,8 +96,8 @@ $(".example2").luara({width:"646",height:"298",interval:4500,selected:"seleted",
 <li class="user_info_abroad">
 <a href="{{route('user.home',$user->id)}}" class="l_db user_info"  rel='{{$user->id}}'><img src="{{$user->avatar}}" width="155" height="146" alt="" /> <span class="green">{{$user->username}}</span>
 <p>
-  {!! getAge($user->birthday) !!}岁 {{ config('form_config.basic_data.education.value.'.$user->education)}} {{$user->school}}<br />
-{{$user->work}}</p>
+  {!! getAge($user->birthday) !!}岁 {{ config('form_config.basic_data.education.value.'.$user->education)}} <br />
+{{$user->school}}/{{$user->work}}</p>
 </a>
 </li>
 @endforeach

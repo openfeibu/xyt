@@ -130,8 +130,15 @@ class AlbumController extends Controller
     }
     public function uploadCommon()
     {
-	    $albums = app('repository')->model(Album::class)->all();
-		return $this->view('albums.upload_common')->with('albums',$albums);
+		$albums = app('repository')->model(Album::class)->recent()->forUser(Auth::id())->get();
+    	foreach( $albums as $key => $album )
+    	{
+    		$album_photo =  app('repository')->model(AlbumPhoto::class)->where('album_id',$album->id)->recent()->forUser(Auth::id())->first();
+    		$album->image = $album_photo ?  $album_photo->image : config('system_config.no_album_photo');
+    	}
+		$user_views = app('userRepository')->getUserViews(Auth::id(),12);
+		$user_views_count = app('userRepository')->getUserViewsCount(Auth::id());
+		return $this->view('albums.upload_common')->with('albums',$albums)->with('user_views',$user_views)->with('user_views_count',$user_views_count);
     }
     public function uploadCommonHandle()
     {

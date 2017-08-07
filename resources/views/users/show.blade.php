@@ -365,7 +365,7 @@
                     </p>
                     <div class="clear"></div>
                     <div class="showAlbums" id="showAlbums">
-
+                        
 	                </div>
                 </div>
             </div>

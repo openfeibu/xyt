@@ -121,6 +121,6 @@ class WallController extends Controller
 
       	$var['initHtml'] = L('PUBLIC_STREAM_REPLY').'@'.$var['commentInfo']['user_info']['username'].' ：';   // 回复
 
-      	return view('widgets.reply_reply',$var)->render();
+      	return view('wall.reply_reply',$var)->render();
     }
 }

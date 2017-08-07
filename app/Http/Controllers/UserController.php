@@ -1284,8 +1284,10 @@ class UserController extends Controller
 		$type = isset($request->type) ? $request->type : 'boy';
 		if($type == 'boy'){
 			$sex = 1;
+			$title = '男神社区';
 		}else{
 			$sex = 2;
+			$title = '佳丽社区';
 		}
 		$users = DB::table('users')->select('users.*','user_datings.aboutme','user_standards.lovestatus')
             		->leftJoin('user_datings', 'users.id', '=', 'user_datings.user_id')
@@ -1295,7 +1297,7 @@ class UserController extends Controller
             		->paginate('10');
         $standard_data = config('form_config.standard_data');
 		$users = app('userRepository')->handleUsers($users);
-		return $this->view('users.more')->with('users',$users)->with('standard_data',$standard_data);
+		return $this->view('users.more')->with('users',$users)->with('standard_data',$standard_data)->with('title',$title);
 	}
 	public function userDetail (Request $request)
 	{

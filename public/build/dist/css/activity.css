@@ -33,14 +33,14 @@
 }
 .activity_nav_ul1 li{
 	width: 100px;
-	height: 30px;
+	height: 40px;
 	background: #858484;
 	float: left;
 	color: #fff;
 	margin-left: 30px;
 	border-radius: 3px;
 	text-align: center;
-	line-height: 30px;
+	line-height: 40px;
 }
 .activity_nav_ul2{
 	margin-left: -15px;
@@ -58,7 +58,7 @@
 }
 .activity_place_right{
 	width: 850px;
-	height: 80px;	
+	height: 80px;
 }
 .activity_place_right li{
 	text-align: center;
@@ -76,7 +76,7 @@
 }
 .activity_type_right{
 	width: 850px;
-	height: 60px;	
+	height: 60px;
 }
 .activity_type_right li{
 	text-align: center;

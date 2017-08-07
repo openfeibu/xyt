@@ -198,24 +198,32 @@ class UserRepository{
 
         return $user;
     }
-	public function getUserViews ($id)
+    /*来访*/
+	public function getUserViews ($id,$number = 16)
 	{
-		$users = app('repository')->model(UserView::class)->forUser($id)->recent()->take(16)->get();
-		foreach( $users as $key => $user )
-		{
-			$user->avatar = User::findByUidOrFail($user->view_user_id,['avatar_url'])->avatar;
-		}
+        $users = app('repository')->model(UserView::class)->join('users','users.id','=','user_views.view_user_id')->where('user_views.user_id',$id)->orderBy('user_views.id','desc')->take($number)->get(['user_views.*','users.avatar_url','users.username']);
+        $users = app('userRepository')->handleUsers($users);
 		return $users;
 	}
-	public function getUserViewings ($id)
+    /*足迹*/
+	public function getUserViewings ($id,$number = 16)
 	{
-		$users =app('repository')->model(UserView::class)->where('view_user_id',$id)->recent()->take(16)->get();
-		foreach( $users as $key => $user )
-		{
-			$user->avatar = User::findByUidOrFail($user->user_id,['avatar_url'])->avatar;
-		}
+		$users = app('repository')->model(UserView::class)->join('users','users.id','=','user_views.user_id')->where('user_views.view_user_id',$id)->orderBy('user_views.id','desc')->take($number)->get(['user_views.*','users.avatar_url','users.username']);
+        $users = app('userRepository')->handleUsers($users);
 		return $users;
 	}
+    public function getUserViewsCount($id,$type = 'to_view')
+    {
+        if($type == 'to_view')
+        {
+            $count = app('repository')->model(UserView::class)->join('users','users.id','=','user_views.view_user_id')->where('user_views.user_id',$id)->count();
+        }
+        if($type == 'be_view')
+        {
+            $count = app('repository')->model(UserView::class)->join('users','users.id','=','user_views.user_id')->where('user_views.view_user_id',$id)->count();
+        }
+        return $count;
+    }
 	public function ranks ($type)
 	{
 		$limit = 20;

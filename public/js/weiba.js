@@ -49,7 +49,7 @@ var getChecked = function() {
     var ids = new Array();
     $.each($('#list input:checked'), function(i, n){
         if($(n).val() !='0' && $(n).val()!='' ){
-            ids.push( $(n).val() );    
+            ids.push( $(n).val() );
         }
     });
     return ids;
@@ -86,7 +86,7 @@ M.addModelFns({
 			search.init();
 			$(this.childEvents['searchKey'][0]).click(function(){
 				search.searchInit(this);
-			});	
+			});
 		}
 	},
 	weiba_reply_edit:{   //编辑帖子回复
@@ -109,7 +109,7 @@ M.addModelFns({
 
 M.addEventFns({
 	doFollowWeiba: {
-		click: function() {		
+		click: function() {
 			followWeiba.doFollow( this );
 			return false;
 		},
@@ -224,15 +224,23 @@ M.addEventFns({
 			attrs.to_user_id = $(this).attr('to_user_id');
 			attrs.space_id = $(this).attr('space_id');
 			attrs.addtoend = $(this).attr('addtoend');
+			attrs.type = $(this).attr('type');
 			attrs.list_count = $(this).attr('list_count');
 			attrs.post_from = $(this).attr('post_from');
 			attrs.url = $(this).attr('url');
-			
+
 			if(attrs.url){
 				ADD_REPLY_URL = attrs.url;
 			}
+			if(attrs.type)
+			{
+				type = attrs.type;
+			}else{
+				type = 'commentlist';
+			}
+
 			var comment_list = this.parentModel.parentModel;
-			
+
 			var commentListObj = comment_list;
 			this.comment_textarea = commentListObj.childModels['comment_textarea'][0];
 		    var mini_editor = this.comment_textarea.childModels['mini_editor'][0];
@@ -254,7 +262,7 @@ M.addEventFns({
 			if("undefined" != typeof(this.addComment) && (this.addComment == true)) {
 				return false;	//不要重复评论
 			}
-			
+
             var attach_id = $('#attach_ids').val();
             if (typeof attach_id != 'undefined') {
                 attach_id = attach_id.split('|');
@@ -273,18 +281,19 @@ M.addEventFns({
 				if(msg.status == "0"){
 					ui.error(msg.data);
 				}else{
+					console.log(commentListObj);
 					if("undefined" != typeof(commentListObj.childModels['comment_list']) ){
 						ui.success('提交成功');
 						if(attrs.addtoend == 1){
-                            $('#commentlist_'+attrs.post_id).append(msg.data);
+                            $('#'+type+'_'+attrs.post_id).append(msg.data);
 //							$(commentListObj).find('.comment_lists').eq(0).append(msg.data);
 						}else{
-                            $('#commentlist_'+attrs.post_id).prepend(msg.data);
+                            $('#'+type+'_'+attrs.post_id).prepend(msg.data);
 //							$(msg.data).insertBefore($(commentListObj.childModels['comment_list'][0]));
 						}
 					}else{
 						ui.success('提交成功');
-                        $('#commentlist_'+attrs.post_id).html(msg.data);
+                        $('#'+type+'_'+attrs.post_id).html(msg.data);
 //						$(commentListObj).find('.comment_lists').eq(0).html(msg.data);
 					}
 					$('#reply_count').html(parseInt($('#reply_count').html()) + 1);
@@ -317,17 +326,16 @@ M.addEventFns({
 		}
 	},
 	reply_reply:{	//点某条回复
-		click:function(){ 
+		click:function(){
 			if(MID == 0){
 				ui.quicklogin();
 				return;
 			}
 			var attrs = M.getEventArgs(this);
-			
+
 			if(attrs.url){
 				REPLY_REPLY_URL = attrs.url;
 			}
-			console.log(REPLY_REPLY_URL);
 			ui.box.load(REPLY_REPLY_URL+'?post_id='+attrs.post_id+'&post_user_id='+attrs.post_user_id+'&to_reply_id='+attrs.to_reply_id+'&to_user_id='+attrs.to_user_id+'&to_comment_uname='+attrs.to_comment_uname+'&space_id='+attrs.space_id+'&addtoend='+attrs.addtoend+'&comment_id='+attrs.comment_id+'&id='+attrs.id+'&post_from='+attrs.post_from,L('PUBLIC_RESAVE'),function(){
 				$('#at-view').hide();
 			});
@@ -346,7 +354,7 @@ M.addEventFns({
 					ui.error('删除失败');
 				}
 				});
-			}		
+			}
 			ui.confirm(this,L('PUBLIC_DELETE_THISNEWS'),post_del);
 		}
 	},
@@ -384,7 +392,7 @@ M.addEventFns({
 					ui.error('收藏失败');
 				}
 			});
-		}	
+		}
 	},
 	post_unfavorite:{
 		click:function(){
@@ -407,7 +415,7 @@ M.addEventFns({
 					ui.error('取消收藏失败');
 				}
 			});
-		}	
+		}
 	},
 	post_love:{
 			click:function(){
@@ -431,7 +439,7 @@ M.addEventFns({
 						ui.error('点赞失败');
 					}
 				});
-			}	
+			}
 		},
 	post_unlove:{
 			click:function(){
@@ -455,7 +463,7 @@ M.addEventFns({
 						ui.error('取消点赞失败');
 					}
 				});
-			}	
+			}
 		}
 });
 	/**
@@ -555,7 +563,7 @@ var followWeiba = {
 			}
 		}, 'json');
 	},
-	
+
 	/**
 	 * 取消关注操作
 	 * @param object node 关注按钮的DOM对象
@@ -599,7 +607,7 @@ var follow = {
 	// 按钮样式
 	btnClass: {
 		doFollow: "btns-red",
-		unFollow: "btns-red",		
+		unFollow: "btns-red",
 		haveFollow: "btns-gray",
 		eachFollow: "btns-gray"
 	},
@@ -708,7 +716,7 @@ var follow = {
 	 */
 	setFollowGroup: function(node, fid) {
 		var url = U('public/FollowGroup/selectorBox')+'&fid='+fid;
-		ui.box.load(url, L('PUBLIC_SET_GROUP'));	
+		ui.box.load(url, L('PUBLIC_SET_GROUP'));
 	},
 	/**
 	 * 取消关注操作
@@ -731,7 +739,7 @@ var follow = {
 					var item = node.parentModel;
 					// 移除
 					item.parentNode.removeChild( item );
-				} else {					
+				} else {
 					node.setAttribute( "event-node", "doFollow" );
 					node.setAttribute( "href", [U('public/Follow/doFollow'), '&fid=', args.uid].join( "" ) );
 					M.setEventArgs( node, ["uid=", args.uid, "&uname=", args.uname, "&following=", txt.data.following, "&follower=", txt.data.follower].join( "" ) );
@@ -791,7 +799,7 @@ var search = {
 	dosearch:function(type){
 		 var url = U('weiba/Index/search')+'&k='+this.searchKey;
 		 if("undefined" != typeof(type)){
-		 	url+='&type='+type;	
+		 	url+='&type='+type;
 		 }
 		 location.href = url;
 	}
@@ -806,7 +814,7 @@ var	upload = function(type,obj){
 			//alert(data.src);
 	        //$('.input-content').remove();
 	        $('#show_'+type).html('<img src="'+data.src+'" width="150" height="150">');
-	        $('#form_'+type).val(data.attach_id);    
+	        $('#form_'+type).val(data.attach_id);
 	    },'image');
 	};
 
@@ -887,7 +895,7 @@ var addUser = function(){
           setTimeout("location.reload()",1000);
       }
   },'json');
-}; 
+};
 
 /**
  * 解散微吧
@@ -1096,4 +1104,3 @@ weiba.order = {
 		});
 	}
 }
-

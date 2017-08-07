@@ -11,7 +11,7 @@
 			<div class="acts" id="demo">
 		       <a event-node="comment_insert_face" class="face-block" href="javascript:;" title="表情"> <img src="/images/index/img51.jpg" class="face">表情 </a>
 		    </div>
-			      
+
 		</div>
 	</div>
 </div>
@@ -20,6 +20,7 @@
 var initNums = '{{$initNums}}';
 //回复评论
 function replycomment(){
+
 	if ( this.noreply == 1 ){
 		return;
 	}else{
@@ -45,18 +46,19 @@ function replycomment(){
 	$(_this).html('<span>回复中...</span>');
 	//alert($('.comment_lists').eq(0).html());exit;
 	$.post(ADD_WALL_REPLY_URL,{post_id:post_id,to_reply_id:to_reply_id,to_user_id:to_user_id,content:content,addtoend:addtoend},function(msg){
-				if(msg.status == "0"){
-					ui.error(msg.data);
-				}else{
-					ui.box.close();
-					ui.success('回复成功');
-					if(addtoend == 1){
-						$('#commentlist_'+post_id).append(msg.data);
-					}else{
-						$('#commentlist_'+post_id).prepend(msg.data);
-					}
-				}
-				addComment = false;
+		if(msg.status == "0"){
+			ui.error(msg.data);
+		}else{
+			ui.box.close();
+			ui.success('回复成功');
+			console.log('post_id:'+post_id);
+			if(addtoend == 1){
+				$('#walllist_'+post_id).append(msg.data);
+			}else{
+				$('#walllist_'+post_id).prepend(msg.data);
+			}
+		}
+		addComment = false;
 	},'json');
 }
 $(function (){

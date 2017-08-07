@@ -11,7 +11,7 @@
 			<div class="acts" id="demo">
 		       <a event-node="comment_insert_face" class="face-block" href="javascript:;" title="表情"> <img src="/images/index/img51.jpg" class="face">表情 </a>
 		    </div>
-			      
+
 		</div>
 	</div>
 </div>

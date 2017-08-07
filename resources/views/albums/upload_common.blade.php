@@ -40,7 +40,7 @@
                 <!-- *********创建相册**************** -->
                 <div class="batch_upload fleft" style="width: 598px;" >
                     <!--<p style="margin-left: 30px;margin-top: 10px;">
-                        <a href="" style="color: #51b837;">照片</a> | 
+                        <a href="" style="color: #51b837;">照片</a> |
                         <a href="">视频</a>
                     </p>
                     <div class="upload_classify">
@@ -57,7 +57,7 @@
                             （您可以购买道具"附件增容卡"来增加附件容量上传更多的图片）
                         </p>
                     </div>
-                    
+
                     <div class="select_upload">
                         <div class="select_upload_content">
                             <p>从电脑中选择您要上传的图片。</p>
@@ -66,52 +66,30 @@
                                 <select name="album_id" id="album_select">
 	                                @foreach ($albums as $album)
 									    <option value="{{ $album->id }}">{{ $album->name }}</option>
-									@endforeach                          
+									@endforeach
                                 </select>
                             </p>
                             <p><input type="file" name=""  value="" id="file_upload"/></p>
                             <p>
                             	<a href="javascript:$('#file_upload').uploadify('upload','*');" class="btn-green-big " style="margin-left: 0px;" ><span>上传</span></a>
-                            	<!--<a href="javascript:$('#file_upload').uploadify('stop')" class="btn-green-big " style="margin-left: 20px;" ><span>取消上传</span></a>--> 
+                            	<!--<a href="javascript:$('#file_upload').uploadify('stop')" class="btn-green-big " style="margin-left: 20px;" ><span>取消上传</span></a>-->
                             </p>
                         </div>
                     </div>
                     <p class="my_classify">
-                        <span>最爱</span>22个
+                        <span>我的相册</span>
                     </p>
+                    @foreach ($albums as $album)
                     <div class="my_classify_photo">
                         <div class="my_classify_list">
                             <dl>
-                                <dd><img src="{{ asset('images/TAhphoto.png') }}" alt="" /></dd>
-                                <dd class="my_classify_list_send">转</dd>
+                                <dd><img src="{{$album->image}}" /></dd>
+                                <dd class="my_classify_list_send">{{$album->name}}</dd>
                             </dl>
                         </div>
                     </div>
-                    <div class="my_classify_photo">
-                        <div class="my_classify_list">
-                            <dl>
-                                <dd><img src="{{ asset('images/TAhphoto.png') }}" alt="" /></dd>
-                                <dd class="my_classify_list_send">转</dd>
-                            </dl>
-                        </div>
-                    </div>
-                    <div class="my_classify_photo">
-                        <div class="my_classify_list">
-                            <dl>
-                                <dd><img src="{{ asset('images/TAhphoto.png') }}" alt="" /></dd>
-                                <dd class="my_classify_list_send">转</dd>
-                            </dl>
-                        </div>
-                    </div>
-                    <div class="my_classify_photo">
-                        <div class="my_classify_list">
-                            <dl>
-                                <dd><img src="{{ asset('images/TAhphoto.png') }}" alt="" /></dd>
-                                <dd class="my_classify_list_send">转</dd>
-                            </dl>
-                        </div>
-                    </div>
-                    
+                    @endforeach
+
                     <!-- *********附件增容卡**************** -->
                    <div class="clear"></div>
                     <div class="reward" id="buy_add" style="display: none;width: 500px;height: 350px;margin-left: 300px;margin-top: -300px;">
@@ -134,92 +112,25 @@
                                 <p class="email_right_input">购买数量 <input type="text" name="" /> 个（当前最多可以购买0个）</p>
                                 <p><input type="submit" name="buy_add_card" id="buy_add_card" value="购买" style="border-radius: 3px;margin-top: 20px;width: 80px;height: 30px;text-align: center;line-height: 30px;background: #51b837;color: #fff;" /></p>
                             </div>
-                        </form> 
+                        </form>
                     </div>
                     <!-- *********附件增容卡**************** -->
                 </div>
                 <div class="recently_visitor fleft">
                     <div class="recently_visitor_top">
                         <span>最近访客</span>
-                        <font>访客总数：200</font>
+                        <font>访客总数：{{$user_views_count}}</font>
                     </div>
+                    @foreach($user_views as $key => $user_view)
+
                     <div class="recently_visitor_list">
                         <dl>
-                            <dd><img src="{{ asset('images/TAhphoto.png') }}" alt="" /></dd>
-                            <dd>asdasa</dd>
-                            <dd>12小时前</dd>
+                            <dd><a href="{{route('user.home',$user_view->view_user_id)}}"><img src="{{$user_view->avatar}}" alt="" /></a></dd>
+                            <dd>{{$user_view->user_name}}</dd>
+                            <dd>{!! friendlyDate($user_view->created_at)!!}</dd>
                         </dl>
                     </div>
-                    <div class="recently_visitor_list">
-                        <dl>
-                            <dd><img src="{{ asset('images/TAhphoto.png') }}" alt="" /></dd>
-                            <dd>asdasa</dd>
-                            <dd>12小时前</dd>
-                        </dl>
-                    </div>
-                    <div class="recently_visitor_list">
-                        <dl>
-                            <dd><img src="{{ asset('images/TAhphoto.png') }}" alt="" /></dd>
-                            <dd>asdasa</dd>
-                            <dd>12小时前</dd>
-                        </dl>
-                    </div>
-                    <div class="recently_visitor_list">
-                        <dl>
-                            <dd><img src="{{ asset('images/TAhphoto.png') }}" alt="" /></dd>
-                            <dd>asdasa</dd>
-                            <dd>12小时前</dd>
-                        </dl>
-                    </div>
-                    <div class="recently_visitor_list">
-                        <dl>
-                            <dd><img src="{{ asset('images/TAhphoto.png') }}" alt="" /></dd>
-                            <dd>asdasa</dd>
-                            <dd>12小时前</dd>
-                        </dl>
-                    </div>
-                    <div class="recently_visitor_list">
-                        <dl>
-                            <dd><img src="{{ asset('images/TAhphoto.png') }}" alt="" /></dd>
-                            <dd>asdasa</dd>
-                            <dd>12小时前</dd>
-                        </dl>
-                    </div>
-                    <div class="recently_visitor_list">
-                        <dl>
-                            <dd><img src="{{ asset('images/TAhphoto.png') }}" alt="" /></dd>
-                            <dd>asdasa</dd>
-                            <dd>12小时前</dd>
-                        </dl>
-                    </div>
-                    <div class="recently_visitor_list">
-                        <dl>
-                            <dd><img src="{{ asset('images/TAhphoto.png') }}" alt="" /></dd>
-                            <dd>asdasa</dd>
-                            <dd>12小时前</dd>
-                        </dl>
-                    </div>
-                    <div class="recently_visitor_list">
-                        <dl>
-                            <dd><img src="{{ asset('images/TAhphoto.png') }}" alt="" /></dd>
-                            <dd>asdasa</dd>
-                            <dd>12小时前</dd>
-                        </dl>
-                    </div>
-                    <div class="recently_visitor_list">
-                        <dl>
-                            <dd><img src="{{ asset('images/TAhphoto.png') }}" alt="" /></dd>
-                            <dd>asdasa</dd>
-                            <dd>12小时前</dd>
-                        </dl>
-                    </div>
-                    <div class="recently_visitor_list">
-                        <dl>
-                            <dd><img src="{{ asset('images/TAhphoto.png') }}" alt="" /></dd>
-                            <dd>asdasa</dd>
-                            <dd>12小时前</dd>
-                        </dl>
-                    </div>
+                    @endforeach
                 </div>
             </div>
           </div>
@@ -259,7 +170,8 @@
 				data: {name:name, desc:desc},
 				dataType: "json",
 				success: function(data){
-					alert(data.message);
+                    layer.msg(data.message, {icon:1});
+					location.reload();
 				}
 			});
 	    });
@@ -273,20 +185,20 @@
 			'uploader' : "{{ route('album.upload_common_handle') }}",
 			'auto' : false,
 			'fileSizeLimit' : '1MB',
-			'cancelImg'      : "{{ asset('/build/dist/images/uploadify-cancel.png') }}", 
-			'file_queue_limit' : 5,		
-			'onUploadStart': function (file) {  
-				$("#file_upload").uploadify("settings", "formData", { 'album_id': $("#album_select option:selected").val() }); 
+			'cancelImg'      : "{{ asset('/build/dist/images/uploadify-cancel.png') }}",
+			'file_queue_limit' : 5,
+			'onUploadStart': function (file) {
+				$("#file_upload").uploadify("settings", "formData", { 'album_id': $("#album_select option:selected").val() });
 			},
 			'onUploadSuccess' : function(file, data, response) {
-				var data = eval("(" + data + ")"); 
+				var data = eval("(" + data + ")");
 				if(data.code != 200){
 					$('#file_upload').uploadify('stop','*');
 					alert(data.error);
 				}else{
 					location.href = data.url;
 				}
-	            
+
 	        },
 	        'onUploadError' : function(file, errorCode, errorMsg, errorString){
 		        location.href = "{{ route('auth.login')}}"

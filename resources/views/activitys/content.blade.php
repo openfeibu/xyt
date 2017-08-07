@@ -36,9 +36,10 @@
 							$weekday = array('星期日','星期一','星期二','星期三','星期四','星期五','星期六');
 							echo $weekday[date('w', strtotime($activity->begin_time))];
 							$close_time = strtotime($activity->close_time)
-						?>&nbsp;&nbsp;&nbsp;至&nbsp;&nbsp;
-						{!!date("Y-m-d",$close_time)!!}
-						<?php echo $weekday[date('w', strtotime($activity->close_time))]; ?>
+						?>
+                        {!!date("H:i",$begin_time)!!}
+                        &nbsp;至&nbsp;
+                        {!!date("H:i",$close_time)!!}
 						</dd>
                         <dd>活动地点：{!!$activity->location!!}</dd>
                         <dd>活动类型：{!!$activity->cat_title!!}</dd>
@@ -59,7 +60,9 @@
     <div class="px10"></div>
     <div class="details_share">
 		<span>
-			<a href="javascript:;"  event-args="sid={{$activity->id}}&stable=weiba_post&curtable=feed&curid=94&initHTML=&appname=weiba&cancomment=1&feedtype=weiba_post" event-node="share" >分享</a>&nbsp;|&nbsp;
+			<!-- <a href="javascript:;"  event-args="sid={{$activity->id}}&stable=weiba_post&curtable=feed&curid=94&initHTML=&appname=weiba&cancomment=1&feedtype=weiba_post" event-node="share" >分享</a>&nbsp;|&nbsp; -->
+            <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank">分享</a>&nbsp;|&nbsp;
+            <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
 			<a href="javascript:;">举报</a>&nbsp;|&nbsp;
 			<a href="javascript:;" id="follow" onclick="activity_follow({!!$login_user->id!!})">{{$activity_follow_stauts_desc}}</a>
 		</span>
@@ -233,6 +236,7 @@
                     $(".details_top_info_right_time").html(data.desc);
                 }
                 layer.msg(data.msg);
+                location.reload();
             }
         });
     });
@@ -270,6 +274,7 @@
 				if(data.code == 200){
                     $(".details_top_info_right_time").html(data.desc);
                     layer.msg(data.msg);
+                    location.reload();
 				}else if(data.code == 210)
                 {
                     window.location.href = data.url;
@@ -288,6 +293,7 @@
                     });
                 }else{
                     layer.msg(data.msg);
+
 				}
 			},
 			error: function(xhr, type){

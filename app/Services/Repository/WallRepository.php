@@ -14,10 +14,10 @@ class WallRepository{
 
 	public function getWallList($map = null, $limit = 10)
     {
-	    
+
         $data = app('repository')->model(Wall::class)->where($map)->recent()->paginate($limit)->appends(['post_id'=>$map['post_id'],'addtoend'=>0]);
         foreach ($data as &$v) {
-            $v->user_info = app('userRepository')->getUserInfo($v->post_id);
+            $v->user_info = app('userRepository')->getUserInfo($v->user_id);
             $v->content = parse_html(h(htmlspecialchars($v->content)));
         }
         return $data;

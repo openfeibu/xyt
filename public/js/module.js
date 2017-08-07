@@ -1,5 +1,5 @@
 /****************************************************
- * 												    *		
+ * 												    *
  * 			Sociax HTML 标签关联模型  			*
  *                                                  *
  ****************************************************/
@@ -16,7 +16,7 @@ var document = window.document;
 
 /**
  * 激活模型
- * 
+ *
  * @param node 元素节点
  * @param node 父模型节点，若为空则将node 作为父模型节点
  * @param fns  挂载到标签上的事件方法，格式说明如下：
@@ -59,7 +59,7 @@ var module = function( node, fns ) {
 
 /**
  * 保存事件的方法
- * 
+ *
  * @param fns  挂载到标签上的事件方法，格式说明同module 函数的fns 参数
  */
 module.addFns = function( fns ) {
@@ -75,7 +75,7 @@ module.addFns = function( fns ) {
 
 /**
  * 保存模型事件的方法
- * 
+ *
  * @param fns  挂载到模型上的事件方法，格式说明如下：
  * {
  *     method1 : {
@@ -89,7 +89,7 @@ module.addFns = function( fns ) {
  *         focus  : function(){},
  *         submit : function(){}
  *     }
- * } 
+ * }
  */
 module.addModelFns = function( fns ) {
 	if ( "object" != typeof fns ) return module;
@@ -102,7 +102,7 @@ module.addModelFns = function( fns ) {
 
 /**
  * 保存模型下事件节点的方法
- * 
+ *
  * @param fns  挂载到模型上的事件方法，属性说明同module.addModelFns 的fns 参数
  */
 module.addEventFns = function( fns ) {
@@ -259,7 +259,7 @@ module.getNextEvent = function( node, siblingName ) {
 
 /**
  * 模型化节点对象
- * 
+ *
  * @property function init 初始化模型
  * @property function _init 逐级扫描指定节点下的各级子元素的模型结构，并缓存模型和事件的DOM对象
  * @property function clear 清楚元素节点的子模型节点和子事件节点合集对象
@@ -290,8 +290,8 @@ module.nodes = {
 		! parentModel && ( parentModel = this.getParentModel( node ) );
 
 		switch ( node.nodeName ) {
-			case "DIV": case "UL":case "DL": 
-			case "FORM":case "LI":case "DD": 
+			case "DIV": case "UL":case "DL":
+			case "FORM":case "LI":case "DD":
 				model_name = node.getAttribute( "model-node" );
 				if ( model_name ) {
 					this._clearModel( node );
@@ -311,8 +311,8 @@ module.nodes = {
 				break;
 			case "A": case "SPAN": case "LABEL":
 			case "STRONG": case "INPUT": case "SELECT":
-			case "BUTTON": case "IMG": case "TEXTAREA": 
-			case "H1": case "H2": case "H3": case "H4":case "I":			
+			case "BUTTON": case "IMG": case "TEXTAREA":
+			case "H1": case "H2": case "H3": case "H4":case "I":
 				event_name = node.getAttribute( "event-node" );
 				if ( event_name ) {
 					this._clearEvent(node);
@@ -410,7 +410,7 @@ module.nodes = {
 										} catch( e ) {
 											break;
 										}
-							 
+
 									}
 									// 假如找不到，表明当前事件触发点不在目标元素内
 									if ( parent != this ) {
@@ -441,10 +441,10 @@ module.nodes = {
 			var l = this.queue.length,
 				i;
 			for ( i = 0; i < l; i ++ ) {
-				
+
 				this.queue[i]["load"]();
-				this.queue[i]["load"] = undefined;	
-				
+				this.queue[i]["load"] = undefined;
+
 			}
 			// 重置队列
 			this.queue = [];
@@ -550,13 +550,13 @@ module.getJS = (function() {
 			if("function" == typeof fn){
 				fn();
 				fn = undefined;
-			}	
+			}
 		}
 	};
 })();
 
 /**
- * Execute functions when the DOM is ready 
+ * Execute functions when the DOM is ready
  *
  * @param function fn 格式的数据
  */

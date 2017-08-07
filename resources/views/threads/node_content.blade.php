@@ -68,11 +68,11 @@
 		   </div>
 		   <form action=" " method="">
 				   <div class="content-left-middle">
-					   <div class="middle-top">
+					   <div class="middle-top" style="float: right;margin-top: 14px;">
 							<a href="{{ route('thread.create')}}">
 								<li style="margin-left:10px">+发起新话题</li>
 							</a>
-							<li style="background:#51B837;cursor:pointer" id="sign">+每日签到</li>
+							<li style="background:#51B837;cursor:pointer" id="sign">+每日签到(<span id="sign_count">{{$sign_count}}</span>)</li>
 							<li class="sign_show"></li>
 					   </div>
 
@@ -267,30 +267,13 @@
 
 	$('#sign').on('click',function(){
 		$.get("{{route('sign.index')}}",function(data){
-			if(data == 200){
-				if($('.alert_sign').length > 0){
-					$('.alert_sign').remove();
-				}
-				$('.sign_show').append('<span class="alert_sign">\
-						<marquee direction="up" truespeed="truespeed" height="20px"  behavior="slide" speed="slow">\
-							<span class="sign_desc" style="font-size: 16px;">签到成功</span>\
-						</marquee>\
-					</span>');
-				setTimeout(function(){
-					$('.alert_sign').remove();
-				},2000);
+			if(data.code == 200){
+				layer.msg(data.message, {icon:1});
+				sign_count = parseInt($("#sign_count").text());
+				$("#sign_count").text(sign_count+1);
+
 			}else{
-				if($('.alert_sign').length > 0){
-					$('.alert_sign').remove();
-				}
-				$('.sign_show').append('<span class="alert_sign">\
-						<marquee direction="up" truespeed="truespeed" height="20px"  behavior="slide" speed="slow">\
-							<span class="sign_desc" style="font-size: 16px;">已经签到过了，明天再来吧</span>\
-						</marquee>\
-					</span>');
-				setTimeout(function(){
-					$('.alert_sign').remove();
-				},2000);
+				layer.msg(data.message, {icon:5});
 			}
 		});
 	});

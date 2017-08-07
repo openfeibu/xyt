@@ -9,6 +9,7 @@ use Excel;
 use Redirect;
 use Validator;
 use Carbon\Carbon;
+use Hifone\Services\Dates\DateFactory;
 use Hifone\Models\User;
 use Hifone\Models\Summary;
 use Hifone\Models\Activity;
@@ -107,6 +108,7 @@ class ActivityController extends Controller
 	}
 	public function create()
 	{
+		$this->needAdminPermission();
 		return $this->view('activitys.create');
 	}
 	public function store()
@@ -304,6 +306,7 @@ class ActivityController extends Controller
 		$desc = handle_activity_time($activity,$activity_join_status) ;
 		if(!empty($activity_joiner)){
 			$activity_joiner->delete();
+			$activity->decrement('join_count');
 			return [
 				'code' => 200,
 				'status' => 0,
@@ -372,6 +375,7 @@ class ActivityController extends Controller
 					# code...
 					break;
 			}
+			$activity->increment('join_count');
 			return [
 				'code' => 200,
 				'status' => 1,
@@ -573,11 +577,14 @@ class ActivityController extends Controller
 		$activity_actors = Activity_actors::where('activity_actors.activity_id',$request->activity_id)
 											->leftJoin('users','users.id','=','activity_actors.user_id')
 											->leftJoin('user_realnames','users.id','=','user_realnames.user_id')
-											->get();
+											->get(['activity_actors.*','users.height','users.birthday','users.school','users.education','users.homeplace','users.school','users.work','users.mobile','users.absent_count','users.username','users.sex']);
 
-        $cellData = [['手机号码','昵称','付款方式']];
+        $cellData = [['昵称','性别','年龄','籍贯','身高','学历','职业/学校','报名时间','手机号码','缺席次数','是否缴费']];
 		foreach ($activity_actors as $key => $activity_actor) {
-			$cellData[] = [$activity_actor['mobile'],$activity_actor['username'],$activity_actor['payment']];
+			$is_pay = $activity_actor['pay_status'] ? '否' : '是';
+			$education = config('form_config.basic_data.education.value.'.$activity_actor['education']);
+		 	$sex = config('form_config.basic_data.sex.value.'.$activity_actor['sex']);
+			$cellData[] = [$activity_actor['username'],$sex,getAge($activity_actor['birthday']),$activity_actor['homeplace'],$activity_actor['height'],$education,$activity_actor['work'].'/'.$activity_actor['school'],app(DateFactory::class)->make($activity_actor['created_at'])->toDateTimeString(),$activity_actor['mobile'],$activity_actor['absent'],$is_pay];
 		}
 
 		Excel::create($activity->name.'活动成员',function($excel) use ($cellData){

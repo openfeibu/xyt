@@ -24,7 +24,8 @@ use Illuminate\Pagination\Paginator;
 use Input;
 use Redirect;
 use DB;
-use Illuminate\Http\Request;;
+use Hifone\Models\Sign;
+use Illuminate\Http\Request;
 
 class ThreadController extends Controller
 {
@@ -412,6 +413,7 @@ class ThreadController extends Controller
 		}
 
 		$nodes = Node::orderBy('member_count','desc')->get();
+        $sign_count = app(Sign::class)->where('user_id',Auth::id())->count();
         return $this->view('threads.node_content')
 					->with('node',$node)
 					->with('nodes',$nodes)
@@ -419,7 +421,8 @@ class ThreadController extends Controller
 					->with('thread_count_top',$thread_count_top)
 					->with('reply_last_time',$reply_last_time)
 					->with('thread_last_reply_user',$thread_last_reply_user)
-					->with('thread_two',$thread_two);
+					->with('thread_two',$thread_two)
+                    ->with('sign_count',$sign_count);
 					//->with('thread_user',$thread_user)
 	}
 

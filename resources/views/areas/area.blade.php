@@ -65,8 +65,8 @@ var {{$prefix}}changeArea = function(obj) {
 	var currentName = new Array();
 	$('#{{$prefix}}province option:selected').html() != '请选择' && currentName.push($('#{{$prefix}}province option:selected').html());
 	$('#{{$prefix}}city option:selected').html() != '请选择' && currentName.push($('#{{$prefix}}city option:selected').html());
-	$('#current_name').val(currentName.join(' '));
-} 
+	$('#{{$prefix}}current_name').val(currentName.join(' '));
+}
 
 {{$prefix}}init('{{$selected}}');
 </script>
