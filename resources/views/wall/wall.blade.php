@@ -1,7 +1,27 @@
 			<div class="" style="color:#696969;" model-node="comment_detail">
 	            <h3 class="feed_header"> <div class="r_option"><span id="comment_replynum"></span> </div>留言（<span id="reply_count">{{ $count }}</span>个）</h3>
 	            <div id="walllist_{{$post_id}}" class="comment_lists reply_lists" model-node="comment_list">
-
+					<!-- <div class="list" id="item_162" model-node="comment_list">
+						<dl class="b_nc">
+							<dt>
+								<a href="http://xyt.gouweiba.com/u/16">
+									<img src="/uploads/avatar/6/6/16.jpg" width="48px" height="46px" style="width:48px;height:48px" alt="">
+								</a>
+							</dt>
+							<dd class="b_nd">
+								<p>
+									<span class="green">
+										<a href="http://xyt.gouweiba.com/u/16" target="_blank" uid="16" event-node="face_card" show="no">阿斯蒂芬</a>
+									</span> (在校学生/清华大学) 刚刚
+								</p>
+								<p>1</p>
+							</dd>
+							<dd class="b_ne" style="margin-top:0px">
+								<a href="javascript:void(0)" event-args="url=http://xyt.gouweiba.com/wall/reply_reply&amp;post_id=1&amp;to_reply_id=162&amp;to_user_id=16&amp;to_comment_uname=阿斯蒂芬&amp;id=162&amp;addtoend=0" event-node="reply_reply">回复</a>&nbsp;
+											<a href="javascript:;" event-node="reply_del" event-args="reply_id=162">删除</a>&nbsp;
+							</dd>
+						</dl>
+					</div> -->
 					<div class="clearfix"></div>
 				</div>
 				<div class="clearfix"></div>
@@ -27,5 +47,9 @@
             <script>
 	            var parameter = {'post_id': {{$post_id}},'limit':'5','addtoend':0 };
 	            url = "{{route('wall.wall')}}";
-				ajaxget(url, 'walllist_{{$post_id}}',parameter);
+				ajaxget(url, 'walllist_{{$post_id}}',parameter,function(){
+					M($('[model-node="comment_detail"]').get(0))
+
+				});
+
         	</script>

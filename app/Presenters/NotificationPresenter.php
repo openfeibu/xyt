@@ -3,7 +3,7 @@
 /*
  * This file is part of Hifone.
  *
- * 
+ *
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -25,7 +25,10 @@ class NotificationPresenter extends AbstractPresenter
             return 'reply';
         } elseif ($this->wrappedObject->object instanceof \Hifone\Models\Credit) {
             return 'credit';
-        } else {
+        } elseif ($this->wrappedObject->object instanceof \Hifone\Models\SendGift) {
+            return 'gift';
+        }
+        else {
             return 'common';
         }
     }

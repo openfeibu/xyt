@@ -6,11 +6,11 @@
 			<div class="d_reg_2_head">
 				<img src="{{ asset('/build/dist/images/reg2.jpg') }}" />
 			</div>
-			<div class="reg_top">
+			<!-- <div class="reg_top">
 				<p>温馨提示：[√]表示审核通过，[X]表示审核未通过，[?]表示审核中。请上传您的单人真实照片，要求五官清晰。</p>
-			</div>
+			</div> -->
 			<div class="d_reg_main d_reg_2_main">
-				
+
 				<form method="post" action="/settings/update-avatar" enctype="multipart/form-data" id="avatar-form">
 				<div  class="regleft">
 					<img src="{{ $user->avatar }}" alt="" width="120px;"/>
@@ -18,17 +18,19 @@
 				</div>
 				<div class="regright">
 		                <table width="591" border="0">
-		                  <tr>
+		                  <!-- <tr>
 		                    <td width="100"><span class="notice">审核状态：</span></td>
 		                    <td >还没设置形象照</td>
-		                  </tr>
+		                  </tr> -->
 		                  <tr>
 		                    <td><span class="notice">上传头像：*</span></td>
 		                    <td><a href="javascript:;" class="file">选择文件</a><input type="file" id="avatarinput" name="avatar" /></td>
 		                  </tr>
 		                  <tr>
 		                    <td>&nbsp;</td>
-		                    <td><input type="submit" name="submit" class="uploadbtn" value="开始上传"/></td>
+		                    <td>
+								<input type="submit" name="register_last" class="uploadbtn" value="开始上传" style="display:none"/>
+							</td>
 		                  </tr>
 		                </table>
                 </div>
@@ -40,8 +42,9 @@
                 <p>请上传您的单人真实照片，要求五官清晰。请勿上传明星、名人或他人照片，您将对此负法律责任；</p>
                 <p>如果您的照片被会员投诉为假照片，经查实会将您列入网站黑名单，以后都将无法注册和登录。</p>
                 </div>
-                <div style="text-align:center" class="regnext"><p><a href="#">跳过这一步>></a></p><div><input name="dosubmit" class="nextbtn" value="下一步" type="submit"></div></div>
+
 				</form>
+				<div style="text-align:center" class="regnext"><p><a href="{{route('user.register_last')}}">跳过这一步>></a></p><div><input name="dosubmit" class="nextbtn" value="下一步" type="button" onclick="javascript:window.location.href='{{route('user.register_last')}}'"></div></div>
 			</div>
 		</div>
 	</div>

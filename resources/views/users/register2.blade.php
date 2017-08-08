@@ -19,11 +19,11 @@
 			<div class="d_reg_2_head">
 				<img src="images/reg2.jpg" />
 			</div>
-			<div class="reg_top">
+			<!-- <div class="reg_top">
 				<p>温馨提示：[√]表示审核通过，[X]表示审核未通过，[?]表示审核中。请上传您的单人真实照片，要求五官清晰。</p>
-			</div>
+			</div> -->
 			<div class="d_reg_main d_reg_2_main">
-				
+
 				<form method="post">
 				<div  class="regleft">
 					<img src="images/noimg.jpg" width="113" height="135" alt="" />
@@ -31,10 +31,10 @@
 				</div>
 				<div class="regright">
                 <table width="591" border="0">
-                  <tr>
+                  <!-- <tr>
                     <td width="100"><span class="notice">审核状态：</span></td>
                     <td >还没设置形象照</td>
-                  </tr>
+                  </tr> -->
                   <tr>
                     <td><span class="notice">上传头像：*</span></td>
                     <td><a href="javascript:;" class="file">选择文件</a><input type="file"  /></td>

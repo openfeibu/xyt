@@ -3,7 +3,7 @@
 /*
  * This file is part of Hifone.
  *
- * 
+ *
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -23,7 +23,7 @@ class NotificationController extends Controller
     {
 	    $this->breadcrumb->push([
 				'个人中心' => route('user.home',['uid'=>Auth::id()]),
-                '通知' => ''   ,    		
+                '通知' => ''   ,
         ]);
         $notifications = Notification::forUser(Auth::user()->id)->recent()->paginate(20)->groupBy(function (Notification $notification) {
             return app(DateFactory::class)->make($notification->created_at)->toDateString();

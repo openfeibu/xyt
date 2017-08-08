@@ -72,7 +72,14 @@ class UserRoutes
                 'as'   => 'user.regenerate_login_token',
                 'uses' => 'UserController@regenerateLoginToken',
             ]);
-
+            $router->get('/user/register_last', [
+                'as'   => 'user.register_last',
+                'uses' => 'UserController@register_last',
+            ]);
+            $router->post('/user/register_last_sumbit', [
+                'as'   => 'user.register_last_sumbit',
+                'uses' => 'UserController@register_last_sumbit',
+            ]);
             //上传avatar
             $router->post('/settings/update-avatar', [
                 'as'   => 'user.avatarupdate',
@@ -301,6 +308,10 @@ class UserRoutes
             $router->post('invitation/send',[
                 'as' 	=> 'invitation.send',
 				'uses' => 'UserController@invitationSend',
+            ]);
+            $router->post('send_red_packet',[
+                'as' 	=> 'send_red_packet',
+				'uses' => 'UserController@redPacket',
             ]);
             $router->resource('user', 'UserController');
 

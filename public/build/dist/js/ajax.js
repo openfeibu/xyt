@@ -1,4 +1,4 @@
-function ajaxget(url, showid,parameter) {
+function ajaxget(url, showid,parameter,succfun) {
 	if(url == "javascript:;"){
 		return false;
 	}
@@ -27,6 +27,12 @@ function ajaxget(url, showid,parameter) {
 				$("#"+showid).append('');
 			}
 		}
+		if(succfun){
+			setTimeout(function(){
+				succfun()
+			},0)
+		}
+
 	});
 }
 function ajaxgethtml(url) {

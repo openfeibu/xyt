@@ -59,6 +59,7 @@ function replycomment(){
 			}
 		}
 		addComment = false;
+		setTimeout(function(){M($('[model-node="comment_detail"]').get(0))},0)
 	},'json');
 }
 $(function (){

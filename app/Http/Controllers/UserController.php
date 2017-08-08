@@ -20,6 +20,7 @@ use Hifone\Models\Space;
 use Hifone\Models\Reply;
 use Hifone\Models\Thread;
 use Hifone\Models\School;
+use Hifone\Models\Packet;
 use Hifone\Models\Activity;
 use Hifone\Models\Identity;
 use Hifone\Models\Location;
@@ -54,6 +55,11 @@ class UserController extends Controller
 	public function registerAvatar ()
 	{
 		return $this->view('auth.register2')->with('user',Auth::user());
+	}
+	public function register_last()
+	{
+		$users = app('userRepository')->getWeekstarUsers(0,16);
+		return $this->view('auth.register3')->with('users',$users);
 	}
     public function index()
     {
@@ -130,6 +136,14 @@ class UserController extends Controller
 		$vote_count = app('repository')->model(Vote::class)->forUser($user->id)->count();
 		$gift_count = DB::table('send_gift')->where('user_id' ,$user->id)->orWhere('to_user_id',$user->id)->count();
 
+		$packet_users = Packet::select('users.avatar_url','users.username','packets.user_id','packets.created_at','packets.money')
+											->join('users','users.id','=','packets.user_id')
+											->where('packets.pay_status',1)
+											->orderBy('packets.id','desc')
+											->take(10)
+											->get();
+	//	$packet_users = handleUsers($packet_users)；
+
         return $this->view('users.show')
             ->withUser($user)
             ->withThreads($threads)
@@ -154,7 +168,8 @@ class UserController extends Controller
 			->with('vote_count',$vote_count)
 			->with('gift_count',$gift_count)
 			->with('star',$star)
-			->with('role',$role);
+			->with('role',$role)
+			->with('packet_users',$packet_users);
     }
 
     public function showByUsername($username)
@@ -310,7 +325,10 @@ class UserController extends Controller
         $user->save();
 
 		app('taskRepository')->store('avatar');
-
+		// if(null !== Input::get('register_last'))
+		// {
+		// 	return Redirect::route('user.register_last');
+		// }
         return Redirect::back()
             ->withSuccess('头像更新成功');
     }
@@ -1344,10 +1362,13 @@ class UserController extends Controller
     	if(count($uids)){
 	    	foreach( $uids as $key => $uid )
 	    	{
-	    		$user = User::findByUid($uid);
-	    		if($user){
-		    		dispatch(new AddFollowCommand($user));
-	    		}
+				if($uid != Auth::id())
+				{
+					$user = User::findByUid($uid);
+					if($user){
+						dispatch(new AddFollowCommand($user));
+					}
+				}
 	    	}
     	}
     	return Redirect::to('/home');
@@ -1407,5 +1428,75 @@ class UserController extends Controller
 						->withInput(Input::all())
 						->withSuccess(['邀请发送成功！']);
 	}
+	public function redPacket()
+	{
+		$input = Input::all();
+		$rules = [
+			'pay_id' => "required|in:1,2",
+			'money' => 'required'
+		];
+		$messages = [
+			'pay_id.required'	=> '请选择支付方式',
+			'pay_id.in'	=> '支付方式不存在',
+			'money.required' => '金额不能为空',
+		];
 
+		$validator = Validator::make($input,$rules,$messages);
+
+		if($validator->errors()->first()){
+			return [
+				'code' => 201,
+				'message' => $validator->errors()->first(),
+            ];
+		}
+		$money = intval(Input::get('money'));
+		// 创建支付单。
+		$out_trade_no = buildOutTradeNo();
+
+		Packet::create([
+			'user_id' => Auth::id(),
+			'pay_id' =>Input::get('pay_id'),
+			'pay_status' => 0,
+			'money' => $money,
+		]);
+		switch (Input::get('pay_id')) {
+			case '1':
+				// 创建支付单。
+				$alipay = app('alipay.web');
+				$alipay->setOutTradeNo($out_trade_no);
+				$alipay->setTotalFee($money);
+				$alipay->setNotifyUrl(config('latrell-alipay-web.activity_notify_url'));
+				$alipay->setSubject('单号：'.$out_trade_no);
+				$alipay->setBody('单号：'.$out_trade_no);
+
+			  //  $alipay->setQrPayMode('4'); //该设置为可选，添加该参数设置，支持二维码支付。
+
+				// 跳转到支付页面。
+				return [
+					'code' => 210,
+					'status' => 1,
+					'url' => $alipay->getPayLink(),
+				];
+				break;
+
+			default:
+				// 创建支付单。
+				$alipay = app('alipay.web');
+				$alipay->setOutTradeNo($out_trade_no);
+				$alipay->setTotalFee($money);
+				$alipay->setNotifyUrl(config('latrell-alipay-web.activity_notify_url'));
+				$alipay->setSubject('单号：'.$out_trade_no);
+				$alipay->setBody('单号：'.$out_trade_no);
+
+			  //  $alipay->setQrPayMode('4'); //该设置为可选，添加该参数设置，支持二维码支付。
+
+				// 跳转到支付页面。
+				return [
+					'code' => 210,
+					'status' => 1,
+					'url' => $alipay->getPayLink(),
+				];
+				break;
+		}
+	}
 }

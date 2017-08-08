@@ -8,7 +8,7 @@
                {!! $breadcrumb or '' !!}
             </div>
             <div class="clear" style="height: 30px;"></div>
-           
+
                <div class=" fleft">
                    @include('users.setting_nav')
 
@@ -51,14 +51,14 @@
                           </div>
                       </div>
                   </div>
-                    
-                         
+
+
         </div>
     </div>
     <div class="clear"></div>
 <script type="text/javascript">
 	$(function(){
-		
+
 		$(".upload-btn").on("click", function() {
 			$("#avatarinput").click()
 		}), $("#avatarinput").change(function() {

@@ -112,23 +112,23 @@
                                 </dl>
                             </p>
                             <p class="reward_input">
-                                <input type="text" name="" value="20元" readOnly="true"/>
-                                <input type="text" name="" value="50元" readOnly="true"/>
-                                <input type="text" name="" value="" style="margin-right: 10px;" />
-                                其他金额
-                                <input type="submit" id="hongbao_submit" value="埋个红包>" />
+                                <input type="radio" name="money" value="20" class="radio"/>20元
+                                <input type="radio" name="money" value="50" class="radio"/>50元
+                                <input type="text" name="money" value="" style="margin-right: 10px;" id="money"/>元
+                            </p>
+                            <p class="reward_input">
+                                支付方式:
+                                <input name="pay_id" type="radio" value="1" class="radio">支付宝支付
+                                <input name="pay_id" type="radio" value="2" class="radio">微信支付
+                                <input type="submit" id="hongbao_submit" value="埋个红包" />
                             </p>
                             <div class="clear" style="height: 40px;"></div>
                             <div class="clear" style="text-align: left;margin-left: 5px;border-bottom: 2px #e2e1e1 dotted;height: 40px;line-height: 50px;"><h3>感谢下列朋友对象牙塔网站的大力支持：</h3></div>
+                            @foreach($packet_users as $key => $packet_user)
                             <p class="clear" style="text-align: left;margin-left: 5px;color: #818181">
-                                9分钟前在《大飒飒的啊实打实大声道啊哈哈》hasjkdhasd给股市渔夫打赏了40朵鲜花
+                                {!!friendlyDate($packet_user->created_at)!!}  {{$packet_user->username}} 打赏了 {{$packet_user->money}}元。
                             </p>
-                            <p class="clear" style="text-align: left;margin-left: 5px;color: #818181">
-                                9分钟前在《大飒飒的啊实打实大声道啊哈哈》hasjkdhasd给股市渔夫打赏了40朵鲜花
-                            </p>
-                            <p class="clear" style="text-align: left;margin-left: 5px;color: #818181">
-                                9分钟前在《大飒飒的啊实打实大声道啊哈哈》hasjkdhasd给股市渔夫打赏了40朵鲜花
-                            </p>
+                            @endforeach
                         </form>
                     </div>
                 <!-- ***********红包*************** -->
@@ -260,98 +260,91 @@
 
                </div>
                <div class="mydata_main">
-                   <p>基本资料</p>
+                   <p class="mydata_main_nav"><a href="javascript:;" class="active">基本资料</a><a href="javascript:;">内心独白</a><a href="javascript:;">个性信息</a><a href="javascript:;">幸福宣言</a></p>
+                    <div class="mydata_main_content" style="display:block;">
+                       	<ul class="spacemenu_list">
+    						<li><span class="font_z">性别：</span>{{$base_data['sex']['value'][$user->sex]}}</li>
+    						<li><span class="font_z">星座：</span> {{getConstellation($user->birthday)}} </li>
+    						<li><span class="font_z">生日：</span>{{$user->birthday}}</li>
+    						@if($user->height)
+    						<li><span class="font_z">身高：</span>{{$user->height}} 厘米</li>
+    						@endif
+    						@if($user->blood)
+    						<li><span class="font_z">血型：</span>{{$base_data['blood']['value'][$user->blood]}}</li>
+    						@endif
+    						@if($user->education)
+    						<li><span class="font_z">学历：</span>{{$base_data['education']['value'][$user->education]}}</li>
+    						@endif
+    						<li><span class="font_z">大学：</span>{{$user->school}}</li>
+    						@if($user->income)
+    						<li><span class="font_z">月薪：</span>{{$base_data['income']['value'][$user->income]}}</li>
+    						@endif
+    						@if($user->industry)
+    						<li><span class="font_z">行业：</span>{{$user->industry}}</li>
+    						@endif
+    						@if($user->work)
+    						<li><span class="font_z">职业：</span>{{$user->work}}</li>
+    						@endif
+    						@if($user->house)
+    						<li><span class="font_z">住房：</span>{{$base_data['house']['value'][$user->house]}}</li>
+    						@endif
+    						@if($user->marriage)
+    						<li><span class="font_z">婚姻：</span>{{$base_data['marriage']['value'][$user->marriage]}}</li>
+    						@endif
+    						@if($user->homeplace)
+    						<li><span class="font_z">家乡：</span>{{$user->homeplace}}</li>
+    						@endif
+    						@if($user->location)
+    						<li><span class="font_z">现居：</span>{{$user->location}}</li>
+    						@endif
+    						@if($user->smoke)
+    						<li><span class="font_z">是否吸烟：</span>{{$base_data['smoke']['value'][$user->smoke]}}</li>
+    						@endif
+    						@if($user->drink)
+    						<li><span class="font_z">是否喝酒：</span>{{$base_data['drink']['value'][$user->drink]}}</li>
+    						@endif
+    						@if($user->weight)
+    						<li><span class="font_z">体重：</span>{{$user->weight}}公斤(KG)</li>
+    						@endif
+    						@if($user->bodytype)
+    						<li><span class="font_z">体型：</span>{{$base_data['bodytype']['value'][$user->bodytype]}}</li>
+    						@endif
+    						@if($user->minority)
+    						<li><span class="font_z">民族：</span>{{$base_data['minority']['value'][$user->minority]}}</li>
+    						@endif
+    						@if($user->religion)
+    						<li><span class="font_z">宗教：</span>{{$base_data['religion']['value'][$user->religion]}}</li>
+    						@endif
 
-                   	<ul class="spacemenu_list">
-						<li><span class="font_z">性别：</span>{{$base_data['sex']['value'][$user->sex]}}</li>
-						<li><span class="font_z">星座：</span> {{getConstellation($user->birthday)}} </li>
-						<li><span class="font_z">生日：</span>{{$user->birthday}}</li>
-						@if($user->height)
-						<li><span class="font_z">身高：</span>{{$user->height}} 厘米</li>
-						@endif
-						@if($user->blood)
-						<li><span class="font_z">血型：</span>{{$base_data['blood']['value'][$user->blood]}}</li>
-						@endif
-						@if($user->education)
-						<li><span class="font_z">学历：</span>{{$base_data['education']['value'][$user->education]}}</li>
-						@endif
-						<li><span class="font_z">大学：</span>{{$user->school}}</li>
-						@if($user->income)
-						<li><span class="font_z">月薪：</span>{{$base_data['income']['value'][$user->income]}}</li>
-						@endif
-						@if($user->industry)
-						<li><span class="font_z">行业：</span>{{$user->industry}}</li>
-						@endif
-						@if($user->work)
-						<li><span class="font_z">职业：</span>{{$user->work}}</li>
-						@endif
-						@if($user->house)
-						<li><span class="font_z">住房：</span>{{$base_data['house']['value'][$user->house]}}</li>
-						@endif
-						@if($user->marriage)
-						<li><span class="font_z">婚姻：</span>{{$base_data['marriage']['value'][$user->marriage]}}</li>
-						@endif
-						@if($user->homeplace)
-						<li><span class="font_z">家乡：</span>{{$user->homeplace}}</li>
-						@endif
-						@if($user->location)
-						<li><span class="font_z">现居：</span>{{$user->location}}</li>
-						@endif
-						@if($user->smoke)
-						<li><span class="font_z">是否吸烟：</span>{{$base_data['smoke']['value'][$user->smoke]}}</li>
-						@endif
-						@if($user->drink)
-						<li><span class="font_z">是否喝酒：</span>{{$base_data['drink']['value'][$user->drink]}}</li>
-						@endif
-						@if($user->weight)
-						<li><span class="font_z">体重：</span>{{$user->weight}}公斤(KG)</li>
-						@endif
-						@if($user->bodytype)
-						<li><span class="font_z">体型：</span>{{$base_data['bodytype']['value'][$user->bodytype]}}</li>
-						@endif
-						@if($user->minority)
-						<li><span class="font_z">民族：</span>{{$base_data['minority']['value'][$user->minority]}}</li>
-						@endif
-						@if($user->religion)
-						<li><span class="font_z">宗教：</span>{{$base_data['religion']['value'][$user->religion]}}</li>
-						@endif
-
-					</ul>
-
+    					</ul>
+                    </div>
+                    <div class="mydata_main_content monologue">
+                        <p>
+                           <span class="span_right fright" style="margin-left: 0px;margin-right: -100px;"><a href="{{ route('profile.dating') }}">编辑</a></span>
+                        </p>
+                        <p style="color: #818181">@if($user_dating){{$user_dating->aboutme}}@endif</p>
+                    </div>
+                    <div class="mydata_main_content monologue">
+                        <p>
+                            <span class="span_right fright" style="margin-left: 0px;margin-right: -100px;"><a href="{{ route('profile.detail') }}">编辑</a></span>
+                         </p>
+                         @if($user_detail)
+     	                    @foreach($detail_data as $key => $value)
+     		               	@if($user_detail->$key) <p><span class="font_z">{{$value['desc']}}：</span>{{$user_detail->$key}}</p>@endif
+     		               	@endforeach
+     	               	@endif
+                    </div>
+                    <div class="mydata_main_content monologue">
+                        <p>
+                            <span class="span_right fright" style="margin-left: 0px;margin-right: -100px;"><a href="{{ route('profile.happy') }}">编辑</a></span>
+                         </p>
+                         @if($user_happy)
+     	                    @foreach($happy_data as $key => $value)
+     		               	@if($user_happy->$key)<p><span class="font_z">{{$value['desc']}}：</span>@if($value['type'] == 'select'){{$value['value'][$user_happy->$key]}}@else {{$user_happy->$key}} @endif </p>@endif
+     		               	@endforeach
+     	               	@endif
+                    </div>
                </div>
-               <div class="monologue">
-                    <p>
-                       <span class="span_left">内心独白</span>
-                       <span class="span_right fright" style="margin-left: 0px;margin-right: -100px;"><a href="{{ route('profile.dating') }}">编辑</a></span>
-                    </p>
-                    <p style="color: #818181">@if($user_dating){{$user_dating->aboutme}}@endif</p>
-               </div>
-               <div class="monologue">
-                   <p>
-                       <span class="span_left">个性信息</span>
-                       <span class="span_right fright" style="margin-left: 0px;margin-right: -100px;"><a href="{{ route('profile.detail') }}">编辑</a></span>
-                    </p>
-                    @if($user_detail)
-	                    @foreach($detail_data as $key => $value)
-		               	@if($user_detail->$key) <p><span class="font_z">{{$value['desc']}}：</span>{{$user_detail->$key}}</p>@endif
-		               	@endforeach
-	               	@endif
-
-               </div>
-               <div class="monologue">
-                   <p>
-                       <span class="span_left">幸福宣言</span>
-                       <span class="span_right fright" style="margin-left: 0px;margin-right: -100px;"><a href="{{ route('profile.happy') }}">编辑</a></span>
-                    </p>
-                    @if($user_happy)
-	                    @foreach($happy_data as $key => $value)
-		               	@if($user_happy->$key)<p><span class="font_z">{{$value['desc']}}：</span>@if($value['type'] == 'select'){{$value['value'][$user_happy->$key]}}@else {{$user_happy->$key}} @endif </p>@endif
-		               	@endforeach
-	               	@endif
-
-               </div>
-
-
            </div>
            <!-- *********我的资料************ -->
             </div>
@@ -365,7 +358,7 @@
                     </p>
                     <div class="clear"></div>
                     <div class="showAlbums" id="showAlbums">
-                        
+
 	                </div>
                 </div>
             </div>
@@ -531,6 +524,47 @@
 		$("#one23").click(function(){
 			ajaxget('/album/albumAjax?user_id={{$user->id}}', 'showAlbums');
 		});
+        $(".mydata_main_nav a").click(function(){
+            var index = $(this).index();
+            console.log($(this).index());
+            $(this).addClass('active').siblings().removeClass('active');
+            $(".mydata_main_content").hide();
+            $(".mydata_main_content:eq("+index+")").show();
+        });
+        $("#money").focus(function(){
+            $("input[name='money']").removeAttr("checked");
+        });
+        $("#hongbao_submit").click(function(){
+            var pay_id = $('input:radio[name="pay_id"]:checked').val();
+            if(pay_id == null)
+            {
+                layer.msg("请选择支付方式");
+                return false;
+            }
+            var money = parseInt($("input[name='money']:checked").val());
+            if(!money){
+                var money = parseInt($('#money').val());
+            }
+            if(!money)
+            {
+                layer.msg("请输入金额");
+                return false;
+            }
+            $.ajax({
+    			type: 'POST',
+    			url: "{{ route('send_red_packet') }}",
+    			data: {money:money,pay_id:pay_id},
+    			dataType: 'json',
+    			success: function(data){
+                    if(data.code == 210)
+                    {
+                        window.location.href = data.url;
+                    }else{
+                        layer.msg(data.message,{icon:5});
+                    }
 
+                }
+            });
+        });
 	</script>
 @stop
