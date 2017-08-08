@@ -135,7 +135,10 @@ class UserController extends Controller
 		$thread_count = app('repository')->model(Thread::class)->forUser($user->id)->count();
 		$vote_count = app('repository')->model(Vote::class)->forUser($user->id)->count();
 		$gift_count = DB::table('send_gift')->where('user_id' ,$user->id)->orWhere('to_user_id',$user->id)->count();
-
+		$space_sql = Space::select('id')->where('is_audit',1);
+		$map['user_id'] = $user->id;
+		$map['type'] = 'post';
+		$space_count = $space_sql->where($map)->count();
 		$packet_users = Packet::select('users.avatar_url','users.username','packets.user_id','packets.created_at','packets.money')
 											->join('users','users.id','=','packets.user_id')
 											->where('packets.pay_status',1)
@@ -169,7 +172,8 @@ class UserController extends Controller
 			->with('gift_count',$gift_count)
 			->with('star',$star)
 			->with('role',$role)
-			->with('packet_users',$packet_users);
+			->with('packet_users',$packet_users)
+			->with('space_count',$space_count);
     }
 
     public function showByUsername($username)

@@ -96,6 +96,7 @@ class SendGiftController extends Controller
 
         $gift = Gift::where('id',$request->gift_id)->first();
         $user = User::findByUidOrFail(Auth::id());
+		$to_user = User::findByUidOrFail($request->to_user_id);
         if($gift->gift_number == 0){
             return [
 				'code' => 201,
@@ -128,6 +129,13 @@ class SendGiftController extends Controller
     	if($sendGift->save()){
     		$gift->gift_number = $gift->gift_number - $request->send_number;
     		$gift->save();
+			app('notifier')->batchNotify(
+				'send_gift',
+				Auth::user(),
+				[$to_user],
+				$sendGift,
+				''
+			);
             return 200;
     	}else{
             return 400;

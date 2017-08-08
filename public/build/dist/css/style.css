@@ -21,6 +21,7 @@ ul,li,dl,dt,dd{ list-style:none;}
 .orange{color: #51B837;}
 .w690{width: 690px;}
 .h500{height: 500px;}
+/*.center{text-align: center;}*/
 select,input,textarea{ outline:none;}
 textarea {
     overflow: auto;
@@ -183,6 +184,7 @@ span.emotion:hover{background-position:2px -28px}
 .con_one  a .r_b1{ display:block; float:left; height:26px; line-height:26px; padding-left:10px; width:240px; overflow:hidden;}
 #con_one_1 a .r_b2{ display:block; float:right; height:26px; line-height:26px; padding-left:10px; width:70px; overflow:hidden;}
 #con_one_1 a .r_b2 b{ font-weight:400; color:#ff1401;}
+#con_one_3 img{width:80px;height:80px;}
 /*选项卡2*/
 .company_con{margin:15px auto;width:343px;border:#d5d5d5 solid 1px; min-height: 100px;}
 .company_con  ul.choose_nav{width:323px;height:30px;background:#51b837; padding:6px 10px 0px;}

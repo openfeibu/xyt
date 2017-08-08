@@ -11,11 +11,11 @@
         </div>
         <div class="clear"></div>
         <div class="album_centent">
-	        @foreach($album_photos as $album_photo)        
+	        @foreach($album_photos as $album_photo)
             <div class="album_centent_photo fleft">
                 <dl>
                     <dd>
-                        <img src="{{ $album_photo->image }}" alt="" class="album_centent_photo_img" />
+                        <a href="{{ route('album.show',$album_photo->id) }}" target="__blank"><img src="{{ $album_photo->image }}" alt="" class="album_centent_photo_img" /></a>
                     </dd>
                 </dl>
             </div>

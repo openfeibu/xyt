@@ -26,7 +26,7 @@
 						@for ($i = 0; $i < 6 - $star['star']; $i++)
 						    {!!handerStar(0)!!}
 						@endfor
-                        
+
                         <p style="margin-top: 5px;"></p>
                         <table style="border: 1px #F2C4D7 solid;width: 100%;text-align: center;">
                             <tr>
@@ -39,21 +39,21 @@
                             <tr>
                                 <td style="border-left: 0px;">实名认证</td>
                                 <td><span style="color: red">通过本站实名认证</span></td>
-                                <td>未通过认证&nbsp;>>&nbsp;<span style="color: red">立即认证</span></td>
+                                <td>@if($star['real_name_status'])已通过认证@else未通过认证&nbsp;>>&nbsp;<a href="/identify/name"><span style="color: red">立即认证</span></a>@endif</td>
                                 <td>{!!handerStar($star['real_name_status'])!!}</td>
                                 <td>{!!handerStar(1)!!}</td>
                             </tr>
                             <tr>
                                 <td style="border-left: 0px;">学历认证</td>
                                 <td><span style="color: red">通过本站学历认证</span></td>
-                                <td>未通过认证&nbsp;>>&nbsp;<span style="color: red">立即认证</span></td>
+                                <td>@if($star['education_status'])已通过认证@else未通过认证&nbsp;>>&nbsp;<a href="/identify/education"><span style="color: red">立即认证</span></a>@endif</td>
                                 <td>{!!handerStar($star['education_status'])!!}</td>
                                 <td>{!!handerStar(1)!!}</td>
                             </tr>
                             <tr>
                                 <td style="border-left: 0px;">手机认证</td>
                                 <td><span style="color: red">通过本站手机认证</span></td>
-                                <td>未通过认证&nbsp;>>&nbsp;<span style="color: red">立即认证</span></td>
+                                <td>@if($star['mobile_status'])已通过认证@else未通过认证&nbsp;>>&nbsp;<a href="/identify/mobile"><span style="color: red">立即认证</span></a>@endif</td>
                                 <td>{!!handerStar($star['mobile_status'])!!}</td>
                                 <td>{!!handerStar(1)!!}</td>
                             </tr>
@@ -88,7 +88,7 @@
                             <tr>
                                 <td style="border-left: 0px;">推广星级</td>
                                 <td>邀请好友注册数目超过10人</td>
-                                <td>已邀请人数：<span  style="color: #000">{{$user->invite_count}}</span>&nbsp;>>&nbsp;<span style="color: red">立即邀请</span></td>
+                                <td>已邀请人数：<span  style="color: #000">{{$user->invite_count}}</span>&nbsp;>>&nbsp;<a href="/invitation/index"><span style="color: red">立即邀请</span></a></td>
                                 <td>{!!handerStar($star['invite_status'])!!}</td>
                                 <td>{!!handerStar(1)!!}</td>
                             </tr>
@@ -106,9 +106,9 @@
                             <p>7、普通会员诚信星级高于5星级后，可以与高于自己星级的用户发送消息，并且拥有即时聊天的功能;</p>
                             <p>8、提到星级，可获得更多的推荐及关注机会，成功率大大提高！</p>
                         </div>
-                        
+
                     </div>
-                    
+
                 </div>
             </div>
         </div>
@@ -120,7 +120,7 @@
         function showimg() {
             var file = document.getElementById("cardpic").value;
             var fileName = getFileName(file);
-             
+
             function getFileName(o){
                 var pos=o.lastIndexOf("\\");
                  document.getElementById("img_name").src = "./images/"+o.substring(pos+1);
@@ -129,11 +129,10 @@
         function showimg2() {
             var file = document.getElementById("cardpic2").value;
             var fileName = getFileName(file);
-             
+
             function getFileName(o){
                 var pos=o.lastIndexOf("\\");
                  document.getElementById("img_name2").src = "./images/"+o.substring(pos+1);
             }
         }
   </script>
-    

@@ -1,4 +1,5 @@
 function setTab(name,cursel){
+
 	cursel_0=cursel;
 	for(var i=1; i<=links_len; i++){
 		var menu = document.getElementById(name+i);
@@ -13,38 +14,38 @@ function setTab(name,cursel){
 		}
 	}
 }
-function Next(){                                                        
+function Next(){
 	cursel_0++;
 	if (cursel_0>links_len)cursel_0=1
 	setTab(name_0,cursel_0);
-} 
+}
 var name_0='one';
 var cursel_0=1;
 //var ScrollTime=3000;循环周期（毫秒）
 var links_len,iIntervalId;
 onload=function(){
-	var links = document.getElementById("tab1s").getElementsByTagName('li')
-	links_len=links.length;
-	for(var i=0; i<links_len; i++){
-		links[i].onmouseover=function(){
-			clearInterval(iIntervalId);
-			this.onmouseout=function(){
-				iIntervalId = setInterval(Next,2000);;
-			}
-		}
-	}
-	document.getElementById("con_"+name_0+"_"+links_len).parentNode.onmouseover=function(){
-		clearInterval(iIntervalId);
-		this.onmouseout=function(){
-			iIntervalId = setInterval(Next,2000);;
-		}
-	}
-	setTab(name_0,cursel_0);
-	iIntervalId = setInterval(Next,2000);
+	 var links = document.getElementById("tab1s").getElementsByTagName('li')
+	 links_len=links.length;
+	// for(var i=0; i<links_len; i++){
+	// 	links[i].onmouseover=function(){
+	// 		clearInterval(iIntervalId);
+	// 		this.onmouseout=function(){
+	// 			iIntervalId = setInterval(Next,2000);;
+	// 		}
+	// 	}
+	// }
+	// document.getElementById("con_"+name_0+"_"+links_len).parentNode.onmouseover=function(){
+	// 	clearInterval(iIntervalId);
+	// 	this.onmouseout=function(){
+	// 		iIntervalId = setInterval(Next,2000);;
+	// 	}
+	// }
+//	setTab(name_0,cursel_0);
+	//iIntervalId = setInterval(Next,2000);
 }
 ////////
 $(function(){
-		   
+
    /*B2B/B2C切换 */
    $("#companyUl li").bind("click",function(){
        $(this).addClass("selected").siblings().removeClass("selected");

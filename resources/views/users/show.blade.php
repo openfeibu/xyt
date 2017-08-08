@@ -33,9 +33,9 @@
             <div style="text-align: center">
                 <p>{!!$user->username!!}</p>
                 <p>{{ $user->work }}/{{ $user->school }}</p>
-                <div>
+                <!-- <div>
                     <img src="{{asset('images/index/mobile.png')}}" alt=""/>
-                </div>
+                </div> -->
                 <table>
                     <tr>
                         <td align="center" width="80">{{ $user->follower_count }}</td>
@@ -196,7 +196,7 @@
                      <li ><a href="{{route('user.home',$user->id)}}">全部</a></li>
                      <li onclick="showDynamic('blog')" >日志({{$blog_count}})</li>
                      <li onclick="showDynamic('activity')">活动({{$activity_count}})</li>
-                     <li onclick="showDynamic('space')">说说(10)</li>
+                     <li onclick="showDynamic('space')">说说({{$space_count}})</li>
                      <li onclick="showDynamic('thread')">话题({{$thread_count}})</li>
                      <li onclick="showDynamic('gift')">礼物({{$gift_count}})</li>
                      <li onclick="showDynamic('vote')" >投票({{$vote_count}})</li>

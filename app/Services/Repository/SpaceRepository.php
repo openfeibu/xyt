@@ -20,10 +20,10 @@ class SpaceRepository{
     protected $error = '';
 
     private $limitnums = 10;
-    
+
 	public function __construct ()
 	{
-		
+
 	}
 	public function getError()
     {
@@ -97,13 +97,13 @@ class SpaceRepository{
         $content = $this->formatFeedContent($data['body'],140);
         $data['body'] = $content['body'];
         $data['content'] = $content['content'];
-        
+
         //分享到说说的应用资源，加入原资源链接
         $data['body'] .= $data['source_url'];
         $data['content'] .= $data['source_url'];
 
         if ($type == 'postvideo') {
-            
+
             $typedata = app('videoService')->_weiboTypePublish(Input::get('videourl'));
 
             if ($typedata && $typedata['flashvar'] && $typedata['flashimg']) {
@@ -114,7 +114,7 @@ class SpaceRepository{
 
         }
         // 目前处理方案格式化数据
-        $data['content'] = str_replace(chr(31), '', $data['content']);       
+        $data['content'] = str_replace(chr(31), '', $data['content']);
         $data['feed_data'] = serialize($data);
         $data['feed_content'] =  str_replace(chr(31), '', $data['body']) ;
         $data['client_ip'] = get_client_ip();
@@ -177,7 +177,7 @@ class SpaceRepository{
         $replaceHash = Cache::pull('replaceHash');
         // 获取用户发送的内容，仅仅以//进行分割
         $scream = explode('//', $content);
-        // 截取内容信息为说说内容字数 - 重点     
+        // 截取内容信息为说说内容字数 - 重点
         $feedNums = $weiboNums;
         $body = array();
         // 还原URL操作
@@ -248,7 +248,7 @@ class SpaceRepository{
      */
     private function __paseTemplate($_data)
     {
-	   
+
         // 获取作者信息
         $user = app('userRepository')->getUserInfo($_data['user_id']);
         // 处理数据
@@ -258,7 +258,7 @@ class SpaceRepository{
         $var['attachInfo'] = [];
    		 if (!empty($var['attach_id'])) {
             $var['attachInfo'] = app('attachService')->getAttachByIds($var['attach_id']);;
-			
+
             foreach ($var['attachInfo'] as $ak => $av) {
                 $_attach = array(
                             'attach_id' => $av['attach_id'],
@@ -319,14 +319,17 @@ class SpaceRepository{
      */
     public function getList($feedlist, $limit = 10, $order = null,$page_paramter)
     {
-   		$order = !empty($order) ? $order : array('0' => array('id' =>'desc')); 
+        $count = $feedlist->count();
+   		$order = !empty($order) ? $order : array('0' => array('id' =>'desc'));
   		$feedlist = orderHandle($feedlist,$order);
- 		$feedlist = $feedlist->paginate($limit)->appends(array_filter($page_paramter));	
- 		$pageHtml = with(new \Hifone\Foundations\Pagination\CustomerPresenter($feedlist))->render();	
+ 		$feedlist = $feedlist->paginate($limit)->appends(array_filter($page_paramter));
+ 		$pageHtml = with(new \Hifone\Foundations\Pagination\CustomerPresenter($feedlist))->render();
  		$feedlist = $feedlist->toArray();
-        $space_ids = getSubByKey($feedlist['data'], 'id');   
+        $space_ids = getSubByKey($feedlist['data'], 'id');
+
         $feedlist['pageHtml'] = $pageHtml;
         $feedlist['data'] = $this->getFeeds($space_ids);
+        $feedlist['count'] = $count;
         return $feedlist;
     }
 
@@ -337,17 +340,17 @@ class SpaceRepository{
      */
     public function getFeeds($space_ids)
     {
-		
+
         $feedlist = $cacheList = array();
         $space_ids = array_filter(array_unique($space_ids));
 
         // 获取数据
         if (count($space_ids) > 0) {
-	        $cacheList = getList('fd_', $space_ids);          
+	        $cacheList = getList('fd_', $space_ids);
         } else {
             return false;
         }
-		
+
         // 按照传入ID顺序进行排序
         foreach ($space_ids as $key => $v) {
             if ($cacheList[$v]) {
@@ -387,7 +390,7 @@ class SpaceRepository{
             $data['transpond_id'] = $data['app_row_id'];
             $data['transpond_data'] = $this->getFeedInfo($data['transpond_id']);
         }
-       
+
         $data['has_attach'] = 0;
 
 		// 附件处理
@@ -395,7 +398,7 @@ class SpaceRepository{
             $data['has_attach'] = 1;
             $attach = app('attachService')->getAttachByIds($fd['attach_id']);
             foreach ($attach as $ak => $av) {
-	            
+
                 $_attach = array(
                             'attach_id' => $av['attach_id'],
                             'attach_name' => $av['name'],
@@ -416,7 +419,7 @@ class SpaceRepository{
         }
 
         if ($data['type'] == 'postvideo') {
-            
+
             $data['host'] = $fd['host'];
             $data['flashvar'] = $fd['flashvar'];
             $data['source'] = $fd['source'];
@@ -494,7 +497,7 @@ class SpaceRepository{
      * @return array  获取分享相关模板数据
      */
     public function getData(array $var, $tpl = 'FeedList')
-    {    
+    {
 	    isset($var['limitnums']) && intval($var['limitnums']) !=0 && $this->limitnums = $var['limitnums'];
 	    isset($var['page_paramter']) && $this->limitnums = $var['limitnums'];
 	    if(isset($var['page_paramter']))
@@ -516,9 +519,9 @@ class SpaceRepository{
         $var = array_merge($var,config('system_config.feed'));
 
         $map = $list = array();
-        
+
         $type = isset($var ['new']) ? 'new'.$var ['type'] : $var ['type']; // 最新的分享与默认分享类型一一对应
-		
+
         switch ($type) {
             case 'following' : // 我关注的
                 if (! empty($var ['feed_key'])) {
@@ -542,7 +545,7 @@ class SpaceRepository{
 
                         $feedlist = $feedlist->where('app',t($var ['app']));
 
-                    }				
+                    }
                     // 设定可查看的关注分享总数，可以提高大数据量下的查询效率
                     $max = null;//1000;
                     $list = $this->getFollowingFeed($feedlist, $this->limitnums, '','', $max,$page_paramter);
@@ -553,7 +556,7 @@ class SpaceRepository{
                     // 关键字匹配 采用搜索引擎兼容函数搜索 后期可能会扩展为搜索引擎
                     $list = model('Feed')->searchFeed($var ['feed_key'], 'union', $var ['loadId'], $this->limitnums);
                 } else {
-	               
+
                     $where = ' a.is_audit=1 AND a.is_del = 0 ';
                     if ($var ['loadId'] > 0) { // 非第一次
                         $where .= " AND a.id < '".intval($var ['loadId'])."'";
@@ -567,7 +570,7 @@ class SpaceRepository{
                             $where .= " AND a.type = '".t($var ['feed_type'])."'";
                         }
                     }
-                    
+
                     // 设定可查看的关注分享总数，可以提高大数据量下的查询效率
                     $max = null;//1000;
                     $list = model('Feed')->getUnionFeed($where, $this->limitnums, '', $var ['fgid'], $max);
@@ -595,7 +598,7 @@ class SpaceRepository{
 
                         $feedlist = $feedlist->where('app',t($var ['app']));
 
-                    }						
+                    }
                     // 设定可查看的全站分享总数，可以提高大数据量下的查询效率
                     $max = null;//10000;
                     $list = $this->getList($feedlist, $this->limitnums, '', $page_paramter);
@@ -616,11 +619,11 @@ class SpaceRepository{
 
                         $feedlist = $feedlist->where('app',t($var ['app']));
 
-                    }						
+                    }
                     // 设定可查看的全站分享总数，可以提高大数据量下的查询效率
                     $max = null;//10000;
                     $list = $this->getList($feedlist, $this->limitnums, '', $page_paramter);
-                
+
                 break;
             case 'indexSpace' : // 用户说说
 	                $feedlist = Space::select('id')->where('is_audit',1)->where('updated_at','>=',DB::raw('(select date_sub(now(), interval 24 HOUR))'));
@@ -637,11 +640,11 @@ class SpaceRepository{
 
                         $feedlist = $feedlist->where('app',t($var ['app']));
 
-                    }						
+                    }
                     // 设定可查看的全站分享总数，可以提高大数据量下的查询效率
                     $max = null;//10000;
                     $list = $this->getList($feedlist, $this->limitnums, '', $page_paramter);
-                
+
                 break;
             case 'newfollowing' : // 关注的人的最新分享
                 $where = '( a.is_audit=1 OR ( a.is_audit=0 AND a.uid='.Auth::id().') ) AND a.is_del = 0 ';
@@ -676,8 +679,9 @@ class SpaceRepository{
 	                $feedlist = Space::select('id')->where('is_audit',1);
 	                if (isset($var ['loadId']) && $var ['loadId'] > 0) { // 非第一次
                     	$feedlist = $feedlist->where('id','<',intval($var ['loadId']));
-					}	
+					}
                     $list = $this->getUserList($feedlist, $var ['user_id'], $var ['feedApp'], $var ['feed_type'], $this->limitnums, $page_paramter);
+                    $content ['count'] = $list ['count'];
                 }
                 break;
             case 'one' :
@@ -686,7 +690,7 @@ class SpaceRepository{
                 $max = null;//10000;
                 $list = model('Feed')->getList($where, $this->limitnums, '', $max);
                 break;
-            
+
             case 'recommend' : // 推荐
              	$feedlist = Space::select('id')->where('is_audit',1);
                 if (isset($var ['loadId']) && $var ['loadId'] > 0) { // 非第一次
@@ -705,14 +709,14 @@ class SpaceRepository{
 
                     $feedlist = $feedlist->where('app',t($var ['app']));
 
-                }		
-                $feedlist =  $feedlist->where('is_recommend',1);			
+                }
+                $feedlist =  $feedlist->where('is_recommend',1);
 				$list = $this->getList($feedlist, $this->limitnums, '', $page_paramter);
 
                /* $content ['count'] = $list ['count'];*/
-                break;           
+                break;
         }
-		// 分页的设置		
+		// 分页的设置
         isset($list ['pageHtml']) && $var ['pageHtml']  = $list ['pageHtml'];
         $var ['data'] = array();
         if (! empty($list ['data'])) {
@@ -725,18 +729,18 @@ class SpaceRepository{
 			$var ['diggArr'] = app('spaceDiggRepository')->checkIsDigg($space_ids, Auth::id());
             $uids = array();
             foreach ($var ['data'] as &$v) {
-               
+
                 $v ['from'] = getFromClient($v ['from']);
 
                 ! isset($uids [$v ['user_id']]) && $v ['user_id'] != Auth::id() && $uids [] = $v ['user_id'];
             }
             /*if (! empty($uids)) {
-                $var ['followUids'] = Auth::user()->get();              
+                $var ['followUids'] = Auth::user()->get();
             } else {
                 $var ['followUids'] = array();
             }*/
         }
-  		
+
 		$content ['pageHtml'] = $list ['pageHtml']  ;
         // 渲染模版
 		$content ['html'] = view('widgets.'.$tpl)->with('var',$var)->__toString();
@@ -774,7 +778,7 @@ class SpaceRepository{
                 $appTable = 'activities';
                 break;
         }
-        
+
         $space = $this->put($uid, $app, $type, $data, $appId, $appTable);
 
         return $space['space_id'];

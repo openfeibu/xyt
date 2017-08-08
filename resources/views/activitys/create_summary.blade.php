@@ -24,16 +24,18 @@
 				     </div>
 			         <!-- //编辑器 -->
 			        <div class="b_ig">
-			           <textarea id="editor" cols="20" rows="2" class="ckeditor h500" name="body">@if($summary){{$summary->body}}@endif</textarea>
+			           <textarea id="editor"  class="ckeditor h500" name="body">@if($summary){{$summary->body}}@endif</textarea>
 			        </div>
-			        <table cellpadding="0" cellspacing="0">
-
-			        <tr><td></td><td> <div id="fileList" class="uploader-list"></div></td></tr>
-			        <tr><td></td><td><input type="button" class="b_idinp7" value="保存发布" id="submit_btn" /></td></tr>
-					<textarea name="body_original" id="body_original" style="display: none;"></textarea>
-					<input type="hidden" name="activity_id" value="{{$activity->id}}" />
-					<input type="submit" name="submit" id="submit"  style="display: none;">
-			        </table>
+					<div class="clear"></div>
+					<div style="margin-top:100px">
+				        <table cellpadding="0" cellspacing="0">
+					        <tr><td></td><td> <div id="fileList" class="uploader-list"></div></td></tr>
+					        <tr><td></td><td><input type="button" class="b_idinp7" value="保存发布" id="submit_btn" /></td></tr>
+							<textarea name="body_original" id="body_original" style="display: none;"></textarea>
+							<input type="hidden" name="activity_id" value="{{$activity->id}}" />
+							<input type="submit" name="submit" id="submit"  style="display: none;">
+				        </table>
+					</div>
 		        </form>
 	        </div>
 		</div>

@@ -236,6 +236,8 @@ return [
         'reply_mention'               => '在回复中提及你:',
         'credit_register'             => '注册获得积分',
         'credit_login'                => '每日登录获得积分',
+        'send_gift'                   => '赠送了你礼物',
+        'say_hello'                   => '跟你打了个招呼',
     ],
 
 //Pm

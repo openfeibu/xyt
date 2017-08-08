@@ -83,8 +83,8 @@
                     <div class="my_classify_photo">
                         <div class="my_classify_list">
                             <dl>
-                                <dd><img src="{{$album->image}}" /></dd>
-                                <dd class="my_classify_list_send">{{$album->name}}</dd>
+                                <dd><a href="{{ route('album.album_photos',['album_id'=>$album->id]) }}"><img src="{{$album->image}}" /></a></dd>
+                                <dd class="my_classify_list_send center">{{$album->name}}</dd>
                             </dl>
                         </div>
                     </div>
@@ -196,7 +196,7 @@
 					$('#file_upload').uploadify('stop','*');
 					alert(data.error);
 				}else{
-					location.href = data.url;
+					//location.href = data.url;
 				}
 
 	        },

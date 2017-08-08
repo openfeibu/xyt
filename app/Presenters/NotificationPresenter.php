@@ -84,6 +84,9 @@ class NotificationPresenter extends AbstractPresenter
             case 'credit_login':
                 $label = trans('hifone.notifications.credit_login');
                 break;
+            case 'send_gift':
+                $label = trans('hifone.notifications.send_gift');
+                break;
             default:
                 $label = 'unknow';
                 break;

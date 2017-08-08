@@ -575,10 +575,10 @@ class ActivityController extends Controller
 		$activity = Activity::where('id',$request->activity_id)->first();
 
 		$activity_actors = Activity_actors::where('activity_actors.activity_id',$request->activity_id)
+											->where('activity_actors.actor_type','join')
 											->leftJoin('users','users.id','=','activity_actors.user_id')
-											->leftJoin('user_realnames','users.id','=','user_realnames.user_id')
+											->orderBy('users.sex','desc')
 											->get(['activity_actors.*','users.height','users.birthday','users.school','users.education','users.homeplace','users.school','users.work','users.mobile','users.absent_count','users.username','users.sex']);
-
         $cellData = [['昵称','性别','年龄','籍贯','身高','学历','职业/学校','报名时间','手机号码','缺席次数','是否缴费']];
 		foreach ($activity_actors as $key => $activity_actor) {
 			$is_pay = $activity_actor['pay_status'] ? '否' : '是';
