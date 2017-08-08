@@ -19,17 +19,18 @@ class VoteController extends Controller
 	public function __construct()
     {
 	    parent::__construct();
+		$this->title = '投票';
         $this->middleware('auth');
     }
     public function index (Request $request)
     {
 	    $type = isset($request->type) ? $request->type : 'new';
 	    $votes = app('voteRepository')->votes($type);
-    	return view('vote.index')->with('votes',$votes)->with('type',$type);
+    	return $this->view('vote.index')->with('votes',$votes)->with('type',$type);
     }
     public function create ()
     {
-    	return view('vote.create');
+    	return $this->view('vote.create');
     }
     public function show (Request $request)
     {
@@ -50,19 +51,19 @@ class VoteController extends Controller
 				$vote_option->ratio = round(($vote_option->vote_count/$vote->vote_count)*100).'%' ;
 			}
 		}
-		
+
 		$vote_user = VoteUser::where('user_id',Auth::id())->where('vote_id',$id)->first();
-		
+
 	    $this->breadcrumb->push([
 				$user->username.'的主页' => route('user.home',['uid'=>$vote->user_id]),
                 'TA的所有投票' => route('vote.user_vote',['user_id'=>$vote->user_id]),
                 $vote->subject => '',
-				
-        ]);   
+
+        ]);
 
        	$new_votes = app('voteRepository')->newVote(20);
         $hot_votes = app('voteRepository')->hotVote(20);
-        
+
     	return $this->view('vote.show')->with('user',$user)
     							->with('vote',$vote)
     							->with('new_votes',$new_votes)
@@ -90,7 +91,7 @@ class VoteController extends Controller
 	    foreach( $vote_options as $key => $vote_option )
 	    {
 	    	$options[] = $vote_option->id;
-	    }	
+	    }
     	foreach( $vote_option_ids as $key => $vote_option_id )
     	{
     		if(in_array($vote_option_id,$options)){
@@ -108,7 +109,7 @@ class VoteController extends Controller
     	return Redirect::route('vote.show', [$vote_id])
             ->withSuccess(sprintf('%s %s', trans('hifone.awesome'), trans('hifone.success')));
     }
-    
+
     public function userVoteList (Request $request)
     {
     	$user_votes = VoteUser::where('vote_id',$request->get('vote_id'))
@@ -126,10 +127,10 @@ class VoteController extends Controller
 			$option_values = VoteOption::whereIn('id', $option_ids)->lists('value');
 			$user_vote->option_values = $option_values;
 			$user_vote->user = User::findByUidOrFail($user_vote->user_id);
-		}		
+		}
 		$html = view("vote.user_vote_list")->with('user_votes',$user_votes)->__toString();
 		$pageHtml = with(new \Hifone\Foundations\Pagination\CustomerPresenter($user_votes))->render();
-		
+
 		return [
 			'html' => $html,
 			'pageHtml' => $pageHtml,
@@ -137,7 +138,7 @@ class VoteController extends Controller
     }
     public function userVote (Request $request)
     {
-    	
+
     }
     public function store ()
     {
@@ -169,7 +170,7 @@ class VoteController extends Controller
 	    }
 	   // $voteData['option'] = serialize ($voteData['option']);
 	    $voteData['user_id'] = Auth::id();
-	    
+
 	    $vote = Vote::create($voteData);
 
 		$options = array_filter($validatorData['option']);
@@ -177,13 +178,13 @@ class VoteController extends Controller
 	    {
 	    	$vote_options[] = array('value' => $option,'vote_id' => $vote->id ,'created_at' => Carbon::now()->toDateTimeString(), 'updated_at' => Carbon::now()->toDateTimeString());
 	    }
-	    
+
 	    VoteOption::insert($vote_options);
 
 	    $space_id = app('spaceRepository')->syncToSpace('vote',  Auth::id(), $vote->id);
 
 	    Vote::where('id',$vote->id)->update(['space_id' => $space_id ]);
-	    
+
 	    return Redirect::route('vote.show', [$vote->id])
             ->withSuccess(sprintf('%s %s', trans('hifone.awesome'), trans('hifone.success')));
     }
