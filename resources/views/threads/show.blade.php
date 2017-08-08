@@ -75,10 +75,6 @@
 <td align="right">
 <a href="#com_form"  class="a1" >回复</a>&nbsp;
 <a href="#" class="jubaoshow" style="margin-left:10px;">举报</a>
-<?php
-	$sid = !empty($space->app_row_id)? $space->app_row_id : $space->id;
-?>
-{!! Widget::Share(['sid'=>$sid,'stable'=>$space->app_row_table,'initHTML'=>'','current_table'=>'spaces','current_id'=>$space->id,'nums'=>$space->repost_count,'appname'=>$space->app,'cancomment'=>1,'feed_type'=>$space->type,'is_repost'=>$space->is_repost])!!}
 </div>
 <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
 
