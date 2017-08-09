@@ -10,6 +10,7 @@ use Redirect;
 use Validator;
 use Hifone\Models\User;
 use Hifone\Models\Blog;
+use Hifone\Models\BlogDigg;
 use Hifone\Models\BlogCategory;
 use Illuminate\Http\Request;
 
@@ -116,11 +117,19 @@ class BlogController extends Controller
         ]);
         $hot_blogs = app('blogRepository')->hotBlogs();
         $new_blogs = app('blogRepository')->newBlogs();
+
+		$blog_digg = BlogDigg::where('user_id',Auth::id())->where('blog_id',$id)->first();
+		if($blog_digg){
+			$digg_text = '取消点赞';
+		}else{
+			$digg_text = '点赞';
+		}
     	return $this->view('blog.show')
     				->with('blog',$blog)
     				->with('user',$user)
     				->with('hot_blogs',$hot_blogs)
-    				->with('new_blogs',$new_blogs);
+    				->with('new_blogs',$new_blogs)
+					->with('digg_text',$digg_text);
     }
 
 }

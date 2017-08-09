@@ -28,7 +28,7 @@
 				</div>
 				<div class="blog_body">
 					<p>{!!$blog->body!!}</p>
-					<div class="blog_handle"><a href="">点赞（{{$blog->digg_count}}）</a><a href="">阅读（{{$blog->view_count}}）</a></div>
+					<div class="blog_handle"><a href="javascript:;" id="digg_btn"><span id="digg_text">{{$digg_text}}</span>（<span id="digg_count">{{$blog->digg_count}}</span>）</a><a href="">阅读（{{$blog->view_count}}）</a></div>
  				</div>
 			</div>
 			<div class="blog_comment">
@@ -74,8 +74,8 @@
 	        </div>
 	        <div class="blog_list">
 		        <ul>
-			        @foreach($new_blogs as $key => $blog)
-                    <li class="space_right_p"><a href="{{route('blog.show',$blog->id)}}">{{$blog->title}}</a></li>
+			        @foreach($new_blogs as $key => $new_blog)
+                    <li class="space_right_p"><a href="{{route('blog.show',$new_blog->id)}}">{{$new_blog->title}}</a></li>
                     @endforeach
 				</ul>
 		    </div>
@@ -87,8 +87,8 @@
 	        </div>
 	        <div class="blog_list">
 		        <ul>
-			        @foreach($hot_blogs as $key => $blog)
-                    <li class="space_right_p"><a href="{{route('blog.show',$blog->id)}}">{{$blog->title}}</a></li>
+			        @foreach($hot_blogs as $key => $hot_blog)
+                    <li class="space_right_p"><a href="{{route('blog.show',$hot_blog->id)}}">{{$hot_blog->title}}</a></li>
                     @endforeach
 				</ul>
 		    </div>
@@ -97,4 +97,25 @@
 </div>
 
 <script type="text/javascript" src="{{ asset('/js/module.weibo.js') }}"></script>
+<script type="text/javascript">
+	$("#digg_btn").click(function(){
+		var loading = layer.load(1, {shade: false});
+		var digg_count = parseInt($("#digg_count").text());
+		$.post("{{route('blog.digg')}}",{blog_id:{{$blog->id}}},function(data){
+			layer.close(loading);
+			if(data.code == 200){
+				if(data.status == 1)
+				{
+					$("#digg_count").text(digg_count+1);
+					$("#digg_text").text('取消点赞');
+				}
+				else{
+					$("#digg_count").text(digg_count-1);
+					$("#digg_text").text('点赞');
+				}
+
+			}
+		});
+	});
+</script>
 @stop

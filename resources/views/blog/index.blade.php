@@ -27,7 +27,7 @@
 <div class="b_ldc"><!-- JiaThis Button BEGIN -->
 <!-- JiaThis Button END --></div>
 </div>
-<div class="b_ldd"><p>{{$blog->body_original}}</p><p>{{$blog->view_count}} 次阅读|{{$blog->reply_count}} 个评论</p></div>
+<div class="b_ldd"><p>{{$blog->body_original}}</p><p>{{$blog->view_count}} 次阅读|{{$blog->digg_count}} 个点赞</p></div>
 </dd>
 </dl>
 @endforeach

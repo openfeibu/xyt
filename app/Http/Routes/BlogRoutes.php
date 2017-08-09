@@ -28,6 +28,10 @@ class BlogRoutes
 				'as'   => 'blog.show',
 				'uses' => 'BlogController@show',
 			]);
+            $router->post('/blog/digg', [
+				'as'   => 'blog.digg',
+				'uses' => 'DiggController@diggBlog',
+			]);
 		});
 	}
 }
