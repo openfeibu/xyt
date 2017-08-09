@@ -99,7 +99,7 @@ class BlogController extends Controller
 	    	$space_id = app('spaceRepository')->syncToSpace('blog',  Auth::id(), $blog->id);
 	    	Blog::where('id',$blog->id)->update(['space_id' => $space_id ]);
     	//}
-
+		User::where('id',Auth::id())->decrement('blog_count');
     	return Redirect::route('blog.show', [$blog->id])
             ->withSuccess(sprintf('%s %s', trans('hifone.awesome'), trans('hifone.success')));
     }

@@ -3,7 +3,7 @@
 /*
  * This file is part of Hifone.
  *
- * 
+ *
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -99,11 +99,11 @@ class Credit extends Model implements HasPresenter
     {
         return CreditPresenter::class;
     }
-	
+
 	/**
      * 检查是否今天第一次签到
      *
-     * 
+     *
      */
 	public static function checkSignForOneday(){
 		$user_id = Auth::user()->id;
