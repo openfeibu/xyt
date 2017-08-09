@@ -27,6 +27,8 @@ class NotificationPresenter extends AbstractPresenter
             return 'credit';
         } elseif ($this->wrappedObject->object instanceof \Hifone\Models\SendGift) {
             return 'gift';
+        } elseif ($this->wrappedObject->object instanceof \Hifone\Models\AllReply) {
+            return 'all_reply';
         }
         else {
             return 'common';
@@ -86,6 +88,21 @@ class NotificationPresenter extends AbstractPresenter
                 break;
             case 'send_gift':
                 $label = trans('hifone.notifications.send_gift');
+                break;
+            case 'say_hello':
+                $label = trans('hifone.notifications.say_hello');
+                break;
+            case 'photo_new_comment':
+                $label = trans('hifone.notifications.photo_new_comment');
+                break;
+            case 'photo_comment_comment':
+                $label = trans('hifone.notifications.photo_comment_comment');
+                break;
+            case 'blog_new_comment':
+                $label = trans('hifone.notifications.blog_new_comment');
+                break;
+            case 'blog_comment_comment':
+                $label = trans('hifone.notifications.blog_comment_comment');
                 break;
             default:
                 $label = 'unknow';

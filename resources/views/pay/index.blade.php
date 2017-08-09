@@ -11,7 +11,7 @@
             <div class="clear" style="height: 10px;"></div>
             {!! $breadcrumb or '' !!}
             <div class="clear" style="height: 100px;"></div>
-            
+
             <div class="money_query">
                 <div class="money_query_user">
                     <img src="{{$user->avatar}}" style="width: 100px;height: 100px;" alt="" />
@@ -43,7 +43,7 @@
                                     象牙币余额
                                 </dd>
                                 <dd style="color: #51B837;font-size: 18px;">{{$user->coin}}</dd>
-                                <dd><span>充值</span></dd>
+                                <dd><a href="{{route('pay.recharge')}}"><span>充值</span></a></dd>
                             </dl>
                         </div>
                         <div class="money_query_right_main">
@@ -53,7 +53,7 @@
                                     积分余额
                                 </dd>
                                 <dd style="color: #51B837;font-size: 18px;">{{$user->score}}</dd>
-                                <dd><span>充值</span></dd>
+                                <dd><a href="{{route('pay.index',['type' => 'convert'])}}"><span>充值</span></a></dd>
                             </dl>
                         </div>
 
@@ -63,7 +63,7 @@
                 <div style="height: 20px" class="clear"></div>
                 <!--
                 <div class="transaction_query" >
-	                 
+
                     <form action="">
                        <p class="fleft" style="margin-top: 0px;margin-left: 20px;">
                             起始时间：<input type="datetime-local" name="begin_date" value="2015/03/27 10:41" id="begin_date"/>到<input type="datetime-local" name="over_date" value="2015/03/27 10:41" id="over_date"/>
@@ -86,7 +86,7 @@
                             <input type="submit" id="submit2" />
                         </p>
                     </form>
-                    
+
                 </div>
                 -->
                 @if($type == 'recharge')
@@ -175,7 +175,7 @@
                             </form>
                         </div>
                     </div>
-                    
+
                     <div class="clear"></div>
                     <p style="font-size:25px;margin-left:20px;margin-top: 30px;">兑换记录:</p>
                     <div class="exchange_record">
@@ -222,6 +222,6 @@
                 </div>
                 @endif
             </div>
-           
+
       </div>
 @stop

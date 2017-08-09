@@ -23,4 +23,8 @@ class SendGift extends Model
     {
         return $this->morphMany(Notification::class, 'object');
     }
+	public function gift()
+    {
+        return $this->belongsTo(Gift::class, 'gift_id');
+    }
 }

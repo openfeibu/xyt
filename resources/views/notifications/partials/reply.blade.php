@@ -3,7 +3,7 @@
     <a title="{{ $notification->author->username }}" class="user-avatar" href="{{ route('user.home', [$notification->author->id]) }}"><img src="{{ $notification->author->avatar_small }}" alt="{{ $notification->author->id }}"></a>
   </div>
   <div class="media-body">
-    
+
   <div class="media-heading">
     {{ $notification->labelUp }}
 	<a href="{{ route('thread.show', [$notification->object->thread->id]) }}#reply{{$notification->object_id}}" title="{{ $notification->object->thread->title }}">

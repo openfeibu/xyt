@@ -147,7 +147,7 @@ class SendGiftController extends Controller
         $notification->author_id = Auth::user()->id;
         $notification->user_id = $request->helloToUser;
         $notification->object_type = "Hifone\Models\SendGift";
-        $notification->object_id = 0;
+        $notification->object_id = 1;
         $notification->type = "say_hello";
         $notification->body = $request->hello_radio;
         if($notification->save()){

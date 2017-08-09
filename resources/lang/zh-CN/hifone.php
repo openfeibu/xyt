@@ -238,6 +238,10 @@ return [
         'credit_login'                => '每日登录获得积分',
         'send_gift'                   => '赠送了你礼物',
         'say_hello'                   => '跟你打了个招呼',
+        'photo_new_comment'           => '评论了你的相片',
+        'photo_comment_comment'       => '回复了你的评论',
+        'blog_new_comment'            => '评论了你的日志',
+        'blog_comment_comment'        => '回复了你的评论',
     ],
 
 //Pm

@@ -60,12 +60,12 @@ class AllReplyController extends Controller
             exit(json_encode($return));
         }
 
-        if ($new_reply = AllReply::create($data)) {	
+        if ($new_reply = AllReply::create($data)) {
             // 锁定发布
             lockSubmit();
 
             /*$space = Space::where('id',intval($_POST['space_id']))->first();
-			
+
             $datas['app'] = $_POST['post_from'];
             $datas['table'] = 'spaces';
             $datas['content'] = preg_html($data['content']);
@@ -79,25 +79,25 @@ class AllReplyController extends Controller
             if($space){
 	            // 解锁
             	unlockSubmit();
-            	
+
 				$datas['addComment'] = false;
-				
+
 				$comment = app('commentRepository')->addComment($datas);
-				
+
 				$new_reply->update(['comment_id' => $comment->id]);
 
 	            $data['comment_id'] = $comment->id;
-	            
+
 	            lockSubmit();
 			}else{*/
 				event(new CommentWasAddedEvent());
 	        	// 发邮件
-	         	if ($datas['to_user_id'] != Auth::id() || $datas['app_user_id'] != Auth::id() && $datas['app_user_id'] != '') {
-	             
-	             	if (!empty($datas['to_user_id']) && $to_user = User::findByUid($datas['to_user_id'])) {
-	                 	// 回复       
+	         	if ($data['to_user_id'] != Auth::id() || $_POST['post_user_id'] != Auth::id() && $data['app_user_id'] != '') {
+
+	             	if (!empty($data['to_user_id']) && $to_user = User::findByUid($data['to_user_id'])) {
+	                 	// 回复
 		                app('notifier')->batchNotify(
-		                    $data['post_from'].'_new_comment',
+		                    $data['post_from'].'_comment_comment',
 		                    Auth::user(),
 		                    [$to_user],
 		                    $new_reply,
@@ -105,7 +105,7 @@ class AllReplyController extends Controller
 		                );
 	             	} else {
 	                 	// 评论
-		                if (!empty($datas['app_user_id']) && $to_user = User::findByUid($datas['app_user_id'])) {
+		                if (!empty($_POST['post_user_id']) && $to_user = User::findByUid($_POST['post_user_id'])) {
 		                    app('notifier')->batchNotify(
 			                    $data['post_from'].'_new_comment',
 			                    Auth::user(),
@@ -154,7 +154,7 @@ class AllReplyController extends Controller
         $var['user_info'] = $appRowData['user_info'];
       	// 分享类型
       	$var['feedtype'] = $rowData['type'];*/
-      	
+
       	$var['initHtml'] = L('PUBLIC_STREAM_REPLY').'@'.$var['commentInfo']['user_info']['username'].' ：';   // 回复
 
       	return view('widgets.reply_reply',$var)->render();
@@ -171,8 +171,8 @@ class AllReplyController extends Controller
         if ($reply->user_id != Auth::id()) {
             if (! Auth::user()->can("manage_comment")) {
                 return 0;
-            }  
-        } 
+            }
+        }
 
         if($reply_id){
 			$reply->delete();

@@ -10,8 +10,12 @@
       </a>
       •
     {{ $notification->labelUp }}
-
-	{!! $notification->object->gift_name !!}
+    @if($notification->type == 'send_gift')
+	{!! $notification->object->gift->gift_name !!}
+    <img src="{!! $notification->object->gift->gift_img !!}" width="70" height="70"/>
+    @else
+    <img src="/images/emoji/{!! $notification->body !!}" width="70" height="70"/>
+    @endif
 
   </div>
     <div class="media-content summary markdown-reply">
