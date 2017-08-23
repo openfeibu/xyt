@@ -3,7 +3,7 @@
 /*
  * This file is part of Hifone.
  *
- * 
+ *
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -30,6 +30,7 @@ class Album extends Model
         'desc',
         'theme',
         'user_id',
+		'activity_id',
         'space_id',
         'created_at',
         'updated_at',

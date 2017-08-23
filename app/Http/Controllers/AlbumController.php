@@ -128,7 +128,7 @@ class AlbumController extends Controller
 			'pageHtml' => $pageHtml,
 		];
     }
-    public function uploadCommon()
+    public function uploadCommon(Request $request)
     {
 		$albums = app('repository')->model(Album::class)->recent()->forUser(Auth::id())->get();
     	foreach( $albums as $key => $album )
@@ -138,7 +138,9 @@ class AlbumController extends Controller
     	}
 		$user_views = app('userRepository')->getUserViews(Auth::id(),12);
 		$user_views_count = app('userRepository')->getUserViewsCount(Auth::id());
-		return $this->view('albums.upload_common')->with('albums',$albums)->with('user_views',$user_views)->with('user_views_count',$user_views_count);
+		$activity_id = isset($request->activity_id) ? intval($request->activity_id) : 0;
+		return $this->view('albums.upload_common')->with('albums',$albums)->with('user_views',$user_views)->with('user_views_count',$user_views_count)
+		->with('activity_id',$activity_id);
     }
     public function uploadCommonHandle()
     {
@@ -164,6 +166,7 @@ class AlbumController extends Controller
 					'error' => $validator->errors()->first(),
 	            ];
 			}
+			$album = app(Album::class)->where('id',$album_id)->first();
 		    $folderName = '/uploads/album/'.'user_id_'.Auth::user()->id.'/'.'album_id_'.$album_id;
 		    $data = app('imageService')->uploadImage($file,$folderName);
 		    if($data['code'] != 200){
@@ -175,6 +178,7 @@ class AlbumController extends Controller
 	            'space_id' => $space_id,
 	            'image'    => $data['filename'],
 	            'type'	   => 'album',
+				'activity_id' => $album->activity_id,
         	]);
         	if(!$space_id){
 	        	$space_id = app('spaceRepository')->syncToSpace('albumPhoto',  Auth::id(), $album_photo->id);

@@ -3,7 +3,7 @@
 /*
  * This file is part of Hifone.
  *
- * 
+ *
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -30,7 +30,8 @@ class AlbumPhoto extends Model
         'image',
         'created_at',
         'updated_at',
-        'type'
+        'type',
+		'activity_id',
     ];
     public $rules = [
         'image'      => 'required|string',

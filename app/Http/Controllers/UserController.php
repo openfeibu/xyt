@@ -323,8 +323,9 @@ class UserController extends Controller
         $img->resize(48, 48)
             ->encode('jpg')
             ->save($destinationPath.$user_id.'_small.jpg');
+		$user = Auth::user();
 
-        $user = Auth::user();
+
         $user->avatar_url = '/uploads/avatar/'.$path.$user_id.'.jpg';
         $user->save();
 
@@ -1171,21 +1172,19 @@ class UserController extends Controller
 				$count = app('repository')->model(Blog::class)->forUser($user_id)->count();
 				break;
 			case 'activity':
-				$datas = app('repository')->model(Activity_actors::class)->where('user_id',$user_id)->groupby('activity_id')->distinct()->paginate($limit)->appends(['user_id' =>$user_id,'type'=>$type ]);
+				$datas = app('repository')->model(Activity_actors::class)->select(['activities.city','activities.province','activities.city','activities.cate_id','activities.location','activities.name','activities.begin_time','activities.close_time','activity_actors.*'])->join('activities','activities.id','=','activity_actors.activity_id')->where('activity_actors.user_id',$user_id)->orderBy('activity_actors.id','desc')->groupby('activity_actors.activity_id')->distinct()->paginate($limit)->appends(['user_id' =>$user_id,'type'=>$type ]);
 				$count = app('repository')->model(Activity::class)->where('user_id',$user_id)->count();
 				foreach( $datas as $key => $data )
 				{
-					$activity = app('repository')->model(Activity::class)->forUser($user_id)->first();
-					$city = app('categoryTreeRepository')->setTable('areas',app(Area::class))->getTitle($activity->city);
-					$province = app('categoryTreeRepository')->setTable('areas',app(Area::class))->getTitle($activity->province);
-					$data->cate = app('categoryTreeRepository')->setTable('activity_categories',app(ActivityCategory::class))->getTreeCategoryDetail($activity->cate_id);
-					$data->location = $province . ' ' . $city . ' ' . $activity->location;
-					$data->name = $activity->name;
-					$data->begin_time = $activity->begin_time;
+					$city = app('categoryTreeRepository')->setTable('areas',app(Area::class))->getTitle($data->city);
+					$province = app('categoryTreeRepository')->setTable('areas',app(Area::class))->getTitle($data->province);
+					$data->cate = app('categoryTreeRepository')->setTable('activity_categories',app(ActivityCategory::class))->getTreeCategoryDetail($data->cate_id);
+					$data->location = $province . ' ' . $city . ' ' . $data->location;
+					$data->url = route('activity.show',['id' => $data->activity_id]);
 					$time = Carbon::now()->toDateTimeString();
-					if($time < $activity->begin_time){
+					if($time < $data->begin_time){
 						$data->time_desc = "未开始";
-					}else if($time > $activity->close_time){
+					}else if($time > $data->close_time){
 						$data->time_desc = "已结束";
 					}else{
 						$data->time_desc = "进行中";

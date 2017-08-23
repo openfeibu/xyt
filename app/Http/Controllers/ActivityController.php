@@ -16,6 +16,7 @@ use Hifone\Models\Activity;
 use Hifone\Models\ActivityBanned;
 use Hifone\Models\ActivityCategory;
 use Hifone\Models\Area;
+use Hifone\Models\Album;
 use Hifone\Models\Activity_actors;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -210,6 +211,12 @@ class ActivityController extends Controller
 	    	$space_id = app('spaceRepository')->syncToSpace('activity',  Auth::id(), $activity->id);
 	    	Activity::where('id',$activity->id)->update(['space_id' => $space_id ]);
     	}
+		$album = Album::create([
+			'user_id' => Auth::id(),
+			'desc' => '',
+			'activity_id' => $activity->id,
+			'name' => '活动-'.$activity->name,
+		]);
 		return Redirect::route('activity.index')
                 ->withSuccess('创建活动成功');
 	}

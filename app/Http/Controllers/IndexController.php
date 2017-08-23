@@ -9,6 +9,7 @@ use Hifone\Models\Vote;
 use Hifone\Models\Node;
 use Hifone\Models\Thread;
 use Hifone\Models\Announcement;
+use Hifone\Models\AlbumPhoto;
 
 class IndexController extends Controller
 {
@@ -58,6 +59,7 @@ class IndexController extends Controller
         $basic_data = config('form_config.basic_data');
 		$standard_data = config('form_config.standard_data');
         $page_notices =  app('pageRepository')->getPages(13);
+        $album_photos = AlbumPhoto::where('activity_id','>',0)->take(9)->get();
 		return $this->view('index.index')
 					->with('new_boys',$new_boys)
 					->with('new_girls',$new_girls)
@@ -73,6 +75,7 @@ class IndexController extends Controller
                     ->with('page_notices',$page_notices)
 					->with('new_activities',$new_activities)
 					->with('standard_data',$standard_data)
-					->with('basic_data',$basic_data);
+					->with('basic_data',$basic_data)
+                    ->with('album_photos',$album_photos);
     }
 }
