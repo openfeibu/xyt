@@ -1,6 +1,6 @@
 
 <table cellpadding="0" cellspacing="0">
-<tr><td width="90" align="center" valign="top"><img src="{{$user->avatar}}" width="72" height="76" /></td><td><p style="font-size:14px; color:#56ba3c;">{{$user->username}}</p><p>{{$user->location}}</p><p>{{$user->work}}  {{$user->school}}</p></td></tr>
+<tr><td width="90" align="center" valign="top"><img src="{{$user->avatar}}?v={!!time()!!}" width="72" height="76" /></td><td><p style="font-size:14px; color:#56ba3c;">{{$user->username}}</p><p>{{$user->location}}</p><p>{{$user->work}}  {{$user->school}}</p></td></tr>
 <tr><td align="center" style=" color:#56ba3c;">女</td><td>   <span>关注：</span><span class="green">{{$user->following_count}}</span>  <span>粉丝：</span><span class="green">{{$user->follower_count}}</span><span>人气：</span><span class="green">{{$user->view_count}}</span></td></tr>
 </table>
 <div class="l_ahovera">

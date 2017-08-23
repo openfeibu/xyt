@@ -1,5 +1,5 @@
 <div style="text-align: center;">
-    <img src="{{$user->avatar}}" class="img-thumbnail users-show-avatar upload-btn" style="width: 206px;margin: 4px 4px 15px;min-height:190px;cursor: pointer;">
+    <img src="{{$user->avatar}}?v={!!time()!!}" class="img-thumbnail users-show-avatar upload-btn" style="width: 206px;margin: 4px 4px 15px;min-height:190px;cursor: pointer;">
 </div>
 
 <dl class="dl-horizontal">

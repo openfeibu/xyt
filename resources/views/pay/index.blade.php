@@ -14,7 +14,7 @@
 
             <div class="money_query">
                 <div class="money_query_user">
-                    <img src="{{$user->avatar}}" style="width: 100px;height: 100px;" alt="" />
+                    <img src="{{$user->avatar}}?v={!!time()!!}" style="width: 100px;height: 100px;" alt="" />
                     <dl>
                         <dd>{{$user->username}}</dd>
                         <dd>{{$user->work}}/{{$user->school}}</dd>

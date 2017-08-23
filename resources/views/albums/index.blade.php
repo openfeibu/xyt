@@ -24,7 +24,8 @@
             <div class="album_centent_photo fleft">
                 <dl>
                     <dd>
-                        <a href="{{ route('album.show',$album_photo->id) }}" target="__blank"><img src="{{$album_photo->image}}" alt="" class="album_centent_photo_img" /></a>
+                        <a href="{{ route('album.show',$album_photo->id) }}" ><img src="{{$album_photo->image}}" alt="" class="album_centent_photo_img" /></a>
+                        
                     </dd>
                     <dd class="album_centent_photo_dd2">
                         &nbsp;&nbsp;图片来自&nbsp;<span class="" ><a href="{{$album_photo->link}}" style="color: #7CD3F9" target="__blank">{{$album_photo->form}}</a></span>

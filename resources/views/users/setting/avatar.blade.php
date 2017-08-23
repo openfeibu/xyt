@@ -22,7 +22,7 @@
                           </div>-->
                           <div class="photo_main_upload">
                               <div class="fleft photo_main_upload_img " >
-                                  <img src="{{ $user->avatar }}" alt="" width="120px;"/>
+                                  <img src="{{$user->avatar}}?v={!!time()!!}" alt="" width="120px;"/>
                                   形象照
                               </div>
                               <div class="photo_main_upload_info fleft">

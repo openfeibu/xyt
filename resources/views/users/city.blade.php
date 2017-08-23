@@ -12,7 +12,7 @@
             @foreach($users as $user)
             <div class="user col-sm-1">
                 <div class="avatar">
-                    <a href="{{ route('user.home', $user->id) }}"><img class="media-object avatar-48" src="{{ $user->avatar }}"></a>
+                    <a href="{{ route('user.home', $user->id) }}"><img class="media-object avatar-48" src="{{$user->avatar}}?v={!!time()!!}"></a>
                 </div>
                 <div class="name"><a href="{{ route('user.home', $user->id) }}">{{ $user->username }}</a></div>
             </div>

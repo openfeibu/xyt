@@ -65,7 +65,7 @@
                             <p>上传到:
                                 <select name="album_id" id="album_select">
 	                                @foreach ($albums as $album)
-									    <option value="{{ $album->id }}">{{ $album->name }}</option>
+									    <option value="{{ $album->id }}" @if($activity_id && $activity_id == $album->activity_id) selected @endif>{{ $album->name }}</option>
 									@endforeach
                                 </select>
                             </p>

@@ -21,7 +21,7 @@
                         <tbody>
                         <tr>
                         <td align="center">
-                        <div class="avatar_bg"><a href="#" class="link2user" target="_blank"><img src="{{$user->avatar}}"></a>
+                        <div class="avatar_bg"><a href="#" class="link2user" target="_blank"><img src="{{$user->avatar}}?v={!!time()!!}"></a>
                         </div>
                         </td>
                         <td>

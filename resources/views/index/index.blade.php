@@ -26,14 +26,14 @@ $(".example2").luara({width:"646",height:"298",interval:4500,selected:"seleted",
 </div>
 <ul>
 @foreach($new_girls as $key => $user)
-<li class="user_info_abroad"><a href="{{route('user.home',$user->id)}}" class="user_info" rel='{{$user->id}}'><img src="{{$user->avatar}}" width="100" height="105" alt="" /></a><a href="#"><p>昵称：{{$user->username}}</p><p>职业：{{$user->work}}</p></a>
+<li class="user_info_abroad"><a href="{{route('user.home',$user->id)}}" class="user_info" rel='{{$user->id}}'><img src="{{$user->avatar}}?v={!!time()!!}" width="100" height="105" alt="" /></a><a href="#"><p>昵称：{{$user->username}}</p><p>职业：{{$user->work}}</p></a>
 </li>
 @endforeach
 </ul>
 <div class="l_aa"><a href="{{route('user.more',['type' => 'girl'])}}">更多女士>></a></div>
 <ul>
 @foreach($new_boys as $key => $user)
-<li class="user_info_abroad"><a href="{{route('user.home',$user->id)}}" class="user_info" rel='{{$user->id}}'><img src="{{$user->avatar}}" width="100" height="105" alt="" /></a><a href="#"><p>昵称：{{$user->username}}</p><p>职业：{{$user->work}}</p></a>
+<li class="user_info_abroad"><a href="{{route('user.home',$user->id)}}" class="user_info" rel='{{$user->id}}'><img src="{{$user->avatar}}?v={!!time()!!}" width="100" height="105" alt="" /></a><a href="#"><p>昵称：{{$user->username}}</p><p>职业：{{$user->work}}</p></a>
 </li>
 
 @endforeach
@@ -94,7 +94,7 @@ $(".example2").luara({width:"646",height:"298",interval:4500,selected:"seleted",
 </div>
 @foreach($recommend_users as $key => $user)
 <li class="user_info_abroad">
-<a href="{{route('user.home',$user->id)}}" class="l_db user_info"  rel='{{$user->id}}'><img src="{{$user->avatar}}" width="155" height="146" alt="" /> <span class="green">{{$user->username}}</span>
+<a href="{{route('user.home',$user->id)}}" class="l_db user_info"  rel='{{$user->id}}'><img src="{{$user->avatar}}?v={!!time()!!}" width="155" height="146" alt="" /> <span class="green">{{$user->username}}</span>
 <p>
   {!! getAge($user->birthday) !!}岁 {{ config('form_config.basic_data.education.value.'.$user->education)}} <br />
 {{$user->school}}/{{$user->work}}</p>
@@ -157,7 +157,9 @@ $(".example2").luara({width:"646",height:"298",interval:4500,selected:"seleted",
 	        @endforeach
 		</div>
 		<div id="con_one_3" style="display:none;">
-			<img src="{{asset('images/index/img6.jpg')}}" alt="" /><img src="{{asset('images/index/img7.jpg')}}" alt="" />
+			@foreach($album_photos as $key => $photot)
+			<a href="{{ route('album.show',$photot->id) }}" target="_blank"><img src="{{$photot->image}}" alt="" /></a>
+			@endforeach
 		</div>
 		<div id="con_one_4" class="con_one" style="display:none;">
 			@foreach($announcements as $key => $announcement)

@@ -43,7 +43,7 @@
 </div>
 @foreach($users as $key => $user)
 <dl>
-<dt><a href="{{route('user.home',$user->id)}}"><img src="{{$user->avatar}}" /></a></dt>
+<dt><a href="{{route('user.home',$user->id)}}"><img src="{{$user->avatar}}?v={!!time()!!}" /></a></dt>
 <dd class="b_jg"><p>{{$user->username}}</p>
 <p>{{trans('hifone.users.sex.'.$user->sex)}}</p>
 <p>{{$user->location}}</p>

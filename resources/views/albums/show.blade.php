@@ -44,7 +44,7 @@
 
 			<a href="{{route('album.show',$next->id)}}"><img src="{{$photo->image}}" alt="" id="pic" class="showimg"></a>
 			</div>
-			<script type="text/javascript"> 
+			<script type="text/javascript">
 			function fetchOffset2(obj, mode) {
 			var left_offset = 0, top_offset = 0, mode = !mode ? 0 : mode;
 
@@ -92,7 +92,7 @@
 			space = -(cont.offsetWidth - tar.width)/2;
 			}
 			var objpos = fetchOffset2(tar);
-			 
+
 			pager.style.position = 'absolute';
 			pager.style.top = '0';
 			pager.style.left = objpos['left'] + 'px';
@@ -104,13 +104,13 @@
 			pre.style.width = next.style.width = w + 'px';
 			pre.style.height = next.style.height = tar.height + 'px';
 			pre.innerHTML = next.innerHTML = '<img src="image/emp.gif" width="' + w + '" height="' + tar.height + '" />';
-			 
+
 			pre.onmouseover = function(){ this.style.cursor = 'url(http://a.xnimg.cn/imgpro/arrow/pre.cur),auto'; }
 			pre.onclick = function(){ window.location = 'space.php?uid=99535&do=album&picid=183304&goto=up#pic_block'; }
-			 
+
 			next.onmouseover = function(){ this.style.cursor = 'url(http://a.xnimg.cn/imgpro/arrow/next.cur),auto'; }
 			next.onclick = function(){ window.location = 'space.php?uid=99535&do=album&picid=183304&goto=down#pic_block'; }
-			 
+
 			//cont.style.position = 'relative';
 			cont.appendChild(pager);
 			pager.appendChild(pre);
@@ -120,10 +120,10 @@
 			viewPhoto();
 			}
 			</script>
-			
+
 			<div id="rightmenu" style="float:left;width:130px;margin-left:20px;">
 			<a href="{{route('album.show',$previous->id)}}#pic_block" title="上一张">∧</a>
-			
+
 			@foreach($photos as $photoList)
 			<a href="{{route('album.show',$photoList->id)}}#pic_block" @if($photoList->id == $photo->id ) class="a" @endif><img alt="" src="{{$photoList->image}}"></a>
 			@endforeach
@@ -142,9 +142,11 @@
 			<tbody><tr><td align="left">
 			<a href="{{$photo->image}}" target="_blank">查看原图</a>
 			</td>
-			<td align="right">  
-			    <a href="cp.php?ac=share&amp;type=pic&amp;id=183304" id="a_share_183304" class="a_share" onclick="ajaxmenu(event, this.id, 1)">分享</a>
-				<a href="cp.php?ac=common&amp;op=report&amp;idtype=picid&amp;id=183304" id="a_report" onclick="ajaxmenu(event, this.id, 1)">举报</a>
+			<td align="right">
+			    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank">分享</a>
+                <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+                <script type="text/javascript" src="http://v3.jiathis.com/code/plugin.client.js" charset="utf-8"></script>
+				<a href="javascript:;" id="a_report" onclick="report('album_photo',{{$photo->id}})">举报</a>
 			</td></tr>
 			</tbody></table>
 			</div>

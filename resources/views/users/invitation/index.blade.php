@@ -68,7 +68,7 @@
                         <div class="preview_invitation_left fleft">
                             <dl>
                                 <dd class="preview_invitation_left_user">
-                                    <img src="{{$user->avatar}}" alt="" /><br />
+                                    <img src="{{$user->avatar}}?v={!!time()!!}" alt="" /><br />
                                     {{$user->username}}
                                 </dd>
                                 <dd style="margin-top: 3px;">{{$user->work}}/{{$user->school}}</dd>

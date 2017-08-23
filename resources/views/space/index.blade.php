@@ -10,8 +10,8 @@
 @endif
 @stop
 <style>
-    #btn1{width:20px;height:21px;font-size:12px;margin-top: -3px;} 
-    #btn2{width:20px;height:21px;font-size:12px;margin-top: -2px;} 
+    #btn1{width:20px;height:21px;font-size:12px;margin-top: -3px;}
+    #btn2{width:20px;height:21px;font-size:12px;margin-top: -2px;}
 </style>
 @section('content')
 
@@ -40,18 +40,18 @@
                     <div class="b_hr fleft">
 	                    {!! Widget::SendSpace() !!}
 	                </div>
-                   
-                    <div class="px10 clear"></div> 
+
+                    <div class="px10 clear"></div>
                     <div class="space_nav clear">
-                        <div class="px10 clear"></div> 
+                        <div class="px10 clear"></div>
                         <ul class="space_nav_ul1">
                             <a href="{{ route('space.index')}}"><li @if($d ['type'] == 'all')class="space_nav_select"@endif>全部动态</li></a>
                             <a href="{{ route('space.index',['type' => 'following'])}}"><li @if($d ['type'] == 'following')class="space_nav_select"@endif>我关注的</li></a>
                             <a href="{{ route('space.index',['type' => 'recommend'])}}"><li @if($d ['type'] == 'recommend')class="space_nav_select"@endif>热门推荐</li></a>
                         </ul>
-                        <div class="px10 clear"></div> 
+                        <div class="px10 clear"></div>
                         <ul class="space_nav_ul2">
-                            <a href="{{ route('space.index',['app' =>'all','type' => $d['type']])}}"><li>全部 | </li></a>
+                            <a href="{{ route('space.index',['type' => $d['type']])}}"><li>全部 | </li></a>
                             <a href="{{ route('space.index',['app' => 'space','type' => $d['type']])}}"><li>说说 | </li></a>
                             <a href="{{ route('space.index',['app' => 'blog'])}}"><li>日志 | </li></a>
                             <a href="{{ route('space.index',['app' => 'thread'])}}"><li>话题 | </li></a>
@@ -62,14 +62,14 @@
                             <a href=""><li>打赏 | </li></a>
                         </ul>
                     </div>
-                    <div class="px10"></div> 
+                    <div class="px10"></div>
                     {{ Widget::FeedList($d) }}
                 </div>
                 <div class="space_right fleft" >
                         <div class="space_right_userinfo">
                             <div class="px20"></div>
                             <dl class="space_right_userinfo_dl">
-                                <dd><img src="{{ $user->avatar }}" alt="" class="space_right_userinfo_img" /></dd>
+                                <dd><img src="{{$user->avatar}}?v={!!time()!!}" alt="" class="space_right_userinfo_img" /></dd>
                                 <dd>{{ $user->username }}</dd>
                 				<dd>{{ $user->school }}/{{ $user->work }}</dd>
                                 <dd>
@@ -133,7 +133,7 @@
                                 <a href="{{route('blog.index')}}">查看更多>>></a>
                             </div>
                         </div>
-                            
+
                         <div class="space_right_like clear" >
                             <div >
                                 <ul>
@@ -181,7 +181,7 @@
         <div class="clear"></div>
     </div>
     <!-- Nodes List -->
-  
+
 
 
 <script type="text/javascript" src="{{ asset('/build/dist/js/jquery-browser.js') }}"></script>
@@ -196,8 +196,8 @@ $(function(){
 	    var bbb = $("#saytext").val($("#saytext").val()+"#...#");
 	});
     $('.emotion').qqFace({
-        id : 'facebox', 
-        assign:'saytext', 
+        id : 'facebox',
+        assign:'saytext',
         path:'./images/arclist/' //表情存放的路径
     });
     //$(".sub_btn").click(function(){
@@ -208,10 +208,10 @@ $(function(){
 	   	var len = $(this).val().length;
 	   	if(len > 139){
 	    	$(this).val($(this).val().substring(0,140));
-	   	}   	
+	   	}
 	   	var num = 140 - len  ;
-	   	var num = num > 0 ? num :0 ; 
-   		$("#word").text(num);  
+	   	var num = num > 0 ? num :0 ;
+   		$("#word").text(num);
 	});
 });
 
@@ -229,4 +229,3 @@ function replace_em(str){
 
 
 @stop
-

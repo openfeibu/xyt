@@ -15,7 +15,7 @@
             <div class="album_centent_photo fleft">
                 <dl>
                     <dd>
-                        <a href="{{ route('album.show',$album_photo->id) }}" target="__blank"><img src="{{ $album_photo->image }}" alt="" class="album_centent_photo_img" /></a>
+                        <a href="{{ route('album.show',$album_photo->id) }}" ><img src="{{ $album_photo->image }}" alt="" class="album_centent_photo_img" /></a>
                     </dd>
                 </dl>
             </div>

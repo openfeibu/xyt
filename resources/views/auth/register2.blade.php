@@ -13,7 +13,7 @@
 
 				<form method="post" action="/settings/update-avatar" enctype="multipart/form-data" id="avatar-form">
 				<div  class="regleft">
-					<img src="{{ $user->avatar }}" alt="" width="120px;"/>
+					<img src="{{$user->avatar}}?v={!!time()!!}" alt="" width="120px;"/>
 					<p>形象照</p>
 				</div>
 				<div class="regright">

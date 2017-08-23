@@ -25,11 +25,12 @@
 <script src="{{ asset('/js/plugins/core.message.js') }}"></script>
 <script src="{{ asset('/js/jquery.atwho.js') }}"></script>
 <script src="{{ asset('/js/weiba.js') }}"></script>
+
  <div class="clear"></div>
     <div style="height: 30px;"></div>
     <div class="TA">
         <div class="left_content">
-            <img src="{!!$user->avatar!!}" width="227" height="227" alt=""/>
+            <img src="{!!$user->avatar!!}?v={!!time()!!}" width="227" height="227" alt=""/>
             <div style="text-align: center">
                 <p>{!!$user->username!!}</p>
                 <p>{{ $user->work }}/{{ $user->school }}</p>
@@ -429,6 +430,8 @@
                 </div>
         </div>
         <div class="clear"></div>
+        <script type="text/javascript" src="{{ asset('/js/home/module.home.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('/js/module.weibo.js') }}"></script>
         <script type="text/javascript">
         function show_gift_info(id,experience,price,num,uid){
             window.sessionStorage.setItem('gift_id',id);
@@ -519,7 +522,9 @@
 		    $(".dynamic").show();
 			url = "{{ route('user.dynamic')}}" ;
 			var parameter = {'type': filtrate ,'user_id':{{$user->id}}};
-			ajaxget(url, 'dynamic',parameter);
+			ajaxget(url, 'dynamic',parameter,function(){
+                setTimeout(function(){M($('[model-node="feed_list"]').get(0))},0)
+            });
 		}
 		$("#one23").click(function(){
 			ajaxget('/album/albumAjax?user_id={{$user->id}}', 'showAlbums');

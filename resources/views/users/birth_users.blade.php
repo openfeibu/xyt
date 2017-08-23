@@ -13,7 +13,7 @@
 <table cellpadding="0" cellspacing="0">
 <tr><th>头像</th><th>ID</th><th>昵称</th><th>性别</th><th>学历</th><th>职业</th><th>学校</th><th>留言</th><th>祝福</th></tr>
 @foreach($users as $key=> $user)
-<tr><td><a href="{{route('user.home',$user->id)}}"><img src="{{$user->avatar}}" width="40" height="41" alt="" /></a></td><td>{{$user->id}}</td><td>{{$user->username}}</td><td>{!!config('form_config')['basic_data']['sex']['value'][$user->sex]!!}</td><td>{!!config('form_config')['basic_data']['education']['value'][$user->education]!!}</td><td>{{$user->work}}</td><td>{{$user->school}}</td><td><b class="liuyan"><img src="{{ asset('/build/dist/images/img56-02.jpg') }}" width="20" height="20" alt="" /></b></td><td><b class="zhufu"><img src="{{ asset('/build/dist/images/img57.jpg') }}" width="20" height="20" alt="" /></b></td></tr>
+<tr><td><a href="{{route('user.home',$user->id)}}"><img src="{{$user->avatar}}?v={!!time()!!}" width="40" height="41" alt="" /></a></td><td>{{$user->id}}</td><td>{{$user->username}}</td><td>{!!config('form_config')['basic_data']['sex']['value'][$user->sex]!!}</td><td>{!!config('form_config')['basic_data']['education']['value'][$user->education]!!}</td><td>{{$user->work}}</td><td>{{$user->school}}</td><td><b class="liuyan"><img src="{{ asset('/build/dist/images/img56-02.jpg') }}" width="20" height="20" alt="" /></b></td><td><b class="zhufu"><img src="{{ asset('/build/dist/images/img57.jpg') }}" width="20" height="20" alt="" /></b></td></tr>
 @endforeach
 </table>
 </div>
