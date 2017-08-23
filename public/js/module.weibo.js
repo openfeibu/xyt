@@ -62,7 +62,7 @@ args['app']		= app;
 
 if("undefined" == typeof(core.weibo)){	//只init一次
 	core.plugFunc('weibo',function(){
-		core.weibo.init(args);	
+		core.weibo.init(args);
 	});
 }
 /**
@@ -106,7 +106,7 @@ M.addEventFns({
 			}
 		}
 	},
-	post_feed:{	//发布普通|图片分享 
+	post_feed:{	//发布普通|图片分享
 		click:function(){
 			if (feedbtnlock == 0) {
 				feedbtnlock = 1;
@@ -122,12 +122,12 @@ M.addEventFns({
 				return false;
 			}
 			var _this = this;
-			var mini_editor = this.parentModel.parentModel.childModels['mini_editor'][0];			
+			var mini_editor = this.parentModel.parentModel.childModels['mini_editor'][0];
 			var textarea = $(mini_editor).find('textarea').get(0);
 			core.weibo.post_feed(_this,mini_editor,textarea);
 		}
 	},
-	post_share_tools:{	//发布普通|图片发言 
+	post_share_tools:{	//发布普通|图片发言
 		click:function(){
 			feedbtnlock || (feedbtnlock = 0);
 			if (feedbtnlock == 0) {
@@ -141,7 +141,7 @@ M.addEventFns({
 				ui.error( L('PUBLIC_ATTACH_UPLOADING_NOSENT') );
 				return false;
 			}
-			var mini_editor = this.parentModel.parentModel.parentModel.parentModel.childModels['send_weibo'][0];			
+			var mini_editor = this.parentModel.parentModel.parentModel.parentModel.childModels['send_weibo'][0];
 			var textarea = $(mini_editor).find('textarea[event-node="mini_editor_textarea"]').get(0);
 			// core.weibo.post_share_tools(this,mini_editor,textarea);
 		}
@@ -158,7 +158,7 @@ M.addEventFns({
 				return false;
 			}
 			var _this = this;
-			var mini_editor = this.parentModel.parentModel.childModels['mini_editor'][0];			
+			var mini_editor = this.parentModel.parentModel.childModels['mini_editor'][0];
 			var textarea = $(mini_editor).find('textarea').get(0);
 			core.weibo.post_feed(_this,mini_editor,textarea,true);
 		}
@@ -166,7 +166,7 @@ M.addEventFns({
 	post_submission_box:{
 		click:function(){
 			var _this = this;
-			var mini_editor = this.parentModel.parentModel.childModels['mini_editor'][0];			
+			var mini_editor = this.parentModel.parentModel.childModels['mini_editor'][0];
 			var textarea = $(mini_editor).find('textarea').get(0);
 			core.weibo.post_feed(_this,mini_editor,textarea,true,'submission');
 		}
@@ -187,7 +187,7 @@ M.addEventFns({
             textarea.inputToEnd(text);
             var textArea = textarea.get(0);
             result = patt.exec( textarea.val() );
-            
+
             var end = patt.lastIndex-1 ;
             var start = patt.lastIndex - text.length +1;
             if (document.selection) { //IE
@@ -263,11 +263,11 @@ M.addEventFns({
 			ui.confirm(this, title, delFeed);
 		}
 	},
-	denounce:{	//举报 
+	denounce:{	//举报
 		click:function(){
 			var attrs = M.getEventArgs(this);
 			core.plugInit('denouce',attrs.aid,attrs.type,attrs.uid);
-		}	
+		}
 	},
 	img_small:{ //图片显示
 		click:function(){
@@ -286,15 +286,15 @@ M.addEventFns({
 			$(this.parentModel).find('div').each(function(){
 				if($(this).attr('rel') == 'small'){
 					$(this).show();
-					
+
 					var Y1 =this.getBoundingClientRect().top;
 					if(Y1 < 0){
 						//点击大图缩小时  定位
 						var dl_id = $(_this.parentModel).attr('id');
 						window.location.hash = "#"+dl_id;
 						window.location=window.location;
-					}	
-									
+					}
+
 				}else if($(this).attr('rel') == 'big'){
 					$(this).hide();
 				}
@@ -306,7 +306,7 @@ M.addEventFns({
 			var feedkey = $(this).prev().val();
 			var args = M.getEventArgs(this);
 			var url = U(args.app+'/'+args.mod+'/'+args.act)+'&type='+args.type+'&feed_key='+feedkey;
-			window.location.href = url; 
+			window.location.href = url;
 		}
 	},
 	addFollowgroup:{
@@ -318,7 +318,7 @@ M.addEventFns({
 					ui.box.load(U('widget/FollowGroup/addgroup'), L('PUBLIC_CREATE_GROUP'));
 				}
 			},'json');
-			
+
 		}
 	},
 	editFollowgroup:{
@@ -351,7 +351,7 @@ M.addEventFns({
 				$(_this).parent().parent().find('.feed_img_lists').html(html).slideToggle();
 			},'json');
 			return false;
-		}	
+		}
 	},
 	show_admin: {
 		// 是否显示按钮
@@ -436,7 +436,7 @@ M.addEventFns({
 						switch ( args.t ){
 							case 'comment':
 								// 评论
-								var c = this.parentModel.parentModel.childEvents['do_comment'][0]; 
+								var c = this.parentModel.parentModel.childEvents['do_comment'][0];
 								var attrs = M.getEventArgs(c);
 								attrs.to_comment_id = $(c).attr('to_comment_id');
 								attrs.to_uid = $(c).attr('to_uid');
@@ -462,23 +462,23 @@ M.addEventFns({
 					return true;
 				}
 //				if($('#atUserList').length < 1){
-//					switch(eventobj.keyCode){  
-//				        case 1:  
-//				        //case 38:  
-//				        //case 269: //up  
-////				        case 40:  
-////				        case 2:  
-//				        //case 270: //down  
-//				       // case 13: //enter  
+//					switch(eventobj.keyCode){
+//				        case 1:
+//				        //case 38:
+//				        //case 269: //up
+////				        case 40:
+////				        case 2:
+//				        //case 270: //down
+//				       // case 13: //enter
 //			          	return false;
-//			            break;  
-//				    } 
+//			            break;
+//				    }
 //			    }
 				return true;
 			});
-		}		
+		}
 	}
-	
+
 }).addModelFns({
 	mini_editor:{
 		mouseenter:function(){
@@ -489,7 +489,7 @@ M.addEventFns({
 		}
 	},
 	// 分享内容输入框
-	mini_editor_textarea: {	
+	mini_editor_textarea: {
 	}
 });
 $(".feed_img_lists li a").css("opacity","1").mouseover(function(){
@@ -519,15 +519,15 @@ var feed_recommend = function(feedId) {
 	$.post(SPACE_RECOMMEND_URL,{space_id:feedId},function(res){
 		if(res == 1){
 			$('#recommend_'+feedId).text('取消推荐');
-			layer.msg('推荐成功', {time:10000000,icon: 1});
+		//	layer.msg('推荐成功', {time:10000000,icon: 1});
 		}else if(res == 0){
 			$('#recommend_'+feedId).text('推荐');
-			layer.msg('取消推荐成功', {time:10000000,icon: 1});
+		//	layer.msg('取消推荐成功', {time:10000000,icon: 1});
 		}
 		else{
-			layer.msg('操作失败', {time:10000000,icon: 2});
+			layer.msg('操作失败', {time:3,icon: 2});
 		}
-		
+
 		//window.location.href = window.location.href;
 	});
 };

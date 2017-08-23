@@ -354,3 +354,7 @@ $("body").on('click','#buy_card',function(){
 	$(".user_detail").remove();
 });
 */
+function report (type,id)
+{
+
+}

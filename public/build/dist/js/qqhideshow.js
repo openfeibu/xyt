@@ -64,17 +64,17 @@ $(".l_ahoverc span").click(function(){
   $(".jubao").hide();
   });
   $(".jubaoshow").click(function(){
-  $(".jubao").show();
+      $(".jubao").show();
   });
   
   $(".b_ob span").click(function(){
   $(".b_ob").hide();
-  });	
+  });
   $(".liuyan").click(function(){
   $(".b_ob").show();
   $(".b_oc").hide();
   });
-  
+
   $(".b_oc span").click(function(){
   $(".b_oc").hide();
   });
@@ -82,8 +82,8 @@ $(".l_ahoverc span").click(function(){
   $(".b_oc").show();
   $(".b_ob").hide();
   });
- // 
-  
+ //
+
   $(".b_ga b").click(function(){
   $(".b_g").hide();
   });
@@ -91,4 +91,3 @@ $(".l_ahoverc span").click(function(){
   $(".b_g").show();
   });
 });
-
