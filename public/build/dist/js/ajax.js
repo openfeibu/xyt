@@ -356,5 +356,19 @@ $("body").on('click','#buy_card',function(){
 */
 function report (type,id)
 {
-
+	$(".jubao").show();
 }
+$('#report_btn').on('click',function(){
+	if($('#report_content').val() == ""){
+		layer.msg('请填写举报内容！', {icon: 5});
+	}else{
+		$.post(REPORT_URL,'content='+$('#report_content').val()+'&type='+$('#report_type').val()+'&type_id='+$('#report_type_id').val(),function(data){
+				if(data == 200){
+					layer.msg("举报成功，我们会根据实际情况给予警告！", {icon: 1});
+					$(".jubao").hide();
+				}else if(data == 403){
+					layer.msg('举报失败,请重试！', {icon: 5});
+				}
+		});
+	}
+});
