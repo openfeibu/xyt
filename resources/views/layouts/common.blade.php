@@ -64,6 +64,7 @@
 			var SEND_HELLO_URL = "{{route('gift.sendHello')}}";
 			var SEND_GIFT_URL = "{{route('gift.sendGift')}}";
 			var USER_DETAIL_URL = "{{route('user.detail')}}";
+			var REPORT_URL = "{{route('report.nodeReport')}}";
 			$.ajaxSetup({
 			    headers: {
 			        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

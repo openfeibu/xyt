@@ -55,7 +55,7 @@
 <div class="detail">{!!$thread->body!!}</div>
 </div>
 <div class="status">
-{{{$thread->favorite_count}}}次收藏<span class="pipe">|</span>
+<!-- {{{$thread->favorite_count}}}次收藏<span class="pipe">|</span> -->
 {{{$thread->view_count}}} 次阅读<span class="pipe">|</span>
 {{{$thread->reply_count}}}个回复<span class="pipe">|</span>
 <span id="thread_count{{{$thread->id}}}">{{{$thread->like_count}}}</span><a title="{!! trans('hifone.like') !!}" id="thread{{{$thread->id}}}">点赞</a>
@@ -269,7 +269,7 @@
 		请填写举报理由（最多150字符):</td></tr>
 		<tr><td>
 			<textarea name="content" id="reply_jubao"></textarea>
-			<input type="hidden" name="type_id" value="{!!$thread->id!!}">
+			<input type="hidden" name="type_id" id="type_id" value="{!!$thread->id!!}">
 			<input type="hidden" name="type" id="type" value="thread_report">
 		</td></tr>
 		<tr><td>

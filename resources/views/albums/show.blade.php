@@ -155,5 +155,19 @@
 		    {!! Widget::Reply([ 'tpl'=>'reply','post_id'=>$photo->id, 'post_user_id' => $photo->user_id, 'limit'=>'20', 'post_from'=>'photo','space_id'=>$photo->space_id,'addtoend'=>0 ]) !!}
 		</div>
     </div>
-
+    <form class="" action="" method="">
+    	<div  class="jubao"  style="margin-top:-100px;display:none">
+    		<div class="jubaoa"><strong>举报</strong><span onclick="jubao_hide">关闭</span></div>
+    		<table>
+    		<tr><td>感谢您能协助我们一起管理站点，我们会对您的举报尽快处理。
+    		请填写举报理由（最多150字符):</td></tr>
+    		<tr><td>
+    			<textarea name="content" id="report_content"></textarea>
+    			<input type="hidden" name="type" id="report_type" value="photo_report">
+    			<input type="hidden" name="type_id" id="report_type_id" value="{{$photo->id}}">
+    		</td></tr>
+    		<tr><td><input type="button" value="提交" id="report_btn" /></td></tr>
+    		</table>
+    	</div>
+    </form>
 @stop

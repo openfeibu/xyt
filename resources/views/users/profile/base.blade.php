@@ -57,7 +57,8 @@
                           <p><span class='span'>体型：</span>
                               {!! $formTypePresenter->showSelect($base_data,'bodytype',$data['bodytype']) !!}
                           </p>
-                          <p><span class='span'>星座：</span> {{getConstellation($user->birthday)}} <font style="color: red">（根据生日自动生成，保存后更新）</font></p>
+                          <p><span class='span'>星座：</span> {{getConstellation($user->birthday)}}
+                              <font style="color: red">（根据生日自动生成，保存后更新）</font></p>
                           <p><span class='span'>学历：</span>
                               {!! $formTypePresenter->showSelect($base_data,'education',$data['education']) !!}
                           </p>
@@ -87,13 +88,13 @@
                               {!! $formTypePresenter->showSelect($base_data,'drink',$data['drink']) !!}
                           </p>
                           <p><span class='span'>手机：</span> {{ $user->mobile }} <a href="">修改</a>
-                              <font style="color: red">（方便工作人员与你联系；不会泄露，不参与星级评定）</font>
+                              <!-- <font style="color: red">（方便工作人员与你联系；不会泄露，不参与星级评定）</font> -->
                           </p>
                           <p><span class='span'>QQ：</span><input type="text" name="qq" value="{{$data['qq']}}" />
-                              <font style="color: red">（建议填写，方便活动认识您的朋友联系您）</font>
+                              <!-- <font style="color: red">（建议填写，方便活动认识您的朋友联系您）</font> -->
                           </p>
                           <p><span class='span'>微信：</span><input type="text" name="weixin" value="{{$data['weixin']}}" />
-                              <font style="color: red">（建议填写，方便活动认识您的朋友联系您）</font>
+                              <!-- <font style="color: red">（建议填写，方便活动认识您的朋友联系您）</font> -->
                           </p>
                           <p style="margin-left: 350px;margin-top: 40px;">
                               <input type="submit" name="profilesubmit" value="保存" class="gexing_btn" style="width: 100px;" />
@@ -101,10 +102,10 @@
                           </p>
                           </form>
                       </div>
-                      
+
                   </div>
-                    
-                         
+
+
         </div>
     </div>
     <div class="clear"></div>
