@@ -36,7 +36,7 @@ class TaskController extends Controller
     {
 	    $this->breadcrumb->push([
 				'个人中心' => route('user.home',['uid'=>Auth::id()]),
-                '我的认证' => ''
+                '我的任务' => ''
         ]);
         $finish_tasks = app('taskRepository')->getTasks(Auth::id(),'finish');
     	return  $this->view('tasks.finish')->with('finish_tasks',$finish_tasks);

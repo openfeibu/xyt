@@ -3,7 +3,7 @@
 /*
  * This file is part of Hifone.
  *
- * 
+ *
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -22,6 +22,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\View;
 use Input;
+use Auth;
 
 class LikeController extends Controller
 {
@@ -29,9 +30,9 @@ class LikeController extends Controller
     {
     }
     public function index(Request $request)
-    {	
-		$username = $request->session()->get('username');
-		$login_session = $username['username'];
+    {
+		$username = Auth::user();
+		$login_session = $username->username;
 		if($request->type == "Thread")
 		{
 			$user = User::where('username',$login_session)->first();
@@ -70,7 +71,7 @@ class LikeController extends Controller
 				}
 				Like::insert([
 					[
-						'user_id' => $user->id, 
+						'user_id' => $user->id,
 						'likeable_id' => $request->id,
 						'likeable_type' => "Hifone\Models\Thread",
 						'rating' => 1,
@@ -81,7 +82,7 @@ class LikeController extends Controller
 				Notification::insert([
 					[
 						'author_id' => $thread->user_id,
-						'user_id' => $user->id, 
+						'user_id' => $user->id,
 						'object_id' => $request->id,
 						'object_type' => "Hifone\Models\Thread",
 						'type' => "thread_like",
@@ -90,7 +91,7 @@ class LikeController extends Controller
 						'updated_at' => date("Y-m-d H:i:s"),
 					]
 				]);
-				
+
 				$res = Thread::where('id', $request->id)
 					->update(['like_count' => $thread_count+1]);
 				if($res)
@@ -101,7 +102,7 @@ class LikeController extends Controller
 				}
 			}
 		}
-		else			
+		else
 		{
 			$user = User::where('username',$login_session)->first();
 			$reply = Reply::where('id',$request->id)->first();
@@ -140,7 +141,7 @@ class LikeController extends Controller
 				}
 				Like::insert([
 					[
-						'user_id' => $user->id, 
+						'user_id' => $user->id,
 						'likeable_id' => $request->id,
 						'likeable_type' => "Hifone\Models\Reply",
 						'rating' => 1,
@@ -151,7 +152,7 @@ class LikeController extends Controller
 				Notification::insert([
 					[
 						'author_id' => $reply->user_id,
-						'user_id' => $user->id, 
+						'user_id' => $user->id,
 						'object_id' => $request->id,
 						'object_type' => "Hifone\Models\Reply",
 						'type' => "reply_like",
@@ -160,7 +161,7 @@ class LikeController extends Controller
 						'updated_at' => date("Y-m-d H:i:s"),
 					]
 				]);
-				
+
 				$res = Reply::where('id', $request->id)
 					->update(['like_count' => $like_count+1]);
 				if($res)

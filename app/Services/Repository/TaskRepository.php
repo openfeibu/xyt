@@ -19,7 +19,14 @@ class TaskRepository{
 	public function getTasks ($user_id,$type = '')
 	{
 		if($type == 'finish'){
-			return app(TaskUser::class)->leftJoin('tasks','tasks.id', '=','task_users.task_id')->where('task_users.user_id',$user_id)->orderBy('task_users.task_id','desc')->distinct('task_users.task_id')->get();
+			$tasks = app(TaskUser::class)->join('tasks','tasks.id', '=','task_users.task_id')->where('task_users.user_id',$user_id)->orderBy('task_users.id','desc')->distinct('tasks.id')->groupBy('tasks.id','desc')->get();
+			foreach ($tasks as $key => $task) {
+				$time = strtotime(date('Y-m-d'));
+				if(strtotime($task->created_at->format('Y-m-d')) ==  $time && $task->frequency == 1){
+					unset($tasks[$key]);
+				}
+			}
+			return $tasks;
 		}else{
 			$task_ids = app(TaskUser::class)->forUser($user_id)->distinct('task_id')->lists('task_id');
 			if($task_ids){
@@ -40,13 +47,13 @@ class TaskRepository{
 			return app(Task::class)->whereNotIn('id', $task_ids)->recent()->get();
 		}
 	}
-	public function getTaskUsers ($task_id = '')
+	public function getTaskUsers ($task_id = '',$num = 18)
 	{
 		$task_users =  app(TaskUser::class);
 		if($task_id){
 			$task_users = $task_users->where('task_users.task_id',$task_id);
 		}
-		$task_users =  $task_users->select(DB::raw('task_users.user_id,task_users.created_at,users.avatar_url,users.username'))->orderBy('task_users.task_id','desc')->distinct('task_users.task_id')->leftJoin('tasks','tasks.id', '=','task_users.task_id')->join('users','task_users.user_id', '=','users.id')->take(20)->get();
+		$task_users =  $task_users->select(DB::raw('task_users.user_id,task_users.created_at,users.avatar_url,users.username'))->orderBy('task_users.task_id','desc')->distinct('task_users.user_id')->leftJoin('tasks','tasks.id', '=','task_users.task_id')->join('users','task_users.user_id', '=','users.id')->orderBy('task_users.id','desc')->groupBy('task_users.user_id')->take($num)->get();
 		$task_users =  app('userRepository')->handleUsers($task_users);
 		return $task_users;
 	}

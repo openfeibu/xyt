@@ -110,7 +110,7 @@ class ThreadController extends Controller
                 $thread->title      => $thread->url,
         ]);
         $user = User::findByUid($thread->user_id);
-
+        app('repository')->model(Thread::class)->where('id',$thread->id)->increment('view_count');
         if($thread->anonymous)
         {
             $user = app('userRepository')->handle_anonymous($user);

@@ -53,12 +53,12 @@ class DiggController extends Controller
 		$blog_digg = BlogDigg::where('user_id',Auth::id())->where('blog_id',$blog_id)->first();
 		if($blog_digg){
 			$blog_digg->delete();
+			Blog::where('id',$blog_id)->decrement('digg_count');
 			return [
 				'code' => 200,
 				'status' => 0,
 				'message' => '操作成功',
 			];
-			Blog::where('id',$blog_id)->decrement('digg_count');
 		}
 		else{
 			BlogDigg::create([
