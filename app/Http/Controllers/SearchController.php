@@ -167,15 +167,21 @@ class SearchController extends Controller
 			$sql =  $request->session()->get('sql');
 			if(!empty($request->order)){
 				if($request->order == "descBylogin"){
-					$sql .= "  ORDER BY updated_at DESC";
+					$sql .= "  ORDER BY last_login DESC";
 				}elseif($request->order == "descByregister"){
 					$sql .= "  ORDER BY created_at ASC";
 				}elseif($request->order == "descByrq"){
 					$sql .= "  ORDER BY follower_count DESC";
 				}
-			}
+                $order = $request->order;
+			}else{
+                $sql .= "  ORDER BY last_login DESC";
+                $order = "descBylogin";
+            }
 			$sql .=  "  limit $begin,5";
 		}else{
+            $order = "descBylogin";
+            $sql .= "  ORDER BY last_login DESC";
 			$sql =  $sql."  limit $begin,5";
 		}
 		$users = DB::select($sql);
@@ -192,6 +198,7 @@ class SearchController extends Controller
 				->with('page_count',ceil(count($result_all)/5))
 				->with('page',$request->page)
 				->with('gifts',$gift)
+                ->with('order',$order)
 				->with('standard_data',$standard_data)
 				->with('basic_data',$basic_data);
     }
