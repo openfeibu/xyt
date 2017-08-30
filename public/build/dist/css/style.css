@@ -1245,8 +1245,8 @@ padding-bottom: 15px; float: left;margin: 10px 0px 0px;
 .TA .left_content .TA_dynamic ul li{float: left;height: 24px;line-height: 24px;cursor: pointer;margin-right: 24px;font-size: 12px;}
 .TA .left_content .TA_dynamic ul .off{border-bottom: 1px solid #51b837}
 .TA .left_content .TA_dynamic2 .TA_dynamic_div{width: 224px;margin: 0 auto;padding-top: 18px;}
-.TA .left_content .TA_dynamic2 .TA_dynamic_div li{float: left;margin-right: 3px;margin-top: 3px;}
-.TA .left_content .TA_dynamic2 .TA_dynamic_div li img{width:51px;height:51px;}
+.TA .left_content .TA_dynamic2 .TA_dynamic_div li{float: left;margin-right: 3px;margin-top: 5px;}
+.TA .left_content .TA_dynamic2 .TA_dynamic_div li img{width: 63px;height: 63px;}
 .TA .right_content{border: none;width: 714px;}
 .TA .right_content .TA_top ul{margin-top: 5px;}
 .TA .right_content .TA_top ul li{float: left;width: 100px;text-align: center;margin-right: 100px;}
@@ -1814,3 +1814,4 @@ li.active_school a, li.active_school a {background: #51b837;color: #FFFFFF!impor
 #activity_btn_desc{font-size: 18px;line-height:50px;float: left;}
 .user_info_abroad{position: relative;float: left;}
 .feed_txt_default img{width: 200px;}
+.dynamic_nav_active{    background-color: #fed525;}
