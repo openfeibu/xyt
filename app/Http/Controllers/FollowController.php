@@ -3,7 +3,7 @@
 /*
  * This file is part of Hifone.
  *
- * 
+ *
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -36,16 +36,14 @@ class FollowController extends Controller
         if ($user->id == Auth::user()->id) {
             return Response::json(['status' => -1]);
         }
-		
+
         dispatch(new AddFollowCommand($user));
 
 		if ($user->follows()->forUser(Auth::id())->count()) {
-			//取消成功
 			return Response::json(['status' => 1]);
         } else {
-	        //关注成功
 	        return Response::json(['status' => 2]);
         }
-        
+
     }
 }

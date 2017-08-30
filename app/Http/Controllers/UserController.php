@@ -77,8 +77,7 @@ class UserController extends Controller
 
         $threads = Thread::forUser($user->id)->recent()->limit(10)->get();
         $replies = Reply::forUser($user->id)->recent()->limit(10)->get();
-        $user_views = app('userRepository')->getUserViews($user->id);
-        $user_viewings = app('userRepository')->getUserViewings($user->id);
+
 		$base_data = config('form_config.basic_data');
 		$happy_data = config('form_config.happy_data');
 		$detail_data = config('form_config.detail_data');
@@ -118,7 +117,7 @@ class UserController extends Controller
 		$role = app('userRepository')->getUserRole($user);
 
 		if(Auth::id() != $user->id ){
-		    $is_view = app('repository')->model(UserView::class)->where('view_user_id',Auth::id())->first();
+		    $is_view = app('repository')->model(UserView::class)->where('view_user_id',Auth::id())->where('user_id',$user->id)->first();
 		    if(!$is_view){
 			    app('repository')->model(User::class)->where('id',$user->id)->increment('view_count');
 			    UserView::create([
@@ -130,7 +129,8 @@ class UserController extends Controller
 			$user->email = handlePrivacy($user->email);
 			$user->weixin = handlePrivacy($user->weixin);
 	    }
-
+		$user_views = app('userRepository')->getUserViews($user->id);
+        $user_viewings = app('userRepository')->getUserViewings($user->id);
 		$blog_count = app('repository')->model(Blog::class)->forUser($user->id)->count();
 		$activity_count = app('repository')->model(Activity::class)->where('user_id',$user->id)->count();
 		$thread_count = app('repository')->model(Thread::class)->forUser($user->id)->count();
@@ -148,6 +148,12 @@ class UserController extends Controller
 											->get();
 	//	$packet_users = handleUsers($packet_users)；
 		$from_lang = Auth::id() == $user->id ? '我的' : 'TA的';
+
+		if ($user->follows()->forUser(Auth::id())->count()) {
+			$follow_text = "取消关注";
+        } else {
+	        $follow_text = "加关注";
+        }
         return $this->view('users.show')
             ->withUser($user)
             ->withThreads($threads)
@@ -175,7 +181,8 @@ class UserController extends Controller
 			->with('role',$role)
 			->with('packet_users',$packet_users)
 			->with('space_count',$space_count)
-			->with('from_lang',$from_lang);
+			->with('from_lang',$from_lang)
+			->with('follow_text',$follow_text);
     }
 
     public function showByUsername($username)
@@ -1332,7 +1339,12 @@ class UserController extends Controller
 				'msg'	=> '参数错误'
 			];
 		}
-		$html = $this->view('users.detail')->with('user',$user)->__toString();
+		if ($user->follows()->forUser(Auth::id())->count()) {
+			$follow_text = "取消关注";
+        } else {
+	        $follow_text = "加关注";
+        }
+		$html = $this->view('users.detail')->with('user',$user)->with('follow_text',$follow_text)->__toString();
 		return [
 			'code' => 200,
 			'html' => $html
