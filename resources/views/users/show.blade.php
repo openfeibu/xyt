@@ -194,13 +194,13 @@
             <div class="clear"></div>
             <div id="con_one2_1" class="TA_bottom" style="display: block">
                  <ul id="TA_bottom1">
-                     <li ><a href="{{route('user.home',$user->id)}}">全部</a></li>
-                     <li onclick="showDynamic('blog')" >日志({{$blog_count}})</li>
-                     <li onclick="showDynamic('activity')">活动({{$activity_count}})</li>
-                     <li onclick="showDynamic('space')">说说({{$space_count}})</li>
-                     <li onclick="showDynamic('thread')">话题({{$thread_count}})</li>
-                     <li onclick="showDynamic('gift')">礼物({{$gift_count}})</li>
-                     <li onclick="showDynamic('vote')" >投票({{$vote_count}})</li>
+                     <li class="dynamic_nav_active"><a href="{{route('user.home',$user->id)}}">全部</a></li>
+                     <li class="blog_li" onclick="showDynamic('blog')" >日志({{$blog_count}})</li>
+                     <li class="activity_li" onclick="showDynamic('activity')">活动({{$activity_count}})</li>
+                     <li class="space_li" onclick="showDynamic('space')">说说({{$space_count}})</li>
+                     <li class="thread_li" onclick="showDynamic('thread')">话题({{$thread_count}})</li>
+                     <li class="gift_li" onclick="showDynamic('gift')">礼物({{$gift_count}})</li>
+                     <li class="vote_li" onclick="showDynamic('vote')" >投票({{$vote_count}})</li>
                      <!-- <li onclick="showDynamic('repost')" style="margin-right: 0;">分享(0)</li> -->
                  </ul>
                 <div class="clear"></div>
@@ -520,11 +520,15 @@
 	    function showDynamic(filtrate) {
 		    $(".TA_bottom_div").hide();
 		    $(".dynamic").show();
+            $("#TA_bottom1").find("li").removeClass("dynamic_nav_active");
+            $("#TA_bottom1").find("."+filtrate+"_li").addClass("dynamic_nav_active");
+
 			url = "{{ route('user.dynamic')}}" ;
 			var parameter = {'type': filtrate ,'user_id':{{$user->id}}};
 			ajaxget(url, 'dynamic',parameter,function(){
                 setTimeout(function(){M($('[model-node="feed_list"]').get(0))},0)
             });
+
 		}
 		$("#one23").click(function(){
 			ajaxget('/album/albumAjax?user_id={{$user->id}}', 'showAlbums');
