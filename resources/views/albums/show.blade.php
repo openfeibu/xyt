@@ -157,7 +157,7 @@
     </div>
     <form class="" action="" method="">
     	<div  class="jubao"  style="margin-top:-100px;display:none">
-    		<div class="jubaoa"><strong>举报</strong><span onclick="jubao_hide">关闭</span></div>
+    		<div class="jubaoa"><strong>举报</strong><span onclick="jubao_hide()">关闭</span></div>
     		<table>
     		<tr><td>感谢您能协助我们一起管理站点，我们会对您的举报尽快处理。
     		请填写举报理由（最多150字符):</td></tr>

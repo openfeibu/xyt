@@ -92,7 +92,7 @@
 
                 <!-- ***********红包*************** -->
                 <div class="clear"></div>
-                    <div class="reward" id="hongbao" style="display: none;width: 600px;height: 550px;margin-left: 250px;margin-top:-300px;" >
+                    <div class="reward" id="hongbao" style="display: none;width: 600px;height: 550px;margin-left: 250px;margin-top:-300px;position: relative;" >
                         <div class="reward_top">
                             <span class="fleft" style="margin-left: 20px;">
                                 象牙塔-高校单身校友大联盟
