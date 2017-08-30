@@ -1344,7 +1344,8 @@ class UserController extends Controller
         } else {
 	        $follow_text = "加关注";
         }
-		$html = $this->view('users.detail')->with('user',$user)->with('follow_text',$follow_text)->__toString();
+		$basic_data = config('form_config.basic_data');
+		$html = $this->view('users.detail')->with('user',$user)->with('follow_text',$follow_text)->with('basic_data',$basic_data)->__toString();
 		return [
 			'code' => 200,
 			'html' => $html

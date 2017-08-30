@@ -137,6 +137,7 @@ class ThreadController extends Controller
                 }
 			  	$reply_user_id[$k] = $reply_user;
 			  	$replies_content[$k] = Reply::where('reply_id',$all->reply_id)->first();
+                $replies_content[$k]['body'] = parse_html($replies_content[$k]['body']);
 		  	}
 		  	$all->body = parse_html($all->body);
             if($all->anonymous)
