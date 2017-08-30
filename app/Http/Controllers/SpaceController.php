@@ -205,6 +205,7 @@ class SpaceController extends Controller
         	'topic_id' =>  isset($request->topic_id) ? intval($request->topic_id) : 0,
         	'gid' =>  isset($request->gid) ? intval($request->gid) : 0,
         	'app' =>  isset($request->app) ? $request->app : '',
+			'to_user_id' =>  isset($request->to_user_id) ? $request->to_user_id : 0,
         ];
         $var['page_paramter'] = $page_paramter;
        	if (! empty($var ['p']) || intval($var ['load_count']) == 4) {

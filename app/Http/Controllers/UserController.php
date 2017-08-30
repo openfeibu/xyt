@@ -107,7 +107,8 @@ class UserController extends Controller
         	'limitnums' => 5,
         	'showPage' => 1,
         	'app' => '',
-        	'user_id' => $user->id
+        	'to_user_id' => $user->id,
+			'showPage' => 1,
         ];
         $var['page_paramter'] = $page_paramter;
 
@@ -146,7 +147,7 @@ class UserController extends Controller
 											->take(10)
 											->get();
 	//	$packet_users = handleUsers($packet_users)；
-
+		$from_lang = Auth::id() == $user->id ? '我的' : 'TA的';
         return $this->view('users.show')
             ->withUser($user)
             ->withThreads($threads)
@@ -173,7 +174,8 @@ class UserController extends Controller
 			->with('star',$star)
 			->with('role',$role)
 			->with('packet_users',$packet_users)
-			->with('space_count',$space_count);
+			->with('space_count',$space_count)
+			->with('from_lang',$from_lang);
     }
 
     public function showByUsername($username)

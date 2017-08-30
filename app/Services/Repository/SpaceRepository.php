@@ -672,6 +672,8 @@ class SpaceRepository{
 
                 break;
             case 'space' : // 用户个人空间
+            //var_dump($var);exit;
+            $var['feedApp'] = isset($var['feedApp']) ? $var['feedApp'] : '';
                 if ($var ['feed_key'] !== '') {
                     // 关键字匹配 采用搜索引擎兼容函数搜索 后期可能会扩展为搜索引擎
                     $list = model('Feed')->searchFeed($var ['feed_key'], 'space', $var ['loadId'], $this->limitnums, '', $var ['feed_type']);
@@ -680,7 +682,7 @@ class SpaceRepository{
 	                if (isset($var ['loadId']) && $var ['loadId'] > 0) { // 非第一次
                     	$feedlist = $feedlist->where('id','<',intval($var ['loadId']));
 					}
-                    $list = $this->getUserList($feedlist, $var ['user_id'], $var ['feedApp'], $var ['feed_type'], $this->limitnums, $page_paramter);
+                    $list = $this->getUserList($feedlist, $var['to_user_id'], $var['feedApp'], $var ['feed_type'], $this->limitnums, $page_paramter);
                     $content ['count'] = $list ['count'];
                 }
                 break;
