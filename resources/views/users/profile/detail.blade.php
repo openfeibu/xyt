@@ -11,10 +11,10 @@
             <div class="clear" style="height: 30px;"></div>
            		@if(!empty(Session::get('data')))
 				<?php $data = Session::get('data');?>
-				@endif 
+				@endif
                <div class=" fleft">
                   	@include('users.setting_nav')
-					@inject('formTypePresenter','Hifone\Presenters\FormTypePresenter')			
+					@inject('formTypePresenter','Hifone\Presenters\FormTypePresenter')
                   <div class="gexing_main">
                       @include('users.profile.profile_nav')
                       <div class="gexing_main_content">
@@ -28,17 +28,17 @@
 								</td></tr>
 								<tr>
 								<td align="right" width="150" bgcolor="#ffffff">&nbsp;&nbsp;我的个性：</td>
-								<td align="left" valign="top" bgcolor="#ffffff" colspan="2"><input class="input" id="gexin" maxlength="225" size="50" name="gexin" value="{{$data['gexin']}}"> 
+								<td align="left" valign="top" bgcolor="#ffffff" colspan="2"><input class="input" id="gexin" maxlength="225" size="50" name="gexin" value="{{$data['gexin']}}">
 								</td></tr>
 								<tr>
 								<td align="right" width="150" bgcolor="#ffffff">&nbsp;&nbsp;朋友形容我：</td>
-								<td align="left" valign="top" bgcolor="#ffffff" colspan="2"><input class="input" id="xingrong"  maxlength="450" size="50" name="xingrong" value="{{$data['xingrong']}}"> 
+								<td align="left" valign="top" bgcolor="#ffffff" colspan="2"><input class="input" id="xingrong"  maxlength="450" size="50" name="xingrong" value="{{$data['xingrong']}}">
 								</td></tr>
 
 								<tr>
 								<td width="150" align="right" bgcolor="#ffffff">&nbsp;&nbsp;我的优势：</td>
 								<td align="left" valign="top" bgcolor="#ffffff" colspan="2">
-								<input class="input" id="youshi" maxlength="100" size="50" name="youshi" value="{{$data['youshi']}}"> 
+								<input class="input" id="youshi" maxlength="100" size="50" name="youshi" value="{{$data['youshi']}}">
 								<div id="tipinfo3"></div>
 
 								</td></tr>
@@ -46,7 +46,7 @@
 								<tr>
 								<td width="150" align="right" bgcolor="#ffffff">&nbsp;&nbsp;希望寻找的TA：</td>
 								<td align="left" valign="top" bgcolor="#ffffff" colspan="2">
-								<input class="input" id="hope" maxlength="180" size="50" name="hope" value="{{$data['hope']}}"> 
+								<input class="input" id="hope" maxlength="180" size="50" name="hope" value="{{$data['hope']}}">
 								<div id="tipinfo4"></div>
 								</td></tr>
 								<tr>
@@ -123,7 +123,7 @@
 
 								<th style="width:10em;">&nbsp;</td>
 								<td>
-								
+
 								</td>
 								</tr>
 								</tbody>
@@ -134,10 +134,10 @@
                           	</p>
                         </form>
                       </div>
-                      
+
                   </div>
-                    
-                         
+
+
         </div>
     </div>
     <div class="clear"></div>

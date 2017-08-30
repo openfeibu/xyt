@@ -60,12 +60,14 @@
 		            return false;
 		        }
 		    }
-		    var body = CKEDITOR.instances.body.getData();
+			var body = UE.getEditor('editor').hasContents();
+		    //var body = CKEDITOR.instances.body.getData();
             if($.trim(body).length<1){
 	            alert("内容不能为空");
 	            return false;
             }
-            var body_original = editor.document.getBody().getText();
+			var body_original = UE.getEditor('editor').getContentTxt();
+            //var body_original = editor.document.getBody().getText();
             $("#body_original").html(body_original);
             $("#submit").click();
 		});

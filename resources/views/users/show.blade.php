@@ -61,7 +61,7 @@
                     <td align="left" width="80">
                         <a data-type="User" data-id="{{$user->id}}" data-url="{{route('follow.user',$user->id)}}" class="followbtn">
                             <img src="{{asset('images/index/jgz.png')}}"/> <br/>
-                            <span class="follow_text">加为关注</span>
+                            <span class="follow_text">{{$follow_text}}</span>
                         </a>
                     </td>
                     <td align="center" width="80">
