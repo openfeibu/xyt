@@ -14,18 +14,19 @@ core.weibo = {
 		this.loadnew = args.loadnew;		// 是否载入最新
 		this.feed_type = args.feed_type;
 		this.feed_key = args.feed_key;
-		this.firstId = args.firstId;	
+		this.firstId = args.firstId;
 		this.topic_id = args.topic_id;		// 是否为话题
 		this.gid = args.gid;
 		this.app = args.app;
+		this.to_user_id = args.to_user_id;
 		//this.pre_page = "undefined" == typeof(pre_page) ? 1 :pre_page;//分页用到的前一页
 		if("undefined" == typeof(this.loadCount)) {
 			this.loadCount = 1;
 		}
-		if(this.loadmore == 1) {	
+		if(this.loadmore == 1) {
 			this.canLoading = true;		// 当前是否允许加载
 			core.weibo.bindScroll();
-		} else {	
+		} else {
 			this.canLoading = false;	// 当前是否允许加载
 		}
 		this.startNewLoop();
@@ -35,7 +36,7 @@ core.weibo = {
 //		}
 	},
 	// 页底加载分享
-	bindScroll: function() {	
+	bindScroll: function() {
 		var _this = this;
 		$(window).bind('scroll resize', function() {
 			// 加载3次后，将不能自动加载分享
@@ -57,9 +58,10 @@ core.weibo = {
 	loadMoreFeed: function() {
 		var _this = this;
 		_this.canLoading = false;
+		console.log(_this);
 		// 获取分享数据
 		//SPACE_MORE_URL = SPACE_MORE_URL + '/loadId/' + _this.loadId + '/type/' + _this.feedType + '/uid/' + _this.uid + '/feed_type/' + _this.feed_type + '/feed_key/' + _this.feed_key + '/fgid/' + fgid + '/topic_id/' + _this.topic_id + '/load_count/' + _this.loadCount + '/gid/' + _this.gid ;
-		$.get(SPACE_MORE_URL, {'loadId':_this.loadId, 'type':_this.feedType, 'uid':_this.uid, 'feed_type':_this.feed_type, 'feed_key':_this.feed_key, 'fgid':fgid, 'topic_id':_this.topic_id, 'load_count':_this.loadCount, 'gid':_this.gid,'app':_this.app}, function(msg) {
+		$.get(SPACE_MORE_URL, {'loadId':_this.loadId, 'type':_this.feedType, 'uid':_this.uid, 'feed_type':_this.feed_type, 'feed_key':_this.feed_key, 'fgid':fgid, 'topic_id':_this.topic_id, 'load_count':_this.loadCount, 'gid':_this.gid,'app':_this.app, 'to_user_id':_this.to_user_id}, function(msg) {
 			// 加载失败
 			if(msg.status == "0" || msg.status == "-1") {
 				$('#loadMore').remove();
@@ -127,7 +129,7 @@ core.weibo = {
 			}else{
 				$('#feed-lists').html(msg.html);
 				$('#feed-lists').append('<div id="page" class="page" >'+msg.pageHtml+'</div>');
-				
+
 				$('#feed-lists .page').find('a').each(function(){
 					var href = $(this).attr('href');
 					if(href){
@@ -168,7 +170,7 @@ core.weibo = {
 			$('#feed-lists').find('.notes span').html(L('PUBLIC_WEIBO_NUM',{'sum':nums}));
 		} else {
 			var html = '<a href="javascript:core.weibo.showNewList()" class="notes"><span>'+L('PUBLIC_WEIBO_NUM',{'sum':nums})+'</span></a>';
-			$('#feed-lists').prepend(html);	
+			$('#feed-lists').prepend(html);
 		}
 	},
 	showNewList:function(){
@@ -196,14 +198,14 @@ core.weibo = {
 		} else {
 			return true;
 		}
-		
+
 		if (full) {
 			$numsLeft[0].innerHTML = L('PUBLIC_INPUT_TIPES',{'sum':'<span>'+initNums+'</span>'});
 		} else {
-			$numsLeft[0].innerHTML = '<span>'+initNums+'</span>';			
+			$numsLeft[0].innerHTML = '<span>'+initNums+'</span>';
 		}
 		var fadeOutObj = function() {
-			textarea.ready = null;	
+			textarea.ready = null;
 		};
 
 		$(obj.childModels['post_ok'][0]).fadeOut(500,fadeOutObj);
@@ -280,7 +282,7 @@ core.weibo = {
 		} else {
 			return true;
 		}
-		
+
 		/*if("undefined" == typeof(obj.parentModel.parentModel.parentModel.childModels['numsLeft'])) {
 			return true;
 		}*/
@@ -337,7 +339,7 @@ core.weibo = {
 		}
 	},
 	// 发布分享
-	post_feed: function(_this, mini_editor, textarea, isbox , url) {	
+	post_feed: function(_this, mini_editor, textarea, isbox , url) {
 		var obj = this;
 		// 避免重复发送
 		if("undefined" == typeof(obj.isposting)) {
@@ -347,14 +349,14 @@ core.weibo = {
 				return false;
 			}
 		}
-		
+
 		if("undefined" == typeof(isbox)) {
 			isbox = false;
 		}
 		// 分享类型在此区分
 		var args = $(_this).attr('event-args');
 		var setargs = args.replace('type=postvideo','type=post');
-		
+
 		var attrs = M.getEventArgs(_this);
 		var videoobj = $(_this.parentModel).find('.video_id');
 		var attachobj = $(_this.parentModel).find('.attach_ids');
@@ -438,8 +440,8 @@ core.weibo = {
 					$(postOk).html('<i class="ico-ok"></i>发布成功');
 				}
 				$(postOk).fadeIn('fast');
-				
-				core.weibo.afterPost(mini_editor,textarea,attrs.topicHtml);	
+
+				core.weibo.afterPost(mini_editor,textarea,attrs.topicHtml);
 				if(!isbox) {
 					core.weibo.insertToList(msg.data, msg.feedId);
 				} else {
@@ -449,7 +451,7 @@ core.weibo = {
 					if(document.getElementById('feed-lists') != null && channel_id == 0) {
 						setTimeout(function() {
 							core.weibo.insertToList(msg.data, msg.feedId);
-						}, 1500);	
+						}, 1500);
 					}
 					if (attrs.isrefresh == 1) {
 						setTimeout(function() {
@@ -466,7 +468,7 @@ core.weibo = {
 		return false;
 	},
 	// 发布发言
-	post_share_tools: function(_this, mini_editor, textarea, isbox , url) {	
+	post_share_tools: function(_this, mini_editor, textarea, isbox , url) {
 		var obj = this;
 		// 避免重复发送
 		if("undefined" == typeof(obj.isposting)) {
@@ -476,7 +478,7 @@ core.weibo = {
 				return false;
 			}
 		}
-		
+
 		if("undefined" == typeof(isbox)) {
 			isbox = false;
 		}
@@ -484,7 +486,7 @@ core.weibo = {
 		var args = $(_this).attr('event-args');
 		var setargs = args.replace('type=postvideo','type=post');
 		setargs = args.replace('type=long_post','type=post');
-		
+
 		var attrs = M.getEventArgs(_this);
 		var attachobj = $(_this.parentModel).find('.attach_ids');
 		if(attachobj.length > 0) {
@@ -548,7 +550,7 @@ core.weibo = {
 					$(postOk).html('<p class="ppb"><i class="ico-ok-big"></i>分享成功</p><p class="pp"><a href="'+U('public/Profile/index')+'">去我的分享</a><span>/</span><a href="javascript:window.opener=null;window.close();">关闭窗口</a></p>');
 				}
 				$(postOk).fadeIn('1500');
-				// core.weibo.afterPost(mini_editor,textarea,attrs.topicHtml);	
+				// core.weibo.afterPost(mini_editor,textarea,attrs.topicHtml);
 				// if(!isbox) {
 				// 	core.weibo.insertToList(msg.data, msg.feedId);
 				// } else {
@@ -558,7 +560,7 @@ core.weibo = {
 				// 	if(document.getElementById('feed-lists') != null && channel_id == 0) {
 				// 		setTimeout(function() {
 				// 			core.weibo.insertToList(msg.data, msg.feedId);
-				// 		}, 1500);	
+				// 		}, 1500);
 				// 	}
 				// }
 				// M.setArgs(_this,setargs);
@@ -623,7 +625,7 @@ core.weibo = {
 				ui.error('获取大图信息失败');
 				return false;
 			}
-		}, 'json');		
+		}, 'json');
 	},
 	/**
 	 * 关闭大图窗口
@@ -634,7 +636,7 @@ core.weibo = {
 		$('#show_big_image').remove();
 		//document.getElementById('show_big_image').innerHTML = '';
 	},
-    
+
     /**
      * 点击转发内容
      */

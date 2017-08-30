@@ -59,7 +59,7 @@ args['feed_key']	= feed_key;
 args['topic_id'] 	= topic_id;
 args['gid'] 	= gid;
 args['app']		= app;
-
+args['to_user_id']	= to_user_id;
 if("undefined" == typeof(core.weibo)){	//只init一次
 	core.plugFunc('weibo',function(){
 		core.weibo.init(args);
