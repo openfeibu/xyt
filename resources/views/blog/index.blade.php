@@ -8,7 +8,7 @@
 <strong class="green">{!! $breadcrumb or '' !!}</strong>
 @else
 <ul class="b_la">
-<li><a href="{{route('blog.index')}}" @if($type !='me')class="b_laa"@endif>大家的日志</a></li>
+<li><a href="{{route('blog.index')}}" @if($type !='me')class="b_laa"@endif>全部日志</a></li>
 <li><a href="{{route('blog.index',['type' => 'me'])}}" @if($type =='me')class="b_laa"@endif>我的日志</a></li>
 <li class="b_lab"><span id="showss"><a href="{{route('blog.create')}}">+发起新日志</a></span>
 </li>
@@ -37,8 +37,9 @@
 @if($type != 'me' && $type != 'other')
 <div class="b_le">
 <span>排行榜</span>
-<a href="{{route('blog.index',['type' => 'recommend'])}}" @if($type =='recommend')class="selected"@endif>推荐阅读</a>
 <a href="{{route('blog.index',['type' => 'new'])}}" @if($type =='new')class="selected"@endif>最新发表</a>
+<a href="{{route('blog.index',['type' => 'recommend'])}}" @if($type =='recommend')class="selected"@endif>推荐阅读</a>
+
 <a href="{{route('blog.index',['type' => 'reply'])}}" @if($type =='reply')class="selected"@endif>评论排行</a>
 <a href="{{route('blog.index',['type' => 'view'])}}" @if($type =='view')class="selected"@endif>查看排行</a>
 </div>
