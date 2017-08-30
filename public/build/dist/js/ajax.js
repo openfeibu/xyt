@@ -374,3 +374,7 @@ $('#report_btn').on('click',function(){
 		});
 	}
 });
+function jubao_hide()
+{
+	$(".jubao").hide();
+}
