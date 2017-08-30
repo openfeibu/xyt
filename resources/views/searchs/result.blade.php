@@ -14,11 +14,11 @@
                     <tr>
                         <td>搜索排序：&nbsp;&nbsp;</td>
                         <td>
-                            <input type="radio" onclick="javascript:jump();" id="ib1" name="order" value="descBylogin"/>
+                            <input type="radio" onclick="javascript:jump();" id="ib1" name="order" value="descBylogin" @if($order == 'descBylogin') checked @endif/>
                             <label for="ib1">最近登录&nbsp;&nbsp;</label>
-                            <input type="radio"  onclick="javascript:jump();" id="ib2" name="order" value="descByregister"/>
+                            <input type="radio"  onclick="javascript:jump();" id="ib2" name="order" value="descByregister" @if($order == 'descByregister') checked @endif/>
                             <label for="ib2">最近注册&nbsp;&nbsp;</label>
-                            <input type="radio"  onclick="javascript:jump();" id="ib3" name="order" value="descByrq"/>
+                            <input type="radio"  onclick="javascript:jump();" id="ib3" name="order" value="descByrq" @if($order == 'descByrq') checked @endif/>
                             <label for="ib3">综合人气&nbsp;&nbsp;</label>
                         </td>
                     </tr>
@@ -203,28 +203,7 @@
     </div>
     <div class="clear"></div>
 	<script>
-		$(".followbtn").click(function(){
-			var loading = layer.load(1, {shade: false});
-			t = $(this);
-			i = t.attr('data-type'), r = t.attr("data-id"), n = t.attr("data-action"), a = t.attr("data-url")
-			$.ajax({
-				url: a,
-				type: "POST",
-				data: {
-					type: i,
-					id: r
-				},
-				success: function(data) {
-					layer.close(loading);
-					t.hasClass("active") ? t.removeClass("active") : t.addClass("active");
-					layer.msg('操作成功', {icon:1});
-				},
-				error: function(e) {
-					layer.close(loading);
-					layer.msg('操作失败', {icon: 5});
-				}
-			}, "json")
-		});
+
 
 
 		function jump() {
@@ -233,23 +212,6 @@
 		}
 
 
-		var name,value;
-	    var str=location.href; //取得整个地址栏
-	    var num=str.indexOf("?")
-	    str=str.substr(num+1); //取得所有参数   stringvar.substr(start [, length ]
-
-		num=str.indexOf("=");
-		if(num>0){
-		 name=str.substring(0,num);
-		 value=str.substr(num+1);
-		}
-		if(value == "descBylogin"){
-			$("#ib1").attr('checked','true');
-		}else if(value == "descByregister"){
-			$("#ib2").attr('checked','true');
-		}else{
-			$("#ib3").attr('checked','true');
-		}
 
 
 	</script>
