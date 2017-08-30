@@ -51,7 +51,7 @@
                 </table>
                 @if(Auth::id() == $user->id)
 				<ul class="user_detail_ul">
-					<li><a href="{{route('profile.base')}}"><i class="icon_account png"></i><span>我的设置</span></a></li>
+					<li><a href="{{route('profile.base')}}"><i class="icon_account png"></i><span>{{$from_lang}}设置</span></a></li>
 					<li><a href="{{route('pay.index')}}"><i class="icon_home png"></i><span>积分充值</span></a></li>
             	</ul>
                 @else
@@ -137,9 +137,9 @@
 
                 <div class="TA_dynamic" id="tab1s">
                     <ul>
-                        <li id="tow1" onclick="setTab('tow',1)" class="off">我的来访</li>
-                        <li id="tow2" onclick="setTab('tow',2)">我的足迹</li>
-                        <li id="tow3" onclick="setTab('tow',3)" style="margin-right: 0px;">我的关注</li>
+                        <li id="tow1" onclick="setTab('tow',1)" class="off">{{$from_lang}}来访</li>
+                        <li id="tow2" onclick="setTab('tow',2)">{{$from_lang}}足迹</li>
+                        <li id="tow3" onclick="setTab('tow',3)" style="margin-right: 0px;">{{$from_lang}}关注</li>
                     </ul>
                     <div class="clear"></div>
                 </div>
@@ -174,20 +174,20 @@
             <div class="TA_top">
                 <ul id="TA_top">
                     <li id="one21" onclick="setTab_t('one2',1,'TA_top')" class="off">
-                        <img src="{{asset('images/index/TAimg_06.png')}}" alt="我的动态"/>
-                        <p>我的动态</p>
+                        <img src="{{asset('images/index/TAimg_06.png')}}" alt="{{$from_lang}}动态"/>
+                        <p>{{$from_lang}}动态</p>
                     </li>
                     <li id="one22" onclick="setTab_t('one2',2,'TA_top')">
-                        <img src="{{asset('images/index/TAimg_03.png')}}" alt="我的资料"/>
-                        <p>我的资料</p>
+                        <img src="{{asset('images/index/TAimg_03.png')}}" alt="{{$from_lang}}资料"/>
+                        <p>{{$from_lang}}资料</p>
                     </li>
                     <li id="one23" onclick="setTab_t('one2',3,'TA_top')">
-                        <img src="{{asset('images/index/TAimg_09.png')}}" alt="我的照片"/>
-                        <p>我的照片</p>
+                        <img src="{{asset('images/index/TAimg_09.png')}}" alt="{{$from_lang}}照片"/>
+                        <p>{{$from_lang}}照片</p>
                     </li>
                     <li id="one24"  style="margin-right: 0;" onclick="setTab_t('one2',4,'TA_top')">
-                        <img src="{{asset('images/index/TAimg_11.png')}}" alt="我的要求"/>
-                        <p>我的要求</p>
+                        <img src="{{asset('images/index/TAimg_11.png')}}" alt="{{$from_lang}}要求"/>
+                        <p>{{$from_lang}}要求</p>
                     </li>
                 </ul>
             </div>
@@ -214,7 +214,7 @@
                 <div class="clear"></div>
             </div>
             <div id="con_one2_2" class="TA_bottom">
-           <!-- *********我的资料************ -->
+           <!-- *********{{$from_lang}}资料************ -->
            <div class="my_data">
                <div class="my_data_top">
                    <span class="fleft" style="margin-left: 10px;">{{$user->username}}（ID：{{$user->id}}）
@@ -347,7 +347,7 @@
                     </div>
                </div>
            </div>
-           <!-- *********我的资料************ -->
+           <!-- *********{{$from_lang}}资料************ -->
             </div>
             <div id="con_one2_3" class="TA_bottom">
                 <div class="my_photo">

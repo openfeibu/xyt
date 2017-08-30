@@ -1,7 +1,7 @@
 <div class="feed_lists" id="feed-lists">
 {!! $var['list'] !!}
 </div>
-<div class="content_list">                      
+<div class="content_list">
 	<div class="clear"></div>
 	@if ($var['showPage'] === 1)
 
@@ -19,5 +19,6 @@ var loadnew = '{{$var['loadnew']}}';
 var feed_type = '{{$var['feed_type']}}';
 var feed_key = '{{$var['feed_key']}}';
 var app = '{{$var['app']}}';
+var to_user_id = '@if(isset($var['to_user_id'])){{$var['to_user_id']}}@endif';
 
 </script>
