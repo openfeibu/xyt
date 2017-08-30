@@ -109,7 +109,7 @@ function passwordShow(value) {
 		$('#tb_selectgroup').hide();
 	}
 }
-$(".followbtn").click(function(){
+$("body").on('click','.followbtn',function(){
 	var loading = layer.load(1, {shade: false});
 	t = $(this);
 	m = $(this).find('.follow_text');
@@ -139,7 +139,9 @@ $(".followbtn").click(function(){
 			layer.msg('操作失败', {icon: 5});
 		}
 	}, "json")
+
 });
+
 function chooseTab(obj,tab) {
 	$(".tab").hide();
 	$("."+tab).show();
