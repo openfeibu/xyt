@@ -5,20 +5,20 @@
 .mywork_top span{color: #146500;}
 .mywork_schedule_span{text-align: center;}
 .graph {
-	background: #51B837; 
-	position: relative; 
-	width: 998px; 
-	padding: 1px; 
-	margin-bottom: 20px;                    
-}
-.graph .bar { 
-	display: block;    
+	background: #51B837;
 	position: relative;
-	background: #FDD522; 
-	text-align: center; 
-	color: #333; 
-	height: 0.3em; 
-	line-height: 2em;                                    
+	width: 998px;
+	padding: 1px;
+	margin-bottom: 20px;
+}
+.graph .bar {
+	display: block;
+	position: relative;
+	background: #FDD522;
+	text-align: center;
+	color: #333;
+	height: 0.8em; 
+	line-height: 2em;
 }
 .mywork_schedule_content{margin: 40px 0 40px;}
 .mywork_schedule_content_main{border:1px #e2e1e1 solid;margin-top: 20px;width: 90%;margin: 0 auto;background: #fbfbfb;height: 150px;border-radius: 5px;margin-top: 30px}
@@ -30,7 +30,7 @@
 .mywork_schedule_content_main_btn{width: 100px;height: 150px;margin-right: 20px;margin-top: 30px;text-align: right}
 .mywork_schedule_content_main_btn dd{line-height: 50px;margin-left: -30px}
 .mywork_schedule_content_main_btn dd span{margin-left: 11px;margin-top: 10px;font-size: 14px;}
-.mywork_schedule_content_main_btn 
+.mywork_schedule_content_main_btn
 .mywork_schedule_content_main_join{display: block;width: 130px;height: 30px;color: #fff;line-height: 30px;text-align: center;}
 .mywork_footer{margin: 0 auto;width: 900px;height: 40px;border-bottom: 1px #e2e1e1 solid;padding-left: 20px;line-height: 40px;}
 .mywork_footer_list{width: 100%;height: 250px;margin-top: -20px}
