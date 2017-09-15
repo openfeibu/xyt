@@ -1816,3 +1816,18 @@ li.active_school a, li.active_school a {background: #51b837;color: #FFFFFF!impor
 .feed_txt_default img{width: 200px;}
 .dynamic_nav_active{    background-color: #fed525;}
 .media-body img{width:100px;}
+.del_btn{
+    width: 70px;
+    height: 40px;
+line-height: 40px;
+border-radius: 3px;
+text-align: center;
+background: #51b837;
+color: #fff;
+display: block;
+border: 1px solid #51b837;
+float: right;
+position: relative;
+margin-right: 25px;
+
+}
