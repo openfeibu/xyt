@@ -56,6 +56,14 @@ class AlbumRoutes
 				'as'   => 'album.albumAjax',
 				'uses' => 'AlbumController@albumAjax',
 			]);
+            $router->post('/album/delPhotos', [
+				'as'   => 'album.delPhotos',
+				'uses' => 'AlbumController@delPhotos',
+			]);
+            $router->post('/album/delAlbums', [
+				'as'   => 'album.delAlbums',
+				'uses' => 'AlbumController@delAlbums',
+			]);
 		});
 	}
 }

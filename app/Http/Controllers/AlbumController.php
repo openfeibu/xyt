@@ -10,6 +10,7 @@ use Hifone\Commands\Album\UploadAlbumPhotoCommand;
 use DB;
 use Input;
 use Cache;
+use Redirect;
 use Validator;
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManagerStatic as Image;
@@ -296,4 +297,18 @@ class AlbumController extends Controller
     							->with('previous',$previous)
     							->with('next',$next);
     }
+	public function delPhotos(Request $request)
+	{
+		$ids = Input::get('ids');
+		app('repository')->model(AlbumPhoto::class)->whereIn('id',$ids)->where('user_id',Auth::id())->delete();
+		return Redirect::back()->withSuccess('操作成功');
+	}
+	public function delAlbums(Request $request)
+	{
+		$ids = Input::get('ids');
+		app('repository')->model(AlbumPhoto::class)->whereIn('album_id',$ids)->where('user_id',Auth::id())->delete();
+		app('repository')->model(Album::class)->whereIn('id',$ids)->where('user_id',Auth::id())->delete();
+
+		return Redirect::back()->withSuccess('操作成功');
+	}
 }
