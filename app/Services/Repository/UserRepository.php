@@ -424,6 +424,25 @@ class UserRepository{
 			'profile_status' => $profile_status,
 		];
 	}
+    public function getProfileStatus($user)
+    {
+        $profiles = [
+			'basic' => $this->basic_data_status($user),
+			'avatar' => $this->avatar_status($user),
+			'standard' => $this->standard_status($user),
+			'dating' => $this->dating_status($user),
+			'detail' => $this->detail_status($user),
+			'happy' => $this->happy_status($user),
+		];
+        $profile_status = 1;
+        foreach( $profiles as $key => $profile )
+		{
+			if($profile['status'] == 0){
+				$profile_status = 0;
+			}
+		}
+        return $profile_status;
+    }
 	public function basic_data_status ($user)
 	{
 		$basic_data = config('form_config.basic_data');

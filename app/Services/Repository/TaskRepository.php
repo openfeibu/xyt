@@ -22,7 +22,7 @@ class TaskRepository{
 			$tasks = app(TaskUser::class)->join('tasks','tasks.id', '=','task_users.task_id')->where('task_users.user_id',$user_id)->orderBy('task_users.id','desc')->distinct('tasks.id')->groupBy('tasks.id','desc')->get();
 			foreach ($tasks as $key => $task) {
 				$time = strtotime(date('Y-m-d'));
-				if(strtotime($task->created_at->format('Y-m-d')) ==  $time && $task->frequency == 1){
+				if(strtotime($task->created_at->format('Y-m-d')) !=  $time && $task->frequency == 1){
 					unset($tasks[$key]);
 				}
 			}

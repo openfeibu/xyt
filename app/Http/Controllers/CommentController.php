@@ -22,7 +22,7 @@ class CommentController extends Controller
 
     public function __construct (Request $request)
     {
-    	parent::__construct();	    
+    	parent::__construct();
         $this->middleware('auth');
         $this->request = $request;
         $this->mid = Auth::id();
@@ -30,12 +30,12 @@ class CommentController extends Controller
     public function  render($data = null)
     {
     	$var = array();
-        // Ä¬ÈÏÅäÖÃÊı¾İ
-        $var ['cancomment'] = 1; // ÊÇ·ñ¿ÉÒÔÆÀÂÛ
-        $var ['canrepost'] = 1; // ÊÇ·ñÔÊĞí×ª·¢
-        $var ['cancomment_old'] = 1; // ÊÇ·ñ¿ÉÒÔÆÀÂÛ¸øÔ­×÷Õß
-        $var ['showlist'] = 1; // Ä¬ÈÏÏÔÊ¾Ô­ÆÀÂÛÁĞ±í
-        $var ['tpl'] = 'comment'; // ÏÔÊ¾Ä£°å
+        // é»˜è®¤é…ç½®æ•°æ®
+        $var ['cancomment'] = 1; // æ˜¯å¦å¯ä»¥è¯„è®º
+        $var ['canrepost'] = 1; // æ˜¯å¦å…è®¸è½¬å‘
+        $var ['cancomment_old'] = 1; // æ˜¯å¦å¯ä»¥è¯„è®ºç»™åŸä½œè€…
+        $var ['showlist'] = 1; // é»˜è®¤æ˜¾ç¤ºåŸè¯„è®ºåˆ—è¡¨
+        $var ['tpl'] = 'comment'; // æ˜¾ç¤ºæ¨¡æ¿
         $var ['app_name'] = 'space';
         $var ['table'] = 'spaces';
         $var ['limit'] = 10;
@@ -59,13 +59,13 @@ class CommentController extends Controller
         is_array($data) && $var = array_merge($var, $data);
         $var['app_user_id'] = intval($var['app_user_id']);
         $var['row_id'] = intval($var['row_id']);
-                // »ñÈ¡×ÊÔ´ÀàĞÍ
+                // è·å–èµ„æºç±»å‹
         $sourceInfo = app('spaceRepository')->get($var ['row_id']);
         $var ['feedtype'] = $sourceInfo ['type'];
-       
+
         $var['comment_origin'] = 1;
         /*if ($var ['table'] == 'spaces' && $this->mid != $var ['app_user_id']) {
-            // »ñÈ¡Ô´×ÊÔ´×÷ÕßÓÃ»§ĞÅÏ¢
+            // è·å–æºèµ„æºä½œè€…ç”¨æˆ·ä¿¡æ¯
             $appRowData =app('spaceRepository')->get(intval($sourceInfo['app_row_id']));
             $var['user_info'] = $appRowData['user_info'];
         }*/
@@ -74,24 +74,24 @@ class CommentController extends Controller
             $var['comment_origin'] = 1;
         }
         $return['data'] = $var['comment_origin'];
-        if ($var ['showlist'] == 1) { // Ä¬ÈÏÖ»È¡³öÇ°10Ìõ
+        if ($var ['showlist'] == 1) { // é»˜è®¤åªå–å‡ºå‰10æ¡
             $map = array();
             $map ['app'] = t($var ['app_name']);
             $map ['table'] = t($var ['table']);
-            $map ['row_id'] = intval($var ['row_id']); // ±ØĞë´æÔÚ
+            $map ['row_id'] = intval($var ['row_id']); // å¿…é¡»å­˜åœ¨
             if (! empty($map ['row_id'])) {
-                // ·ÖÒ³ĞÎÊ½Êı¾İ
+                // åˆ†é¡µå½¢å¼æ•°æ®
                 $var ['list'] = app('commentRepository')->getCommentList($map, 'id '.t($var ['order']), intval($var ['limit']));
             }
-        } 
-        // äÖÈ¾Ä£°æ
-        
+        }
+        // æ¸²æŸ“æ¨¡ç‰ˆ
+
         $content = view('comments.'.$var ['tpl'],$var)->__toString();
-        
+
         self::$rand ++;
         $ajax = $var ['isAjax'];
         unset($var, $data);
-        // Êä³öÊı¾İ
+        // è¾“å‡ºæ•°æ®
         $return = array(
                 'status' => 1,
                 'data' => $content,
@@ -101,7 +101,7 @@ class CommentController extends Controller
         return $ajax == 1 ? json_encode($return) : $return ['data'];
     }
      /**
-     * »ñÈ¡ÆÀÂÛÁĞ±í
+     * è·å–è¯„è®ºåˆ—è¡¨
      *
      * @return array
      */
@@ -110,9 +110,9 @@ class CommentController extends Controller
         $map = array();
         $map ['app'] = t(Input::get('app_name'));
         $map ['table'] = t(Input::get('table'));
-        $map ['row_id'] = intval(Input::get('row_id')); // ±ØĞë´æÔÚ
+        $map ['row_id'] = intval(Input::get('row_id')); // å¿…é¡»å­˜åœ¨
         if (! empty($map ['row_id'])) {
-            // ·ÖÒ³ĞÎÊ½Êı¾İ
+            // åˆ†é¡µå½¢å¼æ•°æ®
             $var ['limit'] = 10;
             $var ['order'] = 'DESC';
             $var ['cancomment'] = Input::get('cancomment');
@@ -123,30 +123,30 @@ class CommentController extends Controller
             $var ['list'] = app('commentRepository')->getCommentList($map, 'comment_id '.$var ['order'], $var ['limit']);
         }
         $content = view('comments.commentList',$var)->__toString();
-        
+
         return $content;
     }
     /**
-     * Ìí¼ÓÆÀÂÛµÄ²Ù×÷
+     * æ·»åŠ è¯„è®ºçš„æ“ä½œ
      *
-     * @return array ÆÀÂÛÌí¼Ó×´Ì¬ºÍÌáÊ¾ĞÅÏ¢
+     * @return array è¯„è®ºæ·»åŠ çŠ¶æ€å’Œæç¤ºä¿¡æ¯
      */
     public function addcomment()
     {
-        // ·µ»Ø½á¹û¼¯Ä¬ÈÏÖµ
+        // è¿”å›ç»“æœé›†é»˜è®¤å€¼
         $return = array(
                 'status' => 0,
                 'data' => trans('public.PUBLIC_CONCENT_IS_ERROR'),
         );
-        //¼ì²âÓÃ»§ÊÇ·ñ±»½ûÑÔ
+        //æ£€æµ‹ç”¨æˆ·æ˜¯å¦è¢«ç¦è¨€
         if($isDisabled = app('userDisableRepository')->isDisableUser($this->mid,'post'))
         {
             return json_encode(array(
                 'status' => 0,
-                'data' => 'ÄúÒÑ¾­±»½ûÑÔÁË',
+                'data' => 'æ‚¨å·²ç»è¢«ç¦è¨€äº†',
             ));
         }
-        // »ñÈ¡½ÓÊÕÊı¾İ
+        // è·å–æ¥æ”¶æ•°æ®
         $data ['app'] = t(Input::get('app_name'));
         $data ['table'] = t(Input::get('table_name'));
         $data ['content'] = Input::get('content');
@@ -169,18 +169,18 @@ class CommentController extends Controller
         }
         $data['content'] = $filterContentStatus['data'];
 
-        // ÅĞ¶Ï×ÊÔ´ÊÇ·ñ±»É¾³ı
+        // åˆ¤æ–­èµ„æºæ˜¯å¦è¢«åˆ é™¤
         $dao = tableModel($data ['table']);
-        
+
         $sourceInfo = $dao::where('id',$data ['row_id'])->first();
 
         if (! $sourceInfo) {
             $return ['status'] = 0;
-            $return ['data'] = 'ÄÚÈİÒÑ±»É¾³ı£¬ÆÀÂÛÊ§°Ü';
+            $return ['data'] = 'å†…å®¹å·²è¢«åˆ é™¤ï¼Œè¯„è®ºå¤±è´¥';
             exit(json_encode($return));
         }
 
-        //¼æÈİ¾É·½·¨
+        //å…¼å®¹æ—§æ–¹æ³•
         if (empty($data['app_detail_summary'])) {
             $source =app('sourceRepository')->getSourceInfo($data ['table'], $data ['row_id'], $data ['app']);
             $data['app_detail_summary'] = $source['source_body'];
@@ -190,24 +190,24 @@ class CommentController extends Controller
             $data['app_detail_summary'] = $data ['app_detail_summary'].'<a class="ico-details" href="'.$data['app_detail_url'].'"></a>';
         }
         // $data['from'] = 'feed';
-        // Ìí¼ÓÆÀÂÛ²Ù×÷
+        // æ·»åŠ è¯„è®ºæ“ä½œ
         $data ['comment_id'] = app('commentRepository')->addComment($data);
        // $return['sql'] = D()->getLastSql();
         if ($data ['comment_id']) {
             $talkbox = intval(Input::get('talkbox'));
             $return ['status'] = 1;
             $return ['data'] = $this->parseComment($data, $talkbox);
-            // È¥µô»Ø¸´ÓÃ»§@
+            // å»æ‰å›å¤ç”¨æˆ·@
             $lessUids = array();
             if (! empty($data ['to_user_id'])) {
                 $lessUids [] = $data ['to_user_id'];
             }
 
-            /*if (Input::get('ifShareFeed') == 1) {  // ×ª·¢µ½ÎÒµÄ·ÖÏí
-                //½âËøÄÚÈİ·¢²¼
+            /*if (Input::get('ifShareFeed') == 1) {  // è½¬å‘åˆ°æˆ‘çš„åˆ†äº«
+                //è§£é”å†…å®¹å‘å¸ƒ
                 unlockSubmit();
                 $this->_updateToweibo($data, $sourceInfo, $lessUids);
-            } elseif ($data ['comment_old'] != 0) {  // ÊÇ·ñÆÀÂÛ¸øÔ­À´×÷Õß
+            } elseif ($data ['comment_old'] != 0) {  // æ˜¯å¦è¯„è®ºç»™åŸæ¥ä½œè€…
                 unlockSubmit();
                 $this->_updateToComment($data, $sourceInfo, $lessUids);
             }*/
@@ -216,12 +216,12 @@ class CommentController extends Controller
         exit(json_encode($return));
     }
      /**
-     * äÖÈ¾ÆÀÂÛÒ³Ãæ ÔÚaddcomment·½·¨ÖĞµ÷ÓÃ
+     * æ¸²æŸ“è¯„è®ºé¡µé¢ åœ¨addcommentæ–¹æ³•ä¸­è°ƒç”¨
      */
     public function parseComment($data, $talkbox)
     {
         $data ['userInfo'] = app('userRepository')->getUserInfo(Auth::id());
-        // »ñÈ¡ÓÃ»§×éĞÅÏ¢
+        // è·å–ç”¨æˆ·ç»„ä¿¡æ¯
         //$data ['userInfo'] ['groupData'] = model('UserGroupLink')->getUserGroupData(Auth::id());
         $data ['content'] = preg_html($data ['content']);
         $data ['content'] = parse_html($data ['content']);
@@ -236,10 +236,10 @@ class CommentController extends Controller
             $html .= '<i class="arrow-mes-r"></i>';
             $html .= '<p class="info">'.$data['userInfo']['space_link'].':&nbsp;'.$data['content'].'</p>';
             $html .= '<p class="date"><span class="right">';
-            $html .= '<a href="javascript:;" event-node="comment_del" event-args="comment_id='.$data['comment_id'].'">É¾³ı</a>'."\n";
+            $html .= '<a href="javascript:;" event-node="comment_del" event-args="comment_id='.$data['comment_id'].'">åˆ é™¤</a>'."\n";
             $html .= '<i class="vline">|</i>'."\n";
-            $html .= '<a href="javascript:;" event-args="row_id='.$data['row_id'].'&app_uid='.$data['app_uid'].'&to_comment_id='.$data['to_comment_id'].'&to_uid='.$data['to_uid'].'&to_comment_uname='.$data['userInfo']['uname'].'&app_name='.$data['app'].'&table='.$data['table'].'" event-node="reply_comment" >»Ø¸´</a>';
-            $html .= '</span>¸Õ¸Õ</p>';
+            $html .= '<a href="javascript:;" event-args="row_id='.$data['row_id'].'&app_uid='.$data['app_uid'].'&to_comment_id='.$data['to_comment_id'].'&to_uid='.$data['to_uid'].'&to_comment_uname='.$data['userInfo']['uname'].'&app_name='.$data['app'].'&table='.$data['table'].'" event-node="reply_comment" >å›å¤</a>';
+            $html .= '</span>åˆšåˆš</p>';
             $html .= '</dd>';
             $html .= '</dl>';
 
@@ -252,17 +252,17 @@ class CommentController extends Controller
     {
     	$comment_id = intval($_POST ['comment_id']);
         $comment = app('commentRepository')->getCommentInfo($comment_id);
-        // ²»´æÔÚÊ±
+        // ä¸å­˜åœ¨æ—¶
         if (! $comment) {
             return 0;
         }
-        // ·Ç×÷ÕßÊ±
+        // éä½œè€…æ—¶
         if ($comment ['user_id'] != Auth::id()) {
             if (! Auth::user()->can("manage_comment")) {
-                $return['msg'] = 'Ã»ÓĞÈ¨ÏŞ';
+                $return['msg'] = 'æ²¡æœ‰æƒé™';
                 exit(json_encode($return));
-            }  
-        } 
+            }
+        }
 
         if (! empty($comment_id)) {
 	        $comment = Comment::where('id',$comment_id)->first();

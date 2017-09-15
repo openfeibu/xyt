@@ -27,7 +27,7 @@ class Notification extends Model implements HasPresenter
      *
      * @var string[]
      */
-    protected $fillable = ['author_id', 'user_id', 'object_id', 'object_type', 'type', 'body'];
+    protected $fillable = ['author_id', 'user_id', 'object_id', 'object_type', 'type', 'body','anonymous'];
 
     /**
      * The validation rules.

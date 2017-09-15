@@ -18,6 +18,7 @@ use Hifone\Models\Area;
 use Hifone\Models\Vote;
 use Hifone\Models\Space;
 use Hifone\Models\Reply;
+use Hifone\Models\Task;
 use Hifone\Models\Thread;
 use Hifone\Models\School;
 use Hifone\Models\Packet;
@@ -74,7 +75,26 @@ class UserController extends Controller
 	}
     public function show(User $user)
     {
+		if(Auth::id() != $user->id ){
+			$finish_tasks = app('taskRepository')->getTasks(Auth::id(),'finish');
+	        $count = app(Task::class)->count();
+			if(count($finish_tasks) < $count){
+				return Redirect::route('task.index')
+	                ->withErrors(['完成所有任务才可以访问TA的主页']);
+			}
 
+		    $is_view = app('repository')->model(UserView::class)->where('view_user_id',Auth::id())->where('user_id',$user->id)->first();
+		    if(!$is_view){
+			    app('repository')->model(User::class)->where('id',$user->id)->increment('view_count');
+			    UserView::create([
+		            'user_id'  => $user->id,
+		            'view_user_id' => Auth::id(),
+		    	]);
+		    }
+			$user->qq = handlePrivacy($user->qq);
+			$user->email = handlePrivacy($user->email);
+			$user->weixin = handlePrivacy($user->weixin);
+	    }
         $threads = Thread::forUser($user->id)->recent()->limit(10)->get();
         $replies = Reply::forUser($user->id)->recent()->limit(10)->get();
 
@@ -116,19 +136,7 @@ class UserController extends Controller
 		$star = app('userRepository')->getStar($user);
 		$role = app('userRepository')->getUserRole($user);
 
-		if(Auth::id() != $user->id ){
-		    $is_view = app('repository')->model(UserView::class)->where('view_user_id',Auth::id())->where('user_id',$user->id)->first();
-		    if(!$is_view){
-			    app('repository')->model(User::class)->where('id',$user->id)->increment('view_count');
-			    UserView::create([
-		            'user_id'  => $user->id,
-		            'view_user_id' => Auth::id(),
-		    	]);
-		    }
-			$user->qq = handlePrivacy($user->qq);
-			$user->email = handlePrivacy($user->email);
-			$user->weixin = handlePrivacy($user->weixin);
-	    }
+
 		$user_views = app('userRepository')->getUserViews($user->id);
         $user_viewings = app('userRepository')->getUserViewings($user->id);
 		$blog_count = app('repository')->model(Blog::class)->forUser($user->id)->count();
@@ -649,6 +657,11 @@ class UserController extends Controller
 	   	User::where('id',Auth::id())->update($input);
 	   	$user = User::findByUidOrFail(Auth::id());
 	   	$data = $user->toArray();
+		$basic_data = app('userRepository')->basic_data_status($user);
+		if($basic_data['status']){
+			app('taskRepository')->store('profile');
+		}
+
 	   	return Redirect::back()
                 ->withUser($user)
                 ->withData($data)
@@ -1064,6 +1077,7 @@ class UserController extends Controller
 		            return  $this->view('message.message')->with('title','信息提示')->with('content','您要验证的邮箱地址已经激活过了，请进入个人资料重新设置自己的邮箱');
 	            }
 	            app(User::class)->where('id',$email_code->user_id)->update(['email_status' => 1,'email' => $email_code->email]);
+				app('taskRepository')->store('email');
 	            return  $this->view('message.message')->with('title','信息提示')->with('content','恭喜，邮箱地址验证成功！');
 	        }
 	         return  $this->view('message.message')->with('title','信息提示')->with('content','邮箱地址验证失败，请重新验证');

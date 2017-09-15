@@ -29,6 +29,18 @@ class NotificationController extends Controller
             return app(DateFactory::class)->make($notification->created_at)->toDateString();
         });
 
+         foreach ($notifications as $key => $item) {
+             foreach ($item as $k => $notification) {
+                 if($notification->anonymous)
+                 {
+                     $notification->author = app('userRepository')->handle_anonymous($notification->author);
+                 }
+                 else{
+                     $notification->author->link = route('user.home', [$notification->author->id]);
+                 }
+             }
+         }
+
         Auth::user()->notification_count = 0;
         Auth::user()->save();
 

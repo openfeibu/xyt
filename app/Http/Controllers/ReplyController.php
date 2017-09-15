@@ -128,6 +128,7 @@ class ReplyController extends Controller
 						'object_type' => "Hifone\Models\Thread",
 						'type' => "thread_new_reply",
 						'body' => $thread->body,
+						'anonymous' => $anonymous,
 						'created_at' => date("Y-m-d H:i:s"),
 						'updated_at' => date("Y-m-d H:i:s"),
 					]

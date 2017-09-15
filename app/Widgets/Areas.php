@@ -30,34 +30,34 @@ class Areas extends AbstractWidget
         }
         $list = $tmp;
         unset($tmp);
-        
+
         $data['list'] = json_encode($list);
-        
-	    if($data['type'] == 'location'){	
-	        
+
+	    if($data['type'] == 'location'){
+
 	    	$user = User::findByUidOrFail($data['user_id'],['province','city','location']);
-	    	
+
 			$data['selected'] =  $user->province.','.$user->city ;
 
 			$data['current_name'] = $user->location;
 
 	    }else if($data['type'] == 'homeplace'){
-		    
+
 		    $user = User::findByUidOrFail($data['user_id'],['home_province','home_city','homeplace']);
-	    	
-			$data['selected'] =  $user->home_province.','.$user->home_province ;
+
+			$data['selected'] =  $user->home_province.','.$user->home_city ;
 
 			$data['current_name'] = $user->homeplace;
 
 	    }else if($data['type'] == 'oplocation'){
-		    
+
 		    $user_standard = UserStandard::findByUidOrFail($data['user_id'],['opprovince','opcity','oplocation']);
-	    	
+
 			$data['selected'] =  $user_standard->opprovince.','.$user_standard->opcity ;
 
 			$data['current_name'] = $user_standard->oplocation;
-	    	
-            
+
+
 	    }
 	    else{
 		    $data['selected'] = $data['current_name'] = '';

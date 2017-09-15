@@ -107,6 +107,12 @@ class SearchController extends Controller
 			$sql.=" and birthday = ".$request->year."-".$request->month."-".$request->day;
 		}elseif(!empty($request->year) && !empty($request->month) && empty($request->day)){
 			$sql.=" and birthday LIKE  '%".$request->year."-".$request->month."%'";
+		}elseif(!empty($request->year) && empty($request->month) && empty($request->day)){
+			$sql.=" and birthday LIKE  '".$request->year."%'";
+		}elseif(empty($request->year) && !empty($request->month) && !empty($request->day)){
+			$sql.=" and birthday = '%-".$request->month."-".$request->day."'";
+		}elseif(empty($request->year) && !empty($request->month) && empty($request->day)){
+			$sql.=" and birthday = '%-".$request->month."-%'";
 		}
 		if(!empty($request->province)){
 			$sql.=" and province = '$request->province'";

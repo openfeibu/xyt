@@ -49,6 +49,7 @@ class AlbumController extends Controller
             //$AlbumData['theme'],
             Auth::user()->id
         ));
+
         return [
 			'code' => 200,
 			'message' => '提交成功',
@@ -189,6 +190,11 @@ class AlbumController extends Controller
         	event(new AlbumPhotoWasUploadedEvent());
 
             $data['url'] = route('album.album_photos',['album_id'=>$album_id]);
+			$album_photo_count = app(AlbumPhoto::class)->where('user_id',Auth::id())->count();
+			if($album_photo_count >=3)
+			{
+				app('taskRepository')->store('photo');
+			}
         } else {
 	        $data['code'] = 201;
             $data['error'] = '请选择文件';
