@@ -1,6 +1,6 @@
 <div id="notification-{{ $notification->id }}" data-id="{{ $notification->id }}" class="media notification notification-topic_reply">
   <div class="media-left">
-    <a title="{{ $notification->author->username }}" class="user-avatar" href="{{ route('user.home', [$notification->author->id]) }}"><img src="{{ $notification->author->avatar_small }}" alt="{{ $notification->author->id }}"></a>
+    <a title="{{ $notification->author->username }}" class="user-avatar" href="{{ $notification->author->link }}"><img src="{{ $notification->author->avatar_small }}" alt="{{ $notification->author->id }}"></a>
   </div>
   <div class="media-body">
 
