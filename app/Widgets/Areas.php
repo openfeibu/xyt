@@ -50,14 +50,16 @@ class Areas extends AbstractWidget
 			$data['current_name'] = $user->homeplace;
 
 	    }else if($data['type'] == 'oplocation'){
-
-		    $user_standard = UserStandard::findByUidOrFail($data['user_id'],['opprovince','opcity','oplocation']);
-
+		    $user_standard = UserStandard::findByUid($data['user_id'],['opprovince','opcity','oplocation']);
+			if($user_standard)
+			{
 			$data['selected'] =  $user_standard->opprovince.','.$user_standard->opcity ;
 
 			$data['current_name'] = $user_standard->oplocation;
-
-
+			}else{
+				$data['selected'] = '';
+				$data['current_name'] = '';
+			}
 	    }
 	    else{
 		    $data['selected'] = $data['current_name'] = '';
