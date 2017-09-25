@@ -74,7 +74,7 @@ class TaskRepository{
 										'frequency_tag' => Credit::generateFrequencyTag(),
 										'score' => $task->score]);
 
-        $user->update(['score' => $score]);
+        app(User::class)->where('id',$user->id)->update(['score' => $score]);
         $task->increment('user_count',1);
 		return $task_user;
 	}

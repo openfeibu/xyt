@@ -139,8 +139,8 @@ class PayController extends Controller
 	   	 	$convert_value = $data['score'] / $value;
 	   	 	$coin = $user->coin + $convert_value;
 	   	 	$score = $user->score - $data['score'];
-	   	 	$user->update(['score' =>$score ]);
-	   	 	$user->update(['coin' => $coin ]);
+	   	 	app(User::class)->where('id',$user->id)->update(['score' =>$score ]);
+	   	 	app(User::class)->where('id',$user->id)->update(['coin' => $coin ]);
 	   	 	Convert::create([
 	   	 		'user_id' => $user->id,
 				'value' => $data['score'],
@@ -157,8 +157,8 @@ class PayController extends Controller
 		    $convert_value = $data['coin'] * $value;
 		    $coin = $user->coin - $data['coin'];
 		    $score = $user->score + $convert_value;
-		    $user->update(['coin' => $coin ])	;
-	   	 	$user->update(['score' => $score ])	;
+		    app(User::class)->where('id',$user->id)->update(['coin' => $coin ])	;
+	   	 	app(User::class)->where('id',$user->id)->update(['score' => $score ])	;
 	   	 	Convert::create([
 	   	 		'user_id' => $user->id,
 				'value' => $data['coin'],

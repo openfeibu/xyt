@@ -223,7 +223,7 @@ class UserController extends Controller
                 }
             }
 
-            $user->update($data);
+            app(User::class)->where('id',$user->id)->update($data);
         } catch (ValidationException $e) {
             return Redirect::route('user.edit')
                 ->withInput(Input::all())

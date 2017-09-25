@@ -208,7 +208,7 @@ class ThreadController extends Controller
                            ->withErrors($errors);
             }
             $score = $user->score - $anonymous_integral;
-            $user->update(['score' =>$score ]);
+            app(User::class)->where('id',$user->id)->update(['score' =>$score ]);
             $anonymous = 1;
             $update['anonymous'] = 1;
         }
