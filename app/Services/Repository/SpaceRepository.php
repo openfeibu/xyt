@@ -6,6 +6,9 @@ use Hifone\Models\User;
 use Hifone\Models\Space;
 use Hifone\Models\Attach;
 use Hifone\Models\SpaceDigg;
+use Hifone\Models\Blog;
+use Hifone\Models\Vote;
+use Hifone\Models\Thread;
 use Cache;
 use DB;
 use Input;
@@ -822,5 +825,20 @@ class SpaceRepository{
     public function getSpace($space_id)
     {
     	return app(Space::class)->find($space_id);
+    }
+    public function delSpace($type,$app_row_id,$user_id)
+    {
+        $app = app('repository')->model(Space::class)->forUser($user_id)->where('app_row_id',$app_row_id);
+        switch ($type) {
+            case 'blog':
+                $app->where('type','blog')->delete();
+                break;
+            case 'vote':
+                $app->where('type','vote')->delete();
+                break;
+            case 'thread':
+                $app->where('app','thread')->delete();
+                break;
+        }
     }
 }

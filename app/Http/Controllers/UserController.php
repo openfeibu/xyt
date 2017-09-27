@@ -1187,7 +1187,7 @@ class UserController extends Controller
 		switch ( $type )
 		{
 			case 'blog':
-				$datas = app('repository')->model(Blog::class)->forUser($user_id)->paginate($limit)->appends(['user_id' =>$user_id,'type'=>$type ]);
+				$datas = app('repository')->model(Blog::class)->forUser($user_id)->recent()->paginate($limit)->appends(['user_id' =>$user_id,'type'=>$type ]);
 				foreach( $datas as $key => $data )
 				{
 					$data->url = route('blog.show',$data->id);
@@ -1234,7 +1234,7 @@ class UserController extends Controller
 		        $content = app('spaceRepository')->getData($var, '_FeedList');
 				break;
 			case 'thread':
-				$datas = app('repository')->model(Thread::class)->forUser($user_id)->paginate($limit)->appends(['user_id' =>$user_id,'type'=>$type ]);
+				$datas = app('repository')->model(Thread::class)->forUser($user_id)->recent()->paginate($limit)->appends(['user_id' =>$user_id,'type'=>$type ]);
 				foreach( $datas as $key => $data )
 				{
 					$data->url = route('thread.show',$data->id);
@@ -1242,7 +1242,7 @@ class UserController extends Controller
 				$count = app('repository')->model(Thread::class)->forUser($user_id)->count();
 				break;
 			case 'vote':
-				$datas = app('repository')->model(Vote::class)->forUser($user_id)->paginate($limit)->appends(['user_id' =>$user_id,'type'=>$type ]);
+				$datas = app('repository')->model(Vote::class)->forUser($user_id)->recent()->paginate($limit)->appends(['user_id' =>$user_id,'type'=>$type ]);
 				foreach( $datas as $key => $data )
 				{
 					$data->url = route('vote.show',$data->id);
@@ -1295,6 +1295,41 @@ class UserController extends Controller
 		return [
 			'html' => $html,
 			'pageHtml' => $pageHtml,
+		];
+	}
+	public function dynamicDel(Request $request)
+	{
+		$type = $request->type;
+		$user_id = Auth::id();
+		$id = $request->id;
+		switch ( $type )
+		{
+			case 'blog':
+				app('repository')->model(Blog::class)->forUser($user_id)->where('id',$id)->delete();
+				app('spaceRepository')->delSpace($type,$id,$user_id);
+				break;
+			case 'vote':
+				app('repository')->model(Vote::class)->forUser($user_id)->where('id',$id)->delete();
+				app('spaceRepository')->delSpace($type,$id,$user_id);
+				break;
+			case 'thread':
+				app('repository')->model(Thread::class)->forUser($user_id)->where('id',$id)->delete();
+				app('spaceRepository')->delSpace($type,$id,$user_id);
+				break;
+			case 'space':
+				app('repository')->model(Space::class)->forUser($user_id)->where('id',$id)->delete();
+				app('spaceRepository')->delSpace($type,$id,$user_id);
+				break;
+			default:
+				return [
+					'code' => 201,
+					'message' => '删除失败',
+				];
+			 	break;
+		}
+		return [
+			'code' => 200,
+			'message' => '删除成功',
 		];
 	}
 	public function rank (Request $request)

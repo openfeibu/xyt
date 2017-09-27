@@ -313,6 +313,10 @@ class UserRoutes
                 'as' 	=> 'send_red_packet',
 				'uses' => 'UserController@redPacket',
             ]);
+            $router->post('user/dynamic_del',[
+            	'as' 	=> 'user.dynamic_del',
+				'uses' => 'UserController@dynamicDel',
+            ]);
             $router->resource('user', 'UserController');
 
         });
