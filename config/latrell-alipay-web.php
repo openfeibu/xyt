@@ -2,7 +2,7 @@
 return [
 
 	// 安全检验码，以数字和字母组成的32位字符。
-	'key' => 'muu3tn5tklpeuel65q76do6pcwyvsdop',
+	'key' => 'gc9w75145bo5d4ogka5e5wtg3wa4y9x0',
 
 	//签名方式
 	'sign_type' => 'MD5',
