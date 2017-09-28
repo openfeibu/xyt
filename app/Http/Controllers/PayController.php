@@ -209,7 +209,8 @@ class PayController extends Controller
 	    $alipay->setTotalFee(0.01);
 	    $alipay->setSubject('充值单号：'.$out_trade_no);
 	    $alipay->setBody('充值单号：'.$out_trade_no);
-
+        $alipay->setNotifyUrl(config('app.url').'/notify/rechargeAliNotify');
+        $alipay->setReturnUrl(config('app.url').'/pay/recharge');
 	  //  $alipay->setQrPayMode('4'); //该设置为可选，添加该参数设置，支持二维码支付。
 
 	    // 跳转到支付页面。

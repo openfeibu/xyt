@@ -51,6 +51,18 @@ class PayRoutes
                 'as'   => 'pay.buy_store',
                 'uses' => 'PayController@buyStore',
             ]);
+            $router->post('/notify/activityAliNotify', [
+                'as'   => 'notify.activityAliNotify',
+                'uses' => 'NotifyController@activityAliNotify',
+            ]);
+            $router->post('/notify/unActivityBannedAliNotify', [
+                'as'   => 'notify.unActivityBannedAliNotify',
+                'uses' => 'NotifyController@unActivityBannedAliNotify',
+            ]);
+            $router->post('/notify/rechargeAliNotify', [
+                'as'   => 'notify.rechargeAliNotify',
+                'uses' => 'NotifyController@rechargeAliNotify',
+            ]);
         });
     }
 }

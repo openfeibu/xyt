@@ -364,7 +364,7 @@ class ActivityController extends Controller
 					$alipay = app('alipay.web');
 					$alipay->setOutTradeNo($out_trade_no);
 					$alipay->setTotalFee($money);
-					$alipay->setNotifyUrl(config('latrell-alipay-web.activity_notify_url'));
+					$alipay->setNotifyUrl(config('app.url').'/notify/activityAliNotify');
 					$alipay->setSubject('单号：'.$out_trade_no);
 					$alipay->setBody('单号：'.$out_trade_no);
 
@@ -537,7 +537,7 @@ class ActivityController extends Controller
 	    $alipay = app('alipay.web');
 	    $alipay->setOutTradeNo($out_trade_no);
 	    $alipay->setTotalFee(0.01);
-		$alipay->setNotifyUrl(config('latrell-alipay-web.activity_notify_url'));
+		$alipay->setNotifyUrl(config('app.url').'/notify/unActivityBannedAliNotify');
 	    $alipay->setSubject('单号：'.$out_trade_no);
 	    $alipay->setBody('单号：'.$out_trade_no);
 
@@ -545,6 +545,10 @@ class ActivityController extends Controller
 
 	    // 跳转到支付页面。
 	    return redirect()->to($alipay->getPayLink());
+	}
+	public function relieveBannedAliNotify()
+	{
+
 	}
 	public function aliNotify ()
     {
