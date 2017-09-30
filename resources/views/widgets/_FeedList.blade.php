@@ -8,13 +8,11 @@
 <dl class="space_content feed_list" model-node="feed_list" id="feed{{$vl['id']}}">
     <div class="space_content_top clear">
         <div class="fleft">
-	        <a href="{{ route('user.home',[$vl['user_info']['id']])}}" target="_blank" class="user_info" rel="{{$vl['user_info']['id']}}">
-            	<img src="{{ $vl['user_info']['avatar_url'] }}" alt="" class="space_content_top_photo"/>
-            </a>
+	       {!! $vl['title'] !!}
         </div>
         <div class="space_content_top_info fleft">
             <p class="hd">
-	            {{ $vl['user_info']['username'] }}<span>（{{ $vl['user_info']['work'] }}/{{ $vl['user_info']['school'] }}）</span>
+	            {!! $vl['user_info']['user_data'] !!}
 				<em class="hover right">
 
                     @if(Auth::id() == $vl['user_info']['id'] || Auth::user()->can("manage_spaces")) <a href="javascript:;" event-node="delFeed" event-args="space_id={{$vl['id']}}&uid={{$vl['user_info']['id']}}&type={{$vl['type']}}">删除</a>&nbsp;&nbsp;
