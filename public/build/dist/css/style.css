@@ -1654,7 +1654,7 @@ li.active_school a, li.active_school a {background: #51b837;color: #FFFFFF!impor
     margin-right: 15px;
 }
 .vote_span1{line-height:10px;margin-left:5px;font-size:8px;}
-.vote_span2{line-height:10px;}
+.vote_span2{/*line-height:10px;*/}
 .listtable { width: 100%; }
 .listtable caption { padding: 10px 0; color: #666; font-size: 12px; }
 .listtable caption h2 { padding-bottom: 8px; border-bottom: 1px solid #CCC; color: #333; font-size: 14px; }
@@ -1813,7 +1813,7 @@ li.active_school a, li.active_school a {background: #51b837;color: #FFFFFF!impor
 }
 #activity_btn_desc{font-size: 18px;line-height:50px;float: left;}
 .user_info_abroad{position: relative;float: left;}
-.feed_txt_default img{width: 200px;}
+.feed_txt_default img{    max-width: 200px;}
 .dynamic_nav_active{    background-color: #fed525;}
 .media-body img{width:100px;}
 .del_btn{
@@ -1831,3 +1831,4 @@ position: relative;
 margin-right: 25px;
 
 }
+.dynamic_del{margin-left:12px;color: #51b837;}

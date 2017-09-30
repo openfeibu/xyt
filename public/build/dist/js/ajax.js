@@ -378,3 +378,25 @@ function jubao_hide()
 {
 	$(".jubao").hide();
 }
+function dynamic_del(type ,id)
+{
+	var loading = layer.load(1, {shade: false});
+	$.ajax({
+		url: '/user/dynamic_del',
+		type: "POST",
+		data: {type:type,id:id},
+		success: function(data) {
+			layer.close(loading);
+			if(data.code == 200){
+				layer.msg(data.message, {icon: 1});
+				$(".dynamic_"+id).remove();
+			}else{
+				layer.msg(data.message, {icon: 5});
+			}
+		},
+		error: function(e) {
+			layer.close(loading);
+			layer.msg('操作失败', {icon: 5});
+		}
+	}, "json")
+}
