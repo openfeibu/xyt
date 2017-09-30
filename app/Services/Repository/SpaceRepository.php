@@ -279,7 +279,20 @@ class SpaceRepository{
             }
         }
         $var['uid'] = $_data['user_id'];
-        $var['actor'] = "<a href='".route('user.home', [$user['id']])."' class='name' event-node='face_card' uid='{$user['id']}'>{$user['username']}</a>";
+        //$var['actor'] = "<a href='".route('user.home', [$user['id']])."' class='name' event-node='face_card' uid='{$user['id']}'>{$user['username']}</a>";
+        $var['actor'] = "<a href='".route('user.home', [$user['id']])."' target='_blank' class='user_info' rel='".$user['id']."'>"."<img src='".$user['avatar_url']."' class='space_content_top_photo'/></a>";
+        $user['user_data'] = $user['username'] ."<span>（ ".$user['work'] ."/". $user['school']." ）</span>";
+        if($_data['app'] == 'thread')
+        {
+            $thread = Thread::where('id',$_data['app_row_id'])->first();
+            if($thread->anonymous == 1)
+            {
+                $var['actor'] = "<a href='javascript:;' target='_blank'>"."<img src='/images/noavatar/middle.jpg' class='space_content_top_photo'/></a>";
+                $user['user_data'] = '匿名';
+            }
+
+        }
+
         $var['actor_uid'] = $user['id'];
         $var['actor_uname'] = $user['username'];
         $var['feedid'] = $_data['id'];
@@ -291,6 +304,7 @@ class SpaceRepository{
         }
 		// 解析Feed模版
 		$feed_content = view('space.conf.'.$_data['type'],$var)->__toString();
+
         //输出模版解析后信息
         $return['content_txt'] = $_data['data']['body'];
         $return['attach_info'] = $var['attachInfo'];
@@ -746,7 +760,6 @@ class SpaceRepository{
                 $var ['followUids'] = array();
             }*/
         }
-
 		$content ['pageHtml'] = $list ['pageHtml']  ;
         // 渲染模版
 		$content ['html'] = view('widgets.'.$tpl)->with('var',$var)->__toString();

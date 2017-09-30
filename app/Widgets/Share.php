@@ -23,7 +23,7 @@ class Share extends AbstractWidget
 
 	public function __construct (array $config)
 	{
-		parent::__construct($config);		
+		parent::__construct($config);
 	}
 	public function run()
     {
@@ -36,7 +36,7 @@ class Share extends AbstractWidget
         is_array($config) && $var = array_merge($var, $config);
 
         // 获取资源是否被删除
-        switch ($config['appname']) {          
+        switch ($config['appname']) {
             case 'vote':
                 $vInfo = Vote::where('id',$var['sid'])->first()->toArray();
                 $sInfo = app('spaceRepository')->getFeedInfo($vInfo['space_id']);
@@ -61,9 +61,9 @@ class Share extends AbstractWidget
             $showNums = '';
         }
 
-        
+
         return "<a event-node=\"share\" class=\"repost\" href=\"javascript:void(0);\" event-args='sid={$sid}&stable={$stable}&curtable={$current_table}&curid={$current_id}&initHTML={$initHTML}&appname={$appname}&cancomment={$cancomment}&feedtype={$feed_type}&is_repost={$is_repost}'>".L('PUBLIC_SHARE_STREAM').$showNums."</a>";
-        
-	}				
-	
+
+	}
+
 }
