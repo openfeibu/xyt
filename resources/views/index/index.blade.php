@@ -211,8 +211,8 @@ $(".example2").luara({width:"646",height:"298",interval:4500,selected:"seleted",
         <dl>
             <dd class="space_right_vote">
                 <img src="{{ asset('images/index/xin.png') }}" alt="" style="width: 10px;height: 10px"  />
-                <span class="vote_span1 fleft">{{$vote->subject}}</span>
-                <span class="vote_span2 fright"><b style="color: red">{{$vote->user_count}}人</b>参与</span>
+                <span class="vote_span1 ">{{$vote->subject}}</span>
+                <span class="vote_span2 fright" style="line-height:10px;"><b style="color: red">{{$vote->user_count}}人</b>参与</span>
             </dd>
         </dl>
         </a>
@@ -223,9 +223,9 @@ $(".example2").luara({width:"646",height:"298",interval:4500,selected:"seleted",
         <a style="display: block;" href="{{route('vote.show',$vote->id)}}">
         <dl>
             <dd class="space_right_vote">
-                <img src="{{ asset('images/index/xin.png') }}" alt="" style="width: 10px;height: 10px" class="fleft" />
-                <span class="vote_span1 fleft">{{$vote->subject}}</span>
-                <span class="vote_span2 fright"><b style="color: red">{{$vote->user_count}}人</b>参与</span>
+                <img src="{{ asset('images/index/xin.png') }}" alt="" style="width: 10px;height: 10px"/>
+                <span class="vote_span1 ">{{$vote->subject}}</span>
+                <span class="vote_span2 fright" style="line-height:10px;"><b style="color: red">{{$vote->user_count}}人</b>参与</span>
             </dd>
         </dl>
         </a>

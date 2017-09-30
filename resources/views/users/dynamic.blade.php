@@ -6,7 +6,7 @@
 <div class="clear" style="height: 10px;border-bottom: 2px #e2e1e1 solid"></div>
 @if($type == 'activity')
 @foreach($datas as $data)
-<div class="my_gift" style="height: 100px;">
+<div class="my_gift dynamic_{{$data->id}}" style="height: 100px;">
     <div class="fleft">
         <p style="margin-top: 20px;">
             <span class="fleft" style="color: #818181"><a href="{{$data->url}}" style="color: #51B837" target="_blank">{{$data->name}}</a>[{{$data->cate}}]</span>
@@ -43,9 +43,10 @@
 @endforeach
 @else
 @foreach($datas as $data)
-<div class="my_gift" style="color: #818181">
+<div class="my_gift dynamic_{{$data->id}}" style="color: #818181">
     <p style="margin-top: 20px;">
         <span class="fleft"><a href="{{$data->url}}" style="color: #51B837" target="_blank">{!!$data->title!!}</a></span>
+        <a href="javascript:;" class="fright dynamic_del" onclick="dynamic_del('{{$type}}',{{$data->id}})">删除</a>
         <span class="fright">{{$data->created_at}}</span>
     </p>
     <div class="clear"></div>
