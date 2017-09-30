@@ -377,7 +377,8 @@ class SpaceRepository{
             return $data;
         }
         Log::debug($id);
-		$data = Space::where('id',$id)->first()->toArray();
+		$data = Space::where('id',$id)->first();
+        $data = $data ? $data->toArray() : [];
         $fd = unserialize($data['feed_data']);
         $userInfo = app('userRepository')->getUserInfo($data['user_id']);
         $data['content'] = $fd['body'];
