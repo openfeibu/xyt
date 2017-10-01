@@ -18,7 +18,7 @@ use Hifone\Models\Thread;
 use Hifone\Models\Activity;
 
 class SourceRepository{
-	
+
 	public function __construct ()
 	{
 
@@ -40,7 +40,7 @@ class SourceRepository{
     {
 
         $key = $table.$row_id;
-        
+
         if ($info = S('source_info_'.$key)) {
             return $info;
         }
@@ -50,7 +50,7 @@ class SourceRepository{
                 break;
             case 'comment' :
                 $info = $this->getInfoFromComment($table, $row_id);
-                break;          
+                break;
             case 'albumPhotos':
                 $photo = AlbumPhoto::where('id',$row_id)->first()->toArray();
                 $info['id'] = $photo['id'];
