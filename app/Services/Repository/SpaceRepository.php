@@ -285,7 +285,7 @@ class SpaceRepository{
         if($_data['app'] == 'thread')
         {
             $thread = Thread::where('id',$_data['app_row_id'])->first();
-            if($thread->anonymous == 1)
+            if(isset($thread) && $thread->anonymous == 1)
             {
                 $var['actor'] = "<a href='javascript:;' target='_blank'>"."<img src='/images/noavatar/middle.jpg' class='space_content_top_photo'/></a>";
                 $user['user_data'] = '匿名';
@@ -845,10 +845,10 @@ class SpaceRepository{
         $app = app('repository')->model(Space::class)->forUser($user_id)->where('app_row_id',$app_row_id);
         switch ($type) {
             case 'blog':
-                $app->where('type','blog')->delete();
+                $app->where('app','blog')->delete();
                 break;
             case 'vote':
-                $app->where('type','vote')->delete();
+                $app->where('app','vote')->delete();
                 break;
             case 'thread':
                 $app->where('app','thread')->delete();

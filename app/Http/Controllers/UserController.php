@@ -1305,7 +1305,7 @@ class UserController extends Controller
 		switch ( $type )
 		{
 			case 'blog':
-				app('repository')->model(Blog::class)->forUser($user_id)->where('id',$id)->delete();
+			//	app('repository')->model(Blog::class)->forUser($user_id)->where('id',$id)->delete();
 				app('spaceRepository')->delSpace($type,$id,$user_id);
 				break;
 			case 'vote':
