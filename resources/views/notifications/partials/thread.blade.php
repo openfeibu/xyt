@@ -10,9 +10,13 @@
     </a>
      •
     {{ $notification->labelUp }}
+    @if($notification->object->id)
     <a href="{{ route('thread.show', [$notification->object->id]) }}" title="{{ $notification->object->title }}">
       {!! str_limit($notification->object->title, '100') !!}
     </a>
+    @else
+    已删除
+    @endif
   </div>
     <div class="media-content summary markdown-reply">
       {!! $notification->body !!}

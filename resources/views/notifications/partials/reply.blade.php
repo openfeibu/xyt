@@ -6,9 +6,13 @@
 
   <div class="media-heading">
     {{ $notification->labelUp }}
+    @if($notification->object->thread)
 	<a href="{{ route('thread.show', [$notification->object->thread->id]) }}#reply{{$notification->object_id}}" title="{{ $notification->object->thread->title }}">
 		{!! str_limit($notification->object->thread->title, '100') !!}
 	</a>
+    @else
+    已删除
+    @endif
   </div>
     <div class="media-content summary markdown-reply">
       {!! $notification->body !!}

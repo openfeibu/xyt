@@ -3,7 +3,7 @@
     <a title="{{ $notification->author->username }}" class="user-avatar" href="{{ $notification->author->link }}"><img src="{{ $notification->author->avatar_small }}" alt="{{ $notification->author->id }}"></a>
   </div>
   <div class="media-body">
-    
+
   <div class="media-heading">
     <a href="{{ $notification->author->link }}">
       {{ $notification->author->username }}

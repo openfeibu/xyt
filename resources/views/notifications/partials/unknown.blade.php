@@ -3,9 +3,9 @@
     <a title="{{ $notification->author->username }}" class="user-avatar" href="{{ $notification->author->link }}"><img src="{{ $notification->author->avatar_small }}" alt="{{ $notification->author->id }}"></a>
   </div>
   <div class="media-body">
-    
+
   <div class="media-heading">
-    unknown
+    未知
   </div>
     <div class="media-content summary markdown-reply">
       <span class="deleted text-center">{{ trans('hifone.notifications.deleted') }}</span>
