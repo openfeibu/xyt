@@ -98,7 +98,7 @@ class SourceRepository{
                 $blog = Blog::where('id',$row_id)->first()->toArray();
                 $info['id'] = $blog['id'];
                 $info['source_user_info'] = app('userRepository')->getUserInfo($blog['user_id']);
-                $info['source_url'] = route('vote.show',['id' => $row_id]);
+                $info['source_url'] = route('blog.show',['id' => $row_id]);
                 $info['source_content'] = ($info['source_user_info'] !== false) ? '发表了一篇日志' : '内容已被删除';
                 $info['source_body'] = $blog ['title'].'<a class="ico-details" href="'. route('blog.show',['id' => $row_id]).'"></a>';
                 $info['space_id'] = $blog['space_id'];
