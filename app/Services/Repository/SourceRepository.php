@@ -131,6 +131,20 @@ class SourceRepository{
                 $info['space_id'] = $reply->space_id;
                 $info['created_at'] = $reply->created_at;
             	break;
+			case 'send_gift':
+				$gift = DB::table('send_gift')->select('gift.gift_name','send_gift.id','send_gift.space_id','send_gift.anonymous','send_gift.number','send_gift.created_at', 'send_user.id as send_user_id','send_user.username as send_username','be_send_user.id as be_send_user_id','be_send_user.username as be_send_username')
+												->join('users as send_user','send_user.id','=','send_gift.user_id')
+												->join('users as be_send_user','be_send_user.id','=','send_gift.to_user_id')
+												->join('gift','gift.id','=','send_gift.gift_id')
+												->where('send_gift.id' ,$row_id)
+												->first();
+                $info['id'] = $gift->id;
+                $info['source_user_info'] = app('userRepository')->getUserInfo($gift->send_user_id);
+                $info['source_content'] = ($info['source_user_info'] !== false) ? '送了'.$gift->number.'个"'.$gift->gift_name.'"给'."<a href='".route('user.home',['uid'=>$gift->be_send_user_id])."' target='_blank' class='orange'>".$gift->be_send_username.'</a>' : '内容已被删除';
+
+                $info['space_id'] = $gift->space_id;
+                $info['created_at'] = $gift->created_at;
+				break;
             default :
                 // 单独的内容，通过此路径获取资源信息
                 // 通过应用下的{$appname}ProtocolModel.Class.php模型里的getSourceInfo方法，来写各应用的来源数据获取方法

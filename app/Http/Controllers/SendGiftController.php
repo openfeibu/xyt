@@ -136,6 +136,9 @@ class SendGiftController extends Controller
 				$sendGift,
 				''
 			);
+			$space_id = app('spaceRepository')->syncToSpace('gift',  Auth::id(), $sendGift->id);
+
+		   	SendGift::where('id',$sendGift->id)->update(['space_id' => $space_id ]);
             return 200;
     	}else{
             return 400;

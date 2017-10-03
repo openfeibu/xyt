@@ -8,13 +8,20 @@ namespace Hifone\Services\Repository;
 
 use Log;
 use Session;
-use iscms\Alisms\SendsmsPusher as Sms;
+use iscms\Alisms\SendsmsPusher as Sms; //阿里大于
+use Aliyun\Core\Config;
+use Aliyun\Core\Profile\DefaultProfile;
+use Aliyun\Core\DefaultAcsClient;
+use Aliyun\Api\Sms\Request\V20170525\SendSmsRequest; //阿里云通信
+use Aliyun\Api\Sms\Request\V20170525\QuerySendDetailsRequest;
+
+Config::load();
 
 class SmsRepository
 {
 	public function __construct ()
 	{
-		
+
 	}
 	public function send ($mobile,$type)
 	{
@@ -60,6 +67,7 @@ class SmsRepository
 			'mobile' => $session_mobile
 		];
 	}
+	/*
 	private function sendSms($mobile,$name,$code)
 	{
 		$result = app('iscms\Alisms\SendsmsPusher')->send("$mobile","校汇","{\"code\":\"$code\",\"product\":\"".config('app.web_name')."\"}","$name");
@@ -70,5 +78,60 @@ class SmsRepository
 			return false;
 		}
 		return true;
+	}*/
+	private function sendSms($mobile,$name,$code)
+	{
+		// 短信API产品名
+        $product = "Dysmsapi";
+
+        // 短信API产品域名
+        $domain = "dysmsapi.aliyuncs.com";
+
+        // 暂时不支持多Region
+        $region = "cn-hangzhou";
+
+        // 服务结点
+        $endPointName = "cn-hangzhou";
+
+        // 初始化用户Profile实例
+        $profile = DefaultProfile::getProfile($region,config('alisms.accessKeyId') , config('alisms.accessKeySecret'));
+
+        // 增加服务结点
+        DefaultProfile::addEndpoint($endPointName, $region, $product, $domain);
+
+        // 初始化AcsClient用于发起请求
+        $acsClient = new DefaultAcsClient($profile);
+
+		// 初始化SendSmsRequest实例用于设置发送短信的参数
+        $request = new SendSmsRequest();
+
+        // 必填，设置雉短信接收号码
+        $request->setPhoneNumbers($mobile);
+
+        // 必填，设置签名名称
+        $request->setSignName(config('alisms.signName'));
+
+        // 必填，设置模板CODE
+        $request->setTemplateCode($name);
+
+        // 可选，设置模板参数
+		$templateParam = "{\"code\":\"$code\"}";
+
+        $request->setTemplateParam($templateParam);
+
+        // 发起访问请求
+        $acsResponse = $acsClient->getAcsResponse($request);
+
+		// 打印请求结果
+	    if (isset($acsResponse->Code) && $acsResponse->Code == 'OK') {
+	        return true;
+	    } else {
+			Log::error('----------------------------------------------------------------');
+			Log::error('短信发送故障，收到阿里云通信的错误信息：' . serialize($acsResponse));
+			Log::error('----------------------------------------------------------------');
+	        return false;
+	    }
+
+	    return $acsResponse;
 	}
 }

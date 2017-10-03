@@ -9,6 +9,7 @@ use Hifone\Models\SpaceDigg;
 use Hifone\Models\Blog;
 use Hifone\Models\Vote;
 use Hifone\Models\Thread;
+use Hifone\Models\SendGift;
 use Cache;
 use DB;
 use Input;
@@ -71,12 +72,12 @@ class SpaceRepository{
         }
 
         //说说类型合法性验证 - 临时解决方案
-        $checkType = array('post', 'repost', 'postvideo', 'postfile', 'postimage', 'weiba_post', 'weiba_repost', 'long_post', 'photo_post', 'photo_repost', 'vote_post', 'vote_repost', 'event_post', 'event_repost', 'blog_post', 'blog_repost', 'poster_post', 'poster_repost','thread_post','thread_repost','thread_reply_post', 'activity_post');
+        $checkType = array('post', 'repost', 'postvideo', 'postfile', 'postimage', 'weiba_post', 'weiba_repost', 'long_post', 'photo_post', 'photo_repost', 'vote_post', 'vote_repost', 'event_post', 'event_repost', 'blog_post', 'blog_repost', 'poster_post', 'poster_repost','thread_post','thread_repost','thread_reply_post', 'activity_post','gift_post');
         if (!in_array($type, $checkType)) {
             $type = 'post';
         }
         //应用类型验证 用于说说框 - 临时解决方案
-        $checkApp = array('w3g', 'public', 'weiba', 'tipoff', 'photo', 'vote', 'event', 'blog', 'poster','space','albumPhoto','thread','activity');
+        $checkApp = array('w3g', 'public', 'weiba', 'tipoff', 'photo', 'vote', 'event', 'blog', 'poster','space','albumPhoto','thread','activity','gift');
         if (!in_array($app, $checkApp)) {
             $app = 'space';
             $type = 'post';
@@ -290,7 +291,15 @@ class SpaceRepository{
                 $var['actor'] = "<a href='javascript:;' target='_blank'>"."<img src='/images/noavatar/middle.jpg' class='space_content_top_photo'/></a>";
                 $user['user_data'] = '匿名';
             }
-
+        }
+        if($_data['app'] == 'gift')
+        {
+            $send_gift = SendGift::where('id',$_data['app_row_id'])->first();
+            if(isset($send_gift) && $send_gift->anonymous == 1)
+            {
+                $var['actor'] = "<a href='javascript:;' target='_blank'>"."<img src='/images/noavatar/middle.jpg' class='space_content_top_photo'/></a>";
+                $user['user_data'] = '匿名';
+            }
         }
 
         $var['actor_uid'] = $user['id'];
@@ -795,6 +804,10 @@ class SpaceRepository{
             case 'activity':
                 $type = 'activity_post';
                 $appTable = 'activities';
+                break;
+            case 'gift':
+                $type = 'gift_post';
+                $appTable = 'send_gift';
                 break;
         }
 

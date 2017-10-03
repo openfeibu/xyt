@@ -10,6 +10,7 @@ use Hifone\Models\AlbumPhoto;
 use Hifone\Models\Vote;
 use Hifone\Models\Blog;
 use Hifone\Models\Thread;
+use Hifone\Models\SendGift;
 use Illuminate\Support\Facades\View;
 
 class Share extends AbstractWidget
@@ -52,6 +53,10 @@ class Share extends AbstractWidget
                 break;
             case 'blog':
                 $vInfo = Blog::where('id',$var['sid'])->first()->toArray();
+                $sInfo = app('spaceRepository')->getFeedInfo($vInfo['space_id']);
+                break;
+            case 'gift':
+                $vInfo = SendGift::where('id',$var['sid'])->first()->toArray();
                 $sInfo = app('spaceRepository')->getFeedInfo($vInfo['space_id']);
                 break;
             default:
