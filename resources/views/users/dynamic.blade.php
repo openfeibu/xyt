@@ -23,9 +23,11 @@
             </span>
         </p>
     </div>
+    @if(Auth::user()->can("create_activity"))
     <div class="fright" style="margin-top: 20px;">
         <span >{{$data->time_desc}}</br>@if($data->user_id == Auth::user()->id)<a href="{{route('album.upload_common',['activity_id' =>$data->activity_id ])}}">添加照片</a></br><a href="{{route('activity.create_summary',['activity_id' => $data->activity_id])}}">添加活动总结</a></br><a href="{{route('activity.export_member',['activity_id' => $data->activity_id])}}">导出参与会员</a>@endif</span>
     </div>
+    @endif
     <div class="clear"></div>
 </div>
 <div class="clear"></div>

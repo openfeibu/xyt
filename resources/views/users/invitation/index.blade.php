@@ -28,7 +28,7 @@
                         <div class="setting_invite_way1">
                             <p style="color: #51B837">您可以通过QQ、MSN等IM工具，或者发送邮件，把下面的链接告诉您的好友，邀请他们加入进来。</p>
                             <p class="setting_invite_way1_url" style="line-height: 25px;" id="invite_text">
-                                我邀请您加入高校联谊大家庭-象牙塔。这里可以参加各种精彩的联谊活动，不仅可以找到你心仪的TA！还可以认识更多志同道合的师兄姐师弟妹哦！！<br />
+                                {!! get_content(17,'body') !!}<br />
                                 {{route('invitation.show',['uid' => $user->id])}}
                             </p>
                             <p><span style="cursor:pointer" class='copy_btn'>复制</span></p>

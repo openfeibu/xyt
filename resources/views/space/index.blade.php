@@ -56,10 +56,10 @@
                             <a href="{{ route('space.index',['app' => 'blog'])}}"><li>日志 | </li></a>
                             <a href="{{ route('space.index',['app' => 'thread'])}}"><li>话题 | </li></a>
                             <a href="{{ route('space.index',['app' => 'activity'])}}"><li>活动 | </li></a>
-                            <a href="{{ route('space.index',['app' => 'photo'])}}"><li>照片 | </li></a>
+                            <a href="{{ route('space.index',['app' => 'albumPhoto'])}}"><li>照片 | </li></a>
                             <a href="{{ route('space.index',['app' => 'gift'])}}"><li>礼物 | </li></a>
                             <a href="{{ route('space.index',['app' => 'vote'])}}"><li>投票 | </li></a>
-                            <a href=""><li>打赏 | </li></a>
+                            <!-- <a href=""><li>打赏 | </li></a> -->
                         </ul>
                     </div>
                     <div class="px10"></div>

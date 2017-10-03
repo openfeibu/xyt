@@ -101,17 +101,7 @@
                         </div>
                         <form action="">
                             <div class="clear"></div>
-                            <p style="text-align: center">给XXX的一封信</p>
-                            <p style="text-align: left;margin-left: 5px;">Hi</p>
-                            <p style="text-align: left;margin-left: 5px;">&nbsp;&nbsp;&nbsp;&nbsp;爱速度就奥斯卡阿萨德啊实打实的asf ；啥看法是joas啊实打实的assaa送还好几个客户应根据公开科技馆加工费分复古风格好和规范化</p>
-                            <br />
-                            <p style="text-align: left;margin-left: 5px;">
-                                <img src="{{asset('images/index/wechat.png')}}" alt="" />
-                                <dl>
-                                    <dd>微信联谊公众号：1233123123</dd>
-                                    <dd>联谊活动QQ：1232323123</dd>
-                                </dl>
-                            </p>
+                            {!! get_content(16,'body') !!}
                             <p class="reward_input">
                                 <input type="radio" name="money" value="20" class="radio"/>20元
                                 <input type="radio" name="money" value="50" class="radio"/>50元

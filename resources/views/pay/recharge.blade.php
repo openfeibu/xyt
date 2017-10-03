@@ -17,7 +17,7 @@
                         <div style="height: 250px;border-bottom: 2px #e2e1e1 solid;font-size: 15px;text-align: left;line-height: 40px;padding-left: 20px;">
                             <p>●象牙币可用兑换各种服务</p>
                             <p>●1RMB=1象牙币</p>
-                            <p style="margin-top: 100px;"><input type="checkbox" />同意 <a href="{{route('about.show',['id' => 13])}}" target="_blank"><span style="font-size: 14px;color: #34CED4"> 象牙币服务条款</span></a></p>
+                            <p style="margin-top: 100px;"><input type="checkbox" />同意 <a href="{{route('about.show',['id' => 12])}}" target="_blank"><span style="font-size: 14px;color: #34CED4"> 象牙币服务条款</span></a></p>
                         </div>
                     </div>
                     <div class="xiangya_bank fleft">
