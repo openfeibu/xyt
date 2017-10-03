@@ -43,3 +43,8 @@ $compiledPath = __DIR__.'/cache/compiled.php';
 if (file_exists($compiledPath)) {
     require $compiledPath;
 }
+
+$smsPath =  __DIR__.'/../app/Helpers/sms/Aliyun/api_sdk/vendor/autoload.php';
+if (file_exists($smsPath)) {
+    require $smsPath;
+}
