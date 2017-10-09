@@ -1149,7 +1149,12 @@ function cut_html_str($str, $lenth, $replace='', $anchor='<!-- break -->'){
     }
     return $result.$replace;
 }
+/*获取文章内容*/
 function get_content($id,$value)
 {
     return Hifone\Models\Page::where('id',$id)->value($value);
+}
+function get_config_value($name,$value = 'value')
+{
+    return Hifone\Models\Setting::where('name',$name)->value($value);
 }

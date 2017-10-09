@@ -1462,7 +1462,8 @@ class UserController extends Controller
         ]);
 		$inviter_uid = isset($request->uid) ? $request->uid : 0;
 		$inviter = User::findByUidOrFail($inviter_uid);
-		return $this->view('users.invitation.show')->with('inviter',$inviter);
+		$base_data = config('form_config.basic_data');
+		return $this->view('users.invitation.show')->with('inviter',$inviter)->with('base_data',$base_data);
 	}
 	public function invitationSend()
 	{

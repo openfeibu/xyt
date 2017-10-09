@@ -198,7 +198,7 @@ class ThreadController extends Controller
         $update = [];
         if(Input::get('anonymous'))
         {
-            $anonymous_integral = config('system_config.anonymous_integral');
+            $anonymous_integral = get_config_value('anonymous_integral');
             if($user->score < $anonymous_integral){
                 $errors[] = '积分不足';
             }

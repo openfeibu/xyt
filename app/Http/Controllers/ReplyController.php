@@ -64,7 +64,7 @@ class ReplyController extends Controller
 								->first();
             $anonymous = Input::get('anonymous') ? 1 : 0;
             if($anonymous){
-                $anonymous_integral = config('system_config.anonymous_integral');
+                $anonymous_integral = get_config_value('anonymous_integral');
                 if($user->score < $anonymous_integral){
                     $errors[] = '积分不足';
                 }
