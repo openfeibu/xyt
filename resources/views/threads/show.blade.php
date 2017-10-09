@@ -165,7 +165,7 @@
 				<input name="thread_id" type="hidden" value="{!!$thread->id!!}">
 				<input name="reply_id" type="hidden" value="{!!$all->id!!}">
 				<textarea class="input" id="reply_saytext{!! $all->id !!}" name="saytext2" event-node="mini_editor_textarea"></textarea>
-				<p style="position: relative;width: 250px;    z-index: 1000;"><input type="checkbox" name="anonymous" value="1"/> 匿名回复（需要花费{{config('system_config.anonymous_integral')}}分积分）</p>
+				<p style="position: relative;width: 250px;    z-index: 1000;"><input type="checkbox" name="anonymous" value="1"/> 匿名回复（需要花费{{get_config_value('anonymous_integral')}}分积分）</p>
 				<p style="top:-32px;"><input type="submit" class="sub_btn" value="提交"></p>
 			</form>
 
@@ -253,7 +253,7 @@
 			<form class="" action="{{ route('reply.store')}}" method="post" model-node="mini_editor">
 				<input name="thread_id" type="hidden" value="{!!$thread->id!!}">
 				<textarea class="input" id="saytext2" name="saytext2" event-node="mini_editor_textarea"></textarea>
-				<p style="position: relative;width: 250px;    z-index: 1000;"><input type="checkbox" name="anonymous" value="1"/> 匿名回复（需要花费{{config('system_config.anonymous_integral')}}分积分）</p>
+				<p style="position: relative;width: 250px;    z-index: 1000;"><input type="checkbox" name="anonymous" value="1"/> 匿名回复（需要花费{{get_config_value('anonymous_integral')}}分积分）</p>
 				<p style="top:-32px;"><input type="submit" class="sub_btn" value="提交"></p>
 			</form>
 		</div>
