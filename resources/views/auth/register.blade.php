@@ -112,13 +112,7 @@
         </div>
         <div class="message_main">
         	<div class="pcontent">
-                <p>1、必须接受过高等教育，即大专及以上学历（含在读）；</p>
-                <p>2、必须年龄在20-40岁之间的单身童鞋；</p>
-                <p>3、必须是以真诚的心态交友，无其他不良目的。</p>
-
-                <p style="margin-top: 35px;"><img src="{{ asset('/build/dist/images/xyt.jpg') }}" width="25" height="44"  class="xyt"/>象牙塔网是一个真实靠谱的高校交友平台，如果您符合以上3点，</p>
-                <p>这里非常欢迎您的加入！在这里您不仅可以找到心怡的TA，</p>
-                <p>还可以认识更多志同道合的高素质朋友！</p>
+                {!!get_content('19','body')!!}
             </div>
         </div>
         <div class="message_footer">
