@@ -30,7 +30,7 @@ EOD;
         ],
         'last_ip' => [
             'title' => 'ip',
-            'sortable' => false,
+            //'sortable' => false,
         ],
         'email' => [
             'title' => trans('administrator::dashboard.users.email'),
