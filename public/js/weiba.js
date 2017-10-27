@@ -325,6 +325,15 @@ M.addEventFns({
 		});
 		}
 	},
+	wallet_del:{
+		click:function(){
+			var attrs = M.getEventArgs(this);
+			$.post(DELETE_WALL_URL,{widget_appname:'weiba',reply_id:attrs.reply_id},function(msg){
+				$('#reply_count').html(parseInt($('#reply_count').html()) - 1);
+				$('#item_'+attrs.reply_id).fadeOut();
+		});
+		}
+	},
 	reply_reply:{	//点某条回复
 		click:function(){
 			if(MID == 0){
