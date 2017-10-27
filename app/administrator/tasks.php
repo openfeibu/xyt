@@ -76,7 +76,7 @@ return [
         'id' => [
             'title' => 'ID',
         ],
-       
+
     ],
     'actions' => [],
 ];

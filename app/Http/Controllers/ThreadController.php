@@ -395,12 +395,20 @@ class ThreadController extends Controller
             }
             $thread_user[$k] = $user;
 			$reply_last_time[$k] = Reply::where('thread_id',$thread_one->id)->orderBy('id','desc')->first();
-			$thread_last_reply_user[$k] = User::where('id',$thread_one->last_reply_user_id)->first();
+            if(!empty($reply_last_time[$k])){
+                $thread_last_reply_user[$k] = User::where('id',$reply_last_time[$k]->user_id)->first();
+                if($reply_last_time[$k]->anonymous == 1)
+                {
+                    $thread_last_reply_user[$k]->username = '匿名';
+                }
+
+			}else{
+                $thread_last_reply_user[$k] = User::where('id',$thread_one->last_reply_user_id)->first();
+                $reply_last_time[$k] = $thread_one;
+            }
+
 			if(empty($thread_last_reply_user[$k])){
 				$thread_last_reply_user[$k] = $thread_one;
-			}
-			if(empty($reply_last_time[$k])){
-				$reply_last_time[$k] = $thread_one;
 			}
         }
 

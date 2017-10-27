@@ -213,6 +213,10 @@ class UserRoutes
                 'as'   => 'wall.reply_reply',
                 'uses' => 'WallController@reply_reply',
             ]);
+            $router->post('wall/remove', [
+                'as'   => 'wall.remove',
+                'uses' => 'WallController@remove',
+            ]);
             $router->get('user/dynamic', [
                 'as'   => 'user.dynamic',
                 'uses' => 'UserController@dynamic',
@@ -318,7 +322,7 @@ class UserRoutes
 				'uses' => 'UserController@dynamicDel',
             ]);
             $router->resource('user', 'UserController');
-
+            
         });
     }
 }

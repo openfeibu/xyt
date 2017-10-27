@@ -606,6 +606,10 @@ class UserController extends Controller
         ]);
         $user = Auth::user();
 
+		$realname = DB::table('user_realnames')->where('user_id',$user->id)->where('status',1)->orderBy('id','desc')->first();
+
+		$user->realname = $realname ? $realname->realname : '';
+
 		$data = $user->toArray();
 
         $base_data = config('form_config.basic_data');

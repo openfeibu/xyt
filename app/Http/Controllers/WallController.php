@@ -123,4 +123,25 @@ class WallController extends Controller
 
       	return view('wall.reply_reply',$var)->render();
     }
+	public function remove ()
+    {
+	    $reply_id = intval($_POST ['reply_id']);
+        $reply = Wall::where('id',$reply_id)->first();
+        // 不存在时
+        if (! $reply) {
+            return 0;
+        }
+        // 非作者时
+        if ($reply->user_id != Auth::id()) {
+            if (! Auth::user()->can("manage_comment")) {
+                return 0;
+            }
+        }
+
+        if($reply){
+			$reply->delete();
+	        return 1;
+        }
+        return 0;
+    }
 }
