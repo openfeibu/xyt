@@ -370,6 +370,7 @@ return [
 		'system_datas' => '系统配置',
 		'value' 	   => '配置',
 	],
+
 	'tasks' => [
 		'tasks' => '任务配置',
 		'value' 	   => '任务配置',

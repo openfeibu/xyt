@@ -79,6 +79,7 @@ return [
             'permissions',
             'credits',
             'credit_rules',
+            'realnames',
         ],
         'content' => [
             'threads',
@@ -117,9 +118,10 @@ return [
             'schools',
             'navs',
             'tasks',
-            'vips' 
+            'vips'  ,
+            'gifts',
         ],
-        
+
     ],
 
     /*
