@@ -53,6 +53,7 @@
 			var SPACE_RECOMMEND_URL = "{{ route('space.recommend') }}";
 			var DELETE_COMMENT_URL = "{{ route('comment.remove') }}";
 			var DELETE_REPLY_URL = "{{ route('allReply.remove') }}";
+			var DELETE_WALL_URL = "{{ route('wall.remove') }}";
 			var CHECK_EMAIL_URL = "{{ route('user.check_email') }}";
 			var CHECK_REGISTER_URL = "{{ route('user.check_register') }}";
 			var CHECK_REGISTER_PARAM_URL = "{{ route('user.check_register_param') }}";

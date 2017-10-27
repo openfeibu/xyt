@@ -32,7 +32,7 @@
 	                      <form action="{{ route('profile.base_update') }}" method="post">
 		                      {{ csrf_field() }}
                           <p><span class='span' style="margin-right: 10px;">您的登录昵称：</span>{{$user->username}}[<a href="" style="color: #51B837 ">修改</a>][<a href="" style="color: #51B837 ">修改登录密码</a>]</p>
-                          <p><span class='span' style="margin-right: 10px;">真实姓名：</span>adasdasd[<a href="" style="color: #51B837 ">点击认证</a>]您填写/修改真实姓名后，需要等待我们认证后才能有效，在认证之前，您将只能使用用户名，并且一些</p><p style="margin-left: 260px;">操作可能会受到限制。</p>
+                          <p><span class='span' style="margin-right: 10px;">真实姓名：</span>{{$user->realname}}[<a href="{{route('identify.name')}}" style="color: #51B837 ">点击认证</a>]您填写/修改真实姓名后，需要等待我们认证后才能有效，在认证之前，您将只能使用用户名，并且一些</p><p style="margin-left: 260px;">操作可能会受到限制。</p>
                           <p><span class='span'>性别：</span>
                           		{!! $formTypePresenter->showSelect($base_data,'sex',$data['sex']) !!}
                           </p>

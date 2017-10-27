@@ -16,7 +16,7 @@
 		<dd class="b_ne" style="margin-top:0px">
 			<a href="javascript:void(0)" event-args="url={{route('wall.reply_reply')}}&post_id={{$post_id}}&to_reply_id={{$reply_id}}&to_user_id={{$user_id}}&to_comment_uname={{$user_info['username']}}&id={{$reply_id}}&addtoend={{$addtoend}}" event-node="reply_reply">{{trans('public.PUBLIC_STREAM_REPLY')}}</a>&nbsp;
 			@if(Auth::id() == $user_info['id'] || Auth::user()->can("manage_comment"))
-			<a href="javascript:;" event-node="reply_del" event-args="reply_id={{$reply_id}}">删除</a>&nbsp;
+			<a href="javascript:;" event-node="wallet_del" event-args="reply_id={{$reply_id}}">删除</a>&nbsp;
 			@endif
 			<!--<a href="#" class="jubaoshow">举报</a>-->
 		</dd>
