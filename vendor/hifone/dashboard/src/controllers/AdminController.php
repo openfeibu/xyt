@@ -65,7 +65,7 @@ class AdminController extends Controller
 
         $this->config = include __DIR__ . '/../config/administrator.php';
 
-        if(!Auth::user()->hasRole('Founder') && !Auth::user()->hasRole('Admin')) {
+        if(!Auth::user()->hasRole('Admin')) {
            echo "Permission denied.";
            exit;
         }
