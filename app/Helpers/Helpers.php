@@ -1162,3 +1162,8 @@ function handle_image($value,$name)
 {
     return '/uploads/'.$name.'/'.$value;
 }
+function get_ad_image($id)
+{
+    $image = Hifone\Models\Advertisement::where('id',4)->value('image');
+    return handle_image($image,'ad_img');
+}

@@ -60,6 +60,8 @@ return [
         ],
         'image' => [
             'title' => '图片',
+            'type' => 'image',
+            'location' => 'uploads/system/'
         ],
         'frequency' => [
             'title'    => trans('administrator::dashboard.credits.frequency_tag'),
