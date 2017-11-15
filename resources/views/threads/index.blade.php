@@ -5,7 +5,7 @@
 <div class="interaction">
         <div class="interaction_top">
             <div class="interaction_top_left fleft">
-                <img src="{{asset('images/index/TAhphoto.png')}}" alt=""  class="interaction_top_left_img" />
+                <img src="{{get_ad_image('4')}}" alt=""  class="interaction_top_left_img" />
             </div>
             <div class="interaction_top_center fleft">
                 <dl>

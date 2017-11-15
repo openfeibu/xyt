@@ -25,7 +25,7 @@
                     @foreach($finish_tasks as $key => $task)
                       <div class="mywork_schedule_content_main">
                         <div class="mywork_schedule_content_main_photo fleft">
-                          <img src="{{$task->image}}" alt="" class="mywork_schedule_content_main_img" />
+                          <img src="{{handle_image($task->image,'system')}}" alt="" class="mywork_schedule_content_main_img" />
                         </div>
                         <div class="mywork_schedule_content_main_span fleft">
                           <dl>

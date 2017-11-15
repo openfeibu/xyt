@@ -21,7 +21,7 @@
                     </div>
 
                     <div class="px20"></div>
-                    
+
                     <div class="graph">
                          <strong class="bar" style="width: {{$schedule}};"></strong>
                      </div>
@@ -33,7 +33,7 @@
                     @foreach($tasks as $key => $task)
                       <div class="mywork_schedule_content_main">
                         <div class="mywork_schedule_content_main_photo fleft">
-                          <img src="{{$task->image}}" alt="" class="mywork_schedule_content_main_img" />
+                          <img src="{{handle_image($task->image,'system')}}" alt="" class="mywork_schedule_content_main_img" />
                         </div>
                         <div class="mywork_schedule_content_main_span fleft">
                           <dl>
@@ -50,13 +50,13 @@
                         </div>
                       </div>
                     @endforeach
-                   	
+
                       <!-- ************************* -->
 
                       <div class="mywork_footer">
                         <span style="color: #146500;">刚刚完成任务的朋友</span>
                       </div>
-					  
+
                       <div class="mywork_footer_list">
 	                    <!-- &&&&&&&&&&&&&&&&& -->
 	                    @foreach($task_users as $key => $task_user)
