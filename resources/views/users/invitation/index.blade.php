@@ -77,7 +77,7 @@
                         <div class="preview_invitation_right fleft">
                             <p>HI,</p>
                             <p style="margin-top: 10px;">&nbsp;&nbsp;&nbsp;&nbsp;我是{{$user->username}}，想邀请你加入高校联谊大家庭-象牙塔一起参加活动！</p>
-                            <p style="margin-top: 20px;">加入后，你就可以参加各种精彩的联谊活动，比如有户外爬山，K歌，羽毛球，聚餐，电影等联谊活动；可以很快找到心中的TA!同时可以认识更多的师兄姐师弟妹等！大力推荐^_^
+                            <p style="margin-top: 20px;">{!!get_content('21')!!}
                             </p>
                             <div class="invite_fuyan">
                                 <span class="fleft">
@@ -85,7 +85,7 @@
                                     很给力的！
                                 </span>
                                 <span class="fright" style="margin-right: 100px;">
-                                    <img src="{{ asset('/build/dist/images/wechat.png') }}" alt="" />
+                                    {!!get_content('22')!!}
                                 </span>
                             </div>
                             <p class="clear">
@@ -95,8 +95,7 @@
                         </div>
                         <div class="clear" style="height: 20px;"></div>
                         <div class="clear preview_invitation_footer">
-                            <p>联谊微信公众号：xxxxxxxxxxx <br />
-                            联谊活动QQ：xxxxxxxxxxx</p>
+                            <p>{!!get_content('23')!!}</p>
                         </div>
                     </div>
                 </div>
