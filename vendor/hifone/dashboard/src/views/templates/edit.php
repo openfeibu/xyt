@@ -1,3 +1,6 @@
+<style>
+.plupload input{font-size: 0 !important;width:125% !important;margin-left: -25%;}
+</style>
 <div data-bind="visible: loadingItem" class="loading"><?php echo trans('administrator::administrator.loading') ?></div>
 
 <form class="edit_form" data-bind="visible: !loadingItem(), submit: saveItem">

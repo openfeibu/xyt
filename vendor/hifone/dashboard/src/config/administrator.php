@@ -120,6 +120,7 @@ return [
             'tasks',
             'vips'  ,
             'gifts',
+            'gift_types',
         ],
 
     ],

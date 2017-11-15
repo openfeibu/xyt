@@ -107,7 +107,7 @@ abstract class Field
      */
     public function build()
     {
-		
+
         $options = $this->suppliedOptions;
 
         //set the title if it doesn't exist
@@ -126,9 +126,9 @@ abstract class Field
         if (isset($editable) && is_callable($editable)) {
             $options['editable'] = $editable($this->config->getDataModel());
         }
-		
+
         $this->suppliedOptions = $options;
-		
+
     }
 
     /**
@@ -143,7 +143,7 @@ abstract class Field
         if ($this->validator->fails()) {
             throw new \InvalidArgumentException("There are problems with your '".$this->suppliedOptions['field_name']."' field in the ".
                                     $this->config->getOption('name').' config: '.implode('. ', $this->validator->messages()->all()));
-        } 
+        }
     }
 
     /**
@@ -227,13 +227,13 @@ abstract class Field
      */
     public function getOptions()
     {
-		
+
         if (empty($this->userOptions)) {
-			
+
             //validate the options and then merge them into the defaults
             $this->build();
             $this->validateOptions();
-			
+
             $this->userOptions = array_merge($this->getDefaults(), $this->suppliedOptions);
         }
 		
