@@ -1502,7 +1502,7 @@ class UserController extends Controller
 				$user = Auth::user();
 				Mail::send('emails.invite', ['email' => $email,'user' => Auth::user(),'app_url' => config('app.url'),'content' => $input['message']], function($message) use($email,$user) {
 					$message->from(config('mail.from')['address'],config('mail.from')['name']);
-				    $message->subject('['.config('app.web_name').'] 邀请');
+				    $message->subject('['.config('app.web_name').'] 邀请好友');
 				    $message->to($email);
 				});
 			}
