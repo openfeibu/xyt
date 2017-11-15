@@ -1150,11 +1150,15 @@ function cut_html_str($str, $lenth, $replace='', $anchor='<!-- break -->'){
     return $result.$replace;
 }
 /*获取文章内容*/
-function get_content($id,$value)
+function get_content($id,$value = 'body')
 {
     return Hifone\Models\Page::where('id',$id)->value($value);
 }
 function get_config_value($name,$value = 'value')
 {
     return Hifone\Models\Setting::where('name',$name)->value($value);
+}
+function handle_image($value,$name)
+{
+    return '/uploads/'.$name.'/'.$value;
 }

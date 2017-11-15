@@ -382,7 +382,7 @@ class ActivityController extends Controller
 					# code...
 					break;
 			}
-			$activity->increment('join_count');
+			$increment_join_count = Activity::where('id',$request->activity_id)->increment('join_count');
 			return [
 				'code' => 200,
 				'status' => 1,

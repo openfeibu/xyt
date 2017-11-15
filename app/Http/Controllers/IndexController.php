@@ -8,6 +8,7 @@ use Hifone\Models\Blog;
 use Hifone\Models\Vote;
 use Hifone\Models\Node;
 use Hifone\Models\Thread;
+use Hifone\Models\Advertisement;
 use Hifone\Models\Announcement;
 use Hifone\Models\AlbumPhoto;
 
@@ -60,6 +61,7 @@ class IndexController extends Controller
 		$standard_data = config('form_config.standard_data');
         $page_notices =  app('pageRepository')->getPages(13);
         $album_photos = AlbumPhoto::where('activity_id','>',0)->take(9)->get();
+        $ads = app(Advertisement::class)->where('adspace_id',1)->orderBy('sort','asc')->orderBy('id','asc')->get();
 		return $this->view('index.index')
 					->with('new_boys',$new_boys)
 					->with('new_girls',$new_girls)
@@ -68,6 +70,7 @@ class IndexController extends Controller
 					->with('new_votes',$new_votes)
 					->with('hot_votes',$hot_votes)
 					->with('threads',$threads)
+                    ->with('ads',$ads)
 					->with('space_content',$spaces['html'])
 					->with('recommend_users',$recommend_users)
 					->with('summaries',$summaries)

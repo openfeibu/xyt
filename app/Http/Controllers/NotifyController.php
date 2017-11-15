@@ -37,26 +37,28 @@ class NotifyController extends Controller
     }
     public function activityAliNotify($value='')
     {
-        Log::debug("活动解除黑名单支付宝支付回调开始");
-        // 判断通知类型。
-        // switch (Input::get('trade_status')) {
-        //     case 'TRADE_SUCCESS':
-        //     case 'TRADE_FINISHED':
+        Log::debug("参加活动支付宝支付回调开始");
+        //判断通知类型。
+        switch (Input::get('trade_status')) {
+            case 'TRADE_SUCCESS':
+            case 'TRADE_FINISHED':
                 // TODO: 支付成功，取得订单号进行其它相关操作。
                 $out_trade_no = Input::get('out_trade_no');
-                Log::debug('活动解除黑名单.', [
+                Log::debug('参加活动.', [
                     'out_trade_no' => $out_trade_no,
                     'trade_no' => Input::get('trade_no')
                 ]);
                 $this->create_activity($out_trade_no);
-        //         break;
-        // }
+                break;
+        }
 		Log::debug('alipay:success');
         return 'success';
     }
     private function create_activity($out_trade_no)
     {
-        return Activity_actors::where('out_trade_no',$out_trade_no)->update(['pay_status' => 1]);
+		$activity_actors = Activity_actors::where('out_trade_no',$out_trade_no)->first();
+		Activity::where('id',$activity_actors->activity_id)->increment('join_count');
+        Activity_actors::where('out_trade_no',$out_trade_no)->update(['pay_status' => 1]);
     }
     public function unActivityBannedAliNotify(Request $request)
     {

@@ -3,7 +3,7 @@
 /*
  * This file is part of Hifone.
  *
- * 
+ *
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -26,4 +26,8 @@ class Gift extends Model
 		'gift_experience',
 		'gift_number',
 	];
+	public function type ()
+    {
+    	return $this->belongsTo(GiftType::class,'type_id','id');
+    }
 }

@@ -8,6 +8,16 @@ return [
         'id' => [
             'title' => 'ID',
         ],
+        'type' => [
+            'title'    => '礼物分类',
+            'sortable' => false,
+            'output'   => function ($value, $model) {
+               	if($value){
+	                return $value->name;
+	            }
+	            return '';
+            },
+        ],
         'gift_name' => [
             'title'    => '礼物名字',
             'sortable' => false,
@@ -15,6 +25,7 @@ return [
         'gift_img' => [
             'title'    => '礼物图片',
             'sortable' => false,
+            'type'      => 'image',
         ],
         'gift_number' => [
             'title'    => '数量',
@@ -37,11 +48,20 @@ return [
         ],
     ],
     'edit_fields' => [
+        'type' => [
+            'title'              => '礼物分类',
+            'type'               => 'relationship',
+            'name_field'         => 'name',
+            'search_fields'      => array("CONCAT(id, ' ', name)"),
+            'options_sort_field' => 'id',
+        ],
         'gift_name' => [
             'title'    => '礼物名字',
         ],
         'gift_img' => [
             'title'    => '礼物图片',
+            'type'      => 'image',
+            'location' => 'uploads/gift_img/'
         ],
         'gift_number' => [
             'title'    => '数量',
@@ -59,5 +79,6 @@ return [
         ],
 
     ],
+
     // 'actions' => [],
 ];

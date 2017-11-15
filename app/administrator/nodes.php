@@ -51,6 +51,11 @@ return [
         'slug' => [
             'title' => 'Slug',
         ],
+        'icon' => [
+            'title' => '图标',
+            'type' => 'image',
+            'location' => 'uploads/node_img/',
+        ],
         'description' => [
             'title' => trans('administrator::dashboard.nodes.description'),
             'type' => 'textarea',

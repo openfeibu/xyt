@@ -11,6 +11,7 @@
 
 namespace Hifone\Http\Controllers\Auth;
 
+use Cookie;
 use Validator;
 use AltThree\Validator\ValidationException;
 use Hifone\Commands\Identity\AddIdentityCommand;
@@ -20,6 +21,7 @@ use Hifone\Http\Controllers\Controller;
 use Hifone\Models\Identity;
 use Hifone\Models\Provider;
 use Hifone\Models\User;
+use Hifone\Models\Advertisement;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Support\Facades\Auth;
@@ -62,7 +64,9 @@ class AuthController extends Controller
     {
         $providers = Provider::recent()->get();
 		$request->session()->put('username', "");
+        $ads = app(Advertisement::class)->where('adspace_id',2)->orderBy('sort','asc')->orderBy('id','asc')->get();
         return $this->view('auth.login')
+            ->with('ads',$ads)
             ->withCaptchaLoginDisabled(Config::get('setting.captcha_login_disabled'))
             ->withCaptcha(route('captcha', ['random' => time()]))
             ->withConnectData(Session::get('connect_data'))
@@ -122,6 +126,7 @@ class AuthController extends Controller
     {
         $connect_data = Session::get('connect_data');
 		$base_data = config('form_config.basic_data');
+
         return $this->view('auth.register')
         	->with('base_data',$base_data)
             ->withCaptchaRegisterDisabled(Config::get('setting.captcha_register_disabled'))
@@ -197,7 +202,7 @@ class AuthController extends Controller
 		$salt = $this->generateSalt();
 		$data = $registerData;
         $password = $this->hashPassword($data['password'], $salt);
-
+        $inviter_uid = Cookie::get('inviter_uid');
         $user = User::create([
             'username'     => $data['username'],
             'email'        => $data['email'],
@@ -212,6 +217,7 @@ class AuthController extends Controller
 	    	'location' => $data['location'],
 	    	'work' => $data['work'],
 	    	'birthday' => $data['birthday'],
+            'parent_id' => $inviter_uid ? $inviter_uid : 0,
         ]);
 
 

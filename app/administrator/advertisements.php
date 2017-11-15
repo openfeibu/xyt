@@ -17,6 +17,14 @@ return [
             'title'    => trans('administrator::dashboard.advertisements.body'),
             'sortable' => false,
         ],
+        'image' => [
+            'title' => '图片',
+            'sortable' => false,
+        ],
+        'sort' => [
+            'title' => '排序',
+            'sortable' => true,
+        ],
         'adspace' => [
             'title'    => trans('administrator::dashboard.advertisements.adspace'),
             'sortable' => false,
@@ -44,11 +52,19 @@ return [
             'title'    => trans('administrator::dashboard.advertisements.body'),
             'type'     => 'textarea',
         ],
+        'image' => [
+            'title'    => '图片',
+            'type'      => 'image',
+            'location' => 'uploads/ad_img/'
+        ],
+        'sort' => [
+            'title' => '排序',
+        ],
         'adspace' => [
             'title'              => trans('administrator::dashboard.advertisements.adspace'),
             'type'               => 'relationship',
             'name_field'         => 'name',
-            'autocomplete'       => true,
+        //    'autocomplete'       => true,
             'search_fields'      => array("CONCAT(id, ' ', position)"),
             'options_sort_field' => 'id',
         ],

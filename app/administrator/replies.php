@@ -25,11 +25,17 @@ return [
             'title'    => trans('administrator::dashboard.replies.thread'),
             'sortable' => false,
             'output'   => function ($value, $model) {
-                return admin_link(
-                    $model->thread->title,
-                    'threads',
-                    $model->thread_id
-                );
+                if($model->thread)
+                {
+                    return admin_link(
+                        $model->thread->title,
+                        'threads',
+                        $model->thread_id
+                    );
+                }
+                else{
+                    return "话题已删除";
+                }
             },
         ],
         'is_blocked' => [

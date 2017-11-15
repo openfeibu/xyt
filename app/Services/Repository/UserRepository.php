@@ -692,4 +692,9 @@ class UserRepository{
         $user->link = 'javascript:;';
         return $user;
     }
+    public function getInviters($user_id,$num = 12)
+    {
+        $users = app(User::class)->where('parent_id',$user_id)->take($num)->orderBy('id','desc')->get();
+        return $this->handleUsers($users);
+    }
 }

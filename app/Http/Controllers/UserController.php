@@ -9,7 +9,7 @@ use Auth;
 use Hash;
 use Mail;
 use Input;
-use Session;
+use Session,Cookie;
 use Redirect;
 use Carbon\Carbon;
 use Hifone\Models\User;
@@ -1465,9 +1465,14 @@ class UserController extends Controller
                 '邀请好友' => ''
         ]);
 		$inviter_uid = isset($request->uid) ? $request->uid : 0;
+		Cookie::queue('inviter_uid',$inviter_uid,60);
 		$inviter = User::findByUidOrFail($inviter_uid);
 		$base_data = config('form_config.basic_data');
-		return $this->view('users.invitation.show')->with('inviter',$inviter)->with('base_data',$base_data);
+		$inviter_firends = app('userRepository')->getInviters($inviter_uid);
+		return $this->view('users.invitation.show')
+					->with('inviter',$inviter)
+					->with('base_data',$base_data)
+					->with('inviter_firends',$inviter_firends);
 	}
 	public function invitationSend()
 	{
