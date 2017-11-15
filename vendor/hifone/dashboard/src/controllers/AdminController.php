@@ -53,9 +53,9 @@ class AdminController extends Controller
         $this->session = $session;
 
         $this->formRequestErrors = $this->resolveDynamicFormRequestErrors($request);
-		
-		
-		
+
+
+
         if (!is_null($this->layout)) {
             $this->layout = view($this->layout);
 
@@ -64,13 +64,13 @@ class AdminController extends Controller
         }
 
         $this->config = include __DIR__ . '/../config/administrator.php';
-		
-        //if(!Auth::user()->hasRole('Founder')) {
-        //    echo "Permission denied.";
-        //    exit;
-        //}
 
-        
+        if(!Auth::user()->hasRole('Founder')) {
+           echo "Permission denied.";
+           exit;
+        }
+
+
     }
 
     /**
@@ -81,18 +81,18 @@ class AdminController extends Controller
     public function index($modelName)
     {
         //set the layout content and title
-        
+
         $page_type = app("itemconfig")->getOption('page_type');
-        
+
 		if($page_type == 'category'){
 			 $this->layout->content = view('administrator::category');
 		}
 		else{
-			$this->layout->content = view('administrator::index');       	
-		} 
+			$this->layout->content = view('administrator::index');
+		}
         return $this->layout;
     }
-	
+
     /**
      * Gets the item edit page / information.
      *
@@ -110,7 +110,7 @@ class AdminController extends Controller
         $fields            = $fieldFactory->getEditFields();
 		$page_type = $config->getOption('page_type');
 
-		
+
         //if it's ajax, we just return the item information as json
         if ($this->request->ajax()) {
             //try to get the object
@@ -144,7 +144,7 @@ class AdminController extends Controller
         }
     }
 
-	
+
     /**
      * POST save method that accepts data via JSON POST and either saves an old item (if id is valid) or creates a new one.
      *
@@ -159,7 +159,7 @@ class AdminController extends Controller
         $fieldFactory  = app('admin_field_factory');
         $actionFactory = app('admin_action_factory');
 		$page_type = $config->getOption('page_type');
-		
+
         if (array_key_exists('form_request', $config->getOptions()) && $this->formRequestErrors !== null) {
             return response()->json(array(
                 'success' => false,
@@ -539,7 +539,7 @@ class AdminController extends Controller
 
         //get the inputted rows and the model rows
         $rows = (int) $this->request->input('rows', 20);
-		
+
         $dataTable->setRowsPerPage(app('session.store'), 0, $rows);
 
         return response()->JSON(array('success' => true));
