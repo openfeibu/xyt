@@ -34,20 +34,20 @@
         <a href="index.html" class="logo"><img src="{{ asset('images/index/logo.jpg') }}" width="370" height="100" alt="" title="" /></a>
         <ul class="heada" style="color:#818181">
 			<!--888888888888888888888888888-->
-			@if(Auth::check())   
-				
+			@if(Auth::check())
+
 				<li style="width:150px;margin-left:-100px">
 					欢迎您：</sp<a href="#"><img src="{{asset('images/index/img1.jpg')}}" style="width:20px;height:20px;" />
 					{{ $current_user->username }}
 				</li>
-				
+
 				<li style="margin-left:10px;" class=""><a href="{{ route('user.home', $current_user->id) }}">{{ trans('hifone.users.profile') }}</a></li>
                 <li><a href="{!! route('user.edit', Auth::user()->id) !!}">{{ trans('hifone.users.edit.title') }}</a></li>
                 <li><a href="{!! url('auth/logout') !!}" onclick=" return confirm('{!! trans('hifone.logout_confirm') !!}')">{!! trans('hifone.logout') !!}登录
                     </a></li>
 				</li>
 			@endif
-			
+
           @if(Auth::check())
 			@if($current_user->hasRole(['Founder','Admin']))
                  <li>
@@ -67,7 +67,7 @@
           @endif
 		<!--888888888888888888888888888-->
         </ul>
-		
+
     </div>
     <div class="nav">
         <ul>
@@ -85,4 +85,3 @@
     <div class="clear"></div>
 
 		@yield('content')
-

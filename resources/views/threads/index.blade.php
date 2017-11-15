@@ -52,16 +52,16 @@
             </div>
         </div>
 
-        
-        <!-- #################$sections######################################? -->	
-	
+
+        <!-- #################$sections######################################? -->
+
 		@foreach($sections as $section_k=>$section)
-			
+
 			<div class="clear" style="height:50px;"></div>
 			<div class="b_hf interaction_b_hf" style="border:0px">
 				<ul>
 					<li>{!! $section->name !!}</li>
-				</ul>		
+				</ul>
 			</div>
 			<div class="clear"></div>
 			<div class="interaction_content">
@@ -70,7 +70,7 @@
 				<!--@if($node_k<6)-->
 				<div class="interaction_content_main" style="height:auto">
 					<div class="interaction_content_main_left fleft">
-						<img src="{{asset($node->icon)}}" alt="" class="interaction_content_main_img fleft" />
+						<img src="{{handle_image($node->icon,'node_img')}}" alt="" class="interaction_content_main_img fleft" />
 					</div>
 					<div class="interaction_content_main_right">
 						<div class="interaction_content_main_right_dl">
@@ -99,21 +99,21 @@
 									&nbsp;&nbsp;话题：{!! $node->thread_count!!}，回帖：{!! $node->reply_count!!}
 								</li>
 								<li>&nbsp;&nbsp;&nbsp;最后发表：
-								
+
 								@foreach($thread_in_nodes[$node_k] as $key => $thread_in_node)
-									<?php 
+									<?php
 										$max_time[$node_k][$key] = $thread_in_node->created_at;
 									?>
 								@endforeach
 								{{friendlyDate(max($max_time[$node_k]))}}
-								
+
 								</li>
 							</ul>
 						</div>
 					</div>
 				</div>
 				<!--@endif-->
-				
+
 				@endforeach
 				<div class="clear" style="height:50px;"></div>
 		@endforeach

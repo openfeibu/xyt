@@ -18,16 +18,7 @@
                 <div class="invite">
                     <div class="invite_left">
                         <div class="invite_main">
-                            <p>欢迎您，{{$inviter->username}}热情邀请你为好友。</p>
-                            <p><span style="color: red">*</span>
-                                成为好友后，您们就可以一起参加各种精彩的联谊活动，不仅找到心仪的TA，还可以认识更多志同道合的师兄姐师弟妹，扩大自己的圈子，丰富自己的生活。
-                            </p>
-                            <p><span style="color: red">*</span>
-                                您也可以方便浏览TA的个人资料，找到自己喜欢的人哦！同时您也可以发布自己的日志，上传活动照片及个人的照片、广播生活点滴，发表自己话题一同与好友讨论及分享。
-                            </p>
-                            <p><span style="color: red">*</span>
-                                还等什么呢？赶快加入象牙塔-高校单身校友大联盟吧
-                            </p>
+                            {!! get_content('20') !!}
                         </div>
                         <div class="invite_user">
                             <div class="invite_user_left fleft">
@@ -46,43 +37,16 @@
                         </div>
                     </div>
                     <div class="invite_right">
-                        <div class="invite_right_top">xxxxxx的好友们</div>
-                        <div class="invite_friend">
+                        <div class="invite_right_top">{{$inviter->username}}的好友们</div>
+                        @foreach($inviter_firends as $key => $inviter_firend)
+                        <div class="invite_friend" onclick="javascript:window.location.href='{{route('user.home',$inviter_firend->id)}}'">
                             <dl>
-                                <dd><img src="./images/TAhphoto.png" alt="" /></dd>
-                                <dd>asdasdsa</dd>
+                                <dd><img src="{{$inviter_firend->avatar}}?v={!!time()!!}" alt="" /></dd>
+                                <dd>{{$inviter_firend->username}}</dd>
                             </dl>
                         </div>
-                        <div class="invite_friend">
-                            <dl>
-                                <dd><img src="./images/TAhphoto.png" alt="" /></dd>
-                                <dd>asdasdsa</dd>
-                            </dl>
-                        </div>
-                        <div class="invite_friend">
-                            <dl>
-                                <dd><img src="./images/TAhphoto.png" alt="" /></dd>
-                                <dd>asdasdsa</dd>
-                            </dl>
-                        </div>
-                        <div class="invite_friend">
-                            <dl>
-                                <dd><img src="./images/TAhphoto.png" alt="" /></dd>
-                                <dd>asdasdsa</dd>
-                            </dl>
-                        </div>
+                        @endforeach
 
-                        <div class="invite_friend">
-                            <dl>
-                                <dd><img src="./images/TAhphoto.png" alt="" /></dd>
-                                <dd>asdasdsa</dd>
-                            </dl>
-                        </div><div class="invite_friend">
-                            <dl>
-                                <dd><img src="./images/TAhphoto.png" alt="" /></dd>
-                                <dd>asdasdsa</dd>
-                            </dl>
-                        </div>
                     </div>
                 </div>
             </div>

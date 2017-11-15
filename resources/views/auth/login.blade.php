@@ -20,7 +20,10 @@
 <div class="clear"></div>
 <div class="b_m">
 <div class="b_ma">
-<img src="{{ asset('/images/index/img46.jpg') }}" width="600" height="342" alt="" />
+@foreach($ads as $adk => $ad)
+<img src="{{handle_image($ad->image,'ad_img')}}" width="600" height="342" alt="" />
+@endforeach
+
 </div>
 <div class="b_mb">
 <img src="{{ asset('/images/index/img47.jpg') }}" width="317" height="52" alt="" />

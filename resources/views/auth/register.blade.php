@@ -57,7 +57,7 @@
 			  </tr>
 			  <tr>
 				<td height="35"></td>
-				<td colspan="2"><input type="checkbox" name="agree" id="agree" checked="checked" value="1"/> 同意 <span class="reg_notice"><a href="{{route('about.show',['id' => 12])}}" target="_blank">象牙塔-搞笑单身校友大联盟网站服务条款</a></span>
+				<td colspan="2"><input type="checkbox" name="agree" id="agree" checked="checked" value="1"/> 同意 <span class="reg_notice"><a href="{{route('about.show',['id' => 12])}}" target="_blank">{!! get_content('12','title') !!}</a></span>
 				<span id="agree_error_span" class="error_box" style="margin-left: 94px;"><b id="agree_error_span_b">必须选择“同意”才可以注册</b></span>
 				</td>
 				</tr>

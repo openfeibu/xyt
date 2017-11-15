@@ -7,10 +7,9 @@
 <!--Luara图片切换骨架begin-->
 <div class="example2">
 <ul>
-<li><img src="{{asset('images/index/img4.jpg')}}" alt="1" width="646" height="298"/></li>
-<li><img src="{{asset('images/index/img4.jpg')}}" alt="2" width="646" height="298"/></li>
-<li><img src="{{asset('images/index/img4.jpg')}}" alt="3" width="646" height="298"/></li>
-<li><img src="{{asset('images/index/img4.jpg')}}" alt="4" width="646" height="298"/></li>
+@foreach($ads as $adk => $ad)
+<li><img src="{{handle_image($ad->image,'ad_img')}}" alt="1" width="646" height="298"/></li>
+@endforeach
 </ul>
 </div>
 <!--Luara图片切换骨架end-->

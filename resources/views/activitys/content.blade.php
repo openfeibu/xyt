@@ -274,7 +274,7 @@
 				if(data.code == 200){
                     $(".details_top_info_right_time").html(data.desc);
                     layer.msg(data.msg);
-                    location.reload();
+                    //location.reload();
 				}else if(data.code == 210)
                 {
                     window.location.href = data.url;

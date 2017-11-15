@@ -50,7 +50,7 @@
 					@foreach($gifts as $gift)
 					<input type="radio" value="{{$gift->id}}" name="gift_radio{!!$to_user->id!!}" id="gift_radio{{$gift->id}}_{!!$to_user->id!!}" style="display:none">
 					<li  onclick="show_gift_info({{$gift->id}},{{$gift->gift_experience}},{{$gift->score}},{{$gift->gift_number}},{{$to_user->id}},'{{$gift->gift_name}}')" >
-						<span class="gift_select gift_select{{$gift->id}} img"><img src="{{asset($gift->gift_img)}}" alt=""/></span>
+						<span class="gift_select gift_select{{$gift->id}} img"><img src="{{ handle_image($gift->gift_img,'gift_img') }}" alt=""/></span>
 						<p class="center">{{$gift->gift_name}}</p>
 						<p class="center">积分：{{$gift->score}}</p>
 					</li>
