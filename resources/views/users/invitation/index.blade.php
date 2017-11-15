@@ -76,7 +76,7 @@
                         </div>
                         <div class="preview_invitation_right fleft">
                             <p>HI,</p>
-                            <p style="margin-top: 10px;">&nbsp;&nbsp;&nbsp;&nbsp;我是{{$user->username}}，想邀请你加入高校联谊大家庭-象牙塔一起参加活动！</p>
+                            <p style="margin-top: 10px;">&nbsp;&nbsp;&nbsp;&nbsp;我是{{$user->username}}，{!!get_content('24')!!}</p>
                             <p style="margin-top: 20px;">{!!get_content('21')!!}
                             </p>
                             <div class="invite_fuyan">
