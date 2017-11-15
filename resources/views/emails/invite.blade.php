@@ -27,7 +27,7 @@
             </span>
             <span class="fright" style="border-bottom-color:rgb(0, 0, 0);border-bottom-style:none;border-bottom-width:0px;border-image-outset:0px;border-image-repeat:stretch;border-image-slice:100%;border-image-source:none;border-image-width:1;border-left-color:rgb(0, 0, 0);border-left-style:none;border-left-width:0px;border-right-color:rgb(0, 0, 0);border-right-style:none;border-right-width:0px;border-top-color:rgb(0, 0, 0);border-top-style:none;border-top-width:0px;color:rgb(0, 0, 0);display:block;float:right;font-family:微软雅黑, Arial, Helvetica, sans-serif;font-size:14px;height:83px;line-height:30px;margin-bottom:0px;margin-left:0px;margin-right:100px;margin-top:0px;padding-bottom:0px;padding-left:0px;padding-right:0px;padding-top:0px;text-size-adjust:100%;width:86px
 ;">
-                {!!get_content('23')!!}
+                {!!get_content('22')!!}
             </span>
         </div>
         <p class="clear" style="height: 20px;clear:both">
