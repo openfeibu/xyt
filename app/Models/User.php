@@ -37,7 +37,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @var string[]
      */
-    protected $guarded = ['id', 'notifications', 'is_banned','activity_banned'];
+    protected $guarded = ['id', 'notifications', 'is_banned'];
 
     /**
      * The hidden properties.

@@ -220,7 +220,9 @@ class AuthController extends Controller
             'parent_id' => $inviter_uid ? $inviter_uid : 0,
         ]);
 
-
+        if($inviter_uid){
+            User::where('id',$inviter_uid)->update(['icon' => 2,'score' => 150]);
+        }
 
         if ($from == 'provider') {
             dispatch(new AddIdentityCommand($user->id, $connect_data));
