@@ -7,7 +7,7 @@
 <div class="b_o">
 <div class="b_oa">
 <h3>今日生日会员</h3>
-<p>下列会员今天过生日, 本网站谨代表大都市的全体工作人员、会员及在线网友, 祝下列会员生日快乐、 工作顺利、心想事成！
+<p>{{get_content('25')}}
 今天共有<span class="green"> {{$count}} </span> 位会员过生日:</p>
 
 <table cellpadding="0" cellspacing="0">
