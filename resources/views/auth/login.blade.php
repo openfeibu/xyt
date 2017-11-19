@@ -4,7 +4,7 @@
 <meta content="" name="description" />
 <meta content="" name="keywords" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>象牙塔</title>
+<title>{{get_config_value('site_name')}}</title>
 </head>
 <link href="{{ asset('/build/dist/css/style.css') }}" type="text/css" rel="stylesheet" />
 <link rel="stylesheet" href="{{ elixir('dist/css/all.css') }}">

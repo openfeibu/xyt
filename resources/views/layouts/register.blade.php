@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>象牙塔</title>
+	<title>{{get_config_value('site_name')}}</title>
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="csrf-token" content="{{ csrf_token() }}">   
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <link href="{{ asset('/build/dist/css/style.css') }}" type="text/css" rel="stylesheet" />
 <link href="{{ asset('/build/dist/css/register.css') }}" type="text/css" rel="stylesheet" >
@@ -43,7 +43,7 @@
     	<div class="head">
         <a href="{{route('index.index')}}" class="logo"><img src="{{ asset('images/index/logo.jpg') }}" width="370" height="100" alt="" title="" /></a>
         </div>
-		
+
 		<div id="pjax-container">
 		    @yield('content')
 		</div>
@@ -64,7 +64,7 @@
     });
      $(document).ajaxError(function(event,xhr,settings,errorType){
 		if(errorType == 'Unauthorized'){
-			window.location.href= LOGIN_URL; 
+			window.location.href= LOGIN_URL;
 		}
      });
 ;!function(){
