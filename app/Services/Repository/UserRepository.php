@@ -313,7 +313,7 @@ class UserRepository{
 			}
 			if($user_role->special == 1){
 				if(strtotime(date('Y-m-d')) >= strtotime($user->overdue)){
-					app(User::class)->update(['overdue' => 'null'])->where('user_id',$user->id);
+					app(User::class)->where('user_id',$user->id)->update(['overdue' => 'null']);
 					DB::table('role_user')->where('user_id',$user->id)->where('role_id',$user_role->id)->delete(['role_id' => $user_role->id]);
 				}
 			}
