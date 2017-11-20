@@ -198,6 +198,7 @@
 				<div class="line"></div>
 				<div class="range-container">
 						<div class="container-left">
+							@if($user_top3)
 							<a href="{!! route('user.home', [$user_top3[0]->id]) !!}">
 								<div>
 									<img src="{{asset($user_top3[0]->avatar_url)}}" alt="" />
@@ -205,8 +206,10 @@
 								<span style="margin-left:35px">{!!$user_top3[0]->username!!}</span>
 							</a>
 							<span style="margin-left:30px;">发帖数:{!!$thread_count_top[0]!!}</span>
+							@endif
 						</div>
 						<div class="container-right">
+							@if($user_top3)
 							<a href="{!! route('user.home', [$user_top3[1]->id]) !!}">
 								<div>
 									<img src="{{asset($user_top3[1]->avatar_url)}}" alt="" />
@@ -214,6 +217,7 @@
 								<span style="margin-left:40px">{!!$user_top3[1]->username!!}</span>
 							</a>
 							<span style="margin-left:30px;">发帖数:{!!$thread_count_top[1]!!}</span>
+							@endif
 						</div>
 				</div>
 				@foreach($user_top3 as $k=>$user_top_list)
@@ -298,7 +302,7 @@
 				var thread_two = data.thread_two;
 				for(var i=0; i<thread_two.length;i++){
 						var join = thread_two[i].reply_count+thread_two[i].like_count;
-						$html_con += '<div class="user"  onclick="ToShow({!!$thread_one->id!!})">\
+						$html_con += '<div class="user"  onclick="ToShow(@if(isset($thread_one)) {!!$thread_one->id!!}@endif)">\
 							<div class="user-message">\
 								<a href="u/'+thread_two[i].uid+'">\
 									<img src="'+thread_two[i].avatar_url+'" style="width:90px;height:90px;" alt="" />\
