@@ -91,7 +91,7 @@
 }
 .interaction_content{
 	width: 998px;
-	height:350px;
+	min-height:350px;
 	border: 1px solid #e2e1e1;
 }
 .interaction_content_main{
