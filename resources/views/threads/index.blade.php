@@ -105,8 +105,11 @@
 										$max_time[$node_k][$key] = $thread_in_node->created_at;
 									?>
 								@endforeach
+                                @if(isset($max_time[$node_k]) && $max_time[$node_k])
 								{{friendlyDate(max($max_time[$node_k]))}}
-
+                                @else
+                                暂无
+                                @endif
 								</li>
 							</ul>
 						</div>
