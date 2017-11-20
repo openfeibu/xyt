@@ -97,7 +97,6 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
              $user->link = route('user.home', [$uid]);
             return $user;
         }
-
         throw new ModelNotFoundException();
 	}
 	public static function findByUid ($uid,$columns = ['*'])

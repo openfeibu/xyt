@@ -385,6 +385,7 @@ class ThreadController extends Controller
 								->where('node_id',$node->id)
 								->orderBy('id','desc')
 								->paginate(5);
+        $reply_last_time = $thread_last_reply_user = [];
 		foreach ($thread_two as $k=>$thread_one) {
             $user = User::where('id',$thread_one->user_id)->first();
             if($thread_one->anonymous)
@@ -414,6 +415,7 @@ class ThreadController extends Controller
 
 		$thread_top = DB::select('select count(*) as counts, user_id from threads group by user_id' );
 		rsort($thread_top);
+        $user_top3 = $thread_count_top = $thread_top3 = [];
 		for($i=0;$i<count($thread_top);$i++)
 		{
 			$thread_top3[$i] = $thread_top[$i];

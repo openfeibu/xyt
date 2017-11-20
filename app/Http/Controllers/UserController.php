@@ -112,6 +112,7 @@ class UserController extends Controller
 		{
 			$following->avatar = User::findByUidOrFail($following->followable_id,['avatar_url'])->avatar;
 		}
+
  		$page_paramter =  $var = [
         	'p' => 1,
         	'loadId' => 0,
