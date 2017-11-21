@@ -11,6 +11,7 @@
 
 namespace Hifone\Models;
 
+use Hifone\Models\School;
 use AltThree\Validator\ValidatingTrait;
 use Illuminate\Database\Eloquent\Model;
 use Venturecraft\Revisionable\RevisionableTrait;
@@ -25,4 +26,12 @@ class Area extends Model
     {
         return $this->hasMany(School::class);
     }
+	public static function getSchools($area_id)
+	{
+		$ids[] = $area_id;
+		$list = app('categoryTreeRepository')->setTable('areas',app(Area::class))->getSubs('104');
+		$ids = array_merge($ids,array_column($list, 'id'));
+		$schools = School::whereIn('area_id',$ids)->get();
+		return $schools;
+	}
 }

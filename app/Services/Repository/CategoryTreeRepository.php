@@ -10,12 +10,12 @@ use Illuminate\Support\Facades\View;
 
 
 class CategoryTreeRepository{
-	
+
 	private $app;                // 分类对应的应用名称
     private $talbe;            // 分类对应的数据表名称
     private $model;            // 分类对应的模型操作对象
     private $message;            // 提示信息
-    
+
 	/**
      * 设置分类模型
      * @param string $table 分类数据
@@ -53,7 +53,7 @@ class CategoryTreeRepository{
     {
         $result = $this->model->where('pid',$pid)->orderBy('sort','asc')->orderBy('id','asc')->get();
         $list = array();
-        if ($result) {  
+        if ($result) {
             foreach ($result as $key => $value) {
                 $id = $value->id;
                 $list[$id]['id'] = $value->id;
@@ -62,7 +62,7 @@ class CategoryTreeRepository{
                 $list[$id]['level'] = $level;
                 $list[$id]['child'] = $this->_MakeTree($value->id, $level + 1);
             }
-            
+
         }
         return $list;
     }
@@ -80,6 +80,33 @@ class CategoryTreeRepository{
     	}
     	return $title;
     }
+	public function getTreeCategoryIds($id,$ids = [])
+	{
+		$results =  $this->model->where('pid',$id)->orderBy('sort','asc')->orderBy('id','asc')->get();
+
+		foreach ($results as $key => $result) {
+		    $child_ids = $this->getTreeCategoryIds($result->id,$ids);
+			$ids = array_merge($ids,$child_ids);
+		}
+
+		return $ids;
+	}
+	//获取某个分类的所有子分类
+	public function getSubs($catId=0,$categorys = [],$level=1){
+		if(!$categorys){
+			$categorys = $this->model->where('pid',$catId)->orderBy('sort','asc')->orderBy('id','asc')->get() ;
+			$categorys = $categorys ? $categorys->toArray() : [];
+		}
+	    $subs=array();
+	    foreach($categorys as $item){
+	        if($item['pid']==$catId){
+	            $item['level']=$level;
+	            $subs[]=$item;
+	            $subs=array_merge($subs,$this->getSubs($item['id'],$categorys,$level+1));
+	        }
+	    }
+	    return $subs;
+	}
     public function getTopCats()
     {
     	$result =  $this->model->where('pid',0)->orderBy('sort','asc')->orderBy('id','asc')->get();

@@ -586,7 +586,7 @@ class UserController extends Controller
 	    	$areas = Area::where('pid',0)->get();
 	    	S('areas_0', $areas,10);
     //	}
-
+Area::getSchools($area_id);
     	$area = Area::where('id',$area_id)->first();
 
     	//if(!($schools = S('area_schools_'.$area_id))){
