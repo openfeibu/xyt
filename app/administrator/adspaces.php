@@ -31,7 +31,7 @@ return [
             'output'   => function ($value, $model) {
                 return admin_link(
                     $model->adblock->name,
-                    'adblock',
+                    'adblocks',
                     $model->adblock_id
                 );
             },
