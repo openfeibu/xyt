@@ -14,11 +14,17 @@ return [
             'title'    => trans('administrator::dashboard.replies.author'),
             'sortable' => false,
             'output'   => function ($value, $model) {
-                return admin_link(
-                    $model->user->username,
-                    'users',
-                    $model->user_id
-                );
+                if($model->user){
+                    return admin_link(
+                        $model->user->username,
+                        'users',
+                        $model->user_id
+                    );
+                }
+                if($model->user)
+                {
+                    return "用户已删除";
+                }
             },
         ],
         'thread' => [
