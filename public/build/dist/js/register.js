@@ -27,7 +27,7 @@ $(".t_reg_text").live('focus',function(){
 		if(!checkreg(reg,val,id,'请正确填写Email!')){
 			return false;
 		}
-		
+
 
 	}else if(id=='password'){
 		var reg=/^[A-Za-z0-9]{6,12}$/;
@@ -41,7 +41,7 @@ $(".t_reg_text").live('focus',function(){
 				$('#'+id+'_error_span').css('display','inline-block');
 				$('#'+id+'_error_span_b').html('两次密码不一致');
 			return false;
-		} 
+		}
 
 	}else if(id=='school'){
 		return false;
@@ -58,11 +58,11 @@ $(".t_reg_text").live('focus',function(){
 				$('#'+id+'_error_span_b').html(data.message);
 			}else{
 				setformmsg(1500,'服务器繁忙！请刷新页面重新尝试！','RED');
-				return false;	
+				return false;
 			}
 		}
 	});
-	
+
 });
 $("#gender :radio").live('change',function(){
 	var val = $(this).val();
@@ -182,7 +182,7 @@ function newregform(type){
 			"agree":$("input[name='agree']:checked").length
 		}
 	}
-	
+
 	var ischeck					=	true;
 	var birth					=	true;
 	var display = '';
@@ -210,7 +210,7 @@ function newregform(type){
 				$('#'+id+'_error_span_b').css('display','block');
 			}
 
-			
+
 		}
 		else{
 			if(id=='birthyear'||id=='birthmonth'||id=='birthday'){
@@ -227,7 +227,7 @@ function newregform(type){
 				$('#'+id+'_error_span_b').css('display','none');
 			}
 
-			if ($('#'+id + '_error_span_b')) {		
+			if ($('#'+id + '_error_span_b')) {
 				console.log(id+":"+!$('#'+id + '_error_span_b').is(":hidden"))	;
 				if (!$('#'+id + '_error_span_b').is(":hidden")) {
 					ischeck = false;
@@ -235,7 +235,7 @@ function newregform(type){
 			}
 		}
 	});
-	
+
 
 	// check sexual by comver
 	var sexual_val = $("input[name='sex']:checked").val();
@@ -253,9 +253,9 @@ function newregform(type){
 			setformmsg(1500,'正在提交注册，请稍后 <img src="/build/dist/images/loading.gif" />','#24B618');
 			// ajaxpost('registerform', 'register');
 			$.ajax({ type: "POST",url : '/auth/register', data :$('#registerform').serialize(), success:function(data){
-			
+
 				if (data.code == 200){
-					
+
 					window.location.href = "/user/registerAvatar";
 				}else{
 					setformmsg(1500,data.message,'RED');
@@ -318,7 +318,7 @@ function loadschool(id,v){
         display:"block"
     });
 	$.get(LOAD_SCHOOL_URL+'?pid='+id+'&pn='+($.browser.msie && document.charset == 'utf-8' ? encodeURIComponent(v) : v),'',function(s){
-		
+
 		$("#loadProcess").html(s);
 		$("#popup-unis li a").live('click',function(){
 			var val	=	$(this).text();
@@ -326,9 +326,9 @@ function loadschool(id,v){
 			$('#school').val(val);
 			$('#school_id').val(id);
 			$(".input-submit").click();
-			
+
 		});
-		
+
 		$("#school_search_input").live('keyup',function(){
 			var val = $(this).val();
 			if(val!=""){
@@ -337,15 +337,15 @@ function loadschool(id,v){
 				});
 			}
 		});
-		 
+
 		loadProcess = layer.open({
 			type: 1,
 			shade: false,
-			title: false, 
-			area: ['600px', ''], 
+			title: false,
+			area: ['660px', ''], 
 			content: $('#loadProcess')
 	    });
-			
+
 	});
 }
 $(".input-submit").live('click',function(){
