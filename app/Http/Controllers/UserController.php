@@ -582,17 +582,17 @@ class UserController extends Controller
     public function loadSchool (Request $request)
     {
     	$area_id = intval($request->pid) ? intval($request->pid) : 1;
-    	if(!($areas = S('areas_0'))){
+    	//if(!($areas = S('areas_0'))){
 	    	$areas = Area::where('pid',0)->get();
 	    	S('areas_0', $areas,10);
-    	}
+    //	}
 
     	$area = Area::where('id',$area_id)->first();
 
-    	if(!($schools = S('area_schools_'.$area_id))){
+    	//if(!($schools = S('area_schools_'.$area_id))){
 	    	$schools = $area->schools;
 	    	S('area_schools_'.$area_id, $schools,10);
-    	}
+    	//}
 
     	return  $this->view('users.loadschool')
     		->with('area_id',$area_id)

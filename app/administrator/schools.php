@@ -11,18 +11,24 @@ return [
         'name' => [
             'title'    => trans('administrator::dashboard.schools.name'),
             'sortable' => false,
-        ],   
+        ],
         'area' => array(
             'title'    => trans('administrator::dashboard.area.name'),
             'sortable' => false,
             'output'   => function ($value, $model) {
-                return admin_link(
-                    $model->area->title,
-                    'area',
-                    $model->area_id
-                );
+                if($model->area)
+                {
+                    return admin_link(
+                        $model->area->title,
+                        'area',
+                        $model->area_id
+                    );
+                }else{
+                    return '未知';
+                }
+
             },
-        ),  
+        ),
         'operation' => [
             'title'  => trans('administrator::administrator.operation'),
             'output' => function ($value, $model) {
@@ -34,7 +40,7 @@ return [
     'edit_fields' => [
         'name' => [
             'title' => trans('administrator::dashboard.schools.name'),
-        ], 
+        ],
         'area' => array(
             'type'       => 'relationship',
             'title'      => trans('administrator::dashboard.area.title'),
@@ -47,7 +53,7 @@ return [
         ],
         'name' => [
             'title' => trans('administrator::dashboard.schools.name'),
-        ], 
+        ],
         'area' => array(
             'type'       => 'relationship',
             'title'      => trans('administrator::dashboard.area.name'),
