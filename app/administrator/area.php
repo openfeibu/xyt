@@ -1,10 +1,10 @@
 <?php
-	
+
 return[
 	'title'  	  => trans('administrator::dashboard.area.area'),
 	'single'	  => trans('administrator::dashboard.area.area'),
 	'model'       => 'Hifone\Models\Area',
-	'page_type'   => 'category' ,
+	//'page_type'   => 'category' ,
     /*'action_permissions' => [
         'create' => function ($model) {
             return false;
@@ -19,14 +19,14 @@ return[
             return true;
         },
     ],*/
-    
+
 	'columns' => [
 		'id' => [
             'title' => 'ID',
         ],
         'pid' => [
 			'title' => 'PID',
-			
+
         ],
         'title' => [
         	'title' => trans('administrator::dashboard.area.title'),
@@ -42,12 +42,12 @@ return[
 	'edit_fields' => [
 		'pid' => [
 			'title' => 'PID',
-			
+
         ],
 		 'title' => [
         	'title' => trans('administrator::dashboard.area.title'),
         ],
-        
+
 	],
 	'filters' => [
 		'id' => [
@@ -55,7 +55,7 @@ return[
         ],
          'pid' => [
 			'title' => 'PID',
-			
+
         ],
         'title' => [
         	'title' => trans('administrator::dashboard.area.title'),
@@ -65,5 +65,5 @@ return[
     	'field' => 'id',
     	'direction' => 'asc',
     ],
-   	
+
 ];
