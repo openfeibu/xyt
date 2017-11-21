@@ -12,14 +12,14 @@
 <div class="dialog_content">
 <div class="dialog_body">
 <ul id="popup-province">
-@foreach($areas as $k => $area)	
+@foreach($areas as $k => $area)
 <li @if($area->id == $area_id ) class="active_school" @endif>
 <a href="javascript:;" onclick="loadschool({{ $area->id }})">{{ $area->title }}</a>
 </li>
 @endforeach
 </ul>
 <ul id="popup-unis">
-@foreach($schools as $k => $school)		
+@foreach($schools as $k => $school)
 <li>
 <a href="javascript:;" id="{{$school->id}}">{{$school->name}}</a>
 </li>
