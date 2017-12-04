@@ -616,28 +616,83 @@ Area::getSchools($area_id);
         $base_data = config('form_config.basic_data');
     	return  $this->view('users.profile.base')->with('user',$user)->with('base_data',$base_data)->with('data',$data);
     }
-    public function baseUpdate ()
+    public function baseUpdate (Request $request)
     {
-    	$input = Input::get();
-    	$rules = [
-	    	'school_id' => 'required|numeric|exists:schools,id',
-	    	'school' => 'required',
-	    	'city' => 'required|integer|min:1|exists:areas,id',
-	    	'work' => 'required|string|',
-	    	'industry' => 'required|string|',
-	    ];
-	    $messages = [
-	    	'school.required' => '学校必填',
-	    	'school_id.exists' => '不存在该学校',
-	    	'city.min' => '居住地必填',
-	    	'city.exists' => '不存在该城市',
-	    	'work.required' => '职业必填',
-	    	'industry.required' => '行业必填',
-	    ];
-
+		$input = Input::get();
+		if($request->nextsubmit)
+		{
+			$rules = [
+		    	'school_id' => 'required|numeric|exists:schools,id',
+		    	'school' => 'required',
+		    	'city' => 'required|integer|min:1|exists:areas,id',
+		    	'work' => 'required|string',
+		    	'industry' => 'required|string',
+				'blood' => 'required|min:1',
+				'home_current' => 'required',
+				'current' => 'required',
+				'height' => 'required|integer|min:1',
+				'weight' => 'required|integer|min:1',
+				'bodytype' => 'required|integer|min:1',
+				'income' => 'required|integer|min:1',
+				'house' => 'required|integer|min:1',
+				'industry' => 'required',
+				'work' => 'required',
+				'minority' => 'required|integer|min:1',
+				'religion' => 'required|integer|min:1',
+				'smoke' => 'required|integer|min:1',
+				'drink' => 'required|integer|min:1',
+				'qq' => 'required|min:1',
+				'weixin' => 'required|min:1',
+		    ];
+		    $messages = [
+		    	'school.required' => '学校必填',
+		    	'school_id.exists' => '不存在该学校',
+		    	'city.min' => '居住地必填',
+		    	'city.exists' => '不存在该城市',
+		    	'work.required' => '职业必填',
+		    	'industry.required' => '行业必填',
+				'blood.min' => '血型必填',
+				'home_current.required' => '家乡必填',
+				'current.required' => '居住地必填',
+				'height.min' => '身高必填',
+				'weight.min' => '体重必填',
+				'bodytype.min' => '体型必填',
+				'income.required' => '月薪必填',
+				'income.min' => '月薪必填',
+				'house.min' => '住房情况必填',
+				'industry.required' => '行业必填',
+				'work.required' => '职业必填',
+				'minority.min' => '民族必填',
+				'religion.min' => '宗教必填',
+				'smoke.min' => '是否吸烟必填',
+				'drink.min' => '是否喝酒必填',
+				'qq.min' => 'QQ必填',
+				'weixin.min' => '微信必填',
+		    ];
+			$url = route('profile.standard');
+		}
+		else{
+			$rules = [
+		    	'school_id' => 'required|numeric|exists:schools,id',
+		    	'school' => 'required',
+		    	'city' => 'required|integer|min:1|exists:areas,id',
+		    	'work' => 'required|string|',
+		    	'industry' => 'required|string|',
+		    ];
+		    $messages = [
+		    	'school.required' => '学校必填',
+		    	'school_id.exists' => '不存在该学校',
+		    	'city.min' => '居住地必填',
+		    	'city.exists' => '不存在该城市',
+		    	'work.required' => '职业必填',
+		    	'industry.required' => '行业必填',
+		    ];
+			$url = route('profile.base');
+		}
+//var_dump($input);exit;
 	    $user = Auth::user();
 	    $data = $user->toArray();
-	    $validator = Validator::make($input,$rules,$messages);
+		$validator = Validator::make($input,$rules,$messages);
 		if($validator->errors()->first()){
 			foreach( $data as $key => $value )
 			{
@@ -667,7 +722,7 @@ Area::getSchools($area_id);
 			app('taskRepository')->store('profile');
 		}
 
-	   	return Redirect::back()
+	   	return Redirect::to($url)
                 ->withUser($user)
                 ->withData($data)
                 ->withSuccess('个人资料更新成功');
@@ -698,9 +753,48 @@ Area::getSchools($area_id);
 
     	return  $this->view('users.profile.standard')->with('standard_data',$standard_data)->with('data',$data);
     }
-    public function standardUpdate ()
+    public function standardUpdate (Request $request)
     {
 	    $input = Input::get();
+		if($request->nextsubmit)
+		{
+			$rules = [
+		    	'opcity' => 'required|integer|min:1|exists:areas,id',
+		    	'opage' => 'required|integer|min:1',
+				'opage2' => 'required|integer|min:1',
+				'opheight' => 'required|integer|min:1',
+				'opheight2' => 'required|integer|min:1',
+		    	'opeducation' => 'required|integer|min:1',
+				'opincome' => 'required|integer|min:1',
+				'opwork' => 'required',
+				'opmarriage' => 'required|integer|min:1',
+				'opsmoke' => 'required|integer|min:1',
+				'opdrink' => 'required|integer|min:1',
+		    ];
+		    $messages = [
+		    	'opcity.min' => '居住地必填',
+		    	'opcity.exists' => '不存在该城市',
+		    	'opage.min' => '年龄必填',
+				'opage2.min' => '年龄必填',
+				'opheight.min' => '身高必填',
+				'opheight2.min' => '身高必填',
+		    	'opeducation.min' => '大专必填',
+				'opincome.min' => '月收入必填',
+				'opwork.required' => '职业必填',
+				'opmarriage.min' => '婚姻状况必填',
+				'opsmoke.min' => '是否吸烟必填',
+				'opdrink.min' => '是否喝酒必填',
+		    ];
+			$validator = Validator::make($input,$rules,$messages);
+			if($validator->errors()->first()){
+				return  Redirect::back()
+				                ->withInput(Input::all())
+				                ->withErrors($validator->errors());
+			}
+			$url = route('profile.dating');
+		}else{
+			$url = route('profile.standard');
+		}
 	    $standard_data = config('form_config.standard_data');
 		$standard_data_key = array_keys($standard_data);
 		foreach( $input as $key => $value )
@@ -716,9 +810,9 @@ Area::getSchools($area_id);
     	}else{
 	    	UserStandard::where('user_id',Auth::id())->update($input);
     	}
-    	return Redirect::back()
+    	return Redirect::to($url)
                 ->withData($input)
-                ->withSuccess('个人资料更新成功');
+                ->withSuccess('更新成功');
     }
     public function dating ()
     {
@@ -730,9 +824,27 @@ Area::getSchools($area_id);
         $aboutme = $user_dating ? $user_dating->aboutme : '';
     	return  $this->view('users.profile.dating')->with('aboutme',$aboutme);
     }
-    public function datingUpdate ()
+    public function datingUpdate (Request $request)
     {
 	    $input = Input::get();
+		if($request->nextsubmit)
+		{
+			$rules = [
+		    	'aboutme' => 'required',
+		    ];
+		    $messages = [
+		    	'aboutme.required' => '内心独白必填',
+		    ];
+			$validator = Validator::make($input,$rules,$messages);
+			if($validator->errors()->first()){
+				return  Redirect::back()
+				                ->withInput(Input::all())
+				                ->withErrors($validator->errors());
+			}
+			$url = route('profile.detail');
+		}else{
+			$url = route('profile.dating');
+		}
 	    if(!isset($input['aboutme']))
 	    {
 		    return Redirect::back()
@@ -747,7 +859,7 @@ Area::getSchools($area_id);
 		    UserDating::where('user_id',Auth::id())->update(['aboutme' =>$input['aboutme'] ]);
 
 	    }
-	    return Redirect::back()
+	    return Redirect::to($url)
                 ->withSuccess('个人资料更新成功');
 	}
 	public function detail ()
@@ -774,9 +886,58 @@ Area::getSchools($area_id);
 		}
     	return  $this->view('users.profile.detail')->with('data',$data);
 	}
-	public function detailUpdate ()
+	public function detailUpdate (Request $request)
 	{
 		$input = Input::get();
+		if($request->nextsubmit)
+		{
+			$rules = [
+		    	'nanwang' => 'required',
+				'gexin' => 'required',
+				'xingrong' => 'required',
+				'youshi' => 'required',
+				'hope' => 'required',
+				'trainwith' => 'required',
+				'interest' => 'required',
+				'movie' => 'required',
+				'tv' => 'required',
+				'music' => 'required',
+				'game' => 'required',
+				'sport' => 'required',
+				'idol' => 'required',
+				'motto' => 'required',
+				'wish' => 'required',
+				'intro' => 'required',
+		    ];
+		    $messages = [
+		    	'nanwang.required' => '最难忘的事必填',
+				'gexin.required' => '我的个性必填',
+				'xingrong.required' => '朋友形容我必填',
+				'youshi.required' => '我的优势必填',
+				'hope.required' => '希望寻找的TA必填',
+				'trainwith.required' => '我想结交必填',
+				'interest.required' => '兴趣爱好必填',
+				'book.required' => '喜欢的书籍必填',
+				'movie.required' => '喜欢的电影必填',
+				'tv.required' => '喜欢的电视必填',
+				'music.required' => '喜欢的音乐必填',
+				'game.required' => '喜欢的游戏必填',
+				'sport.required' => '喜欢的运动必填',
+				'idol.required' => '偶像必填',
+				'motto.required' => '座右铭必填',
+				'wish.required' => '最近心愿必填',
+				'intro.required' => '我的简介必填',
+		    ];
+			$validator = Validator::make($input,$rules,$messages);
+			if($validator->errors()->first()){
+				return  Redirect::back()
+				                ->withInput(Input::all())
+				                ->withErrors($validator->errors());
+			}
+			$url = route('profile.happy');
+		}else{
+			$url = route('profile.detail');
+		}
 	    $detail_data = config('form_config.detail_data');
 		$detail_data_key = array_keys($detail_data);
 		foreach( $input as $key => $value )
@@ -792,8 +953,7 @@ Area::getSchools($area_id);
     	}else{
 	    	UserDetail::where('user_id',Auth::id())->update($input);
     	}
-    	return Redirect::back()
-                ->withData($input)
+    	return Redirect::to($url)
                 ->withSuccess('个人资料更新成功');
 	}
 	public function happy ()
