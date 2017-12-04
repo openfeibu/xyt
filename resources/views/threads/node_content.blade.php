@@ -198,7 +198,7 @@
 				<div class="line"></div>
 				<div class="range-container">
 						<div class="container-left">
-							@if($user_top3)
+							@if(isset($user_top3[0]))
 							<a href="{!! route('user.home', [$user_top3[0]->id]) !!}">
 								<div>
 									<img src="{{asset($user_top3[0]->avatar_url)}}" alt="" />
@@ -209,7 +209,7 @@
 							@endif
 						</div>
 						<div class="container-right">
-							@if($user_top3)
+							@if(isset($user_top3[1]))
 							<a href="{!! route('user.home', [$user_top3[1]->id]) !!}">
 								<div>
 									<img src="{{asset($user_top3[1]->avatar_url)}}" alt="" />

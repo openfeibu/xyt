@@ -130,7 +130,7 @@
 							</table>
 							<p style="margin-left: 350px;margin-top: 40px;">
                               <input type="submit" name="profilesubmit" value="保存" class="gexing_btn" style="width: 100px;" />
-                              <input type="button" name="nextsubmit" value="继续下一项" class="gexing_btn" style="width: 100px;"  />
+                              <input type="submit" name="nextsubmit" value="继续下一项" class="gexing_btn" style="width: 100px;"  />
                           	</p>
                         </form>
                       </div>
