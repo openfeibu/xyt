@@ -723,7 +723,6 @@ Area::getSchools($area_id);
 
 	   	return Redirect::to($url)
                 ->withUser($user)
-                ->withData($data)
                 ->withSuccess('个人资料更新成功');
     }
     public function standard (Request $request)
@@ -810,7 +809,6 @@ Area::getSchools($area_id);
 	    	UserStandard::where('user_id',Auth::id())->update($input);
     	}
     	return Redirect::to($url)
-                ->withData($input)
                 ->withSuccess('更新成功');
     }
     public function dating ()
@@ -998,7 +996,6 @@ Area::getSchools($area_id);
 	    	UserHappy::where('user_id',Auth::id())->update($input);
     	}
     	return Redirect::back()
-                ->withData($input)
                 ->withSuccess('个人资料更新成功');
 	}
 	public function avatar ()
