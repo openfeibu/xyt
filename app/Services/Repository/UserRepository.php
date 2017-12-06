@@ -446,6 +446,9 @@ class UserRepository{
 	public function basic_data_status ($user)
 	{
 		$basic_data = config('form_config.basic_data');
+        unset($basic_data['birthday_year']);
+        unset($basic_data['birthday_month']);
+        unset($basic_data['birthday_day']);
 		$basic_data_keys = array_keys($basic_data);
 		$basic_count = count($basic_data_keys);
 		$count = 0;

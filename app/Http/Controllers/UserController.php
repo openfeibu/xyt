@@ -756,6 +756,7 @@ Area::getSchools($area_id);
 	    $input = Input::get();
 		if($request->nextsubmit)
 		{
+			/*
 			$rules = [
 		    	'opcity' => 'required|integer|min:1|exists:areas,id',
 		    	'opage' => 'required|integer|min:1',
@@ -789,6 +790,7 @@ Area::getSchools($area_id);
 				                ->withInput(Input::all())
 				                ->withErrors($validator->errors());
 			}
+			*/
 			$url = route('profile.dating');
 		}else{
 			$url = route('profile.standard');
@@ -826,6 +828,7 @@ Area::getSchools($area_id);
 	    $input = Input::get();
 		if($request->nextsubmit)
 		{
+			/*
 			$rules = [
 		    	'aboutme' => 'required',
 		    ];
@@ -837,7 +840,7 @@ Area::getSchools($area_id);
 				return  Redirect::back()
 				                ->withInput(Input::all())
 				                ->withErrors($validator->errors());
-			}
+			}*/
 			$url = route('profile.detail');
 		}else{
 			$url = route('profile.dating');
@@ -888,6 +891,7 @@ Area::getSchools($area_id);
 		$input = Input::get();
 		if($request->nextsubmit)
 		{
+			/*
 			$rules = [
 		    	'nanwang' => 'required',
 				'gexin' => 'required',
@@ -930,7 +934,7 @@ Area::getSchools($area_id);
 				return  Redirect::back()
 				                ->withInput(Input::all())
 				                ->withErrors($validator->errors());
-			}
+			}*/
 			$url = route('profile.happy');
 		}else{
 			$url = route('profile.detail');
