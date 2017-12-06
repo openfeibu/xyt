@@ -629,7 +629,6 @@ Area::getSchools($area_id);
 		    	'industry' => 'required|string',
 				'blood' => 'required|min:1',
 				'home_city' => 'required|integer|min:1|exists:areas,id',
-				'current' => 'required',
 				'height' => 'required|integer|min:1',
 				'weight' => 'required|integer|min:1',
 				'bodytype' => 'required|integer|min:1',
