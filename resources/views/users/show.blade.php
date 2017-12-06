@@ -331,7 +331,7 @@
                          </p>
                          @if($user_happy)
      	                    @foreach($happy_data as $key => $value)
-     		               	@if($user_happy->$key)<p><span class="font_z">{{$value['desc']}}：</span>@if(iseet($value['type']) && $value['type'] == 'select'){{$value['value'][$user_happy->$key]}}@else {{$user_happy->$key}} @endif </p>@endif
+     		               	@if($user_happy->$key)<p><span class="font_z">{{$value['desc']}}：</span>@if(isset($value['type']) && $value['type'] == 'select'){{$value['value'][$user_happy->$key]}}@else {{$user_happy->$key}} @endif </p>@endif
      		               	@endforeach
      	               	@endif
                     </div>
