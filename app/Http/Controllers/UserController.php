@@ -719,6 +719,9 @@ Area::getSchools($area_id);
 		$basic_data = app('userRepository')->basic_data_status($user);
 		if($basic_data['status']){
 			app('taskRepository')->store('profile');
+			return Redirect::to($url)
+	                ->withUser($user)
+	                ->withSuccess('恭喜您完成完善个人资料任务！');
 		}
 
 	   	return Redirect::to($url)
