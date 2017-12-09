@@ -101,4 +101,8 @@ class TaskRepository{
 
         return !$count;
     }
+	public function getTaskUser($where)
+	{
+		return TaskUser::where($where)->first();
+	}
 }

@@ -76,13 +76,22 @@ class UserController extends Controller
     public function show(User $user)
     {
 		if(Auth::id() != $user->id ){
-			$finish_tasks = app('taskRepository')->getTasks(Auth::id(),'finish');
+		/*	$finish_tasks = app('taskRepository')->getTasks(Auth::id(),'finish');
 	        $count = app(Task::class)->count();
 			if(count($finish_tasks) < $count){
 				return Redirect::route('task.index')
-	                ->withErrors(['完成所有任务才可以访问TA的主页']);
+	                ->withErrors(['完成完善个人资料任务才可以访问TA的主页']);
+			}*/
+			$task_user_profile = app('taskRepository')->getTaskUser(['task_id' => '5','user_id' => Auth::id()]);
+			if(!$task_user_profile){
+				$basic_data = app('userRepository')->basic_data_status($user);
+				if($basic_data['status']){
+					app('taskRepository')->store('profile');
+				}else{
+					return Redirect::route('task.index')
+		                ->withErrors(['完成完善个人资料任务才可以访问TA的主页']);
+				}
 			}
-
 		    $is_view = app('repository')->model(UserView::class)->where('view_user_id',Auth::id())->where('user_id',$user->id)->first();
 		    if(!$is_view){
 			    app('repository')->model(User::class)->where('id',$user->id)->increment('view_count');
@@ -104,6 +113,7 @@ class UserController extends Controller
 		$dating_data = config('form_config.dating_data');
 		$standard_data = config('form_config.standard_data');
 		$user_happy =  $user->happy;
+		//var_dum($user_happy);exit;
 		$user_dating = $user->dating;
 		$user_detail = $user->detail;
 		$user_standard = $user->standard;
