@@ -449,6 +449,7 @@ class UserRepository{
         unset($basic_data['birthday_year']);
         unset($basic_data['birthday_month']);
         unset($basic_data['birthday_day']);
+        unset($basic_data['enrol_year']);
 		$basic_data_keys = array_keys($basic_data);
 		$basic_count = count($basic_data_keys);
 		$count = 0;

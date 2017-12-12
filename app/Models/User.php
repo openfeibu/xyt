@@ -20,6 +20,7 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Database\Eloquent\Model;
 use McCool\LaravelAutoPresenter\HasPresenter;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract, HasPresenter
 {

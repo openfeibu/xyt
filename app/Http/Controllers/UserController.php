@@ -84,7 +84,7 @@ class UserController extends Controller
 			}*/
 			$task_user_profile = app('taskRepository')->getTaskUser(['task_id' => '5','user_id' => Auth::id()]);
 			if(!$task_user_profile){
-				$basic_data = app('userRepository')->basic_data_status($user);
+				$basic_data = app('userRepository')->basic_data_status(User::findByUidOrFail(Auth::id()));
 				if($basic_data['status']){
 					app('taskRepository')->store('profile');
 				}else{
@@ -1670,7 +1670,7 @@ Area::getSchools($area_id);
 		}
 		$email = trim($input['email']);
 		$email = str_replace('，',',',$email);
-		$emails = explode(',',$email]));
+		$emails = explode(',',$email);
 		foreach ($emails as $key => $email) {
 			$mode = '/\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/';
         	if(preg_match($mode,$email)){
