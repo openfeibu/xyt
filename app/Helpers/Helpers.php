@@ -1152,7 +1152,10 @@ function cut_html_str($str, $lenth, $replace='', $anchor='<!-- break -->'){
 /*获取文章内容*/
 function get_content($id,$value = 'body')
 {
-    return Hifone\Models\Page::where('id',$id)->value($value);
+    $value = Hifone\Models\Page::where('id',$id)->value($value);
+	$app_url = config('app.url');
+	$value = preg_replace('/(<img.+src=\"?.+)(\/uploads\/)(.+\.(jpg|gif|bmp|bnp|png)\"?.+>)/i',"\${1}$app_url/uploads/\${3}",$value);
+	return $value;
 }
 function get_config_value($name,$value = 'value')
 {
