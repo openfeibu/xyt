@@ -1668,8 +1668,9 @@ Area::getSchools($area_id);
 			                ->withInput(Input::all())
 			                ->withErrors($validator->errors());
 		}
-
-		$emails = explode(',',trim($input['email']));
+		$email = trim($input['email']);
+		$email = str_replace('，',',',$email);
+		$emails = explode(',',$email]));
 		foreach ($emails as $key => $email) {
 			$mode = '/\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/';
         	if(preg_match($mode,$email)){
